@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Test</origin>
+    <originUniq>1</originUniq>
+    <date>2012-05-02T10:10:00Z</date>
+    <locale>Virginia</locale>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v1</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v2</voter>
+    <vtype>UOCAVA</vtype>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v3</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v4</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v5</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v7</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v8</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v9</voter>
+    <action>reject</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+    <note>not signed VR</note>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v10</voter>
+    <action>approve</action>
+    <form><type>Provisional Ballot</type></form>
+    <leo>Leonidas PB</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>

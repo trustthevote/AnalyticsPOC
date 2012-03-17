@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Test</origin>
+    <originUniq>700</originUniq>
+    <date>2012-05-07T10:10:00Z</date>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:00Z</date>
+    <voter>v1</voter>
+    <action>match</action>
+    <form><type>Voter Registration</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:01Z</date>
+    <voter>v2</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:02Z</date>
+    <voter>v3</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:03Z</date>
+    <voter>v4</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:04Z</date>
+    <voter>v5</voter>
+    <vtype>UOCAVA</vtype>
+    <action>match</action>
+    <form><type>Voter Registration</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:05Z</date>
+    <voter>v6</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:06Z</date>
+    <voter>v7</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:07Z</date>
+    <voter>v8</voter>
+    <action>match</action>
+    <form><type>Voter Registration</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:08Z</date>
+    <voter>v9</voter>
+    <action>match</action>
+    <form><type>Voter Registration</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:09Z</date>
+    <voter>v10</voter>
+    <action>match</action>
+    <form><type>Voter Registration</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voter>v1</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:01Z</date>
+    <voter>v2</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:02Z</date>
+    <voter>v3</voter>
+    <action>reject</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+    <note>wrong address VRU</note>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:03Z</date>
+    <voter>v5</voter>
+    <vtype>UOCAVA</vtype>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:04Z</date>
+    <voter>v6</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:05Z</date>
+    <voter>v7</voter>
+    <action>reject</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+    <note>wrong address VRU</note>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:06Z</date>
+    <voter>v8</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:07Z</date>
+    <voter>v9</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:08Z</date>
+    <voter>v10</voter>
+    <action>approve</action>
+    <form><type>Voter Registration</type></form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:00Z</date>
+    <voter>v1</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:01Z</date>
+    <voter>v2</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:02Z</date>
+    <voter>v3</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:03Z</date>
+    <voter>v5</voter>
+    <vtype>UOCAVA</vtype>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:04Z</date>
+    <voter>v6</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:05Z</date>
+    <voter>v7</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:06Z</date>
+    <voter>v8</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:07Z</date>
+    <voter>v9</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:08Z</date>
+    <voter>v10</voter>
+    <action>match</action>
+    <form><type>Voter Record Update</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:00Z</date>
+    <voter>v3</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:01Z</date>
+    <voter>v6</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:02Z</date>
+    <voter>v7</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:03Z</date>
+    <voter>v10</voter>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-05T10:10:00Z</date>
+    <voter>v3</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-05T10:10:01Z</date>
+    <voter>v7</voter>
+    <action>identify</action>
+    <form><type>Poll Book Entry</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-05T10:10:02Z</date>
+    <voter>v10</voter>
+    <action>match</action>
+    <form><type>Provisional Ballot</type></form>
+    <leo>Leonidas PB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-06T10:10:00Z</date>
+    <voter>v10</voter>
+    <action>approve</action>
+    <form><type>Provisional Ballot</type></form>
+    <leo>Leonidas PB</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>

@@ -1,0 +1,66 @@
+#front
+  .row
+    .span4
+      &nbsp;
+
+    .span8
+      %table{:style=>"width:100%;"}
+        %tr
+          %td
+            %h2 Virginia Voter Log Analytics
+          %td{:style=>"text-align:right;"}
+            = link_to "Manage Elections",'elections#index', class: 'primary btn'
+        %tr
+          %td
+            -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+              %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
+            -else
+              %h3= "Election: "+Selection.all[0].ename
+          %td{:style=>"text-align:right;padding-bottom:6px;"}
+            = link_to "Browse Records",'voter_transaction_records#index', class: 'primary btn'
+        %tr
+          %td
+          %td{:style=>"text-align:right;"}
+            = link_to "Browse Logs",'voter_transaction_logs#index', class: 'primary btn'
+
+  .row.main
+    .span4.sidebar
+      %p
+        %em Welcome to Virginia Voter Log Analytics
+
+      %p
+        &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
+
+      %p
+        This service permits voter transactions to be uploaded, stored,
+        consolidated, and analyzed, all while ensuring the privacy of
+        individual voters.  Through analysis, we can improve voter services
+        and increase voter participation, especially for those
+        voters with systemic barriers to voting, like
+        overseas and Military voters, and the disabled.
+
+      .signature
+        Virginia State Board of Elections
+
+    .span8
+      -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+        -if (Election.all.length == 0)
+          To get started, create an election using the Manage Elections button (top right).
+        -else
+          To get started, select an election using the Manage Elections button (top right).
+      -else
+        There are two options for getting started:
+
+      .row
+        .span4.option
+          .marker 1
+          %h3 Upload Voter Transaction Log
+          = link_to "Back", :root, class: 'primary btn'
+          %p
+            %b= @uplift_msg
+          %p
+            %b= @uplift_err
+    
+        .span4.option
+          .marker 2
+          %h3 Analyze Existing Logs

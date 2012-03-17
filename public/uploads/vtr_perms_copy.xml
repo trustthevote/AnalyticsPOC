@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Virginia Voter Services Portal</origin>
+    <date>2012-10-20T10:10:10Z</date>
+    <locale>Virginia</locale>
+  </header>
+  <voterTransactionRecord>
+    <voter>v0</voter>
+    <date>2012-10-10T10:10:00Z</date>
+    <action>identify-offline</action>
+    <form>
+      <type>Poll Book</type>
+    </form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v1</voter>
+    <vtype>UOCAVA</vtype>
+    <date>2012-10-10T10:10:01Z</date>
+    <action>online-identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v0</voter>
+    <date>2012-10-10T10:10:02Z</date>
+    <action>online-request</action>
+    <form>
+      <type>Voter Registration</type>
+    </form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v1</voter>
+    <vtype>UOCAVA</vtype>
+    <date>2012-10-10T10:10:03Z</date>
+    <action>online-discard</action>
+    <form>
+      <type>Voter Record Update</type>
+    </form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v0</voter>
+    <date>2012-10-10T10:10:04Z</date>
+    <action>online-complete</action>
+    <form>
+      <type>Absentee Request</type>
+    </form>
+    <leo>Leonidas</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v1</voter>
+    <vtype>UOCAVA</vtype>
+    <date>2012-10-10T10:10:05Z</date>
+    <action>online-submit</action>
+    <form>
+      <type>Absentee Ballot</type>
+    </form>
+    <note>Hal here. What are you doing, Dave?</note>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v0</voter>
+    <date>2012-10-10T10:10:06Z</date>
+    <action>online-receive</action>
+    <form>
+      <type>Voter Registration</type>
+      <name>Virginia Voter Registration Form</name>
+    </form>
+    <leo>Leonidas</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v1</voter>
+    <vtype>UOCAVA</vtype>
+    <date>2012-10-10T10:10:07Z</date>
+    <action>receive-offline</action>
+    <form>
+      <type>Provisional Ballot</type>
+      <name>Virginia PB</name>
+    </form>
+    <leo>Leonidas</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v0</voter>
+    <date>2012-10-10T10:10:08Z</date>
+    <action>approve-offline</action>
+    <form> 
+      <type>Absentee Request</type>
+     <number>AR-1000</number>
+    </form>
+    <leo>Leonidas</leo>
+    <note></note>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <voter>v1</voter>
+    <vtype>UOCAVA</vtype>
+    <date>2012-10-10T10:10:09Z</date>
+    <action>reject-offline</action>
+    <form>
+      <type>Voter Registration</type>
+      <type>Absentee Request</type>
+      <name>Virginia VoteAB Form</name>
+      <number>VAB#1-35</number>
+    </form>
+    <leo>Leonidas</leo>
+    <note>out-of-state address</note>
+  </voterTransactionRecord>
+</voterTransactionLog>

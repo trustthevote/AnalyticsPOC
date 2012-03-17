@@ -1,0 +1,46 @@
+%p#notice= notice
+
+.row
+  .span4
+    %h2 Voter Transaction Record
+  .span3
+    = link_to 'Show Table', :show_xml => nil
+    \|
+    = link_to 'Show XML', :show_xml => true
+  .span3
+    %b= link_to "Download XML", voter_transaction_record_path(@voter_transaction_record, format: 'xml'), class: 'btn'
+
+%p
+-if @showxml
+  %table
+    %pre= render partial: 'vtr.xml.builder', locals: { record: @voter_transaction_record  }
+-else
+  %table
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Voter:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.voter+(@voter_transaction_record.vtype.length > 0 ? " (Type: "+@voter_transaction_record.vtype+")" : "")
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Date:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.datime
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Action:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.action
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Form:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.form
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        LEO:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.leo
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:10px;"}
+        Note:
+      %td{:style=>"padding-bottom:10px;"}= @voter_transaction_record.note
+
+%br
+
+= link_to 'Back', voter_transaction_records_path

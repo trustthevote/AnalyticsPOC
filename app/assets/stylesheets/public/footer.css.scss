@@ -1,0 +1,33 @@
+footer {
+  font-size: 90%;
+
+  .info {
+    padding: 5px;
+  }
+
+  .powered {
+    padding: 5px 0;
+    font-size: 90%;
+    span {
+      background: #B0B0B0;
+      color: #ccc;
+      padding: 2px 4px;
+    }
+  }
+
+  ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      padding-left: 10px;
+    }
+
+    li:before {
+      content: '|';
+      padding-right: 10px;
+    }
+  }
+}

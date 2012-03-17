@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Test</origin>
+    <originUniq>600</originUniq>
+    <date>2012-05-06T10:10:02Z</date>
+    <locale>Virginia</locale>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-06T10:10:00Z</date>
+    <voter>v3</voter>
+    <action>approve</action>
+    <form><type>Absentee Ballot</type></form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-06T10:10:01Z</date>
+    <voter>v5</voter>
+    <action>approve</action>
+    <form><type>Absentee Request</type></form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>

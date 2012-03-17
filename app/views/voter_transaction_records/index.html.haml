@@ -1,0 +1,54 @@
+%p#notice= notice
+
+.row
+  .span5
+    %h2
+      All Voter Transaction Records
+  .span3
+    = link_to 'Show Table', :show_xml => nil
+    \|
+    = link_to 'Show XML', :show_xml => true
+  .span2
+    -if (@voter_transaction_records.length > 0)
+      %b= link_to "Download XML", voter_transaction_record_path(@voter_transaction_records, format: 'xml'), class: 'btn'
+%br
+-if @showxml
+  %table
+    %pre= render partial: 'vtrs.xml.builder', locals: { record: @voter_transaction_records  }
+-else
+  %table{:style=>"text-align:center"}
+    %tr
+      %th Voter
+      %th &nbsp;
+      %th VType
+      %th &nbsp;
+      %th Date
+      %th &nbsp;
+      %th Action
+      %th &nbsp;
+      %th Form
+      %th &nbsp;
+      %th LEO
+      %th &nbsp;
+      %th Note
+      %th
+      %th
+    - @voter_transaction_records.each do |voter_transaction_record|
+      %tr
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.voter
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.vtype
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.datime
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.action
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.form
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.leo
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.note
+        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', voter_transaction_record
+        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', voter_transaction_record, :confirm => 'Are you sure?', :method => :delete
+%br
+= link_to 'New Voter Transaction Record', new_voter_transaction_record_path

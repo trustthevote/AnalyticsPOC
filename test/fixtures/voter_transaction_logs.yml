@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  origin: MyString
+  origin_uniq: MyString
+  datime: 2012-03-07 16:19:29
+  election: 
+
+two:
+  origin: MyString
+  origin_uniq: MyString
+  datime: 2012-03-07 16:19:29
+  election: 

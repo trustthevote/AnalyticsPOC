@@ -1,0 +1,70 @@
+%p#notice= notice
+
+.row
+  .span4
+    %h2 Voter Transaction Log        
+  .span3
+    = link_to 'Show Table', :show_xml => nil
+    \|
+    = link_to 'Show XML', :show_xml => true
+  .span3
+    %b= link_to "Download XML", voter_transaction_log_path(@voter_transaction_log, format: 'xml'), class: 'btn'
+
+%p
+-if @showxml
+  %table
+    %pre= render partial: 'vtl.xml.builder', locals: { record: @voter_transaction_log }
+-else
+  %table{:style=>"padding:10px"}
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Origin:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.origin+(@voter_transaction_log.origin_uniq.length > 0 ? " (Uniq: "+@voter_transaction_log.origin_uniq+")" : "") 
+    %tr
+      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+        Date:
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.datime
+  %br
+  %h3
+    Voter Transaction Records
+  %br
+
+  %table{:style=>"text-align:center"}
+    %tr
+      %th Voter
+      %th &nbsp;
+      %th VType
+      %th &nbsp;
+      %th Date
+      %th &nbsp;
+      %th Action
+      %th &nbsp;
+      %th Form
+      %th &nbsp;
+      %th LEO
+      %th &nbsp;
+      %th Note
+      %th
+      %th
+
+    - @voter_transaction_log.voter_transaction_records.each do |vtr|
+      %tr
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.voter
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.vtype
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.datime
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.action
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.form
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.leo
+        %td
+        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.note
+        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', vtr
+        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'Back', voter_transaction_logs_path

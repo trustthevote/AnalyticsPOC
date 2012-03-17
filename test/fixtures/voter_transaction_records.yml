@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  voter: MyString
+  vtype: MyString
+  datime: 2012-03-07 16:21:20
+  action: MyString
+  form: MyText
+  leo: MyString
+  note: MyString
+  voter_transaction_log: 
+
+two:
+  voter: MyString
+  vtype: MyString
+  datime: 2012-03-07 16:21:20
+  action: MyString
+  form: MyText
+  leo: MyString
+  note: MyString
+  voter_transaction_log: 

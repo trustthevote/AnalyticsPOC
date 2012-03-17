@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Test</origin>
+    <originUniq>1</originUniq>
+    <date>2012-05-10T10:10:00Z</date>
+    <locale>Virginia</locale>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-10T10:10:00Z</date>
+    <voter>v4</voter>
+    <action>approve</action>
+    <form><type>Absentee Request</type></form>
+    <leo>Leonidas PB</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>

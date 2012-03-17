@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Test</origin>
+    <originUniq>400</originUniq>
+    <date>2012-05-04T10:10:04Z</date>
+    <locale>Virginia</locale>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:00Z</date>
+    <voter>v3</voter>
+    <action>approve</action>
+    <form><type>Absentee Request</type></form>
+    <leo>Leonidas PB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:01Z</date>
+    <voter>v5</voter>
+    <action>complete</action>
+    <form><type>Absentee Request</type></form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:02Z</date>
+    <voter>v8</voter>
+    <vtype>UOCAVA</vtype>
+    <action>approve</action>
+    <form><type>Voter Record Update</type></form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-04T10:10:03Z</date>
+    <voter>v9</voter>
+    <action>start</action>
+    <form><type>Absentee Request</type></form>
+  </voterTransactionRecord>
+</voterTransactionLog>
