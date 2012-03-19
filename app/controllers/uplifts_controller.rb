@@ -105,6 +105,7 @@ class UpliftsController < ApplicationController
                                   :datime => logdate, :locale => locale,
                                   :election_id => Selection.all[0].eid)
     unless (vtl.save)
+      @uplift_err = "Error: "
       vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
       return false
     end

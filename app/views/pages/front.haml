@@ -55,24 +55,25 @@
         .span4.option
           .marker 1
           %h3 Upload Voter Transaction Log
+        .span4.option
+          .marker 2
+          %h3 Analyze Existing Logs
+      .row
+        .span4
           %p
             Upload a voter transaction log from your computer.
             Only XML files, with the extension .xml, are acceptable
             for uploading.
-
-          -if ! ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||  (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
-            %form{:action=>"uplift",:method=>"post",:enctype=>"multipart/form-data"}
+        .span4
+          %p
+            Analyze the voter transaction logs for the election named above.
+      -if ! ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||  (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+        .row
+          .span4
+            %form{:action=>"uplift",:method=>"post",
+                  :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"submit",:value=>"Upload"}
-            %p
-              %b= @uplift_msg
-            %p
-              %b= @uplift_err
-    
-        .span4.option
-          .marker 2
-          %h3 Analyze Existing Logs
-          %p{:style=>"margin-bottom:27px"}
-            Analyze the voter transaction logs for the election named above.
-          -if ! ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||  (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+            %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)
+          .span4
             = link_to "Analytics", '/analytic', class: 'primary btn'
