@@ -2,19 +2,18 @@
 
 .row
   .span5
-    %h2
-      All Voter Transaction Records
+    %h2 All Voter Transaction Records
   .span3
     = link_to 'Show Table', :show_xml => nil
     \|
     = link_to 'Show XML', :show_xml => true
   .span2
     -if (@voter_transaction_records.length > 0)
-      %b= link_to "Download XML", voter_transaction_record_path(@voter_transaction_records, format: 'xml'), class: 'btn'
+      %b= link_to "Download XML", format: 'xml', class: 'btn'
 %br
 -if @showxml
   %table
-    %pre= render partial: 'vtrs.xml.builder', locals: { record: @voter_transaction_records  }
+    %pre= render partial: 'vtrs.xml.builder'
 -else
   %table{:style=>"text-align:center"}
     %tr

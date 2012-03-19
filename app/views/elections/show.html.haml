@@ -8,7 +8,7 @@
     \|
     = link_to 'Show XML', :show_xml => true
   .span3
-    %b= link_to "Download XML", election_path(@election, format: 'xml'), class: 'btn'
+    %b= link_to "Download XML", format: 'xml', class: 'btn'
 
 %br
 -if @showxml

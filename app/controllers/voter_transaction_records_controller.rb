@@ -24,7 +24,6 @@ class VoterTransactionRecordsController < ApplicationController
   # GET /voter_transaction_records/new
   def new
     @voter_transaction_record = VoterTransactionRecord.new
-    @showxml = false
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,13 +34,11 @@ class VoterTransactionRecordsController < ApplicationController
   # GET /voter_transaction_records/1/edit
   def edit
     @voter_transaction_record = VoterTransactionRecord.find(params[:id])
-    @showxml = false
   end
 
   # POST /voter_transaction_records
   def create
     @voter_transaction_record = VoterTransactionRecord.new(params[:voter_transaction_record])
-    @showxml = false
 
     respond_to do |format|
       if @voter_transaction_record.save
@@ -55,7 +52,6 @@ class VoterTransactionRecordsController < ApplicationController
   # PUT /voter_transaction_records/1
   def update
     @voter_transaction_record = VoterTransactionRecord.find(params[:id])
-    @showxml = false
 
     respond_to do |format|
       if @voter_transaction_record.update_attributes(params[:voter_transaction_record])
@@ -70,8 +66,7 @@ class VoterTransactionRecordsController < ApplicationController
   def destroy
     @voter_transaction_record = VoterTransactionRecord.find(params[:id])
     @voter_transaction_record.destroy
-    @showxml = false
-
+ 
     respond_to do |format|
       format.html { redirect_to voter_transaction_records_url }
     end

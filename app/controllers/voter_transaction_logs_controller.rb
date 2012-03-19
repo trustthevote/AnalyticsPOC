@@ -24,7 +24,6 @@ class VoterTransactionLogsController < ApplicationController
   # GET /voter_transaction_logs/new
   def new
     @voter_transaction_log = VoterTransactionLog.new
-    @showxml = false
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +33,11 @@ class VoterTransactionLogsController < ApplicationController
   # GET /voter_transaction_logs/1/edit
   def edit
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
-    @showxml = false
   end
 
   # POST /voter_transaction_logs
   def create
     @voter_transaction_log = VoterTransactionLog.new(params[:voter_transaction_log])
-    @showxml = false
 
     respond_to do |format|
       if @voter_transaction_log.save
@@ -54,7 +51,6 @@ class VoterTransactionLogsController < ApplicationController
   # PUT /voter_transaction_logs/1
   def update
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
-    @showxml = false
 
     respond_to do |format|
       if @voter_transaction_log.update_attributes(params[:voter_transaction_log])
@@ -69,7 +65,6 @@ class VoterTransactionLogsController < ApplicationController
   def destroy
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
     @voter_transaction_log.destroy
-    @showxml = false
 
     respond_to do |format|
       format.html { redirect_to voter_transaction_logs_url }

@@ -9,11 +9,11 @@
     = link_to 'Show XML', :show_xml => true
   .span2
     -if (@voter_transaction_logs.length > 0)
-      %b= link_to "Download XML", voter_transaction_log_path(@voter_transaction_logs, format: 'xml'), class: 'btn'
+      %b= link_to "Download XML", format: 'xml', class: 'btn'
 %br
 -if @showxml
   %table
-    %pre= render partial: 'vtls.xml.builder', locals: { record: @voter_transaction_logs  }
+    %pre= render partial: 'vtls.xml.builder'
 -else
   %table{:style=>"text-align:center"}
     %tr
