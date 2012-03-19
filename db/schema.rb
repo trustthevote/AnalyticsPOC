@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20120308044749) do
     t.string   "origin"
     t.string   "origin_uniq"
     t.datetime "datime"
+    t.string   "locale"
     t.integer  "election_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
