@@ -31,17 +31,17 @@
       %th
     - @elections.each do |election|
       %tr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= election.id
+        %td= election.id
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= election.name
+        %td= election.name
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= election.day
+        %td= election.day
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= election.voter_transaction_logs.length
-        %td{:style=>"padding-right:6px;padding-left:6px;font-weight:bold;"}= (((Selection.all.length > 0) and (election.id == Selection.all[0].eid)) ? "&lowast;".html_safe : "" )
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Select', {:select => true, :id => election.id}
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', election
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', election, :confirm => 'Are you sure?', :method => :delete
+        %td= election.voter_transaction_logs.length
+        %td{:style=>"font-weight:bold;"}= (((Selection.all.length > 0) and (election.id == Selection.all[0].eid)) ? "&lowast;".html_safe : "" )
+        %td= link_to 'Select', {:select => true, :id => election.id}
+        %td= link_to 'Show', election
+        %td= link_to 'Destroy', election, :confirm => 'Are you sure?', :method => :delete
   
 %br
 = link_to 'New Election', new_election_path

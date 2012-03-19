@@ -35,20 +35,20 @@
       %th
     - @voter_transaction_records.each do |voter_transaction_record|
       %tr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.voter
+        %td= voter_transaction_record.voter
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.vtype
+        %td= voter_transaction_record.vtype
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.datime
+        %td= voter_transaction_record.datime
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.action
+        %td= voter_transaction_record.action
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.form
+        %td= voter_transaction_record.form
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.leo
+        %td= voter_transaction_record.leo
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_record.note
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', voter_transaction_record
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', voter_transaction_record, :confirm => 'Are you sure?', :method => :delete
+        %td= voter_transaction_record.note
+        %td= link_to 'Show', voter_transaction_record
+        %td= link_to 'Destroy', voter_transaction_record, :confirm => 'Are you sure?', :method => :delete
 %br
 = link_to 'New Voter Transaction Record', new_voter_transaction_record_path

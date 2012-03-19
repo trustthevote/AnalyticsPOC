@@ -49,21 +49,21 @@
 
     - @voter_transaction_log.voter_transaction_records.each do |vtr|
       %tr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.voter
+        %td= vtr.voter
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.vtype
+        %td= vtr.vtype
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.datime
+        %td= vtr.datime
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.action
+        %td= vtr.action
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.form
+        %td= vtr.form
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.leo
+        %td= vtr.leo
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtr.note
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', vtr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
+        %td= vtr.note
+        %td= link_to 'Show', vtr
+        %td= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

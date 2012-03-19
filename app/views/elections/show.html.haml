@@ -42,15 +42,15 @@
   
     - @election.voter_transaction_logs.each do |vtl|
       %tr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtl.datime
+        %td= vtl.datime
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtl.origin
+        %td= vtl.origin
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtl.origin_uniq
+        %td= vtl.origin_uniq
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= vtl.voter_transaction_records.length
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', vtl
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
+        %td= vtl.voter_transaction_records.length
+        %td= link_to 'Show', vtl
+        %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
   
 %br
 = link_to 'Back', elections_path

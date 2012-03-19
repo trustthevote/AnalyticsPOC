@@ -28,14 +28,14 @@
       %th
     - @voter_transaction_logs.each do |voter_transaction_log|
       %tr
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_log.origin
+        %td= voter_transaction_log.origin
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_log.origin_uniq
+        %td= voter_transaction_log.origin_uniq
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_log.datime
+        %td= voter_transaction_log.datime
         %td
-        %td{:style=>"padding-right:6px;padding-left:6px"}= voter_transaction_log.voter_transaction_records.length
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Show', voter_transaction_log
-        %td{:style=>"padding-right:6px;padding-left:6px"}= link_to 'Destroy', voter_transaction_log, :confirm => 'Are you sure?', :method => :delete
+        %td= voter_transaction_log.voter_transaction_records.length
+        %td= link_to 'Show', voter_transaction_log
+        %td= link_to 'Destroy', voter_transaction_log, :confirm => 'Are you sure?', :method => :delete
 %br
 = link_to 'New Voter Transaction Log', new_voter_transaction_log_path
