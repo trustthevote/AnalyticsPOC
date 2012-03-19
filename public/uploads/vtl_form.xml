@@ -3,12 +3,11 @@
   <header>
     <origin>Virginia Voter Services Portal</origin>
     <date>2012-10-20T10:10:10</date>
-    <locale>Virginia</locale>
   </header>
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <type>Absentee Request</type>
@@ -19,7 +18,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <type>Absentee Request</type>
@@ -29,7 +28,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <type>Absentee Request</type>
@@ -39,7 +38,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <name>Virginia Voter Registration Form</name>
@@ -49,7 +48,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Absentee Request</type>
       <name>Virginia Voter Registration Form</name>
@@ -59,7 +58,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <type>Absentee Request</type>
@@ -70,7 +69,7 @@
   <voterTransactionRecord>
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Voter Registration</type>
       <name>Virginia Voter Registration Form</name>
@@ -80,7 +79,7 @@
     <date>2012-10-10T10:10:12</date>
     <voter>Jeff</voter>
     <vtype>UOCAVA</vtype>
-    <action>online-submit</action>
+    <action>submit</action>
     <leo>Leo</leo>
     <note>WTF</note>
   </voterTransactionRecord>

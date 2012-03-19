@@ -12,7 +12,6 @@ class UpliftsController < ApplicationController
       return
     end
     @uplift_msg = ""
-    @uplift_xml = ""
     @uplift_err = ""
     unless params['file']
       @uplift_msg = "Error: choose file name"
@@ -23,7 +22,7 @@ class UpliftsController < ApplicationController
     uploader = LogfileUploader.new
     post = uploader.store!( params['file'] )
     @uplift_msg = "Uploaded: " + self.uplift_file
-    self.validateFile("public/uploads/"+self.uplift_file)
+    self.upliftValidate("public/uploads/"+self.uplift_file)
   rescue CarrierWave::IntegrityError => e
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
@@ -32,21 +31,38 @@ class UpliftsController < ApplicationController
     render :uplift
   end
 
-  def validateFile(document_path)
-    #use valid? on both objects
-    unless (schema = self.readXMLSchema("public/xml/VTL.xsd"))
-      return
-    end
-    unless (document = self.readXMLDocument(document_path))
-      return
-    end
+  def upliftReadXMLSchema(file)
+    return Nokogiri::XML::Schema(File.read(file))
+  rescue => e
+    @uplift_err += "Shouldn't happen #3, invalid built-in schema. "+e.message
+    render :uplift
+    return false
+  end
+  
+  def upliftReadXMLDocument(file)
+    return Nokogiri::XML(File.open(file))
+  rescue => e
+    @uplift_err += "Invalid File format: "+e.message
+    render :uplift
+    return false
+  end
+
+  def upliftValidate(document_path)
+    return unless (schema = self.upliftReadXMLSchema("public/xml/VTL.xsd"))
+    return unless (document = self.upliftReadXMLDocument(document_path))
     errors = schema.validate(document)
     if (errors.length > 0)
       @uplift_err += "Validation Errors: "      
       errors.each { |e| @uplift_err += e.message }
+      if @uplift_err =~ / root\.$/
+        errs = @uplift_err.split(' ')
+        errs.pop
+        errs = errs.push("root <voterTransactionLog>")
+        @uplift_err = errs.join(' ')
+      end
       render :uplift
     else
-      if self.finalizeVTL(document)
+      if self.upliftFinalizeLog(document)
         if (@uplift_err == "")
           @uplift_err = "Validation: OK"
         end
@@ -59,19 +75,14 @@ class UpliftsController < ApplicationController
     @uplift_err += "Should't happen #2: "+e.message # JVC temp
   end
 
-  def contentOrEmptyStr(xml)
-    if xml
-      return xml.content
-    else
-      return ""
-    end
+  def upliftExtractContent(xml)
+    return (xml ? xml.content : "")
   end
 
-  def mungeForm(type1, type2, name, number)
+  def upliftMungeForm(type1, type2, name, number)
     if type1.empty?
       return ""
-    end
-    if type2.empty?
+    elsif type2.empty?
       if name.empty? and number.empty?
         return type1
       else
@@ -86,55 +97,39 @@ class UpliftsController < ApplicationController
     end
   end
 
-  def finalizeVTL(xml)
-    origin = self.contentOrEmptyStr(xml % 'header/origin')
-    ouniq = self.contentOrEmptyStr(xml % 'header/originUniq')
-    logdate = self.contentOrEmptyStr(xml % 'header/date')
-    locale = ""
-    elec_id = Selection.all[0].eid
+  def upliftFinalizeLog(xml)
+    origin = self.upliftExtractContent(xml % 'header/origin')
+    ouniq = self.upliftExtractContent(xml % 'header/originUniq')
+    logdate = self.upliftExtractContent(xml % 'header/date')
     vtl = VoterTransactionLog.new(:origin => origin,  :origin_uniq => ouniq,
                                   :datime => logdate, :locale => locale,
-                                  :election_id => elec_id)
+                                  :election_id => Selection.all[0].eid)
     unless (vtl.save)
-      vtl.errors.full_messages.each do |e|
-        @uplift_err += " "+e
-      end
+      vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
       return false
     end
     (xml / 'voterTransactionRecord').each do |vtr|
-      voter = self.contentOrEmptyStr(vtr % 'voter')
-      vtype = self.contentOrEmptyStr(vtr % 'vtype')
-      datime = self.contentOrEmptyStr(vtr % 'date')
-      action = self.contentOrEmptyStr(vtr % 'action')
-      leo = self.contentOrEmptyStr(vtr % 'leo')
-      note = self.contentOrEmptyStr(vtr % 'note')
-      type1 = ""
-      type2 = ""
-      name = ""
-      number = ""
-      first = 0
+      voter = self.upliftExtractContent(vtr % 'voter')
+      vtype = self.upliftExtractContent(vtr % 'vtype')
+      datime = self.upliftExtractContent(vtr % 'date')
+      action = self.upliftExtractContent(vtr % 'action')
+      leo = self.upliftExtractContent(vtr % 'leo')
+      note = self.upliftExtractContent(vtr % 'note')
+      type1, type2, name, number = "", "", "", ""
       if (node = vtr % 'form')
         (node / 'type').each do |type|
-          if (first == 0)
-            type1 = type.content
-            first = 1
-          elsif (first == 1)
-            type2 = type.content
-            first = 2
-          end
+          ((type1 == "") ? type1 = type.content : type2 = type.content )
         end
-        name = self.contentOrEmptyStr(node % 'name')
-        number = self.contentOrEmptyStr(node % 'number')
-        form = mungeForm(type1, type2, name, number)
+        name = self.upliftExtractContent(node % 'name')
+        number = self.upliftExtractContent(node % 'number')
+        form = upliftMungeForm(type1, type2, name, number)
       end
       vtr = VoterTransactionRecord.new(:datime => datime, :voter => voter,
                                        :vtype => vtype, :action => action,
                                        :form => form, :leo => leo,:note => note,
                                        :voter_transaction_log_id => vtl.id)
       unless (vtr.save)
-        vtr.errors.full_messages.each do |e|
-          @uplift_err += " "+e
-        end
+        vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
       end
     end
@@ -143,9 +138,9 @@ class UpliftsController < ApplicationController
     return true
   end
 
- # from http://vitobotta.com/more-methods-format-beautify-ruby-output-console-logs/
+  # http://vitobotta.com/more-methods-format-beautify-ruby-output-console-logs/
 
-  def xp(xml_text)
+  def upliftXMLpp(xml_text)
     xsl = <<XSL
   <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
@@ -161,22 +156,6 @@ XSL
     xslt = Nokogiri::XSLT(xsl)
     out  = xslt.transform(doc)
     puts out.to_xml
-  end
-
-  def readXMLSchema(file)
-    return Nokogiri::XML::Schema(File.read(file))
-  rescue => e
-    @uplift_err += "Shouldn't happen #3, invalid built-in schema. "+e.message
-    render :uplift
-    return false
-  end
-  
-  def readXMLDocument(file)
-    return Nokogiri::XML(File.open(file))
-  rescue => e
-    @uplift_err += "Invalid File format: "+e.message
-    render :uplift
-    return false
   end
 
 end

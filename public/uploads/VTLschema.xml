@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="voterTransactionLog">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="header">
+	  <xs:complexType>
+	    <xs:all>
+	      <xs:element name="origin" type="xs:string"/>
+	      <xs:element name="originUniq" type="xs:string" minOccurs="0"/>
+	      <xs:element name="date" type="xs:dateTime"/>
+	    </xs:all>
+	  </xs:complexType>
+	</xs:element>
+	<xs:element name="voterTransactionRecord" minOccurs="0" maxOccurs="unbounded">
+	  <xs:complexType>
+	    <xs:all>
+	      <xs:element name="voter" type="xs:string"/>
+	      <xs:element name="vtype" type="voterType" minOccurs="0"/>
+	      <xs:element name="date" type="xs:dateTime"/>
+	      <xs:element name="action" type="actionType"/>
+	      <xs:element name="form" type="formType" minOccurs="0"/>
+	      <xs:element name="leo" type="xs:string" minOccurs="0"/>
+	      <xs:element name="note" type="xs:string" minOccurs="0"/>
+	    </xs:all>
+	  </xs:complexType>
+	</xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="voterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UOCAVA"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="actionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="identify"/>
+      <xs:enumeration value="start"/>
+      <xs:enumeration value="discard"/>
+      <xs:enumeration value="complete"/>
+      <xs:enumeration value="submit"/>
+      <xs:enumeration value="transcribe"/>
+      <xs:enumeration value="match"/>
+      <xs:enumeration value="approve"/>
+      <xs:enumeration value="reject"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="formType">
+    <xs:sequence>
+      <xs:element name="type" type="formTypeType" minOccurs="1" maxOccurs="2"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="number" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="formTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Voter Registration"/>
+      <xs:enumeration value="Voter Record Update"/>
+      <xs:enumeration value="Absentee Request"/>
+      <xs:enumeration value="Absentee Ballot"/>
+      <xs:enumeration value="Provisional Ballot"/>
+      <xs:enumeration value="Poll Book Entry"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

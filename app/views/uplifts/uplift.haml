@@ -1,66 +1,22 @@
 #front
   .row
-    .span4
-      &nbsp;
-
-    .span8
-      %table{:style=>"width:100%;"}
-        %tr
-          %td
-            %h2 Virginia Voter Log Analytics
-          %td{:style=>"text-align:right;"}
-            = link_to "Manage Elections",'elections#index', class: 'primary btn'
-        %tr
-          %td
-            -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
-              %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
-            -else
-              %h3= "Election: "+Selection.all[0].ename
-          %td{:style=>"text-align:right;padding-bottom:6px;"}
-            = link_to "Browse Records",'voter_transaction_records#index', class: 'primary btn'
-        %tr
-          %td
-          %td{:style=>"text-align:right;"}
-            = link_to "Browse Logs",'voter_transaction_logs#index', class: 'primary btn'
-
-  .row.main
-    .span4.sidebar
-      %p
-        %em Welcome to Virginia Voter Log Analytics
-
-      %p
-        &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
-
-      %p
-        This service permits voter transactions to be uploaded, stored,
-        consolidated, and analyzed, all while ensuring the privacy of
-        individual voters.  Through analysis, we can improve voter services
-        and increase voter participation, especially for those
-        voters with systemic barriers to voting, like
-        overseas and Military voters, and the disabled.
-
-      .signature
-        Virginia State Board of Elections
-
-    .span8
-      -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
-        -if (Election.all.length == 0)
-          To get started, create an election using the Manage Elections button (top right).
-        -else
-          To get started, select an election using the Manage Elections button (top right).
-      -else
-        There are two options for getting started:
-
+    .span5
+      %h2 Virginia Voter Log Analytics
+      %h3= "Election: "+Selection.all[0].ename
       .row
-        .span4.option
+        .span6.option
           .marker 1
           %h3 Upload Voter Transaction Log
-          = link_to "Back", :root, class: 'primary btn'
           %p
             %b= @uplift_msg
           %p
+            %b= link_to "Back", :root, class: 'primary btn'
+          %p
             %b= @uplift_err
-    
-        .span4.option
-          .marker 2
-          %h3 Analyze Existing Logs
+    .span7
+      %h3 XML Schema for Voter Transaction Log 
+      %table
+        %pre{:style=>"font-size:10px;"}
+          :preserve
+            &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x000A;&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;&#x000A;  &lt;xs:element name=&quot;voterTransactionLog&quot;&gt;&#x000A;    &lt;xs:complexType&gt;&#x000A;      &lt;xs:sequence&gt;&#x000A;	&lt;xs:element name=&quot;header&quot;&gt;&#x000A;	  &lt;xs:complexType&gt;&#x000A;	    &lt;xs:all&gt;&#x000A;	      &lt;xs:element name=&quot;origin&quot; type=&quot;xs:string&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;originUniq&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;date&quot; type=&quot;xs:dateTime&quot;/&gt;&#x000A;	    &lt;/xs:all&gt;&#x000A;	  &lt;/xs:complexType&gt;&#x000A;	&lt;/xs:element&gt;&#x000A;	&lt;xs:element name=&quot;voterTransactionRecord&quot; minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#x000A;	  &lt;xs:complexType&gt;&#x000A;	    &lt;xs:all&gt;&#x000A;	      &lt;xs:element name=&quot;voter&quot; type=&quot;xs:string&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;vtype&quot; type=&quot;voterType&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;date&quot; type=&quot;xs:dateTime&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;action&quot; type=&quot;actionType&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;form&quot; type=&quot;formType&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;leo&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;	      &lt;xs:element name=&quot;note&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;	    &lt;/xs:all&gt;&#x000A;	  &lt;/xs:complexType&gt;&#x000A;	&lt;/xs:element&gt;&#x000A;      &lt;/xs:sequence&gt;&#x000A;    &lt;/xs:complexType&gt;&#x000A;  &lt;/xs:element&gt;&#x000A;  &lt;xs:simpleType name=&quot;voterType&quot;&gt;&#x000A;    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#x000A;      &lt;xs:enumeration value=&quot;UOCAVA&quot;/&gt;&#x000A;    &lt;/xs:restriction&gt;&#x000A;  &lt;/xs:simpleType&gt;&#x000A;  &lt;xs:simpleType name=&quot;actionType&quot;&gt;&#x000A;    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#x000A;      &lt;xs:enumeration value=&quot;identify&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;start&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;discard&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;complete&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;submit&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;transcribe&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;match&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;approve&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;reject&quot;/&gt;&#x000A;    &lt;/xs:restriction&gt;&#x000A;  &lt;/xs:simpleType&gt;&#x000A;  &lt;xs:complexType name=&quot;formType&quot;&gt;&#x000A;    &lt;xs:sequence&gt;&#x000A;      &lt;xs:element name=&quot;type&quot; type=&quot;formTypeType&quot; minOccurs=&quot;1&quot; maxOccurs=&quot;2&quot;/&gt;&#x000A;      &lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;      &lt;xs:element name=&quot;number&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;&#x000A;    &lt;/xs:sequence&gt;&#x000A;  &lt;/xs:complexType&gt;&#x000A;  &lt;xs:simpleType name=&quot;formTypeType&quot;&gt;&#x000A;    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#x000A;      &lt;xs:enumeration value=&quot;Voter Registration&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;Voter Record Update&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;Absentee Request&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;Absentee Ballot&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;Provisional Ballot&quot;/&gt;&#x000A;      &lt;xs:enumeration value=&quot;Poll Book Entry&quot;/&gt;&#x000A;    &lt;/xs:restriction&gt;&#x000A;  &lt;/xs:simpleType&gt;&#x000A;&lt;/xs:schema&gt;
+

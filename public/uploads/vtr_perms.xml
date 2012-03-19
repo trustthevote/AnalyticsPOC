@@ -3,26 +3,25 @@
   <header>
     <origin>Virginia Voter Services Portal</origin>
     <date>2012-10-20T10:10:10Z</date>
-    <locale>Virginia</locale>
   </header>
   <voterTransactionRecord>
     <voter>v0</voter>
     <date>2012-10-10T10:10:00Z</date>
-    <action>identify-offline</action>
+    <action>identify</action>
     <form>
-      <type>Poll Book</type>
+      <type>Poll Book Entry</type>
     </form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <voter>v1</voter>
     <vtype>UOCAVA</vtype>
     <date>2012-10-10T10:10:01Z</date>
-    <action>online-identify</action>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <voter>v0</voter>
     <date>2012-10-10T10:10:02Z</date>
-    <action>online-request</action>
+    <action>start</action>
     <form>
       <type>Voter Registration</type>
     </form>
@@ -31,7 +30,7 @@
     <voter>v1</voter>
     <vtype>UOCAVA</vtype>
     <date>2012-10-10T10:10:03Z</date>
-    <action>online-discard</action>
+    <action>discard</action>
     <form>
       <type>Voter Record Update</type>
     </form>
@@ -39,7 +38,7 @@
   <voterTransactionRecord>
     <voter>v0</voter>
     <date>2012-10-10T10:10:04Z</date>
-    <action>online-complete</action>
+    <action>complete</action>
     <form>
       <type>Absentee Request</type>
     </form>
@@ -49,7 +48,7 @@
     <voter>v1</voter>
     <vtype>UOCAVA</vtype>
     <date>2012-10-10T10:10:05Z</date>
-    <action>online-submit</action>
+    <action>submit</action>
     <form>
       <type>Absentee Ballot</type>
     </form>
@@ -58,7 +57,7 @@
   <voterTransactionRecord>
     <voter>v0</voter>
     <date>2012-10-10T10:10:06Z</date>
-    <action>online-receive</action>
+    <action>match</action>
     <form>
       <type>Voter Registration</type>
       <name>Virginia Voter Registration Form</name>
@@ -69,7 +68,7 @@
     <voter>v1</voter>
     <vtype>UOCAVA</vtype>
     <date>2012-10-10T10:10:07Z</date>
-    <action>receive-offline</action>
+    <action>match</action>
     <form>
       <type>Provisional Ballot</type>
       <name>Virginia PB</name>
@@ -79,7 +78,7 @@
   <voterTransactionRecord>
     <voter>v0</voter>
     <date>2012-10-10T10:10:08Z</date>
-    <action>approve-offline</action>
+    <action>approve</action>
     <form> 
       <type>Absentee Request</type>
      <number>AR-1000</number>
@@ -91,7 +90,7 @@
     <voter>v1</voter>
     <vtype>UOCAVA</vtype>
     <date>2012-10-10T10:10:09Z</date>
-    <action>reject-offline</action>
+    <action>reject</action>
     <form>
       <type>Voter Registration</type>
       <type>Absentee Request</type>
