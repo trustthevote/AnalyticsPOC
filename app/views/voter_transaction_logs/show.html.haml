@@ -2,7 +2,7 @@
 
 .row
   .span4
-    %h2 Voter Transaction Log        
+    %h2 Voter Transaction Log
   .span3
     = link_to 'Show Table', :show_xml => nil
     \|
@@ -13,13 +13,13 @@
 %p
 -if @showxml
   %table
-    %pre= render partial: 'vtl.xml.builder', locals: { record: @voter_transaction_log }
+    %pre= render partial: 'vtl', locals: { record: @voter_transaction_log }, formats: [ :xml ]
 -else
   %table{:style=>"padding:10px"}
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Origin:
-      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.origin+(@voter_transaction_log.origin_uniq.length > 0 ? " (Uniq: "+@voter_transaction_log.origin_uniq+")" : "") 
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.origin+(@voter_transaction_log.origin_uniq.length > 0 ? " (Uniq: "+@voter_transaction_log.origin_uniq+")" : "")
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Date:
