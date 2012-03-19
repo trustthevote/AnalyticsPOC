@@ -6,7 +6,10 @@ class VoterTransactionRecordsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render layout: nil }
+      format.xml do
+        xml = render_to_string(layout: nil)
+        send_xml "voter_transaction_records.xml", xml
+      end
     end
   end
 
@@ -17,7 +20,10 @@ class VoterTransactionRecordsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render layout: nil }
+      format.xml do
+        xml = render_to_string(layout: nil)
+        send_xml "voter_transaction_record.xml", xml
+      end
     end
   end
 

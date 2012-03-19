@@ -14,7 +14,7 @@
 %br
 -if @showxml
   %table
-    %pre= render partial: 'elections.xml.builder', locals: { record: @elections  }
+    %pre= render partial: 'etlrs', formats: [ :xml ]
 -else 
   %table{:style=>"text-align:center"}
     %tr

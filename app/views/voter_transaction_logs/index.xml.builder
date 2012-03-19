@@ -1,1 +1,1 @@
-xml << render(partial: 'vtls.xml.builder')
+xml << render(partial: 'vtls')

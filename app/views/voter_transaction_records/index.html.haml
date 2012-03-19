@@ -13,7 +13,7 @@
 %br
 -if @showxml
   %table
-    %pre= render partial: 'vtrs.xml.builder'
+    %pre= render partial: 'vtrs', formats: [ :xml ]
 -else
   %table{:style=>"text-align:center"}
     %tr

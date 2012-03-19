@@ -13,7 +13,7 @@
 %p
 -if @showxml
   %table
-    %pre= render partial: 'vtr.xml.builder'
+    %pre= render partial: 'vtr', formats: [ :xml ]
 -else
   %table
     %tr

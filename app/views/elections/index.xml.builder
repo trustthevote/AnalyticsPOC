@@ -1,1 +1,1 @@
-xml << render(partial: 'elections.xml.builder')
+xml << render(partial: 'etlrs')

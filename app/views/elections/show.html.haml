@@ -13,7 +13,7 @@
 %br
 -if @showxml
   %table
-    %pre= render partial: 'election.xml.builder', locals: { record: @election  }
+    %pre= render partial: 'etlr', formats: [ :xml ]
 -else
   %table{:style=>"padding:10px"}
     %tr
