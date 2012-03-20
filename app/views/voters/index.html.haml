@@ -1,0 +1,33 @@
+%h1 Listing voters
+
+%table
+  %tr
+    %th Voter
+    %th Vtype
+    %th Voted
+    %th Vrejected
+    %th Vform
+    %th Vnote
+    %th Uniq
+    %th Election
+    %th
+    %th
+    %th
+
+  - @voters.each do |voter|
+    %tr
+      %td= voter.voter
+      %td= voter.vtype
+      %td= voter.voted
+      %td= voter.vrejected
+      %td= voter.vform
+      %td= voter.vnote
+      %td= voter.uniq
+      %td= voter.election
+      %td= link_to 'Show', voter
+      %td= link_to 'Edit', edit_voter_path(voter)
+      %td= link_to 'Destroy', voter, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Voter', new_voter_path

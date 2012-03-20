@@ -22,7 +22,8 @@ class UpliftsController < ApplicationController
     uploader = LogfileUploader.new
     post = uploader.store!( params['file'] )
     @uplift_msg = "Uploaded: " + self.uplift_file
-    self.upliftValidate("public/uploads/"+self.uplift_file)
+    self.upliftValidate("public/uploads/"+self.uplift_file,
+                        Selection.all[0].eid)
   rescue CarrierWave::IntegrityError => e
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
@@ -47,7 +48,7 @@ class UpliftsController < ApplicationController
     return false
   end
 
-  def upliftValidate(document_path)
+  def upliftValidate(document_path, eid)
     return unless (schema = self.upliftReadXMLSchema("public/xml/VTL.xsd"))
     return unless (document = self.upliftReadXMLDocument(document_path))
     errors = schema.validate(document)
@@ -62,7 +63,7 @@ class UpliftsController < ApplicationController
       end
       render :uplift
     else
-      if self.upliftFinalizeLog(document)
+      if self.upliftFinalizeLog(document, eid)
         if (@uplift_err == "")
           @uplift_err = "Validation: OK"
         end
@@ -97,7 +98,18 @@ class UpliftsController < ApplicationController
     end
   end
 
-  def upliftFinalizeLog(xml)
+  def upliftVoter(vname, vtype, eid)
+    voter = Voter.find_or_create_by_vname(vname, :election_id => eid) do |v|
+      if v.voted.blank?
+        v.vtype = vtype
+        v.voted, v.vrejected = false, false
+        v.vform, v.vnote, v.vuniq = "", "", ""
+      end
+    end
+    return voter
+  end
+
+  def upliftFinalizeLog(xml, eid)
     origin = self.upliftExtractContent(xml % 'header/origin')
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
     logdate = self.upliftExtractContent(xml % 'header/date')
@@ -110,7 +122,7 @@ class UpliftsController < ApplicationController
       return false
     end
     (xml / 'voterTransactionRecord').each do |vtr|
-      voter = self.upliftExtractContent(vtr % 'voter')
+      vname = self.upliftExtractContent(vtr % 'voter')
       vtype = self.upliftExtractContent(vtr % 'vtype')
       datime = self.upliftExtractContent(vtr % 'date')
       action = self.upliftExtractContent(vtr % 'action')
@@ -125,10 +137,17 @@ class UpliftsController < ApplicationController
         number = self.upliftExtractContent(node % 'number')
         form = upliftMungeForm(type1, type2, name, number)
       end
-      vtr = VoterTransactionRecord.new(:datime => datime, :voter => voter,
+      voter = self.upliftVoter(vname, vtype, eid)
+      unless (voter.save)
+        @uplift_err + "JVC"
+        voter.errors.full_messages.each { |e| @uplift_err += " "+e }
+        return false
+      end
+      vtr = VoterTransactionRecord.new(:datime => datime, :voter => vname,
                                        :vtype => vtype, :action => action,
                                        :form => form, :leo => leo,:note => note,
-                                       :voter_transaction_log_id => vtl.id)
+                                       :voter_transaction_log_id => vtl.id,
+                                       :voter_id => voter.id)
       unless (vtr.save)
         vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false

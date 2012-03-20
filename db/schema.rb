@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308044749) do
+ActiveRecord::Schema.define(:version => 20120320214008) do
 
   create_table "election_logs", :force => true do |t|
     t.string   "election"
@@ -57,8 +57,25 @@ ActiveRecord::Schema.define(:version => 20120308044749) do
     t.integer  "voter_transaction_log_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
+    t.integer  "voter_id"
   end
 
+  add_index "voter_transaction_records", ["voter_id"], :name => "index_voter_transaction_records_on_voter_id"
   add_index "voter_transaction_records", ["voter_transaction_log_id"], :name => "index_voter_transaction_records_on_voter_transaction_log_id"
+
+  create_table "voters", :force => true do |t|
+    t.string   "vname"
+    t.string   "vtype"
+    t.boolean  "voted"
+    t.boolean  "vrejected"
+    t.string   "vform"
+    t.string   "vnote"
+    t.string   "vuniq"
+    t.integer  "election_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "voters", ["election_id"], :name => "index_voters_on_election_id"
 
 end

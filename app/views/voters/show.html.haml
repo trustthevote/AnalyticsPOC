@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Voter:
+  = @voter.voter
+%p
+  %b Vtype:
+  = @voter.vtype
+%p
+  %b Voted:
+  = @voter.voted
+%p
+  %b Vrejected:
+  = @voter.vrejected
+%p
+  %b Vform:
+  = @voter.vform
+%p
+  %b Vnote:
+  = @voter.vnote
+%p
+  %b Uniq:
+  = @voter.uniq
+%p
+  %b Election:
+  = @voter.election
+
+= link_to 'Edit', edit_voter_path(@voter)
+\|
+= link_to 'Back', voters_path

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  voter: MyString
+  vtype: MyString
+  voted: false
+  vrejected: false
+  vform: MyString
+  vnote: MyString
+  uniq: MyString
+  election: 
+
+two:
+  voter: MyString
+  vtype: MyString
+  voted: false
+  vrejected: false
+  vform: MyString
+  vnote: MyString
+  uniq: MyString
+  election: 

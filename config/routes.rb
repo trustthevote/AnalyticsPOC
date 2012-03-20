@@ -1,5 +1,7 @@
 VoterLogAnalytics::Application.routes.draw do
 
+  resources :voters
+
 #  get "pages/front"
   root :to => "pages#front"
 
