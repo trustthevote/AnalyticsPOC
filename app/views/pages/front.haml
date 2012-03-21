@@ -17,11 +17,12 @@
             -else
               %h3= "Election: "+Selection.all[0].ename
           %td{:style=>"text-align:right;padding-bottom:6px;"}
-            = link_to "Browse Records",'voter_transaction_records#index', class: 'primary btn'
+            = link_to "Logs",'voter_transaction_logs#index', class: 'primary btn'
+            = link_to "Records",'voter_transaction_records#index', class: 'primary btn'
         %tr
           %td
           %td{:style=>"text-align:right;"}
-            = link_to "Browse Logs",'voter_transaction_logs#index', class: 'primary btn'
+            = link_to "Voters",'voters#index', class: 'primary btn'
 
   .row.main
     .span4.sidebar

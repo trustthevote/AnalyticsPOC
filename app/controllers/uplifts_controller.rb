@@ -22,9 +22,8 @@ class UpliftsController < ApplicationController
     self.uplift_file = params['file'].original_filename
     uploader = LogfileUploader.new
     post = uploader.store!( params['file'] )
-    self.upliftValidate("public/uploads/"+self.uplift_file,
-                        Selection.all[0].eid)
     @uplift_msg = "Uploaded: " + self.uplift_file
+    self.upliftValidate("public/uploads/"+self.uplift_file,Selection.all[0])
   rescue CarrierWave::IntegrityError => e
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
@@ -34,7 +33,8 @@ class UpliftsController < ApplicationController
   end
 
   def upliftDuration(t1, t2)
-    return " ("+distance_of_time_in_words(t1, to_time=t2, include_seconds=true)+")"
+    return " ("+t1.to_s+" | "+t2.to_s+")"
+    return distance_of_time_in_words(t1, to_time=t2, include_seconds=true)
   end
   
   def upliftReadXMLSchema(file)
@@ -53,7 +53,7 @@ class UpliftsController < ApplicationController
     return false
   end
 
-  def upliftValidate(document_path, eid)
+  def upliftValidate(document_path, selection)
     return unless (schema = self.upliftReadXMLSchema("public/xml/VTL.xsd"))
     return unless (document = self.upliftReadXMLDocument(document_path))
     errors = schema.validate(document)
@@ -68,7 +68,7 @@ class UpliftsController < ApplicationController
       end
       render :uplift
     else
-      if self.upliftFinalizeLog(document, eid)
+      if self.upliftFinalizeLog(document, selection)
         if (@uplift_err == "")
           @uplift_err = "Validation: OK"
         end
@@ -103,23 +103,27 @@ class UpliftsController < ApplicationController
     end
   end
 
-  def upliftVoter(vname, vtype, eid)
-    voter = Voter.find_or_create_by_vname(vname, :election_id => eid) do |v|
-      if v.voted.blank?
+  def upliftVoter(vname, vtype, selection)
+    voter = Voter.find_or_create_by_vuniq(vname+"_"+selection.eid.to_s) do |v|
+      if v.vname.blank?
+        v.vname = vname
         v.vtype = vtype
         v.voted, v.vreject = false, false
-        v.vform, v.vnote, v.vuniq = "", "", ""
+        v.vform = ""
+        v.vnote = selection.ename
+        v.election_id = selection.eid
       end
     end
     return voter
   end
 
-  def upliftFinalizeLog(xml, eid)
+  def upliftFinalizeLog(xml, selection)
     origin = self.upliftExtractContent(xml % 'header/origin')
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
     logdate = self.upliftExtractContent(xml % 'header/date')
     vtl = VoterTransactionLog.new(:origin => origin,  :origin_uniq => ouniq,
-                                  :datime => logdate, :election_id => eid)
+                                  :datime => logdate,
+                                  :election_id => selection.eid)
     unless (vtl.save)
       @uplift_err = "Error: "
       vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
@@ -141,7 +145,7 @@ class UpliftsController < ApplicationController
         number = self.upliftExtractContent(node % 'number')
         form = upliftMungeForm(type1, type2, name, number)
       end
-      voter = self.upliftVoter(vname, vtype, eid)
+      voter = self.upliftVoter(vname, vtype, selection)
       unless (voter.save)
         @uplift_err + "JVC"
         voter.errors.full_messages.each { |e| @uplift_err += " "+e }

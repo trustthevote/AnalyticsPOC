@@ -12,7 +12,7 @@
     %th &nbsp;
     %th Form
     %th &nbsp;
-    %th Elec ID
+    %th Election
     %th &nbsp;
     %th Recs
     %th &nbsp;
@@ -31,7 +31,7 @@
       %td
       %td= voter.vform
       %td
-      %td= voter.election_id
+      %td= voter.vnote
       %td
       %td= voter.voter_transaction_records.length
       %td
@@ -40,4 +40,4 @@
 
 %br
 
-= link_to 'New Voter', new_voter_path
+= link_to 'Back', :root
