@@ -8,9 +8,9 @@
     %th &nbsp;
     %th Voted
     %th &nbsp;
-    %th Rej?
+    %th Reject?
     %th &nbsp;
-    %th Form
+    %th Ballot
     %th &nbsp;
     %th Election
     %th &nbsp;
@@ -25,9 +25,9 @@
       %td
       %td= (voter.vtype == 'UOCAVA' ? 'UOC' : voter.vtype)
       %td
-      %td= voter.voted
+      %td= (voter.voted ? "Yes" : "No")
       %td
-      %td= (voter.voted ? voter.vreject : "")
+      %td= (voter.voted && voter.vreject ? "Yes" : "")
       %td
       %td= voter.vform
       %td

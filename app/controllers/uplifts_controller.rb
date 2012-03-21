@@ -117,6 +117,37 @@ class UpliftsController < ApplicationController
     return voter
   end
 
+  def syncVoter(voter, vtr)
+    if voter.voted
+      return
+    elsif (vtr.form =~ /Poll Book/)
+      voter.voted = true
+      voter.vreject = false
+      voter.vform = "Regular"
+    elsif (vtr.form =~ /Absentee Ballot/)
+      if (vtr.action == 'approve')
+        voter.voted = true
+        voter.vreject = false
+        voter.vform = "Absentee"
+      elsif (vtr.action == 'reject')
+        voter.voted = true
+        voter.vreject = true
+        voter.vform = "Absentee"
+      end
+    elsif (vtr.form =~ /Provisional Ballot/)
+      if (vtr.action == 'approve')
+        voter.voted = true
+        voter.vreject = false
+        voter.vform = "Provisional"
+      elsif (vtr.action == 'reject')
+        voter.voted = true
+        voter.vreject = true
+        voter.vform = "Provisional"
+      end
+    end
+    voter.save
+  end
+
   def upliftFinalizeLog(xml, selection)
     origin = self.upliftExtractContent(xml % 'header/origin')
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
@@ -147,22 +178,22 @@ class UpliftsController < ApplicationController
       end
       voter = self.upliftVoter(vname, vtype, selection)
       unless (voter.save)
-        @uplift_err + "JVC"
         voter.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
       end
+      vid = voter.id
       vtr = VoterTransactionRecord.new(:datime => datime, :vname => vname,
                                        :vtype => vtype, :action => action,
                                        :form => form, :leo => leo,:note => note,
                                        :voter_transaction_log_id => vtl.id,
-                                       :voter_id => voter.id)
+                                       :voter_id => vid)
       unless (vtr.save)
         vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
       end
+      self.syncVoter(voter, vtr)
     end
     vtl.save
-    #@uplift_xml = vtl.to_voter_xml()
     return true
   end
 
