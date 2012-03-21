@@ -102,7 +102,7 @@ class UpliftsController < ApplicationController
     voter = Voter.find_or_create_by_vname(vname, :election_id => eid) do |v|
       if v.voted.blank?
         v.vtype = vtype
-        v.voted, v.vrejected = false, false
+        v.voted, v.vreject = false, false
         v.vform, v.vnote, v.vuniq = "", "", ""
       end
     end
@@ -114,8 +114,7 @@ class UpliftsController < ApplicationController
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
     logdate = self.upliftExtractContent(xml % 'header/date')
     vtl = VoterTransactionLog.new(:origin => origin,  :origin_uniq => ouniq,
-                                  :datime => logdate, :locale => locale,
-                                  :election_id => Selection.all[0].eid)
+                                  :datime => logdate, :election_id => eid)
     unless (vtl.save)
       @uplift_err = "Error: "
       vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
@@ -143,7 +142,7 @@ class UpliftsController < ApplicationController
         voter.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
       end
-      vtr = VoterTransactionRecord.new(:datime => datime, :voter => vname,
+      vtr = VoterTransactionRecord.new(:datime => datime, :vname => vname,
                                        :vtype => vtype, :action => action,
                                        :form => form, :leo => leo,:note => note,
                                        :voter_transaction_log_id => vtl.id,

@@ -14,7 +14,7 @@ xml.elections do |one|
           end
           records.each do |record|
             xml.voterTransactionRecord do |vtr|
-              vtr.voter  record.voter
+              vtr.voter  record.vname
               vtr.vtype  record.vtype unless record.vtype.blank?
               vtr.date   record.datime.xmlschema
               vtr.action record.action

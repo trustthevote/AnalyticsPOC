@@ -19,7 +19,7 @@
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Origin:
-      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.origin+(@voter_transaction_log.origin_uniq.length > 0 ? " (Uniq: "+@voter_transaction_log.origin_uniq+")" : "")
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_log.origin+(@voter_transaction_log.origin_uniq.length > 0 ? " / "+@voter_transaction_log.origin_uniq : "")
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Date:
@@ -49,9 +49,9 @@
 
     - @voter_transaction_log.voter_transaction_records.each do |vtr|
       %tr
-        %td= vtr.voter
+        %td= vtr.vname
         %td
-        %td= vtr.vtype
+        %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
         %td
         %td= vtr.datime
         %td

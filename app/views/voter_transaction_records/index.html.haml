@@ -32,22 +32,22 @@
       %th Note
       %th
       %th
-    - @voter_transaction_records.each do |voter_transaction_record|
+    - @voter_transaction_records.each do |vtr|
       %tr
-        %td= voter_transaction_record.voter
+        %td= vtr.vname
         %td
-        %td= voter_transaction_record.vtype
+        %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
         %td
-        %td= voter_transaction_record.datime
+        %td= vtr.datime
         %td
-        %td= voter_transaction_record.action
+        %td= vtr.action
         %td
-        %td= voter_transaction_record.form
+        %td= vtr.form
         %td
-        %td= voter_transaction_record.leo
+        %td= vtr.leo
         %td
-        %td= voter_transaction_record.note
-        %td= link_to 'Show', voter_transaction_record
-        %td= link_to 'Destroy', voter_transaction_record, :confirm => 'Are you sure?', :method => :delete
+        %td= vtr.note
+        %td= link_to 'Show', vtr
+        %td= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
 %br
 = link_to 'New Voter Transaction Record', new_voter_transaction_record_path

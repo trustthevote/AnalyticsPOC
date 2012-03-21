@@ -1,31 +1,41 @@
-%h1 Listing voters
+%h2 All Voters
 
-%table
+%table{:style=>"text-align:center"}
   %tr
     %th Voter
-    %th Vtype
+    %th &nbsp;
+    %th VType
+    %th &nbsp;
     %th Voted
-    %th Vrejected
-    %th Vform
-    %th Vnote
-    %th Uniq
+    %th &nbsp;
+    %th Rej?
+    %th &nbsp;
+    %th Form
+    %th &nbsp;
     %th Election
-    %th
-    %th
+    %th &nbsp;
+    %th Recs
+    %th &nbsp;
+    %th 
     %th
 
   - @voters.each do |voter|
     %tr
-      %td= voter.voter
-      %td= voter.vtype
+      %td= voter.vname
+      %td
+      %td= (voter.vtype == 'UOCAVA' ? 'UOC' : voter.vtype)
+      %td
       %td= voter.voted
-      %td= voter.vrejected
+      %td
+      %td= (voter.voted ? voter.vreject : "")
+      %td
       %td= voter.vform
-      %td= voter.vnote
-      %td= voter.uniq
-      %td= voter.election
+      %td
+      %td= voter.election.name+" ("+voter.election.day.to_s+")"
+      %td
+      %td= voter.voter_transaction_records.length
+      %td
       %td= link_to 'Show', voter
-      %td= link_to 'Edit', edit_voter_path(voter)
       %td= link_to 'Destroy', voter, :confirm => 'Are you sure?', :method => :delete
 
 %br

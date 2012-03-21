@@ -1,10 +1,11 @@
 class CreateVoterTransactionRecords < ActiveRecord::Migration
   def change
     create_table :voter_transaction_records do |t|
-      t.string :voter
+      t.string :vname
       t.string :vtype
       t.datetime :datime
       t.string :action
+      t.string :fname
       t.text :form
       t.string :leo
       t.string :note

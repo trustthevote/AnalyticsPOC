@@ -19,7 +19,7 @@
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Voter:
-      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.voter+(@voter_transaction_record.vtype.length > 0 ? " (Type: "+@voter_transaction_record.vtype+")" : "")
+      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.vname+(@voter_transaction_record.vtype.length > 0 ? " / "+@voter_transaction_record.vtype : "")
     %tr
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Date:
@@ -28,18 +28,21 @@
       %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
         Action:
       %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.action
-    %tr
-      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
-        Form:
-      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.form
-    %tr
-      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
-        LEO:
-      %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.leo
-    %tr
-      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:10px;"}
-        Note:
-      %td{:style=>"padding-bottom:10px;"}= @voter_transaction_record.note
+    - if @voter_transaction_record.form
+      %tr
+        %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+          Form:
+        %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.form
+    - if @voter_transaction_record.leo.length > 0
+      %tr
+        %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
+          LEO:
+        %td{:style=>"padding-bottom:6px;"}= @voter_transaction_record.leo
+    - if @voter_transaction_record.note.length > 0
+      %tr
+        %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:10px;"}
+          Note:
+        %td{:style=>"padding-bottom:10px;"}= @voter_transaction_record.note
 
 %br
 

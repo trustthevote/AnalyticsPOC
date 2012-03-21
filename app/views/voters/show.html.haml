@@ -1,30 +1,71 @@
 %p#notice= notice
 
+%h2 Voter
+%br
 %p
-  %b Voter:
-  = @voter.voter
-%p
-  %b Vtype:
-  = @voter.vtype
+  %b Voter ID:
+  = @voter.vname+(@voter.vtype.length > 0 ? ' / '+@voter.vtype : '')
 %p
   %b Voted:
   = @voter.voted
-%p
-  %b Vrejected:
-  = @voter.vrejected
-%p
-  %b Vform:
-  = @voter.vform
-%p
-  %b Vnote:
-  = @voter.vnote
-%p
-  %b Uniq:
-  = @voter.uniq
+- if @voter.voted
+  %p
+    %b Rejected?:
+    = @voter.vreject
+- if ! @voter.vform.blank?
+  %p
+    %b Form:
+    = @voter.vform
+- if ! @voter.vnote.blank?
+  %p
+    %b Note:
+    = @voter.vnote
+- if ! @voter.vuniq.blank?
+  %p
+    %b Uniq:
+    = @voter.vuniq
 %p
   %b Election:
-  = @voter.election
+  = @voter.election.name+" ("+@voter.election.day.to_s+")"
+%br
+- if true
+  %h3
+    Voter Transaction Records
+  %br
 
-= link_to 'Edit', edit_voter_path(@voter)
-\|
+  %table{:style=>"text-align:center"}
+    %tr
+      %th Voter
+      %th &nbsp;
+      %th VType
+      %th &nbsp;
+      %th Date
+      %th &nbsp;
+      %th Action
+      %th &nbsp;
+      %th Form
+      %th &nbsp;
+      %th LEO
+      %th &nbsp;
+      %th Note
+      %th
+
+    - @voter.voter_transaction_records.each do |vtr|
+      %tr
+        %td= vtr.vname
+        %td
+        %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : '')
+        %td
+        %td= vtr.datime
+        %td
+        %td= vtr.action
+        %td
+        %td= vtr.form
+        %td
+        %td= vtr.leo
+        %td
+        %td= vtr.note
+        %td= link_to 'Show', vtr
+
+%br
 = link_to 'Back', voters_path

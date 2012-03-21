@@ -1,5 +1,5 @@
 class VoterTransactionRecord < ActiveRecord::Base
-  validates_presence_of :voter
+  validates_presence_of :vname
   validates_presence_of :datime
   validates_presence_of :action
   belongs_to :voter_transaction_log
@@ -19,7 +19,7 @@ class VoterTransactionRecord < ActiveRecord::Base
   
   def to_voter_xml()
     "<voterTransactionRecord>\n" +
-      "<voter>"+self.voter+"</voter>&#x000A;" +
+      "<voter>"+self.vname+"</voter>&#x000A;" +
       ((self.vtype and self.vtype.length > 0) ?
        "<vtype>"+self.vtype+"</vtype>" : "") +
       "<date>"+self.datime.xmlschema+"</date>" +
@@ -51,7 +51,7 @@ class VoterTransactionRecord < ActiveRecord::Base
   
   def to_voter_xml_spaced()
     vtr = ["<voterTransactionRecord>",
-           "..<voter>"+self.voter+"</voter>"]
+           "..<voter>"+self.vname+"</voter>"]
     if (self.vtype and self.vtype.length > 0)
       vtr.append("..<vtype>"+self.vtype+"</vtype>")
     end

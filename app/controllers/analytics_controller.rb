@@ -16,7 +16,7 @@ class AnalyticsController < ApplicationController
     voter_ids = []
     election.voter_transaction_logs.each do |vtl|
       vtl.voter_transaction_records.each do |vtr|
-        vid = vtr.voter
+        vid = vtr.vname
         voter_ids.push(vid) unless voter_ids.include?(vid)
         if vtr.action == "approve"
           if vtr.form =~ /Absentee Ballot/

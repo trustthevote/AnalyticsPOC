@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120320214008) do
 
-  create_table "election_logs", :force => true do |t|
-    t.string   "election"
-    t.date     "day"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "elections", :force => true do |t|
     t.string   "name"
     t.date     "day"
@@ -38,7 +31,6 @@ ActiveRecord::Schema.define(:version => 20120320214008) do
     t.string   "origin"
     t.string   "origin_uniq"
     t.datetime "datime"
-    t.string   "locale"
     t.integer  "election_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -47,10 +39,11 @@ ActiveRecord::Schema.define(:version => 20120320214008) do
   add_index "voter_transaction_logs", ["election_id"], :name => "index_voter_transaction_logs_on_election_id"
 
   create_table "voter_transaction_records", :force => true do |t|
-    t.string   "voter"
+    t.string   "vname"
     t.string   "vtype"
     t.datetime "datime"
     t.string   "action"
+    t.string   "fname"
     t.text     "form"
     t.string   "leo"
     t.string   "note"
@@ -67,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20120320214008) do
     t.string   "vname"
     t.string   "vtype"
     t.boolean  "voted"
-    t.boolean  "vrejected"
+    t.boolean  "vreject"
     t.string   "vform"
     t.string   "vnote"
     t.string   "vuniq"
