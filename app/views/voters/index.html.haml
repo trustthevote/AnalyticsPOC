@@ -1,5 +1,5 @@
-%h2 All Voters
-
+%h2= "All Voters ("+@voters.length.to_s+")"
+%br
 %table{:style=>"text-align:center"}
   %tr
     %th Voter
@@ -12,7 +12,7 @@
     %th &nbsp;
     %th Form
     %th &nbsp;
-    %th Election
+    %th Elec ID
     %th &nbsp;
     %th Recs
     %th &nbsp;
@@ -31,7 +31,7 @@
       %td
       %td= voter.vform
       %td
-      %td= voter.election.name+" ("+voter.election.day.to_s+")"
+      %td= voter.election_id
       %td
       %td= voter.voter_transaction_records.length
       %td

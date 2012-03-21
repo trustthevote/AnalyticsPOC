@@ -1,8 +1,8 @@
 %p#notice= notice
 
 .row
-  .span5
-    %h2 All Voter Transaction Logs
+  .span6
+    %h2= "All Voter Transaction Logs ("+@voter_transaction_logs.length.to_s+")"
   .span3
     = link_to 'Show Table', :show_xml => nil
     \|

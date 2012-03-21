@@ -5,6 +5,7 @@ class UpliftsController < ApplicationController
   attr_accessor :uplift_file
 
   def uplift
+    startime = DateTime.now
     if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||
         (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
       @uplift_msg = "Error: must select an Election before uploading logs."
@@ -21,9 +22,9 @@ class UpliftsController < ApplicationController
     self.uplift_file = params['file'].original_filename
     uploader = LogfileUploader.new
     post = uploader.store!( params['file'] )
-    @uplift_msg = "Uploaded: " + self.uplift_file
     self.upliftValidate("public/uploads/"+self.uplift_file,
                         Selection.all[0].eid)
+    @uplift_msg = "Uploaded: " + self.uplift_file
   rescue CarrierWave::IntegrityError => e
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
@@ -32,6 +33,10 @@ class UpliftsController < ApplicationController
     render :uplift
   end
 
+  def upliftDuration(t1, t2)
+    return " ("+distance_of_time_in_words(t1, to_time=t2, include_seconds=true)+")"
+  end
+  
   def upliftReadXMLSchema(file)
     return Nokogiri::XML::Schema(File.read(file))
   rescue => e

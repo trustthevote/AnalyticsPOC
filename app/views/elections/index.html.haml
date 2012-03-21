@@ -1,14 +1,14 @@
 %p#notice= notice
 
 .row
-  .span4
-    %h2 All Elections
+  .span6
+    %h2= "All Elections ("+@elections.length.to_s+")"
   .span3
     = link_to 'Show Table', :show_xml => nil
     \|
     = link_to 'Show XML', :show_xml => true
     &nbsp;
-  .span3
+  .span2
     %b= link_to "Download XML", format: 'xml', class: 'btn'
 
 %br
