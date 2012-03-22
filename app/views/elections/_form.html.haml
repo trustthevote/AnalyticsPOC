@@ -7,10 +7,16 @@
           %li= msg
 
   .field
-    = f.label :name
+    = f.label 'Election Name'
     = f.text_field :name
   .field
-    = f.label 'Date'
+    = f.label 'Election Date'
+    = f.date_select :day
+  .field
+    = f.label 'Start Date for Voter Activity'
+    = f.date_select :day
+  .field
+    = f.label 'End Date for Voter Activity'
     = f.date_select :day
   .actions
     = f.submit 'Save'

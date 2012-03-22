@@ -1,56 +1,77 @@
-%p#notice= notice
-
 .row
-  .span4
-    %h2 Election
-  .span3
-    = link_to 'Show Table', :show_xml => nil
-    \|
-    = link_to 'Show XML', :show_xml => true
-  .span3
-    %b= link_to "Download XML", format: 'xml', class: 'btn'
-
-%br
--if @showxml
-  %table
-    %pre= render partial: 'etlr', formats: [ :xml ]
--else
-  %table{:style=>"padding:10px"}
-    %tr
-      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:6px;"}
-        Name:
-      %td{:style=>"padding-bottom:6px;"}= @election.name
-    %tr
-      %td{:style=>"font-weight:bold;padding-right:10px;padding-bottom:10px;"}
-        Date:
-      %td{:style=>"padding-bottom:10px;"}= @election.day
-  
-  %br
-  %h3 Voter Transaction Logs
-  %br
-  %table{:style=>"text-align:center"}
-    %tr
-      %th Date
-      %th &nbsp;
-      %th Origin
-      %th &nbsp;
-      %th Uniq
-      %th &nbsp;
-      %th Records
-      %th
-      %th
-  
-    - @election.voter_transaction_logs.each do |vtl|
+  .span2
+    &nbsp;
+  .span10
+    %h3{:style=>"color:lightgray;"}
+      = "1. Select Election Log"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "2. Load Data"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "3. Analyze"
+    %hr
+.row
+  .span2
+    &nbsp;
+  .span10
+    %table
       %tr
-        %td= vtl.datime
         %td
-        %td= vtl.origin
+          %h1
+            Election Log
         %td
-        %td= vtl.origin_uniq
+          &nbsp;&nbsp;&nbsp;
         %td
-        %td= vtl.voter_transaction_records.length
-        %td= link_to 'Show', vtl
-        %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
-  
+          %h3{:style=>"color:darkblue;"}= "Election: "+@election.name+" ("+@election.day.to_s+")"
+        %td
+          &nbsp;&nbsp;&nbsp;
+        %td
+          %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)          
 %br
-= link_to 'Back', elections_path
+.row.main
+  .span2.sidebar
+    %p{:style=>"color:darkblue;"}
+      You can update this election log by uploading additional log data, or by
+      deleting existing logs that may be outdated.
+    %p{:style=>"color:darkblue;"}
+      If you have all the relevant data needed for analysis, then your next
+      step is Analytics.
+  .span10
+    .row
+      .span5
+        %form{:action=>"/uplift",:method=>"post",
+              :enctype=>"multipart/form-data",:style=>"margin:0;"}
+          %input{:type=>"file",:name=>"file"}
+          %input{:type=>"submit",:value=>"Upload Log Data"}
+      .span5
+        %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)
+    %h3 Voter Transaction Logs
+    %table{:style=>"text-align:center"}
+      %tr
+        %th Date
+        %th &nbsp;
+        %th Origin
+        %th &nbsp;
+        %th Uniq
+        %th &nbsp;
+        %th Records
+        %th
+        %th
+      - @election.voter_transaction_logs.each do |vtl|
+        %tr
+          %td= vtl.datime
+          %td
+          %td= vtl.origin
+          %td
+          %td= vtl.origin_uniq
+          %td
+          %td= vtl.voter_transaction_records.length
+          %td= link_to 'Show', vtl
+          %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
+.row
+  .span2
+    &nbsp;
+  .span10
+    = link_to "Next", '/analytic', class: 'primary btn'  
+= link_to 'Home', :root
+\|
+= link_to 'List All', elections_path

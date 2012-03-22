@@ -1,10 +1,60 @@
-%h2 New Election
+.row
+  .span2
+    &nbsp;
+  .span10
+    %h3{:style=>"color:lightgray;"}
+      = "1. Create New Election Log"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "2. Load Data"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "3. Analyze"
+    %hr
+.row
+  .span2
+    &nbsp;
+  .span8
+    %h1
+      Create New Election Log
 %br
+.row.main
+  .span2.sidebar
+    %p{:style=>"color:darkblue;"}
+      Your first step is to create an empty election log, using the name of
+      the election, for example, 
+      %em
+        June 2012 Primary Election,
+      and the election date.
+    %p{:style=>"color:darkblue;"}
+      The start date for an election’s voter activity is typically the
+      day after the previous election day.  The end date is typically the date
+      when the election will certified, after which no further ballots will be
+      counted. 
+  .span10
+    = form_for @election do |f|
+      -if @election.errors.any?
+        #error_explanation
+          %h2= "#{pluralize(@election.errors.count, "error")} prohibited this election from being saved:"
+          %ul
+            - @election.errors.full_messages.each do |msg|
+              %li= msg
 
-= render 'form'
-
+      .field
+        = f.label 'Election Name'
+        = f.text_field :name
+      .field
+        = f.label 'Election Date'
+        = f.date_select :day
+      .field
+        = f.label 'Start Date for Voter Activity'
+        = f.date_select :day
+      .field
+        = f.label 'End Date for Voter Activity'
+        = f.date_select :day
+      .actions
+        = f.submit 'Save'
+%br
 = link_to 'Cancel', elections_path
 \|
-= link_to 'Back', elections_path
+= link_to 'Home', :root
 \|
 = link_to 'List All', elections_path

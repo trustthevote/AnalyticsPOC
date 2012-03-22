@@ -28,7 +28,7 @@ class UpliftsController < ApplicationController
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
   rescue => e
-    @uplift_msg = "Should't happen #1: "+e.message # JVC temp
+    @uplift_msg = "Shouldn't happen #1: "+e.message # JVC temp
     render :uplift
   end
 
@@ -40,7 +40,7 @@ class UpliftsController < ApplicationController
   def upliftReadXMLSchema(file)
     return Nokogiri::XML::Schema(File.read(file))
   rescue => e
-    @uplift_err += "Shouldn't happen #3, invalid built-in schema. "+e.message
+    @uplift_err += " Shouldn't happen #3, invalid built-in schema. "+e.message
     render :uplift
     return false
   end
@@ -72,13 +72,13 @@ class UpliftsController < ApplicationController
         if (@uplift_err == "")
           @uplift_err = "Validation: OK"
         end
-        render 'pages/front'
+        redirect_to :elections, {:id=>selection.eid}
       else
         render :uplift
       end
     end
   rescue => e
-    @uplift_err += "Should't happen #2: "+e.message # JVC temp
+    @uplift_err += " Should't happen #2: "+e.message # JVC temp
   end
 
   def upliftExtractContent(xml)

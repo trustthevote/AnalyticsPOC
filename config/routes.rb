@@ -1,12 +1,10 @@
 VoterLogAnalytics::Application.routes.draw do
 
-  resources :voters
-
-#  get "pages/front"
-  root :to => "pages#front"
+  root :to => "pages#home"
 
   resource :page, only: [], path: '' do
     member do
+      get :home
       get :front
       get :help
       get :about
@@ -27,6 +25,10 @@ VoterLogAnalytics::Application.routes.draw do
       post :uplift
     end
   end
+
+  resource :voterpart
+
+  resources :voters
 
   resources :voter_transaction_records do
     match "/:id(.:format)" => 'voter_transaction_records#index'

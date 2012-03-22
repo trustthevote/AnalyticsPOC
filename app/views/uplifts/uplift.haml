@@ -2,12 +2,8 @@
   .row
     .span5
       %h2 Voter Log File Error
-      %h3= "Election: "+Selection.all[0].ename
+      %h3{:style=>"color:darkblue;"}= "Election: "+Selection.all[0].ename
       %br
-      %p
-        %b= link_to "Back", :root, class: 'primary btn'
-      %br
-      .marker 1
       %h3= @uplift_msg
       %br
       %p

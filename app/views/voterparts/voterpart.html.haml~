@@ -1,0 +1,78 @@
+%p#notice= notice
+
+.row
+  .span8
+    %h2= "Analytics for Election: "+Selection.all[0].ename
+
+%br
+%table{:style=>"text-align:center"}
+  %tr
+    %th 
+    %th &nbsp;&nbsp;
+    %th All
+    %th &nbsp;&nbsp;
+    %th Regular 
+    %th &nbsp;&nbsp;
+    %th No
+    %th &nbsp;&nbsp;
+    %th{:colspan => 3} Absentee
+    %th &nbsp;&nbsp;
+    %th{:colspan => 3} Provisional
+    %th &nbsp;&nbsp;
+    %th Whacky
+  %tr      
+    %th 
+    %th &nbsp;&nbsp;
+    %th Voters
+    %th &nbsp;&nbsp;
+    %th Vote
+    %th &nbsp;&nbsp;
+    %th Vote
+    %th &nbsp;&nbsp;
+    %th Accept
+    %th &nbsp;&nbsp;
+    %th Reject
+    %th &nbsp;&nbsp;
+    %th Accept
+    %th &nbsp;&nbsp;
+    %th Reject
+    %th &nbsp;&nbsp;
+    %th Voters
+  %tr      
+    %td= "#"
+    %td
+    %td= @voters
+    %td
+    %td= @vote_reg
+    %td
+    %td= @vote_no
+    %td
+    %td= @vote_aa
+    %td
+    %td= @vote_ar
+    %td
+    %td= @vote_pa
+    %td
+    %td= @vote_pr
+    %td
+    %td= @vote_wac
+  %tr
+    %td= "%"
+    %td
+    %td= "100%"
+    %td
+    %td= (@vote_reg*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_no*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_aa*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_ar*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_pa*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_pr*100/@xvoters).round.to_s+"%"
+    %td
+    %td= (@vote_wac*100/@xvoters).round.to_s+"%"
+
+%br

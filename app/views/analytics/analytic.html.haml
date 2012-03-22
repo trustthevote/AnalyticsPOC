@@ -1,0 +1,58 @@
+.row
+  .span3
+    &nbsp;
+  .span9
+    %h3{:style=>"color:lightgray;"}
+      = "1. Select Election Log"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "2. Load Data"
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "3. Analyze"
+    %hr
+.row
+  .span3
+    &nbsp;
+  .span9
+    %table
+      %tr
+        %td
+          %h1
+            Analyze Election Log
+        %td
+          &nbsp;&nbsp;&nbsp;
+        %td
+          -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+            %h3{:style=>"color:darkblue;"}= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
+          -else
+            %h3{:style=>"color:darkblue;"}= "Election: "+Selection.all[0].ename
+%br
+.row.main
+  .span3.sidebar{:style=>"color:darkblue;"}
+    %p
+      With all the relevant data loaded, you can now run a variety of
+      analytics over the consolidated set of data from all the logs that have
+      been previously loaded.  (If you need to load some more data, go back to
+      "2. Load Data") 
+
+    %p
+      In addition to a variety of reports that you can generate, you can also
+      export a consolidated data set including all the log data, for
+      publication or use with other data mining tools.  The data can be
+      exported as‐is, or anonymized with all voter identifying data obscured.
+  .span9
+    .row
+      .span9{:style=>"padding:20px;"}
+        = link_to "Voter Participation Report", '/voterpart', class: 'primary btn'  
+    .row
+      .span9{:style=>"padding:20px;"}
+        = link_to "UOCAVA Ballot Return Report", '/voterpart', class: 'primary btn'  
+    .row
+      .span9{:style=>"padding:20px;"}
+        = link_to "Ballot Adjucation Report", '/voterpart', class: 'primary btn'  
+    .row
+      .span9{:style=>"padding:20px;"}
+        = link_to "Etc.", '/voterpart', class: 'primary btn'  
+
+= link_to 'Home', :root
+\|
+= link_to 'List All', elections_path
