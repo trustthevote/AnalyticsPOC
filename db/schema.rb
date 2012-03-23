@@ -11,18 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320214008) do
+ActiveRecord::Schema.define(:version => 20120323201828) do
 
   create_table "elections", :force => true do |t|
     t.string   "name"
     t.date     "day"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.string   "display_name"
   end
 
   create_table "selections", :force => true do |t|
     t.integer  "eid"
-    t.string   "ename"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

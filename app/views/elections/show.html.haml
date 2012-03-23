@@ -4,9 +4,9 @@
   .span10
     %h3{:style=>"color:lightgray;"}
       = "1. Select Election Log"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
       = "2. Load Data"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
       = "3. Analyze"
     %hr
 .row
@@ -25,7 +25,7 @@
         %td
           &nbsp;&nbsp;&nbsp;
         %td
-          %h3{:style=>"color:darkblue;"}= "Election: "+@election.name+" ("+@election.day.to_s+")"
+          %h3{:style=>"color:darkblue;"}= "Election: "+@election.display()
         %td
           &nbsp;&nbsp;&nbsp;
 %br
@@ -44,7 +44,6 @@
               :enctype=>"multipart/form-data",:style=>"margin:0;"}
           %input{:type=>"file",:name=>"file"}
           %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
-          %input{:type=>"hidden",:name=>"ename",:value=>@election.name+" ("+@election.day.to_s+")"}
           %input{:type=>"submit",:value=>"Upload Log Data"}
       .span5
         %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)

@@ -15,7 +15,7 @@
             -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
               %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
             -else
-              %h3= "Election: "+Selection.all[0].ename
+              %h3= "Election: "+Election.find(Selection.all[0].eid).display()
           %td{:style=>"text-align:right;padding-bottom:6px;"}
             = link_to "Logs",'voter_transaction_logs#index', class: 'primary btn'
             = link_to "Records",'voter_transaction_records#index', class: 'primary btn'

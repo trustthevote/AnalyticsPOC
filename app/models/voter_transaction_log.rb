@@ -5,17 +5,4 @@ class VoterTransactionLog < ActiveRecord::Base
                                    :message => "(+uniq) and daytime duplicated in pre-existing log file."
   belongs_to :election
   has_many :voter_transaction_records, :dependent => :destroy
-
-  def to_voter_xml() 
-    xml = "<voterTransactionLog>" + "<header>" +
-      "<origin>"+self.origin+"</origin>" +
-      ((self.origin_uniq and self.origin_uniq.length > 0) ?
-       "<originUniq>"+self.origin_uniq+"</originUniq>" : "") +
-      "<date>"+self.datime.xmlschema+"</date>" + "</header>"
-    self.voter_transaction_records.each do |vtr|
-      xml += vtr.to_voter_xml()
-    end
-    return xml + "</voterTransactionLog>"
-  end
-
 end

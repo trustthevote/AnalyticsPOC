@@ -4,9 +4,9 @@
   .span10
     %h3{:style=>"color:lightgray;"}
       = "1. Select Election Log"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
       = "2. Load Data"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
       = "3. Analyze"
     %hr
 .row
@@ -63,9 +63,9 @@
           %td
           %td= election.day
           %td
-          %td= election.day
+          %td= election.voter_start_day
           %td
-          %td= election.day
+          %td= election.voter_end_day
           %td
           %td= election.voter_transaction_logs.length
           %td{:style=>"font-weight:bold;"}= (((Selection.all.length > 0) and (election.id == Selection.all[0].eid)) ? "&lowast;".html_safe : "" )

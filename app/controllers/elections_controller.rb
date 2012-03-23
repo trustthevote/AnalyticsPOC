@@ -1,4 +1,5 @@
 class ElectionsController < ApplicationController
+
   # GET /elections
   def index
     @elections = Election.all
@@ -7,13 +8,11 @@ class ElectionsController < ApplicationController
     eid = (Election.all.length == 1 ? Election.all[0].id : params[:id])
     if (params[:select] || Election.all.length == 1)
       @election = Election.find(eid)
-      ename = @election.name+" ("+@election.day.to_s+")"
       if (Selection.all.length == 0)
-        se = Selection.new(:eid => @election.id, :ename => ename)
+        se = Selection.new(:eid => @election.id)
       else
         se = Selection.all[0]
         se.eid = @election.id
-        se.ename = ename
       end
       se.save
     end
@@ -91,7 +90,6 @@ class ElectionsController < ApplicationController
         ((Selection.all[0].eid == did) || (Election.all.length == 0)))
       se = Selection.all[0]
       se.eid = nil
-      se.ename = "None Selected"
       se.save
     end
     

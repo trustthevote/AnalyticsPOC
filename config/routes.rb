@@ -1,4 +1,4 @@
-VoterLogAnalytics::Application.routes.draw do
+ VoterLogAnalytics::Application.routes.draw do
 
   root :to => "pages#home"
 
