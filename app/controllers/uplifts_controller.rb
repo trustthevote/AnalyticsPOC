@@ -6,8 +6,8 @@ class UpliftsController < ApplicationController
 
   def uplift
     startime = DateTime.now
-    if params[:id]
-      eid = params[:id]
+    if params[:eid]
+      eid = params[:eid]
       ename = params[:ename]
       if (Selection.all.length > 0)
         unless (Selection.all[0].eid == eid)
