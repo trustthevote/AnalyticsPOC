@@ -10,7 +10,7 @@
         %td
           &nbsp;&nbsp;&nbsp;
         %td
-          %h3{:style=>"color:darkblue;"}= "Election: "+Selection.all[0].ename
+          %h3{:style=>"color:darkblue;"}= "Election: "+@election.name+" ("+@election.day.to_s+")"
 
 %br
 %table{:style=>"text-align:center"}
@@ -84,6 +84,6 @@
     %td= (@vote_wac*100/@xvoters).round.to_s+"%"
 
 %br
-= link_to 'Back', '/analytic'
-\|
 = link_to 'Home', :root
+\|
+= link_to 'Back', '/analytic?id='+@election.id.to_s

@@ -11,10 +11,14 @@ class VoterpartsController < ApplicationController
     @vote_pa  = 0    
     @vote_pr  = 0
     @vote_wac = 0    
-    eid = Selection.all[0].eid
-    election = Election.find(eid)
+    if params[:id] 
+      eid = params[:id]
+    else
+      eid = Selection.all[0].eid
+    end
+    @election = Election.find(eid)
     voter_ids = []
-    election.voter_transaction_logs.each do |vtl|
+    @election.voter_transaction_logs.each do |vtl|
       vtl.voter_transaction_records.each do |vtr|
         vid = vtr.vname
         voter_ids.push(vid) unless voter_ids.include?(vid)

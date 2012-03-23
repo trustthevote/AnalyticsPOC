@@ -16,6 +16,8 @@
     .span10.option
       %h1
         Election Logs
+      %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)          
+
 %br
 .row.main
   .span2.sidebar
@@ -81,5 +83,7 @@
       = link_to "Next", '/elections/'+Selection.all[0].eid.to_s, class: 'primary btn'  
 %br
 = link_to 'Home', :root
+\|
+= link_to 'Back', :root
 \|
 = link_to 'New Election Log', new_election_path

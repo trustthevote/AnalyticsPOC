@@ -16,16 +16,18 @@
     %table
       %tr
         %td
-          %h1
-            Election Log
+          -if @election.voter_transaction_logs.length == 0
+            %h1
+              Update Election Log
+          -else
+            %h1
+              Election Log
         %td
           &nbsp;&nbsp;&nbsp;
         %td
           %h3{:style=>"color:darkblue;"}= "Election: "+@election.name+" ("+@election.day.to_s+")"
         %td
           &nbsp;&nbsp;&nbsp;
-        %td
-          %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)          
 %br
 .row.main
   .span2.sidebar
@@ -41,9 +43,11 @@
         %form{:action=>"/uplift",:method=>"post",
               :enctype=>"multipart/form-data",:style=>"margin:0;"}
           %input{:type=>"file",:name=>"file"}
+          %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
+          %input{:type=>"hidden",:name=>"ename",:value=>@election.name+" ("+@election.day.to_s+")"}
           %input{:type=>"submit",:value=>"Upload Log Data"}
       .span5
-        %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)
+        %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
     %h3 Voter Transaction Logs
     %table{:style=>"text-align:center"}
       %tr
@@ -71,7 +75,9 @@
   .span2
     &nbsp;
   .span10
-    = link_to "Next", '/analytic', class: 'primary btn'  
+    = link_to "Next", '/analytic?id='+@election.id.to_s, class: 'primary btn'  
 = link_to 'Home', :root
+\|
+= link_to 'Back', elections_path
 \|
 = link_to 'List All', elections_path
