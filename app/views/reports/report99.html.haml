@@ -4,8 +4,10 @@
   %h3= @report_date
   %br
   %br
-  %b{:style=>"color:red;"}
-    The presence of this  page is indicative of an error in the Analytics
-    report generation process. 
-  %span{:style=>"position:absolute;top:640px;"}
-    = link_to 'Back', '/analytic?id='+@election.id.to_s
+  .row
+    .span3
+      %b{:style=>"color:red;"}
+        WARNING: Shouldn't Happen!
+      %br
+      %span{:style=>"position:absolute;top:640px;"}
+        = link_to 'Back', '/analytic?id='+@election.id.to_s

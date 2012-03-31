@@ -30,17 +30,17 @@
       %div#scroil
         %table{:style=>"margin:10px;"}
           %tr
-            %td= link_to "Voter Participation Report", '/report?rn=1', class: 'primary btn'       
+            %td= link_to "Voter Participation Report", '/report?rn=1;id='+@election.id.to_s, class: 'primary btn'       
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2', class: 'primary btn'  
+            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2;id='+@election.id.to_s, class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Ballot Adjucation Report", '/report', class: 'primary btn'  
+            %td= link_to "Ballot Adjucation Report", '/report?rn=3;id='+@election.id.to_s, class: 'primary btn'
           %tr
             %td
               &nbsp;
