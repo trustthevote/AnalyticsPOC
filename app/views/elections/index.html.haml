@@ -5,14 +5,14 @@
     .span10
       .row 
         -if ((Selection.all.length > 0) and (Election.all.any? {|e| e.id == Selection.all[0].eid}))
-          .span8#state
+          .span9#state
             %span#stateb= link_to '1. Select Election Log', elections_path
             = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
             = link_to '2. Load Data', '/elections/'+Selection.all[0].eid.to_s
             = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
             = link_to '3. Analyze', '/analytic?id='+Selection.all[0].eid.to_s
-          .span2#statex
-            = link_to "Next>>", '/elections/'+Selection.all[0].eid.to_s
+          .span1#statex
+            = link_to "Next", '/elections/'+Selection.all[0].eid.to_s
             = "&nbsp;".html_safe
         -else
           .span10#state

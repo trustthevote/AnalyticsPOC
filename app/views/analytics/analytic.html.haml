@@ -14,11 +14,16 @@
           exported as‐is, or anonymized with all voter identifying data
           obscured.
     .span10
-      %span#state= link_to '1. Select Election Log', elections_path
-      %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      %span#state= link_to '2. Load Data', '/elections/'+@election.id.to_s
-      %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      %span#stateb= link_to '3. Analyze', '/analytic?id='+@election.id.to_s
+      .row
+        .span9
+          %span#state= link_to '1. Select Election Log', elections_path
+          %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+          %span#state= link_to '2. Load Data', '/elections/'+@election.id.to_s
+          %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+          %span#stateb= link_to '3. Analyze', '/analytic?id='+@election.id.to_s
+        .span1#statey
+          = link_to "Next", '/analytic?id'+@election.id.to_s
+          = "&nbsp;".html_safe
       %hr
       .row
         .span5#likeh1

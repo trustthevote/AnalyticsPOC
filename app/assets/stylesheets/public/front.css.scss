@@ -45,9 +45,12 @@
     }
   }
 
+  a { color: #3D59AB;
+      text-decoration:none }
+
   .sidebar {
     em {
-      color: #0064cd;
+      color: #3D59AB;
     }
 
     .signature {	
@@ -85,14 +88,25 @@
 #statex {
   font-size: 20px;
   text-align: right;
-  color: #FF4500;
-  a { color: #FF4500; }
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #3D59AB;
+  a { color: white; }
+}
+
+#statey {
+  font-size: 20px;
+  text-align: right;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: white;
+  a { color: white; }
 }
 
 #scroil {
    background: #FFFAF0;
    width: 779px;
-   height: 350px;
+   height: 345px;
    overflow-y: auto;
    overflow-x: hidden;
 }
@@ -117,7 +131,7 @@
     font-size: 18px;
     text-align: left;
     line-height: 34px;
-    color: #0064cd;
+    color: #3D59AB;
 }
 
 #likeh3b {
@@ -131,5 +145,5 @@
     font-size: 18px;
     text-align: right;
     line-height: 34px;
-    color: #0064cd;
+    color: #3D59AB;
 }
