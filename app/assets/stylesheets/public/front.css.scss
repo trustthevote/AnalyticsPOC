@@ -1,4 +1,10 @@
 #front {
+
+  backgroundcolor: #ffff00;
+  border: 1px;
+  height: 462px;
+  overflow: hidden;
+
   h2 {
     font-size: 225%;
   }
@@ -41,8 +47,55 @@
       color: #0064cd;
     }
 
-    .signature {
+    .signature {	
       font-style: italic;
     }
   }
+}
+
+#state {
+  font-size: 20px;
+  color: #CCCCCC;
+  a { color: #CCCCCC; }
+}
+
+#stateb {
+  font-size: 20px;
+  color: #777777;
+  a { color: #777777; }
+}
+
+#stateblack {
+  font-size: 20px;
+  color: #000000;
+  a { color: #000000; }
+}
+
+#statex {
+  font-size: 20px;
+  text-align: right;
+  color: #FF4500;
+  a { color: #FF4500; }
+}
+
+#scroil {
+   background: #FFFAF0;
+   width: 779px;
+   height: 368px;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+#likeh1 {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 34px;
+    text-align: left;
+    color: black;
+}
+
+#likeh3 {
+    font-size: 18px;
+    text-align: right;
+    color: #0064cd;
 }

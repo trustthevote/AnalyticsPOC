@@ -1,7 +1,7 @@
-= form_for @election do |f|
+'= form_for @election do |f|
   -if @election.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@election.errors.count, "error")} prohibited this election from being saved:"
+      %h3= "WARNING: #{pluralize(@election.errors.count, "error")} prohibited this election from being saved:"
       %ul
         - @election.errors.full_messages.each do |msg|
           %li= msg

@@ -1,49 +1,79 @@
-.row.main
-  .span2.sidebar{:style=>"color:darkblue;"}
-    %p
-      With all the relevant data loaded, you can now run a variety of
-      analytics over the consolidated set of data from all the logs that have
-      been previously loaded.  (If you need to load some more data, go back to
-      "2. Load Data") 
-
-    %p
-      In addition to a variety of reports that you can generate, you can also
-      export a consolidated data set including all the log data, for
-      publication or use with other data mining tools.  The data can be
-      exported as‐is, or anonymized with all voter identifying data obscured.
-  .span10
-    %h3{:style=>"color:lightgray;"}
-      = "1. Select Election Log"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      = "2. Load Data"
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      = "3. Analyze"
-    %hr
-  .span10
-    %table
-      %tr
-        %td
-          %h1
-            Analyze Election Log
-        %td
-          &nbsp;&nbsp;&nbsp;
-        %td
-          %h3{:style=>"color:darkblue;"}= "Election: "+@election.display()
-    .row
-      .span10{:style=>"padding:20px;"}
-        = link_to "Voter Participation Report", '/voterpart?id='+@election.id.to_s, class: 'primary btn'  
-    .row
-      .span10{:style=>"padding:20px;"}
-        = link_to "UOCAVA Ballot Return Report", '/voterpart', class: 'primary btn'  
-    .row
-      .span10{:style=>"padding:20px;"}
-        = link_to "Ballot Adjucation Report", '/voterpart', class: 'primary btn'  
-    .row
-      .span10{:style=>"padding:20px;"}
-        = link_to "Etc.", '/voterpart', class: 'primary btn'  
-
-= link_to 'Home', :root
-\|
-= link_to 'Back', '/elections/'+@election.id.to_s
-\|
-= link_to 'List All', elections_path
+#front
+  .row
+    .span2.sidebar
+      %em
+        %p
+          With all the relevant data loaded, you can now run a variety of
+          analytics over the consolidated data from all logs previously
+          loaded.  (If you need to load some more data, go back to 
+          "2. Load Data") 
+        %p
+          In addition to a variety of reports that you can generate, you can also
+          export a consolidated data set including all the log data, for
+          publication or use with other data mining tools.  The data can be
+          exported as‐is, or anonymized with all voter identifying data
+          obscured.
+    .span10
+      %span#state= link_to '1. Select Election Log', elections_path
+      %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      %span#state= link_to '2. Load Data', '/elections/'+@election.id.to_s
+      %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+      %span#stateb= link_to '3. Analyze', '/analytic?id='+@election.id.to_s
+      %hr
+      .row
+        .span5#likeh1
+          Analyze Election Log
+        .span5#likeh3
+          = "Election: "+@election.display()
+          = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
+      %br
+      %div#scroil
+        %table{:style=>"margin:20px;padding:10px;"}
+          %tr
+            %td= link_to "Voter Participation Report", '/voterpart?id='+@election.id.to_s, class: 'primary btn'       
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "UOCAVA Ballot Return Report", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Ballot Adjucation Report", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "The Very Last Report You Will Ever Need", '/voterpart', class: 'primary btn'  
+  .row
+    %span{:style=>"position:absolute;top:640px;"}
+      .span3
+        = link_to 'Back', '/elections/'+@election.id.to_s
+        \|
+        = link_to 'All Logs', elections_path

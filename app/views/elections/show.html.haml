@@ -1,82 +1,86 @@
-.row
-  .span2
-    &nbsp;
-  .span10
-    %h3{:style=>"color:lightgray;"}
-      = "1. Select Election Log"
-      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
-      = "2. Load Data"
-      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
-      = "3. Analyze"
-    %hr
-.row
-  .span2
-    &nbsp;
-  .span10
-    %table
-      %tr
-        %td
-          -if @election.voter_transaction_logs.length == 0
-            %h1
-              Update Election Log
-          -else
-            %h1
-              Election Log
-        %td
-          &nbsp;&nbsp;&nbsp;
-        %td
-          %h3{:style=>"color:darkblue;"}= "Election: "+@election.display()
-        %td
-          &nbsp;&nbsp;&nbsp;
-%br
-.row.main
-  .span2.sidebar
-    %p{:style=>"color:darkblue;"}
-      You can update this election log by uploading additional log data, or by
-      deleting existing logs that may be outdated.
-    %p{:style=>"color:darkblue;"}
-      If you have all the relevant data needed for analysis, then your next
-      step is Analytics.
-  .span10
-    .row
-      .span5
-        %form{:action=>"/uplift",:method=>"post",
-              :enctype=>"multipart/form-data",:style=>"margin:0;"}
-          %input{:type=>"file",:name=>"file"}
-          %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
-          %input{:type=>"submit",:value=>"Upload Log Data"}
-      .span5
-        %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
-    %h3 Voter Transaction Logs
-    %table{:style=>"text-align:center"}
-      %tr
-        %th Date
-        %th &nbsp;
-        %th Origin
-        %th &nbsp;
-        %th Uniq
-        %th &nbsp;
-        %th Records
-        %th
-        %th
-      - @election.voter_transaction_logs.each do |vtl|
-        %tr
-          %td= vtl.datime
-          %td
-          %td= vtl.origin
-          %td
-          %td= vtl.origin_uniq
-          %td
-          %td= vtl.voter_transaction_records.length
-          %td= link_to 'Show', vtl
-          %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
-.row
-  .span2
-    &nbsp;
-  .span10
-    = link_to "Next", '/analytic?id='+@election.id.to_s, class: 'primary btn'
-= link_to 'Home', :root
-\|
-= link_to 'Back', elections_path
-\|
-= link_to 'List All', elections_path
+#front
+  .row
+    .span2
+      &nbsp;
+    .span10
+      .row 
+        -if ((Selection.all.length > 0) and (Election.all.any? {|e| e.id == Selection.all[0].eid}))
+          .span8#state
+            = link_to '1. Select Election Log', elections_path
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            %span#stateb= link_to '2. Load Data', '/elections/'+@election.id.to_s
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = link_to '3. Analyze', '/analytic?id='+@election.id.to_s
+          .span2#statex
+            = link_to "Next>>", '/analytic?id'+@election.id.to_s
+            = "&nbsp;".html_safe
+        -else
+          .span10#state
+            = link_to '1. Select Election Log', elections_path
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            %span#stateb= link_to '2. Load Data', '/elections/'+@election.id.to_s
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = link_to '3. Analyze', '/analytic?id='+@election.id.to_s
+      %hr
+  .row
+    .span2
+      &nbsp;
+    .span5#likeh1
+      -if @election.voter_transaction_logs.length == 0
+        = 'Update Election Log'
+      -else
+        = 'Election Log'
+    .span5#likeh3
+      = "Election: "+@election.display()
+      = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
+  .row
+    %br
+    .span2.sidebar
+      %em
+        %p
+          You can update this election log by uploading additional log data, or by
+          deleting existing logs that may be outdated.
+        %p
+          If you have all the relevant data needed for analysis, then your next
+          step is Analytics.
+    .span10
+      .row
+        .span5
+          %form{:action=>"/uplift",:method=>"post",
+                :enctype=>"multipart/form-data",:style=>"margin:0;"}
+            %input{:type=>"file",:name=>"file"}
+            %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
+            %input{:type=>"submit",:value=>"Upload Log Data"}
+        .span5
+          %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
+      %h3 Voter Transaction Logs
+      %div#scroil{:style=>"height:305px;"}
+        %table{:style=>"text-align:center;"}
+          %tr
+            %th Date
+            %th &nbsp;
+            %th Origin
+            %th &nbsp;
+            %th Uniq
+            %th &nbsp;
+            %th Records
+            %th
+            %th
+          - @election.voter_transaction_logs.each do |vtl|
+            %tr
+              %td= vtl.datime
+              %td
+              %td= vtl.origin
+              %td
+              %td= vtl.origin_uniq
+              %td
+              %td= vtl.voter_transaction_records.length
+              %td= link_to 'Show', vtl
+              %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method=>:delete
+  %br
+  .row
+    %span{:style=>"position:absolute;top:640px;"}
+      .span2
+        = link_to 'Back', elections_path
+        \|
+        = link_to 'All Logs', elections_path

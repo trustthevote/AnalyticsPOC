@@ -1,89 +1,89 @@
-.row
-  .span2
-    &nbsp;
-  .span10
-    %h3{:style=>"color:lightgray;"}
-      = "1. Select Election Log"
-      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
-      = "2. Load Data"
-      = "&nbsp;&nbsp;".html_safe+"|""&nbsp;&nbsp;".html_safe
-      = "3. Analyze"
-    %hr
-.row
-  .span2
-    &nbsp;
-  .row 
-    .span10.option
-      %h1
-        Election Logs
-      %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)          
-
-%br
-.row.main
-  .span2.sidebar
-    %p{:style=>"color:darkblue;"}
-      Select an election log that you or colleagues have already created (may
-      already be selected, via cookies, explain).  After 
-      selecting one, you can update it with additional log data, if any, and
-      then examine the analytics of the log data, which describes each
-      voter’s activities during this election cycle.
-  .span10
-    %table{:style=>"text-align:center;margin-left:20px;",:border=>"0px"}
-      %tr
-        %th Election
-        %th &nbsp;
-        %th Election
-        %th &nbsp;
-        %th Voter Start
-        %th &nbsp;
-        %th Voter End
-        %th &nbsp;
-        %th Voter
-        %th 
-        %th
-        %th
-        %th
-      %tr
-        %th Name
-        %th &nbsp;
-        %th Date
-        %th &nbsp;
-        %th Date
-        %th &nbsp;
-        %th Date
-        %th &nbsp;
-        %th Logs
-        %th 
-        %th
-        %th
-        %th
-      - @elections.each do |election|
+#front
+  .row
+    .span2
+      &nbsp;
+    .span10
+      .row 
+        -if ((Selection.all.length > 0) and (Election.all.any? {|e| e.id == Selection.all[0].eid}))
+          .span8#state
+            %span#stateb= link_to '1. Select Election Log', elections_path
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = link_to '2. Load Data', '/elections/'+Selection.all[0].eid.to_s
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = link_to '3. Analyze', '/analytic?id='+Selection.all[0].eid.to_s
+          .span2#statex
+            = link_to "Next>>", '/elections/'+Selection.all[0].eid.to_s
+            = "&nbsp;".html_safe
+        -else
+          .span10#state
+            %span#stateb= link_to '1. Select Election Log', elections_path
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = '2. Load Data'
+            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
+            = '3. Analyze'
+      %hr
+      .row
+        .span5#likeh1
+          Election Logs
+        .span5#likeh3
+          = "&nbsp;".html_safe
+      %br
+  .row
+    .span2.sidebar
+      %em
+        Select an election log that you or colleagues have already created (may
+        already be selected, via cookies, explain).  After 
+        selecting one, you can update it with additional log data, if any, and
+        then examine the analytics of the log data, which describes each
+        voter’s activities during this election cycle.
+    .span10#scroil
+      %table{:style=>"text-align:center;margin-left:20px;"}
         %tr
-          %td= election.name
-          %td
-          %td= election.day
-          %td
-          %td= election.voter_start_day
-          %td
-          %td= election.voter_end_day
-          %td
-          %td= election.voter_transaction_logs.length
-          %td{:style=>"font-weight:bold;"}= (((Selection.all.length > 0) and (election.id == Selection.all[0].eid)) ? "&lowast;".html_safe : "" )
-          %td= link_to 'Select', {:select => true, :id => election.id}
-          %td= link_to 'Show', election
-          %td= link_to 'Destroy', election, :confirm => 'Are you sure?', :method => :delete
-
-.row
-  .span2
-    &nbsp;
-  .span10
-    -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
-      %h3{:style=>"color:darkblue;"}= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
-    -else
-      = link_to "Next", '/elections/'+Selection.all[0].eid.to_s, class: 'primary btn'  
-%br
-= link_to 'Home', :root
-\|
-= link_to 'Back', :root
-\|
-= link_to 'New Election Log', new_election_path
+          %th Election
+          %th &nbsp;
+          %th Election
+          %th &nbsp;
+          %th Voter Start
+          %th &nbsp;
+          %th Voter End
+          %th &nbsp;
+          %th Voter
+          %th 
+          %th
+          %th
+          %th
+        %tr
+          %th Name
+          %th &nbsp;
+          %th Date
+          %th &nbsp;
+          %th Date
+          %th &nbsp;
+          %th Date
+          %th &nbsp;
+          %th Logs
+          %th 
+          %th
+          %th
+          %th
+        - @elections.each do |election|
+          %tr
+            %td= election.name
+            %td
+            %td= election.day
+            %td
+            %td= election.voter_start_day
+            %td
+            %td= election.voter_end_day
+            %td
+            %td= election.voter_transaction_logs.length
+            %td{:style=>"font-weight:bold;"}= (((Selection.all.length > 0) and (election.id == Selection.all[0].eid)) ? "&lowast;".html_safe : "" )
+            %td= link_to 'Select', {:select => true, :id => election.id}
+            %td= link_to 'Show', election
+            %td= link_to 'Destroy', election, :confirm => 'Are you sure?', :method => :delete
+  .row
+    %span{:style=>"position:absolute;top:640px;"}
+      .span3
+        = link_to 'Back', :root
+        \|
+        = link_to 'New Election Log', new_election_path

@@ -2,7 +2,7 @@
 <voterTransactionLog>
   <header>
     <origin>Test</origin>
-    <originUniq>2800</originUniq>
+    <originUniq>vtl_gen2.xml</originUniq>
     <date>2012-05-28T10:10:00Z</date>
   </header>
   <voterTransactionRecord>

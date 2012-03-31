@@ -1,13 +1,15 @@
 .row
   .span5
     %h2 Voter Log File Error
-    %h3{:style=>"color:darkblue;"}= "Election: "+@election.display()
+    %span#likeh3= "Election: "+@election.display()
+    %br
     %br
     %p
       %b= link_to "Back", '/analytic?id='+@election.id.to_s, class: 'primary btn'
     %br
     %h3= @uplift_msg
     %br
+
     %p
       = @uplift_err
   .span7
