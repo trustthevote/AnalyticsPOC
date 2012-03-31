@@ -21,7 +21,8 @@
             %span#stateb= link_to '2. Load Data', '/elections/'+@election.id.to_s
             = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
             = link_to '3. Analyze', '/analytic?id='+@election.id.to_s
-      %hr
+      %span{:style=>"color:black;"}
+        %hr
   .row
     .span2
       &nbsp;
@@ -30,7 +31,7 @@
         = 'Update Election Log'
       -else
         = 'Election Log'
-    .span5#likeh3
+    .span5#likeh3r
       = "Election: "+@election.display()
       = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
   .row
@@ -54,8 +55,8 @@
         .span5
           %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
       %h3 Voter Transaction Logs
-      %div#scroil{:style=>"height:305px;"}
-        %table{:style=>"text-align:center;"}
+      %div#scroil{:style=>"height:287px;"}
+        %table{:style=>"text-align:center;margin:10px"}
           %tr
             %th Date
             %th &nbsp;

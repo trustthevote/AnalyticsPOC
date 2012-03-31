@@ -26,7 +26,7 @@
     end
   end
 
-  resource :voterpart
+  resource :report
 
   resources :voters
 

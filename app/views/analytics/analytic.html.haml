@@ -23,54 +23,54 @@
       .row
         .span5#likeh1
           Analyze Election Log
-        .span5#likeh3
+        .span5#likeh3r
           = "Election: "+@election.display()
           = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
       %br
       %div#scroil
-        %table{:style=>"margin:20px;padding:10px;"}
+        %table{:style=>"margin:10px;"}
           %tr
-            %td= link_to "Voter Participation Report", '/voterpart?id='+@election.id.to_s, class: 'primary btn'       
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "UOCAVA Ballot Return Report", '/voterpart', class: 'primary btn'  
+            %td= link_to "Voter Participation Report", '/report?rn=1', class: 'primary btn'       
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Ballot Adjucation Report", '/voterpart', class: 'primary btn'  
+            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+            %td= link_to "Ballot Adjucation Report", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+            %td= link_to "Etc.", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+            %td= link_to "Etc.", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+            %td= link_to "Etc.", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/voterpart', class: 'primary btn'  
+            %td= link_to "Etc.", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "The Very Last Report You Will Ever Need", '/voterpart', class: 'primary btn'  
+            %td= link_to "Etc.", '/report', class: 'primary btn'  
+          %tr
+            %td
+              &nbsp;
+          %tr
+            %td= link_to "The Very Last Report You Will Ever See", '/report?rn=99', class: 'primary btn'  
   .row
     %span{:style=>"position:absolute;top:640px;"}
       .span3
