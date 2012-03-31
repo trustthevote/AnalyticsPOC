@@ -87,7 +87,7 @@ class ReportsController < ApplicationController
         vid = vtr.vname
         if vtr.vtype =~ /UOCAVA/
           voter_ids.push(vid) unless voter_ids.include?(vid)
-          if vtr.action == "approve"
+          if vtr.action == 'approve'
             if vtr.form =~ /Absentee Ballot/
               @vote_aa += 1
               @voted += 1
@@ -101,13 +101,13 @@ class ReportsController < ApplicationController
               @vote_upd += 1 
               @voted += 1
             end
-          elsif vtr.action == "reject"
+          elsif vtr.action == 'reject'
             if vtr.form =~ /Absentee Ballot/
               @vote_ar += 1
               @voted += 1
             end
-          elsif vtr.action == "start"
-            if vtr.form =~ /Absentee Ballot/
+          elsif vtr.form =~ /Absentee Ballot/
+            unless vtr.action == 'discard' #JVC really?
               @vote_ab += 1
               @voted += 1
             end
