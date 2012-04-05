@@ -29,10 +29,10 @@ gem 'simple_form'
 
 gem 'prawn_rails'
 
-group :development do
+#group :development do
   gem 'capistrano'
   gem 'thin'
-end
+#end
 
 group :test do
 # gem 'rspec'
@@ -48,7 +48,7 @@ group :test do
 # gem 'capybara'
 end
 
-group :development, :test do
+#group :development, :test do
   gem 'sqlite3'
-end
+#end
 gem 'carrierwave'
