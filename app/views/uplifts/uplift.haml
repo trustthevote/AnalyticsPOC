@@ -1,15 +1,14 @@
 .row
   .span5
     %h2 Voter Log File Error
-    %span#likeh3= "Election: "+@election.display()
+    %span#likeh3= "Election: "+(defined?(@election) ? @election.display() : "Unknown")
     %br
     %br
-    %p
-      %b= link_to "Back", '/analytic?id='+@election.id.to_s, class: 'primary btn'
+    %p 
+      %b= link_to "Back", (defined?(@election) ? '/elections/'+@election.id.to_s : :back), class: 'primary btn'
     %br
     %h3= @uplift_msg
     %br
-
     %p
       = @uplift_err
   .span7

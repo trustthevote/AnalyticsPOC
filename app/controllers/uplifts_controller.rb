@@ -87,8 +87,7 @@ class UpliftsController < ApplicationController
         if (@uplift_err == "")
           @uplift_err = "Validation: OK"
         end
-        render :file => "/home/jvc/Software/Analytics/app/views/elections/show.html.haml"
-        #redirect_to '/elections/'+eid.to_s, {:params=>{:id=>eid}}
+        redirect_to '/elections/'+eid.to_s, {:params=>{:id=>eid}}
       else
         render :uplift
       end
