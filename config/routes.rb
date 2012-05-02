@@ -20,6 +20,13 @@
     end
   end
 
+  resource :voter, only: [], path: '' do
+    member do
+      post :voter
+      get :voter
+    end
+  end
+
   resource :uplift, only: [], path: '' do
     member do
       post :uplift
@@ -27,8 +34,6 @@
   end
 
   resource :report
-
-  resources :voters
 
   resources :voter_transaction_records do
     match "/:id(.:format)" => 'voter_transaction_records#index'

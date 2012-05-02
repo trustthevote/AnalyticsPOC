@@ -49,13 +49,7 @@
       text-decoration:none }
 
   .sidebar {
-    em {
-      color: #3D59AB;
-    }
-
-    .signature {	
-      font-style: italic;
-    }
+    color: #3D59AB;
   }
 
   hr {
@@ -67,40 +61,67 @@
   }
 }
 
-#state {
-  font-size: 20px;
-  color: #CCCCCC;
-  a { color: #CCCCCC; }
+#selectionred {
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
 }
 
-#stateb {
-  font-size: 20px;
-  color: #777777;
-  a { color: #777777; }
-}
-
-#stateblack {
-  font-size: 20px;
-  color: #000000;
-  a { color: #000000; }
-}
-
-#statex {
-  font-size: 20px;
-  text-align: right;
+#stateget {
+  font-size: 17px;
+  text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #3D59AB;
   a { color: white; }
 }
 
-#statey {
-  font-size: 20px;
-  text-align: right;
+#statebacknext {
+  font-size: 18px;
   padding-top: 5px;
   padding-bottom: 5px;
-  background-color: white;
+  text-align: center;
+  background-color: black;
   a { color: white; }
+}
+
+.btnbacknext {
+  font-size: 18px;
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+#statebar {
+  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: lightblue;
+  color: #3D59AB;
+}
+
+#doing {
+  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: #3D59AB;
+  color: white;
+}
+
+#todo {
+  font-size: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  background-color: #DDDDDD;
+  color: black;
+}
+
+#positionbacknext {
+  position: absolute;
+  top: 640px;
 }
 
 #scroil {
@@ -127,6 +148,14 @@
     color: black;
 }
 
+#likeh2blue {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 34px;
+    text-align: left;
+    color: #3D59AB;
+}
+
 #likeh3 {
     font-size: 18px;
     text-align: left;
@@ -146,4 +175,11 @@
     text-align: right;
     line-height: 34px;
     color: #3D59AB;
+}
+
+.capbold {
+    text-transform:capitalize;
+    font-weight:bold;
+    color: #3D59AB;
+    font-size: 16px;
 }

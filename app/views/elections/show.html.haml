@@ -1,87 +1,91 @@
 #front
   .row
-    .span2
-      &nbsp;
-    .span10
-      .row 
-        -if ((Selection.all.length > 0) and (Election.all.any? {|e| e.id == Selection.all[0].eid}))
-          .span9#state
-            = link_to '1. Select Election Log', elections_path
-            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-            %span#stateb= link_to '2. Load Data', '/elections/'+@election.id.to_s
-            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-            = link_to '3. Analyze', '/analytic?id='+@election.id.to_s
-          .span1#statex
-            = link_to "Next", '/analytic?id'+@election.id.to_s
-            = "&nbsp;".html_safe
-        -else
-          .span10#state
-            = link_to '1. Select Election Log', elections_path
-            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-            %span#stateb= link_to '2. Load Data', '/elections/'+@election.id.to_s
-            = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-            = link_to '3. Analyze', '/analytic?id='+@election.id.to_s
-      %span{:style=>"color:black;"}
-        %hr
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
+    .span8
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td#doing{:style=>"width:25%;"}
+            Add Logs
+          %td#todo{:style=>"width:25%;"}
+            Add Voters
+          %td#todo{:style=>"width:25%;"}
+            Analyze
+      %hr
   .row
     .span2
       &nbsp;
-    .span5#likeh1
-      -if @election.voter_transaction_logs.length == 0
-        = 'Update Election Log'
-      -else
-        = 'Election Log'
-    .span5#likeh3r
-      = "Election: "+@election.display()
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
+    .span10#likeh2blue
+      Upload New Voter Transaction Log
   .row
-    %br
     .span2.sidebar
-      %em
+      - if (defined?(@election) && @election.voter_transaction_logs.length>0)
         %p
-          You can update this election log by uploading additional log data, or by
-          deleting existing logs that may be outdated.
+          You can update this election log by uploading additional log data,
+          or by deleting existing logs that may be outdated.
         %p
-          If you have all the relevant data needed for analysis, then your next
-          step is Analytics.
+          If you have all the log data needed for analysis, 
+          then your next step is to check the voter records.
+      - else
+        %p
+          Your second step is to upload the ﬁles that contain the voter
+          activity log data for this election, for example, logs from a voter
+          registration system, online voter services system, online balloting 
+          system, or election management system. 
+        %p
+          If you don’t have all the log data, that’s OK &mdash; you can return
+          later and add more log data, or replace logs you have already loaded.
     .span10
       .row
-        .span5
+        .span7
           %form{:action=>"/uplift",:method=>"post",
                 :enctype=>"multipart/form-data",:style=>"margin:0;"}
             %input{:type=>"file",:name=>"file"}
             %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
-            %input{:type=>"submit",:value=>"Upload Log Data"}
-        .span5
+            %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
+            %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+        .span3
           %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
-      %h3 Voter Transaction Logs
-      %div#scroil{:style=>"height:287px;"}
-        %table{:style=>"text-align:center;margin:10px"}
-          %tr
-            %th Date
-            %th &nbsp;
-            %th Origin
-            %th &nbsp;
-            %th Uniq
-            %th &nbsp;
-            %th Records
-            %th
-            %th
-          - @election.voter_transaction_logs.each do |vtl|
+      %b#likeh2blue Voter Transaction Logs
+      %div#scroil{:style=>"height:237px;"}
+        - if (defined?(@election) && @election.voter_transaction_logs.length>0)
+          %table{:style=>"text-align:center;margin:10px"}
             %tr
-              %td= vtl.datime
-              %td
-              %td= vtl.origin
-              %td
-              %td= vtl.origin_uniq
-              %td
-              %td= vtl.voter_transaction_records.length
-              %td= link_to 'Show', vtl
-              %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method=>:delete
-  %br
-  .row
-    %span{:style=>"position:absolute;top:640px;"}
-      .span2
-        = link_to 'Back', elections_path
-        \|
-        = link_to 'All Logs', elections_path
+              %th Date
+              %th &nbsp;
+              %th Origin
+              %th &nbsp;
+              %th Uniq
+              %th &nbsp;
+              %th Records
+              %th
+              %th
+            - @election.voter_transaction_logs.each do |vtl|
+              %tr
+                %td= vtl.datime
+                %td
+                %td= vtl.origin
+                %td
+                %td= vtl.origin_uniq
+                %td
+                %td= vtl.voter_transaction_records.length
+                %td= link_to 'Show', vtl
+                %td= link_to 'Delete', vtl, :confirm => 'Are you sure?', :method=>:delete
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to 'Back', elections_path
+    .span6
+      &nbsp;
+    -if (defined?(@election))
+      .span1#statebacknext
+        = link_to "Next", '/voter?id='+@election.id.to_s

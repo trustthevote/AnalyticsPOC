@@ -1,13 +1,27 @@
 #front
-  %h1= 'The Very Last Report You Will Ever See'
-  %h3= 'Election: '+@election.display()
-  %h3= @report_date
-  %br
-  %br
   .row
-    .span3
-      %b{:style=>"color:red;"}
-        WARNING: Shouldn't Happen!
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
+    .span10
+      #likeh2blue The Very Last Report You Will Ever See
+  .row
+    .span2.sidebar
       %br
-      %span{:style=>"position:absolute;top:640px;"}
+      Describe report here
+    .span10#selectionred
+      %br
+      WARNING: Shouldn't Happen!
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      - if (defined?(@election))
         = link_to 'Back', '/analytic?id='+@election.id.to_s
+      - else
+        = link_to 'Back', :back

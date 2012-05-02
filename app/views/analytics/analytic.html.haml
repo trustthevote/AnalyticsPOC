@@ -1,38 +1,38 @@
 #front
   .row
-    .span2.sidebar
-      %em
-        %p
-          With all the relevant data loaded, you can now run a variety of
-          analytics over the consolidated data from all logs previously
-          loaded.  (If you need to load some more data, go back to 
-          "2. Load Data") 
-        %p
-          In addition to a variety of reports that you can generate, you can also
-          export a consolidated data set including all the log data, for
-          publication or use with other data mining tools.  The data can be
-          exported as‐is, or anonymized with all voter identifying data
-          obscured.
-    .span10
-      .row
-        .span9
-          %span#state= link_to '1. Select Election Log', elections_path
-          %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-          %span#state= link_to '2. Load Data', '/elections/'+@election.id.to_s
-          %span#state= "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-          %span#stateb= link_to '3. Analyze', '/analytic?id='+@election.id.to_s
-        .span1#statey
-          = link_to "Next", '/analytic?id'+@election.id.to_s
-          = "&nbsp;".html_safe
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
+    .span8
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
       %hr
-      .row
-        .span5#likeh1
-          Analyze Election Log
-        .span5#likeh3r
-          = "Election: "+@election.display()
-          = "&nbsp;".html_safe+"&nbsp;".html_safe+"&nbsp;".html_safe
-      %br
-      %div#scroil
+  .row
+    .span2.sidebar
+      %p
+        With all the relevant data loaded, you can now run a variety of
+        analytics over the consolidated set data from all the logs that
+        have been previously loaded.
+      %p
+        %u More about reporting (add link)
+      %p
+        %u More about data export (add link)
+    .span10
+      %b#likeh2blue Analyses and Reports
+      %div#scroil{:style=>"height:322px;"}
         %table{:style=>"margin:10px;"}
           %tr
             %td= link_to "Voter Participation Report", '/report?rn=1;id='+@election.id.to_s, class: 'primary btn'       
@@ -65,20 +65,9 @@
             %td
               &nbsp;
           %tr
-            %td= link_to "Etc.", '/report', class: 'primary btn'  
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "Etc.", '/report', class: 'primary btn'  
-          %tr
-            %td
-              &nbsp;
-          %tr
             %td= link_to "The Very Last Report You Will Ever See", '/report?rn=99', class: 'primary btn'  
-  .row
-    %span{:style=>"position:absolute;top:640px;"}
-      .span3
-        = link_to 'Back', '/elections/'+@election.id.to_s
-        \|
-        = link_to 'All Logs', elections_path
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to 'Back', (defined?(@election) ? '/voter?id='+@election.id.to_s : :back)

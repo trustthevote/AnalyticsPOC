@@ -49,7 +49,7 @@ group :test do
 # gem 'capybara'
 end
 
-group :development, :test do
-  gem 'sqlite3'
-end
+#group :development, :test do
+#  gem 'sqlite3'
+#end
 gem 'carrierwave'

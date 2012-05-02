@@ -1,37 +1,40 @@
 #front
   .row
-    .span2
-      &nbsp;
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
     .span10
-      %span#likeh1= 'UOCAVA Ballot Return Report'
-      %br
+      #likeh2blue UOCAVA Ballot Return Report
   .row
     .span2.sidebar
-      %em
-        First we show the number of unique UOCAVA voters
-        found in the voter transaction logs for this election. Then we give
-        the total number (and relative percentage) of those who:
-        %ul
-          %li
-            registered to vote,
-          %li
-            updated their voter registration,
-          %li
-            requested/updated absentee status,
-          %li
-            started filling out an absentee  ballot.
-        And finally, those whose absentee ballots were either
-        %ul
-          %li
-            approved, or 
-          %li
-            rejected.
-    .span10
-      %span#likeh3b= "Election: "+@election.display()
       %br
+      First we show the number of unique UOCAVA voters
+      found in the voter transaction logs for this election. Then we give
+      the total number (and relative percentage) of those who:
+      %ul
+        %li
+          registered to vote,
+        %li
+          updated their voter registration,
+        %li
+          requested/updated absentee status,
+        %li
+          started filling out an absentee  ballot.
+      And finally, those whose absentee ballots were either
+      %ul
+        %li
+          approved, or 
+        %li
+          rejected.
+    .span10
       %span#likeh3b= @report_date
       %br
-      %div#scroil
+      %div#scroil{:style=>"height:362px"}
         %table{:style=>"text-align:center;margin:10px;"}
           %tr
             %th 
@@ -99,8 +102,11 @@
             %td
             %td= (@vote_ar*100/@xvoters).round.to_s+"%"
             %td
-  .row
-    %span{:style=>"position:absolute;top:640px;"}
-      .span3
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      - if (defined?(@election))
         = link_to 'Back', '/analytic?id='+@election.id.to_s
-  
+      - else
+        = link_to 'Back', :back

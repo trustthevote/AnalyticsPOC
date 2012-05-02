@@ -1,0 +1,48 @@
+#front
+  .row
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
+    .span8
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td#doing{:style=>"width:25%;"}
+            Add Voters
+          %td#todo{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    .span2.sidebar
+      %p
+        You can delete or replace the voter records extracts &mdash; ID number
+        and demographic data but not personal identifying information &mdash;
+        for the voters referenced in the log data, or even for all registered
+        voters. 
+      %p 
+        If the voter record extracts are all in place, you can proceed to
+        analytics.  
+    .span10
+      #likeh2blue Voter Record Dataset
+      #scroil{:style=>"height: 325px;"}
+        %table{:style=>"text-align:center;margin:10px;"}
+          %tr
+            %td
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to 'Back', (defined?(@election) ? '/elections/'+@election.id.to_s : :back)
+    .span6
+      &nbsp;
+    -if (defined?(@election))
+      .span1#statebacknext
+        = link_to "Next", '/analytic?id'+@election.id.to_s

@@ -6,17 +6,17 @@ footer {
   }
 
   .powered {
-    padding: 5px 0;
     font-size: 90%;
     span {
       background: #B0B0B0;
       color: #FFFFFF;
-      padding: 2px 4px;
+      padding: 8px 10px;
     }
   }
 
-  a { color: #3D59AB;
+  a { color: black;
       text-decoration:none }
+
   ul {
     display: inline-block;
     margin: 0;
@@ -28,7 +28,7 @@ footer {
     }
 
     li:before {
-      content: '|';
+      content: '';
       padding-right: 10px;
     }
   }

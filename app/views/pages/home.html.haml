@@ -1,49 +1,59 @@
 #front
   .row
-    .span3
-      &nbsp;
-    .span9
-      %h2 Virginia Voter Activity Analytics
-      %br
-        This service offers two ways of getting started:
-  .row
+    %br
+    %br
     .span3.sidebar
-      %em
-        %p
-          %b Welcome to Virginia Voter Activity Analytics
-        %p
-          &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
-        %p
-          This service permits voter transactions to be uploaded, stored,
-          consolidated, and analyzed, all while ensuring the privacy of
-          individual voters.  
-        %p
-          Through analysis, we can improve voter services
-          and increase voter participation, especially for those
-          voters with systemic barriers to voting, like
-          overseas and Military voters, and the disabled.
+      %p
+        %b Welcome to the Virginia Voter Activity Analytics
+      %p{:style=>"color: black;"}
+        &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
     .span9
+      %br
+  .row
+    .span3.sidebar{:style=>"color: black;"}
+      %p
+        This service permits voter transactions to be uploaded, 
+        stored, consolidated, and analyzed, all while ensuring 
+        the privacy of individual voters. 
+      %p
+        Through analysis, we can improve voter services and 
+        increase voter participation, especially for those voters with 
+        systemic barriers to voting, like overseas and Military voters, 
+        and the disabled.  
+      %p
+        %em{:style=>"color: black;"}
+          Virginia State Board of Elections
+    .span9
+      This service offers two ways of getting started:
       .row
         .span4.option
           .marker 1
           %h3 Select an Existing Election Log
+          %br
         .span4.option
           .marker 2
           %h3 Create a New Election Log
+          %br
       .row
         .span4
           %p
-            If you or your colleagues have already created an Election Log
-            for a specific election, you can access the log to insert and
-            manage the source data, and to run analytics on the consolidated
-            log data to produce a variety of reports.
+            If you or your colleagues have already created an Analytics Log
+            for a specific election, you can access that log to manage  
+            the source data, and to  run analytics over 
+            the consolidated log data to produce a variety of reports. 
         .span4
           %p
-            If no Election Log is available that suits your purpose, you can
-            create a new Election Log for a specific election and then select
-            it to be used as your Existing Election Log.
+            You can create a new Analytics Log for a speciﬁc election, and add
+            source data from election systems that log voter activity such 
+            as registration and absentee voting. You can come back to this new
+            log later to add more data as needed, and run analytics over the 
+            consolidated data. 
       .row
-        .span4
-          = link_to "Get Started Now", 'elections', class: 'primary btn'
-        .span4
-          = link_to "Get Started Now", new_election_path, class: 'primary btn'
+        .span2#stateget
+          = link_to "Get Started Now", 'elections'
+        .span2
+          &nbsp;
+        .span2#stateget
+          = link_to "Get Started Now", new_election_path
+        .span2
+          &nbsp;

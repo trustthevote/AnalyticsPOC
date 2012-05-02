@@ -2,34 +2,29 @@
   .row
     .span2
       &nbsp;
-    .span10#state
-      %span#stateb
-        = link_to '1. Create New Election Log', elections_path
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      = '2. Load Data'
-      = "&nbsp;".html_safe+"&nbsp;".html_safe+"|""&nbsp;".html_safe+"&nbsp;".html_safe
-      = '3. Analyze'
+    .span8
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td#doing{:style=>"width:25%;"}
+            Create
+          %td#todo{:style=>"width:25%;"}
+            Add Logs
+          %td#todo{:style=>"width:25%;"}
+            Add Voters
+          %td#todo{:style=>"width:25%;"}
+            Analyze
       %hr
-      .row
-        .span5#likeh1
-          Create New Election Log
-        .span5#likeh3r
-          &nbsp;
-      %br
   .row
     .span2.sidebar
-      %em
-        %p
-          Your first step is to create an empty election log, using the name of
-          the election, for example, 
-          %em
-            June 2012 Primary Election,
-          and the election date.
-        %p
-          The start date for an election’s voter activity is typically the
-          day after the previous election day.  The end date is typically the date
-          when the election will certified, after which no further ballots will be
-          counted. 
+      %p
+        Your first step is to create a new election event, using the name of
+        the election (for example, "Primary Election") and the election and
+        voter activity dates.
+      %p
+        The start date for an election’s voter activity is typically the
+        day after the previous election day.  The end date is typically the 
+        date when the election will certified, after which no further
+        ballots will be counted. 
     .span10
       = form_for @election do |f|
         -if @election.errors.any?
@@ -40,24 +35,28 @@
                 %li= msg
   
         .field
-          = f.label 'Election Name'
+          = f.label 'Election Name', :class => 'capbold'
           = f.text_field :name
+        %br
         .field
-          = f.label 'Election Date'
+          = f.label 'Election Date', :class => 'capbold'
           = f.date_select :day
+        %br
         .field
-          = f.label 'Start Date for Voter Activity'
+          = f.label 'Start Date for Voter Activity', :class => 'capbold'
           = f.date_select :voter_start_day
+        %br
         .field
-          = f.label 'End Date for Voter Activity'
+          = f.label 'End Date for Voter Activity', :class => 'capbold'
           = f.date_select :voter_end_day
-        .actions
-          = f.submit 'Save'
-  .row
-    %span{:style=>"position:absolute;top:640px;"}
-      .span3
-        = link_to 'Cancel', elections_path
-        \|
-        = link_to 'Back', :root
-        \|
-        = link_to 'List Logs', elections_path
+        .row#positionbacknext
+          .span7
+            &nbsp;
+          .span1
+            .actions
+              = f.submit 'Next', :class => 'btnbacknext'
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to 'Back', :root

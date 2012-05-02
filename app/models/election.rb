@@ -5,7 +5,7 @@ class Election < ActiveRecord::Base
   has_many :voters, :dependent => :destroy
 
   def display
-    return self.name+" ("+self.day.to_s+")"
+    return self.name+" "+self.day.strftime("%B %-d, %Y")
   end
 
 end

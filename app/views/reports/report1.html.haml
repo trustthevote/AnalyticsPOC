@@ -1,19 +1,21 @@
 #front
   .row
-    .span2
-      &nbsp;
+    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
+      .span2#selectionred
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#selectionred
+        No election event selected.
     .span10
-      %span#likeh1= 'Voter Participation Report'
-      %br
-      %span#likeh3b= "Election: "+@election.display()
-      %br
-      %span#likeh3b= @report_date
-      %br
+      #likeh2blue Voter Participation Report
   .row
     .span2.sidebar
-      %em
-        Describe the report details in this sidebar.
-    .span10#scroil{:style=>"height:420px;"}
+      %br
+      %p
+        Describe the details of this report here.
+    .span10#scroil{:style=>"height:397px"}
       %table{:style=>"text-align:center;margin:10px;"}
         %tr
           %th 
@@ -84,8 +86,11 @@
           %td
           %td= (@vote_wac*100/@xvoters).round.to_s+"%"
       %br
-  .row
-    %span{:style=>"position:absolute;top:640px;"}
-      .span3
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      - if (defined?(@election))
         = link_to 'Back', '/analytic?id='+@election.id.to_s
-  
+      - else
+        = link_to 'Back', :back

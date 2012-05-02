@@ -1,7 +1,14 @@
 .row
-  .span5
+  .span4
     %h2 Voter Log File Error
-    %span#likeh3= "Election: "+(defined?(@election) ? @election.display() : "Unknown")
+    %br
+    #selectionred
+      -if (defined?(@election))
+        = @election.name
+        %br
+        = @election.day.strftime("%B %-d, %Y")
+      - else
+        No election event selected.
     %br
     %br
     %p 
@@ -11,7 +18,7 @@
     %br
     %p
       = @uplift_err
-  .span7
+  .span8
     %h3 XML Schema for Voter Transaction Logs
     %table
       %pre{:style=>"font-size:11px;"}
