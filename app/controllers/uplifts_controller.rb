@@ -167,8 +167,10 @@ class UpliftsController < ApplicationController
     origin = self.upliftExtractContent(xml % 'header/origin')
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
     logdate = self.upliftExtractContent(xml % 'header/date')
-    vtl = VoterTransactionLog.new(:origin => origin,  :origin_uniq => ouniq,
+    vtl = VoterTransactionLog.new(:origin => origin,
+                                  :origin_uniq => ouniq,
                                   :datime => logdate,
+                                  :file_name => self.uplift_file,
                                   :election_id => eid)
     unless (vtl.save)
       @uplift_err = "Error: "
@@ -197,9 +199,13 @@ class UpliftsController < ApplicationController
         return false
       end
       vid = voter.id
-      vtr = VoterTransactionRecord.new(:datime => datime, :vname => vname,
-                                       :vtype => vtype, :action => action,
-                                       :form => form, :leo => leo,:note => note,
+      vtr = VoterTransactionRecord.new(:datime => datime,
+                                       :vname => vname,
+                                       :vtype => vtype,
+                                       :action => action,
+                                       :form => form,
+                                       :leo => leo,
+                                       :note => note,
                                        :voter_transaction_log_id => vtl.id,
                                        :voter_id => vid)
       unless (vtr.save)
