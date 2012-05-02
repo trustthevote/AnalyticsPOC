@@ -24,7 +24,10 @@
     .span2
       &nbsp;
     .span10#likeh2blue
-      Upload New Voter Transaction Log
+      -if (defined?(@election) && @election.voter_transaction_logs.length>0)
+        Voter Transaction Logs
+      -else
+        Upload New Voter Transaction Log
   .row
     .span2.sidebar
       - if (defined?(@election) && @election.voter_transaction_logs.length>0)
@@ -44,41 +47,53 @@
           If you don’t have all the log data, that’s OK &mdash; you can return
           later and add more log data, or replace logs you have already loaded.
     .span10
-      .row
-        .span7
-          %form{:action=>"/uplift",:method=>"post",
-                :enctype=>"multipart/form-data",:style=>"margin:0;"}
-            %input{:type=>"file",:name=>"file"}
-            %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
-            %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
-            %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
-        .span3
-          %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
-      %b#likeh2blue Voter Transaction Logs
+      -if !(defined?(@election) && @election.voter_transaction_logs.length>0)
+        .row
+          .span7
+            %form{:action=>"/uplift",:method=>"post",
+                  :enctype=>"multipart/form-data",:style=>"margin:0;"}
+              %input{:type=>"file",:name=>"file"}
+              %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
+              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
+              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+          .span3
+            %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
+        %b#likeh2blue No Voter Transaction Logs
       %div#scroil{:style=>"height:237px;"}
-        - if (defined?(@election) && @election.voter_transaction_logs.length>0)
-          %table{:style=>"text-align:center;margin:10px"}
-            %tr
-              %th Date
-              %th &nbsp;
-              %th Origin
-              %th &nbsp;
-              %th Uniq
-              %th &nbsp;
-              %th Records
-              %th
-              %th
-            - @election.voter_transaction_logs.each do |vtl|
+        -if (defined?(@election) &&  @election.voter_transaction_logs.length>0)
+          - @election.voter_transaction_logs.each do |vtl|
+            %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+              %tr{:style=>"font-weight:bold;"}
+                %td{:style=>"width:30%;"}
+                  = 'VTL_FILE.xml'
+                %td{:style=>"width:40%;"}
+                  %span{:style=>"color:#3D59AB;"}
+                    from
+                  = vtl.origin
+                %td{:style=>"width:10%;"}
+                  &nbsp;
+                %td{:style=>"width:10%;"}
+                  &nbsp;
+                %td{:style=>"width:10%;"}
+                  &nbsp;
               %tr
-                %td= vtl.datime
-                %td
-                %td= vtl.origin
-                %td
-                %td= vtl.origin_uniq
-                %td
-                %td= vtl.voter_transaction_records.length
+                %td= 'Uploaded: '+vtl.created_at.strftime("%Y-%m-%d %H:%M")
+                %td= number_with_delimiter(vtl.voter_transaction_records.length)+" Records"
                 %td= link_to 'Show', vtl
                 %td= link_to 'Delete', vtl, :confirm => 'Are you sure?', :method=>:delete
+                %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:update
+      -if (defined?(@election) && @election.voter_transaction_logs.length>0)
+        %b#likeh2blue Upload New Voter Transaction Log
+        .row
+          .span7
+            %form{:action=>"/uplift",:method=>"post",
+                  :enctype=>"multipart/form-data",:style=>"margin:0;"}
+              %input{:type=>"file",:name=>"file"}
+              %input{:type=>"hidden",:name=>"eid",:value=>@election.id}
+              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
+              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+          .span3
+            %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
   .row#positionbacknext
     .span2
       &nbsp;

@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 class ElectionsController < ApplicationController
 
   # GET /elections
