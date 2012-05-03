@@ -1,5 +1,7 @@
  VoterLogAnalytics::Application.routes.draw do
 
+  resources :voter_records
+
   root :to => "pages#home"
 
   resource :page, only: [], path: '' do

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Vname:
+  = @voter_record.vname
+%p
+  %b Vtype:
+  = @voter_record.vtype
+%p
+  %b Gender:
+  = @voter_record.gender
+%p
+  %b Party:
+  = @voter_record.party
+
+= link_to 'Edit', edit_voter_record_path(@voter_record)
+\|
+= link_to 'Back', voter_records_path

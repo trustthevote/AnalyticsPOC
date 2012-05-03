@@ -70,7 +70,4 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      -if (Selection.all.length > 0 && Selection.all[0].eok())
-        = link_to "Back", '/voter?id='+Selection.all[0].eid.to_s
-      -else
-        = link_to 'Back', :back
+      = link_to "Back", voter_records_path

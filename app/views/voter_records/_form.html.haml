@@ -1,0 +1,22 @@
+= form_for @voter_record do |f|
+  -if @voter_record.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@voter_record.errors.count, "error")} prohibited this voter_record from being saved:"
+      %ul
+        - @voter_record.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :vname
+    = f.text_field :vname
+  .field
+    = f.label :vtype
+    = f.text_field :vtype
+  .field
+    = f.label :gender
+    = f.text_field :gender
+  .field
+    = f.label :party
+    = f.text_field :party
+  .actions
+    = f.submit 'Save'

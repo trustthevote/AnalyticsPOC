@@ -54,6 +54,7 @@
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+              %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
               %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
           .span3
@@ -90,6 +91,7 @@
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+              %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
               %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
           .span3
@@ -103,4 +105,4 @@
       &nbsp;
     -if (Selection.all.length > 0 && Selection.all[0].eok())
       .span1#statebacknext
-        = link_to "Next", '/voter?id='+Selection.all[0].eid.to_s
+        = link_to "Next", voter_records_path
