@@ -41,6 +41,9 @@
             for a specific election, you can access that log to manage  
             the source data, and to  run analytics over 
             the consolidated log data to produce a variety of reports. 
+          -if (Election.all.length == 0)
+            %p
+              Since no logs currently exist, start with Step #2.
         .span4
           %p
             You can create a new Analytics Log for a speciﬁc election, and add
@@ -49,11 +52,13 @@
             log later to add more data as needed, and run analytics over the 
             consolidated data. 
       .row
-        .span2#stateget
-          = link_to "Get Started Now", 'elections'
+        -if (Election.all.length > 0)
+          .span2#stateget
+            = link_to "Get Started Now ", 'elections'
+        -else
+          .span2
+            &nbsp;
         .span2
           &nbsp;
         .span2#stateget
           = link_to "Get Started Now", new_election_path
-        .span2
-          &nbsp;

@@ -84,15 +84,20 @@ class ElectionsController < ApplicationController
 
   # DELETE /elections/1
   def destroy
-    @election = Election.find(params[:id])
+    did = params[:id]
+    @election = Election.find(did)
     @election.destroy
 
-    did = params[:id]
-    if ((Selection.all.length > 0) &&
-        ((Selection.all[0].eid == did) || (Election.all.length == 0)))
+    if (Selection.all.length > 0)
       se = Selection.all[0]
-      se.eid = nil
-      se.save
+      if (se.eid == did)
+        if (Election.all.length == 0)
+          se.eid = nil
+        else
+          se.eid = Election.all[0].id
+        end
+        se.save
+      end
     end
     
     respond_to do |format|

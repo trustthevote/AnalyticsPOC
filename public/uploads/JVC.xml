@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <voterTransactionLog>
   <header>
-    <origin>Test</origin>
+    <origin>Virginia Test Facility</origin>
     <originUniq>1000</originUniq>
-    <date>2012-04-01T10:10:00Z</date>
-    <locale>Virginia</locale>
+    <date>2012-05-01T10:10:00Z</date>
   </header>
   <voterTransactionRecord>
     <date>2012-04-01T10:10:00Z</date>

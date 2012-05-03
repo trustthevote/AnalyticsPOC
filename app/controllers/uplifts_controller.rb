@@ -6,27 +6,8 @@ class UpliftsController < ApplicationController
 
   def uplift
     startime = DateTime.now
-    if params[:eid]
-      eid = params[:eid]
-      if (Selection.all.length > 0)
-        unless (Selection.all[0].eid == eid)
-          Selection.all[0].eid = eid
-          Selection.all[0].save
-        end
-      else
-        @uplift_msg = "Error: must select an Election before uploading logs."
-        render :uplift
-        return
-      end
-    elsif ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||
-        (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
-      @uplift_msg = "Error: must select an Election before uploading logs."
-      render :uplift
-      return
-    else 
-      eid = Selection.all[0].eid
-    end
-    @election = Election.find(eid)
+    eid = params[:eid]
+    @election = Election.find(eid) unless defined?(@election)
     @uplift_msg = ""
     @uplift_err = ""
     unless params['file']

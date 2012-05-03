@@ -2,17 +2,20 @@
   .span4
     %h2 Voter Log File Error
     %br
-    #selectionred
-      -if (defined?(@election))
-        = @election.name
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      %p#redelecname
+        = Election.find(Selection.all[0].eid).name
         %br
-        = @election.day.strftime("%B %-d, %Y")
-      - else
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      %p#redelecname
         No election event selected.
     %br
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      = link_to "Back", '/elections/'+Selection.all[0].eid.to_s, class: 'primary btn'
+    -else
+      = link_to 'Back', :back, class: 'primary btn'
     %br
-    %p 
-      %b= link_to "Back", (defined?(@election) ? '/elections/'+@election.id.to_s : :back), class: 'primary btn'
     %br
     %h3= @uplift_msg
     %br

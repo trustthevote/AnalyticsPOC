@@ -1,12 +1,12 @@
 #front
   .row
-    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
-      .span2#selectionred
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      .span2#redelecname
         = Election.find(Selection.all[0].eid).name
         %br
         = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
     -else
-      .span2#selectionred
+      .span2#redelecname
         No election event selected.
     .span8
       %table{:style=>"width:100%;"}
@@ -33,7 +33,7 @@
       #likeh2blue Election Events
       #scroil{:style=>"height: 325px;"}
         - @elections.each do |e|
-          -if ((Selection.all.length > 0) &&  Election.find(Selection.all[0].eid) && e.id == Selection.all[0].eid)
+          -if (Selection.all.length > 0 && Selection.all[0].active(e.id))
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:26%;"}
@@ -55,7 +55,7 @@
                 %td= number_with_delimiter(e.nrecords())+" Records"
                 %td= number_with_delimiter(e.uvoters())+" Voters"
                 %td= link_to 'Archive?'
-                %td= link_to 'Select', {:select => true, :id => e.id}
+                %td= link_to 'Selected', {:select => true, :id => e.id}
                 %td= link_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete
           -else
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
@@ -88,6 +88,6 @@
       = link_to 'Back', :root
     .span6
       &nbsp;
-    -if ((Selection.all.length > 0) and (Election.all.any? {|e| e.id == Selection.all[0].eid}))
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
       .span1#statebacknext
         = link_to "Next", '/elections/'+Selection.all[0].eid.to_s

@@ -1,12 +1,12 @@
 #front
   .row
-    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
-      .span2#selectionred
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      .span2#redelecname
         = Election.find(Selection.all[0].eid).name
         %br
         = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
     -else
-      .span2#selectionred
+      .span2#redelecname
         No election event selected.
     .span10
       #likeh2blue UOCAVA Ballot Return Report
@@ -106,7 +106,7 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      - if (defined?(@election))
-        = link_to 'Back', '/analytic?id='+@election.id.to_s
-      - else
+      -if (Selection.all.length > 0 && Selection.all[0].eok())
+        = link_to "Back", '/analytic?id='+Selection.all[0].eid.to_s
+      -else
         = link_to 'Back', :back

@@ -1,12 +1,12 @@
 #front
   .row
-    -if ((Selection.all.length > 0) && Election.find(Selection.all[0].eid))
-      .span2#selectionred
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      .span2#redelecname
         = Election.find(Selection.all[0].eid).name
         %br
         = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
     -else
-      .span2#selectionred
+      .span2#redelecname
         No election event selected.
     .span8
       %table{:style=>"width:100%;"}
@@ -35,17 +35,17 @@
       %div#scroil{:style=>"height:322px;"}
         %table{:style=>"margin:10px;"}
           %tr
-            %td= link_to "Voter Participation Report", '/report?rn=1;id='+@election.id.to_s, class: 'primary btn'       
+            %td= link_to "Voter Participation Report", '/report?rn=1;id='+Selection.all[0].eid.to_s, class: 'primary btn'       
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2;id='+@election.id.to_s, class: 'primary btn'  
+            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2;id='+Selection.all[0].eid.to_s, class: 'primary btn'  
           %tr
             %td
               &nbsp;
           %tr
-            %td= link_to "Ballot Adjucation Report", '/report?rn=3;id='+@election.id.to_s, class: 'primary btn'
+            %td= link_to "Ballot Adjucation Report", '/report?rn=3;id='+Selection.all[0].eid.to_s, class: 'primary btn'
           %tr
             %td
               &nbsp;
@@ -70,4 +70,7 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      = link_to 'Back', (defined?(@election) ? '/voter?id='+@election.id.to_s : :back)
+      -if (Selection.all.length > 0 && Selection.all[0].eok())
+        = link_to "Back", '/voter?id='+Selection.all[0].eid.to_s
+      -else
+        = link_to 'Back', :back
