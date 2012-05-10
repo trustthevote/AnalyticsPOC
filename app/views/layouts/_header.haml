@@ -1,9 +1,9 @@
 #header
   = image_tag 'logo.png'
   %ul#menu
-    %li= link_to 'Home',  :root
-    %li= link_to 'About', :about_page
-    %li= link_to 'FAQs',  :help_page
-    %li= link_to 'Help',  :help_page
-    %li= link_to 'Legacy', :front_page
+    %li= link_to('Home',  :root)+"&nbsp;&nbsp;&nbsp;|".html_safe
+    %li= link_to('About', :about_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+    %li= link_to('FAQs',  :help_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+    %li= link_to('Help',  :help_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+    %li= link_to('Legacy', :front_page)
   %h1 Voter Activity Analytics

@@ -1,18 +1,30 @@
 %p#notice= notice
 
-%p
-  %b Vname:
-  = @voter_record.vname
-%p
-  %b Vtype:
-  = @voter_record.vtype
-%p
-  %b Gender:
-  = @voter_record.gender
-%p
-  %b Party:
-  = @voter_record.party
-
-= link_to 'Edit', edit_voter_record_path(@voter_record)
-\|
-= link_to 'Back', voter_records_path
+.row
+  .span6
+    %h2= "All Voter Records ("+VoterRecord.all.length.to_s+")"
+  .span3
+    &nbsp;
+  .span2
+    &nbsp;
+%br
+%table{:style=>"text-align:center"}
+  %tr
+    %th Voter ID
+    %th &nbsp;
+    %th Type
+    %th &nbsp;
+    %th Gender
+    %th &nbsp;
+    %th Party
+  - VoterRecord.all.each do |vr|
+    %tr
+      %td= vr.vname
+      %td
+      %td= (vr.vtype == '' ? 'domestic' : vr.vtype)
+      %td
+      %td= vr.gender
+      %td
+      %td= vr.party
+%br
+= link_to 'Back', :back

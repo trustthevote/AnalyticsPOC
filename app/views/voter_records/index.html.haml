@@ -31,12 +31,29 @@
         %p 
           If the voter record extracts are all in place, you can proceed to
           analytics.  
-      .span10
+      .span9
         #likeh2blue Voter Record Dataset
-        #scroil{:style=>"height: 325px;"}
-          %table{:style=>"text-align:center;margin:10px;"}
+        #scroil9{:style=>"height: 325px;"}
+          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+            %tr{:style=>"font-weight:bold;"}
+              %td{:style=>"width:30%;"}
+                = ((VoterRecord.all.length > 0 && Selection.all.length > 0) ? Selection.all[0].vr_file : 'FILE.csv')
+              %td{:style=>"width:34%;"}
+                %span{:style=>"color:#3D59AB;"}
+                  from
+                = ((VoterRecord.all.length > 0 && Selection.all.length > 0) ? Selection.all[0].vr_origin : 'FILE.csv')
+              %td{:style=>"width:12%;"}
+                &nbsp;
+              %td{:style=>"width:12%;"}
+                &nbsp;
+              %td{:style=>"width:12%;"}
+                &nbsp;
             %tr
-              %td
+              %td= 'Uploaded: '+VoterRecord.all[0].created_at.strftime("%Y-%m-%d %H:%M")
+              %td= number_with_delimiter(VoterRecord.all.length)+" Records"
+              %td= link_to 'Show', VoterRecord.all[0]
+              %td= link_to 'Delete', VoterRecord.all[0], :confirm => 'Are you sure?', :method=>:delete
+              %td= link_to 'Replace', VoterRecord.all[0], :confirm => 'Are you sure?', :method=>:delete
     -else
       .span2.sidebar
         %p 
@@ -48,7 +65,7 @@
           If you don’t have voter records, that’s OK. You can return later and
           add them, but until you do, some analytics and reports will be
           unavailable. 
-      .span10
+      .span9
         #likeh2blue Upload New Voter Records Dataset
         .row
           .span7
@@ -57,8 +74,8 @@
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
-              %input{:type=>"submit",:value=>"Import EML",:style=>"color:white;background-color:black;"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+              %input{:type=>"submit",:value=>"Import EML",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
   .row#positionbacknext
@@ -69,7 +86,7 @@
         = link_to "Back", '/elections/'+Selection.all[0].eid.to_s
       -else
         = link_to 'Back', :back
-    .span6
+    .span7
       &nbsp;
     -if (Selection.all.length > 0 && Selection.all[0].eok())
       .span1#statebacknext

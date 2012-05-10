@@ -10,7 +10,7 @@
       Virginia State Board of Elections &mdash; Analytics
     .span4
       %ul
-        %li= link_to "About",    :about_page
-        %li= link_to "Help",     :help_page
-        %li= link_to "Security", :security_page
-        %li= link_to "Feedback", :feedback_page
+        %li= link_to("About",:about_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+        %li= link_to("Help",:help_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+        %li= link_to("Security",:security_page)+"&nbsp;&nbsp;&nbsp;|".html_safe
+        %li= link_to("Feedback",:feedback_page)

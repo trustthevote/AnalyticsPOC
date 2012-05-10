@@ -29,26 +29,26 @@
         any, and proceed to the analytics of all the log 
         data that describes each voter’s activities 
         during this election cycle.
-    .span8
+    .span9
       #likeh2blue Election Events
-      #scroil{:style=>"height: 325px;"}
+      #scroil9{:style=>"height: 325px;"}
         - @elections.each do |e|
           -if (Selection.all.length > 0 && Selection.all[0].active(e.id))
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
               %tr{:style=>"font-weight:bold;"}
-                %td{:style=>"width:26%;"}
+                %td{:style=>"width:24%;"}
                   = e.name.to_s
-                %td{:style=>"width:22%;"}
+                %td{:style=>"width:24%;"}
                   %span{:style=>"color:#3D59AB;"}
                     on
                   = e.day.strftime("%B %-d, %Y")
-                %td{:style=>"width:22%;font-weight:normal;"}
+                %td{:style=>"width:16%;font-weight:normal;"}
                   = number_with_delimiter(e.voter_transaction_logs.length)+" Logs"
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
               %tr
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
@@ -60,19 +60,19 @@
           -else
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
-                %td{:style=>"width:26%;"}
+                %td{:style=>"width:24%;"}
                   = e.name.to_s
-                %td{:style=>"width:22%;"}
+                %td{:style=>"width:24%;"}
                   %span{:style=>"color:#3D59AB;"}
                     on
                   = e.day.strftime("%B %-d, %Y")
-                %td{:style=>"width:22%;font-weight:normal;"}
+                %td{:style=>"width:16%;font-weight:normal;"}
                   = number_with_delimiter(e.voter_transaction_logs.length)+" Logs"
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
               %tr
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
@@ -86,7 +86,7 @@
       &nbsp;
     .span1#statebacknext
       = link_to 'Back', :root
-    .span6
+    .span7
       &nbsp;
     -if (Selection.all.length > 0 && Selection.all[0].eok())
       .span1#statebacknext

@@ -10,13 +10,7 @@ class ElectionsController < ApplicationController
     eid = (Election.all.length == 1 ? Election.all[0].id : params[:id])
     if (params[:select] || Election.all.length == 1)
       @election = Election.find(eid)
-      if (Selection.all.length == 0)
-        se = Selection.new(:eid => @election.id)
-      else
-        se = Selection.all[0]
-        se.eid = @election.id
-      end
-      se.save
+      self.save_selection()
     end
 
     respond_to do |format|
@@ -62,7 +56,9 @@ class ElectionsController < ApplicationController
 
     respond_to do |format|
       if @election.save
-        format.html { redirect_to @election, notice: 'Election was successfully created.' }
+        self.save_selection()
+        format.html { redirect_to @election,
+          notice: 'Election was successfully created.' }
       else
         format.html { render action: "new" }
       end
@@ -103,6 +99,16 @@ class ElectionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to elections_url }
     end
+  end
+
+  def save_selection
+    if (Selection.all.length == 0)
+      se = Selection.new(:eid => @election.id)
+    else
+      se = Selection.all[0]
+      se.eid = @election.id
+    end
+    se.save
   end
 
 end

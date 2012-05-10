@@ -23,7 +23,7 @@
   .row
     .span2
       &nbsp;
-    .span10#likeh2blue
+    .span9#likeh2blue
       -if (Selection.all.length > 0 && Selection.all[0].haslogs())
         Voter Transaction Logs
       -else
@@ -46,7 +46,7 @@
         %p
           If you don’t have all the log data, that’s OK &mdash; you can return
           later and add more log data, or replace logs you have already loaded.
-    .span10
+    .span9
       -if !(Selection.all.length > 0 && Selection.all[0].haslogs())
         .row
           .span7
@@ -55,34 +55,34 @@
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
-              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
         %b#likeh2blue No Voter Transaction Logs
-      %div#scroil{:style=>"height:237px;"}
+      %div#scroil9{:style=>"height:237px;"}
         -if (Selection.all.length > 0 && Selection.all[0].haslogs())
           - Selection.all[0].elec().voter_transaction_logs.each do |vtl|
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:30%;"}
                   = vtl.file_name
-                %td{:style=>"width:40%;"}
+                %td{:style=>"width:34%;"}
                   %span{:style=>"color:#3D59AB;"}
                     from
                   = vtl.origin
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
-                %td{:style=>"width:10%;"}
+                %td{:style=>"width:12%;"}
                   &nbsp;
               %tr
                 %td= 'Uploaded: '+vtl.created_at.strftime("%Y-%m-%d %H:%M")
                 %td= number_with_delimiter(vtl.voter_transaction_records.length)+" Records"
                 %td= link_to 'Show', vtl
                 %td= link_to 'Delete', vtl, :confirm => 'Are you sure?', :method=>:delete
-                %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:update
+                %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:delete
       -if (Selection.all.length > 0 && Selection.all[0].haslogs())
         %b#likeh2blue Upload New Voter Transaction Log
         .row
@@ -92,8 +92,8 @@
               %input{:type=>"file",:name=>"file"}
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
-              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:black;"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:black;"}
+              %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
   .row#positionbacknext
@@ -101,7 +101,7 @@
       &nbsp;
     .span1#statebacknext
       = link_to 'Back', elections_path
-    .span6
+    .span7
       &nbsp;
     -if (Selection.all.length > 0 && Selection.all[0].eok())
       .span1#statebacknext

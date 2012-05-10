@@ -30,9 +30,9 @@
         %u More about reporting (add link)
       %p
         %u More about data export (add link)
-    .span10
+    .span9
       %b#likeh2blue Analyses and Reports
-      %div#scroil{:style=>"height:322px;"}
+      %div#scroil9{:style=>"height:322px;"}
         %table{:style=>"margin:10px;"}
           %tr
             %td= link_to "Voter Participation Report", '/report?rn=1;id='+Selection.all[0].eid.to_s, class: 'primary btn'       
@@ -46,21 +46,6 @@
               &nbsp;
           %tr
             %td= link_to "Ballot Adjucation Report", '/report?rn=3;id='+Selection.all[0].eid.to_s, class: 'primary btn'
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "Etc.", '/report', class: 'primary btn'  
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "Etc.", '/report', class: 'primary btn'  
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "Etc.", '/report', class: 'primary btn'  
           %tr
             %td
               &nbsp;

@@ -10,6 +10,7 @@ class UpliftsController < ApplicationController
     @election = Election.find(eid) unless defined?(@election)
     @uplift_msg = ""
     @uplift_err = ""
+    @uplift_csv = ""
     unless params['file']
       @uplift_msg = "Error: choose file name"
       render :uplift
@@ -19,7 +20,11 @@ class UpliftsController < ApplicationController
     uploader = LogfileUploader.new
     post = uploader.store!( params['file'] )
     @uplift_msg = "Uploaded: " + self.uplift_file
-    self.upliftValidate("public/uploads/"+self.uplift_file, eid)
+    if (params[:uptype] == "vr")
+      self.upliftVoterRecords("public/uploads/"+self.uplift_file, eid)
+    else
+      self.upliftValidate("public/uploads/"+self.uplift_file, eid)
+    end
   rescue CarrierWave::IntegrityError => e
     @uplift_msg = "Invalid XML file name: "+self.uplift_file
     render :uplift
@@ -217,6 +222,39 @@ XSL
     xslt = Nokogiri::XSLT(xsl)
     out  = xslt.transform(doc)
     puts out.to_xml
+  end
+
+  def upliftVoterRecords(document_path, eid)
+    unless (document_path =~ /\.csv$/i)
+      @uplift_err = "Invalid file type, only .CSV files accepted: "+document_path.to_s
+      render :uplift
+      return false
+    end
+    self.save_selection_vr(eid)
+    vr = VoterRecord.new(:vname => 'v1',:vtype => 'domestic',
+                          :gender => 'M', :party => 'Democratic')
+    vr.save
+    vr = VoterRecord.new(:vname => 'v2',:vtype => 'domestic',
+                          :gender => 'F', :party => 'Republican')
+    vr.save
+    vr = VoterRecord.new(:vname => 'v3',:vtype => 'UOCAVA',
+                          :gender => 'F', :party => 'Green')
+    vr.save
+    redirect_to '/voter_records', {:params=>{:id=>eid}}
+    return true
+  end
+
+  def save_selection_vr(eid)
+    file = self.uplift_file
+    origin = 'Virginia'
+    if (Selection.all.length == 0)
+      se = Selection.new(:eid => eid, :vr_file => file, :vr_origin => origin)
+    else
+      se = Selection.all[0]
+      se.vr_file = file
+      se.vr_origin = origin
+    end
+    se.save
   end
 
 end
