@@ -8,7 +8,7 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span8
+    .span9
       %table{:style=>"width:100%;"}
         %tr#statebar
           %td{:style=>"width:25%;"}
@@ -31,26 +31,88 @@
       %p
         %u More about data export (add link)
     .span9
-      %b#likeh2blue Analyses and Reports
-      %div#scroil9{:style=>"height:322px;"}
-        %table{:style=>"margin:10px;"}
+      #likeh2blue Analyses and Reports
+      #scroil9{:style=>"height: 322px;"}
+        %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %tr{:style=>"font-weight:bold;colspan=6"}
+            %td= 'Voter Participation'
           %tr
-            %td= link_to "Voter Participation Report", '/report?rn=1;id='+Selection.all[0].eid.to_s, class: 'primary btn'       
+            %td{:style=>"width:30%;"}
+              = number_with_delimiter(5132235)+" Records"
+            %td{:style=>"width:11%;text-align:right"}
+              = link_to 'About'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'View Report', '/report?rn=1;id='+Selection.all[0].eid.to_s
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Save as PDF'
+            %td{:style=>"width:14%;text-align:right"}
+              = link_to 'View Data'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export XML'
+        %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
+          %tr{:style=>"font-weight:bold;colspan=6"}
+            %td= 'UOCAVA Ballot Return'
           %tr
-            %td
-              &nbsp;
+            %td{:style=>"width:30%;"}
+              = number_with_delimiter(2235)+" Records"
+            %td{:style=>"width:11%;text-align:right"}
+              = link_to 'About'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'View Report', '/report?rn=2;id='+Selection.all[0].eid.to_s
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Save as PDF'
+            %td{:style=>"width:14%;text-align:right"}
+              = link_to 'View Data'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export XML'
+        %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %tr{:style=>"font-weight:bold;colspan=6"}
+            %td= 'Absentee Ballot Adjucation'
           %tr
-            %td= link_to "UOCAVA Ballot Return Report", '/report?rn=2;id='+Selection.all[0].eid.to_s, class: 'primary btn'  
+            %td{:style=>"width:30%;"}
+              = number_with_delimiter(52235)+" Records"
+            %td{:style=>"width:11%;text-align:right"}
+              = link_to 'About'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'View Report', '/report?rn=3;id='+Selection.all[0].eid.to_s
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Save as PDF'
+            %td{:style=>"width:14%;text-align:right"}
+              = link_to 'View Data'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export XML'
+        %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
+          %tr{:style=>"font-weight:bold;colspan=6"}
+            %td= 'Bulk Data'
           %tr
-            %td
-              &nbsp;
+            %td{:style=>"width:30%;"}
+              = number_with_delimiter(9000000)+" Records"
+            %td{:style=>"width:11%;text-align:right"}
+              = link_to 'About'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export CSV'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export XML'
+            %td{:style=>"width:14%;text-align:right"}
+              = '&nbsp;'.html_safe
+            %td{:style=>"width:15%;text-align:right"}
+              = '&nbsp;'.html_safe
+        %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %tr{:style=>"font-weight:bold;colspan=6"}
+            %td= 'Anonymized Bulk Data'
           %tr
-            %td= link_to "Ballot Adjucation Report", '/report?rn=3;id='+Selection.all[0].eid.to_s, class: 'primary btn'
-          %tr
-            %td
-              &nbsp;
-          %tr
-            %td= link_to "The Very Last Report You Will Ever See", '/report?rn=99', class: 'primary btn'  
+            %td{:style=>"width:30%;"}
+              = number_with_delimiter(9000000)+" Records"
+            %td{:style=>"width:11%;text-align:right"}
+              = link_to 'About'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export CSV'
+            %td{:style=>"width:15%;text-align:right"}
+              = link_to 'Export XML'
+            %td{:style=>"width:14%;text-align:right"}
+              = '&nbsp;'.html_safe
+            %td{:style=>"width:15%;text-align:right"}
+              = '&nbsp;'.html_safe
   .row#positionbacknext
     .span2
       &nbsp;

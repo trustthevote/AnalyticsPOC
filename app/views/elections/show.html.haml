@@ -8,7 +8,7 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span8
+    .span9
       %table{:style=>"width:100%;"}
         %tr#statebar
           %td{:style=>"width:25%;"}
@@ -56,7 +56,7 @@
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import CSV",:disabled=>true,:style=>"color:white;background-color:#666666;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
         %b#likeh2blue No Voter Transaction Logs
@@ -93,7 +93,7 @@
               %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import CSV",:disabled=>true,:style=>"color:white;background-color:#666666;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
   .row#positionbacknext

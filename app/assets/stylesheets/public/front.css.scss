@@ -46,7 +46,7 @@
   }
 
   a { color: #3D59AB;
-      text-decoration:none }
+      text-decoration:underline }
 
   .sidebar {
     color: #3D59AB;
@@ -73,7 +73,8 @@
   padding-top: 5px;
   padding-bottom: 5px;
   background-color: #3D59AB;
-  a { color: white; }
+  a { color: white;
+      text-decoration:none; }
 }
 
 #statebacknext {
@@ -82,7 +83,8 @@
   padding-bottom: 5px;
   text-align: center;
   background-color: #444444;
-  a { color: white; }
+  a { color: white;
+      text-decoration:none;  }
 }
 
 .btnbacknext {
@@ -174,6 +176,13 @@
 
 #likeh3 {
     font-size: 18px;
+    text-align: left;
+    line-height: 34px;
+    color: #3D59AB;
+}
+
+#likeh4 {
+    font-size: 16px;
     text-align: left;
     line-height: 34px;
     color: #3D59AB;

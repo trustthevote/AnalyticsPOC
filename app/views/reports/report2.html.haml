@@ -8,11 +8,20 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span10
-      #likeh2blue UOCAVA Ballot Return Report
+    .span9
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
   .row
     .span2.sidebar
-      %br
       First we show the number of unique UOCAVA voters
       found in the voter transaction logs for this election. Then we give
       the total number (and relative percentage) of those who:
@@ -32,76 +41,75 @@
         %li
           rejected.
     .span10
-      %span#likeh3b= @report_date
-      %br
-      %div#scroil{:style=>"height:362px"}
-        %table{:style=>"text-align:center;margin:10px;"}
-          %tr
-            %th 
-            %th &nbsp;&nbsp;
-            %th UOCAVA
-            %th &nbsp;&nbsp;
-            %th Registered
-            %th &nbsp;&nbsp;
-            %th Updated
-            %th &nbsp;&nbsp;
-            %th Requested
-            %th &nbsp;&nbsp;
-            %th Started
-            %th &nbsp;&nbsp;
-            %th{:colspan => 3} Absentee Ballot
-            %th &nbsp;&nbsp;
-          %tr      
-            %th 
-            %th &nbsp;&nbsp;
-            %th Voters
-            %th &nbsp;&nbsp;
-            %th To Vote
-            %th &nbsp;&nbsp;
-            %th Voter Record
-            %th &nbsp;&nbsp;
-            %th Absentee Status
-            %th &nbsp;&nbsp;
-            %th Absentee Ballot
-            %th &nbsp;&nbsp;
-            %th Approved
-            %th &nbsp;&nbsp;
-            %th Rejected
-            %th &nbsp;&nbsp;
-          %tr      
-            %td= "#"
-            %td
-            %td= @voters
-            %td
-            %td= @vote_reg
-            %td
-            %td= @vote_upd
-            %td
-            %td= @vote_as
-            %td
-            %td= @vote_ab
-            %td
-            %td= @vote_aa
-            %td
-            %td= @vote_ar
-            %td
-          %tr
-            %td= "%"
-            %td
-            %td= "100%"
-            %td
-            %td= (@vote_reg*100/@xvoters).round.to_s+"%"
-            %td
-            %td= (@vote_upd*100/@xvoters).round.to_s+"%"
-            %td
-            %td= (@vote_as*100/@xvoters).round.to_s+"%"
-            %td
-            %td= (@vote_ab*100/@xvoters).round.to_s+"%"
-            %td
-            %td= (@vote_aa*100/@xvoters).round.to_s+"%"
-            %td
-            %td= (@vote_ar*100/@xvoters).round.to_s+"%"
-            %td
+      .row
+        .span6
+          #likeh2blue UOCAVA Ballot Return Report
+          #likeh3 
+            = @report_date
+        .span2#likeh4
+          = link_to 'Save as PDF'
+        .span2#likeh4
+          = link_to 'Export XML'
+      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
+        %tr
+          %th 
+          %th &nbsp;
+          %th UOCAVA
+          %th &nbsp;
+          %th Registered
+          %th &nbsp;
+          %th Updated
+          %th &nbsp;
+          %th Requested
+          %th &nbsp;
+          %th Started
+          %th &nbsp;
+          %th{:colspan => 2} Absentee Ballot
+        %tr      
+          %th 
+          %th &nbsp;
+          %th Voters
+          %th &nbsp;
+          %th To Vote
+          %th &nbsp;
+          %th Voter Record
+          %th &nbsp;
+          %th Absentee Status
+          %th &nbsp;
+          %th Absentee Ballot
+          %th &nbsp;
+          %th Approved&nbsp;
+          %th &nbsp;Rejected&nbsp;
+        %tr      
+          %td= "#"
+          %td
+          %td= @voters
+          %td
+          %td= @vote_reg
+          %td
+          %td= @vote_upd
+          %td
+          %td= @vote_as
+          %td
+          %td= @vote_ab
+          %td
+          %td= @vote_aa
+          %td= @vote_ar
+        %tr
+          %td= "%"
+          %td
+          %td= "100%"
+          %td
+          %td= (@vote_reg*100/@xvoters).round.to_s+"%"
+          %td
+          %td= (@vote_upd*100/@xvoters).round.to_s+"%"
+          %td
+          %td= (@vote_as*100/@xvoters).round.to_s+"%"
+          %td
+          %td= (@vote_ab*100/@xvoters).round.to_s+"%"
+          %td
+          %td= (@vote_aa*100/@xvoters).round.to_s+"%"
+          %td= (@vote_ar*100/@xvoters).round.to_s+"%"
   .row#positionbacknext
     .span2
       &nbsp;

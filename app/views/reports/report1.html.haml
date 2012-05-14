@@ -8,81 +8,84 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span10
-      #likeh2blue Voter Participation Report
+    .span9
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
   .row
     .span2.sidebar
-      %br
+      %p 
+        This report presents voter participation based on the type of vote cast.
+
       %p
-        Describe the details of this report here.
-    .span10#scroil{:style=>"height:397px"}
-      %table{:style=>"text-align:center;margin:10px;"}
+        For absentee and provisional voters, participation is further broken
+        down according to the percentage of ballots approved or
+        rejected.
+
+      %p
+        There is an additional caterogy of "whacky" voters about which nothing is
+        currently know and subsequently nothing reported.   
+    .span9
+      .row
+        .span5
+          #likeh2blue Voter Participation Report
+          #likeh3 
+            = @report_date
+        .span2#likeh4
+          = link_to 'Save as PDF'
+        .span2#likeh4
+          = link_to 'Export XML'
+      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
         %tr
           %th 
-          %th &nbsp;&nbsp;
           %th All
-          %th &nbsp;&nbsp;
-          %th Regular 
-          %th &nbsp;&nbsp;
+          %th &nbsp;Regular&nbsp;
           %th No
-          %th &nbsp;&nbsp;
           %th{:colspan => 3} Absentee Ballot
-          %th &nbsp;&nbsp;
           %th{:colspan => 3} Provisional Ballot
-          %th &nbsp;&nbsp;
-          %th Whacky
+          %th &nbsp;Whacky&nbsp;
         %tr      
           %th 
-          %th &nbsp;&nbsp;
-          %th Voters
-          %th &nbsp;&nbsp;
+          %th &nbsp;Voters&nbsp;
           %th Vote
-          %th &nbsp;&nbsp;
-          %th Vote
-          %th &nbsp;&nbsp;
+          %th &nbsp;Vote&nbsp;
+          %th &nbsp;Total
           %th Approved
-          %th &nbsp;&nbsp;
-          %th Rejected
-          %th &nbsp;&nbsp;
+          %th Rejected&nbsp;
+          %th &nbsp;Total
           %th Approved
-          %th &nbsp;&nbsp;
-          %th Rejected
-          %th &nbsp;&nbsp;
+          %th Rejected&nbsp;
           %th Voters
         %tr      
           %td= "#"
-          %td
           %td= @voters
-          %td
           %td= @vote_reg
-          %td
           %td= @vote_no
-          %td
-          %td= @vote_aa
-          %td
-          %td= @vote_ar
-          %td
-          %td= @vote_pa
-          %td
-          %td= @vote_pr
-          %td
+          %td= @vote_aa+@vote_ar
+          %td= @vote_aa.to_s+" ("+(@vote_aa*100/(@vote_aa+@vote_ar)).round.to_s+"%)"
+          %td= @vote_ar.to_s+" ("+(@vote_ar*100/(@vote_aa+@vote_ar)).round.to_s+"%)"
+          %td= @vote_pa+@vote_pr
+          %td= @vote_pa.to_s+" ("+(@vote_pa*100/(@vote_pa+@vote_pr)).round.to_s+"%)"
+          %td= @vote_pr.to_s+" ("+(@vote_pr*100/(@vote_pa+@vote_pr)).round.to_s+"%)"
           %td= @vote_wac
         %tr
           %td= "%"
-          %td
           %td= "100%"
-          %td
           %td= (@vote_reg*100/@xvoters).round.to_s+"%"
-          %td
           %td= (@vote_no*100/@xvoters).round.to_s+"%"
-          %td
-          %td= (@vote_aa*100/@xvoters).round.to_s+"%"
-          %td
-          %td= (@vote_ar*100/@xvoters).round.to_s+"%"
-          %td
-          %td= (@vote_pa*100/@xvoters).round.to_s+"%"
-          %td
-          %td= (@vote_pr*100/@xvoters).round.to_s+"%"
+          %td= ((@vote_aa+@vote_ar)*100/@xvoters).round.to_s+"%"
+          %td 
+          %td 
+          %td= ((@vote_pa+@vote_pr)*100/@xvoters).round.to_s+"%"
+          %td 
           %td
           %td= (@vote_wac*100/@xvoters).round.to_s+"%"
       %br
