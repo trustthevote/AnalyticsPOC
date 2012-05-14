@@ -25,7 +25,7 @@
       &nbsp;
     .span9#likeh2blue
       -if (Selection.all.length > 0 && Selection.all[0].haslogs())
-        Voter Transaction Logs
+        = 'Voter Transaction Logs'+' (EID='+Selection.all[0].eid.to_s+")"
       -else
         Upload New Voter Transaction Log
   .row
@@ -70,7 +70,7 @@
                 %td{:style=>"width:34%;"}
                   %span{:style=>"color:#3D59AB;"}
                     from
-                  = vtl.origin
+                  = vtl.origin+" "+vtl.archive_name
                 %td{:style=>"width:12%;"}
                   &nbsp;
                 %td{:style=>"width:12%;"}

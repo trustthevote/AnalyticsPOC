@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120514012615) do
+ActiveRecord::Schema.define(:version => 20120514040736) do
 
   create_table "elections", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120514012615) do
     t.date     "voter_end_day"
     t.date     "voter_start_day"
     t.string   "display_name"
+    t.integer  "nalllogs"
   end
 
   create_table "selections", :force => true do |t|

@@ -100,16 +100,16 @@
           %td
           %td= "100%"
           %td
-          %td= (@vote_reg*100/@xvoters).round.to_s+"%"
+          %td= (@vote_reg*100/[@voters,1].max).round.to_s+"%"
           %td
-          %td= (@vote_upd*100/@xvoters).round.to_s+"%"
+          %td= (@vote_upd*100/[@voters,1].max).round.to_s+"%"
           %td
-          %td= (@vote_as*100/@xvoters).round.to_s+"%"
+          %td= (@vote_as*100/[@voters,1].max).round.to_s+"%"
           %td
-          %td= (@vote_ab*100/@xvoters).round.to_s+"%"
+          %td= (@vote_ab*100/[@voters,1].max).round.to_s+"%"
           %td
-          %td= (@vote_aa*100/@xvoters).round.to_s+"%"
-          %td= (@vote_ar*100/@xvoters).round.to_s+"%"
+          %td= (@vote_aa*100/[@voters,1].max).round.to_s+"%"
+          %td= (@vote_ar*100/[@voters,1].max).round.to_s+"%"
   .row#positionbacknext
     .span2
       &nbsp;

@@ -70,24 +70,24 @@
           %td= @vote_reg
           %td= @vote_no
           %td= @vote_aa+@vote_ar
-          %td= @vote_aa.to_s+" ("+(@vote_aa*100/(@vote_aa+@vote_ar)).round.to_s+"%)"
-          %td= @vote_ar.to_s+" ("+(@vote_ar*100/(@vote_aa+@vote_ar)).round.to_s+"%)"
+          %td= @vote_aa.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_aa*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
+          %td= @vote_ar.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_ar*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
           %td= @vote_pa+@vote_pr
-          %td= @vote_pa.to_s+" ("+(@vote_pa*100/(@vote_pa+@vote_pr)).round.to_s+"%)"
-          %td= @vote_pr.to_s+" ("+(@vote_pr*100/(@vote_pa+@vote_pr)).round.to_s+"%)"
+          %td= @vote_pa.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pa*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
+          %td= @vote_pr.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pr*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
           %td= @vote_wac
         %tr
           %td= "%"
-          %td= "100%"
-          %td= (@vote_reg*100/@xvoters).round.to_s+"%"
-          %td= (@vote_no*100/@xvoters).round.to_s+"%"
-          %td= ((@vote_aa+@vote_ar)*100/@xvoters).round.to_s+"%"
+          %td= ((@voters < 1) ? "0%" : "100%")
+          %td= (@vote_reg*100/[@voters,1].max).round.to_s+"%"
+          %td= (@vote_no*100/[@voters,1].max).round.to_s+"%"
+          %td= ((@vote_aa+@vote_ar)*100/[@voters,1].max).round.to_s+"%"
           %td 
           %td 
-          %td= ((@vote_pa+@vote_pr)*100/@xvoters).round.to_s+"%"
+          %td= ((@vote_pa+@vote_pr)*100/[@voters,1].max).round.to_s+"%"
           %td 
           %td
-          %td= (@vote_wac*100/@xvoters).round.to_s+"%"
+          %td= (@vote_wac*100/[@voters,1].max).round.to_s+"%"
       %br
   .row#positionbacknext
     .span2
