@@ -14,7 +14,7 @@ class Election < ActiveRecord::Base
     end
   end
 
-  def uvoters()
+  def uvoters() # number of unique voters
     uvs = []
     self.voter_transaction_logs.each do |vtl|
       vtl.voter_transaction_records.each do |vtr|

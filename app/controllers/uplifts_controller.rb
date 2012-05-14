@@ -157,6 +157,7 @@ class UpliftsController < ApplicationController
                                   :origin_uniq => ouniq,
                                   :datime => logdate,
                                   :file_name => self.uplift_file,
+                                  :archive_name => '',
                                   :election_id => eid)
     unless (vtl.save)
       @uplift_err = "Error: "
@@ -200,6 +201,7 @@ class UpliftsController < ApplicationController
       end
       self.syncVoter(voter, vtr)
     end
+    vtl.archive
     vtl.save
     return true
   end
