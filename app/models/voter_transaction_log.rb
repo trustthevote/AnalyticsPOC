@@ -6,7 +6,11 @@ class VoterTransactionLog < ActiveRecord::Base
   belongs_to :election
   has_many :voter_transaction_records, :dependent => :destroy
 
-  def archive
+  def delete_archive_file
+    File.delete(self.archive_name)
+  end
+  
+  def create_archive_file
     input_file = self.file_name
     eid = self.election_id
     e = Election.find(eid)
@@ -20,12 +24,10 @@ class VoterTransactionLog < ActiveRecord::Base
     # date, or it needs to keep the actual list of archived log files, AND, a
     # log file delete needs to delete the archives file (and maybe the uloads
     # file?) 
-    path = 'public/archives/e'+eid.to_s
-    file = "vtl_"+e.nalllogs.to_s+".xml"
+    path = 'public/archives'
+    file = "e"+eid.to_s+"_vtl_"+e.nalllogs.to_s+".xml"
     unless File.directory?(path)
-      unless Dir.mkdir(path)
-        raise Exception, "Cannot create directory: "+path
-      end
+      raise Exception, "No archive directory: "+path
     end
     archive_path = path+"/"+file
     self.archive_name = archive_path

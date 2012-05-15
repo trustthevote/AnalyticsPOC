@@ -4,6 +4,12 @@ class ElectionsController < ApplicationController
 
   # GET /elections
   def index
+
+    if (params[:archive])
+      self.archive
+      return
+    end
+    
     @elections = Election.all
     @showxml = params[:show_xml]
 
@@ -84,22 +90,36 @@ class ElectionsController < ApplicationController
     did = params[:id]
     @election = Election.find(did)
     @election.destroy
+    null_selection(did)
+    respond_to do |format|
+      format.html { redirect_to elections_url }
+    end
+  end
 
+  # ARCHIVE /elections/1
+  def archive
+    did = params[:id]
+    @election = Election.find(did)
+    @election.archived = true
+    @election.voter_transaction_logs.each do |vtl|
+      vtl.archive
+    end
+    null_selection(did)
+    respond_to do |format|
+      format.html { redirect_to elections_url }
+    end
+  end
+
+  def null_selection(did)
     if (Selection.all.length > 0)
       se = Selection.all[0]
       if (se.eid == did)
         if (Election.all.length == 0)
           se.eid = nil
-        else
-          se.eid = Election.all[0].id
         end
         se.save
       end
-    end
-    
-    respond_to do |format|
-      format.html { redirect_to elections_url }
-    end
+    end 
   end
 
   def save_selection

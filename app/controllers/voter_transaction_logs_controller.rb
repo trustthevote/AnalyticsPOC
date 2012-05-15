@@ -71,13 +71,11 @@ class VoterTransactionLogsController < ApplicationController
   def destroy
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
     @election = Election.find(@voter_transaction_log.election_id)
-    if (defined?(@voter_transaction_log.archive_name))
-      File.delete(@voter_transaction_log.archive_name)
-    end
     @voter_transaction_log.destroy
 
     respond_to do |format|
       format.html { redirect_to @election }
     end
   end
+
 end

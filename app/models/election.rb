@@ -4,10 +4,6 @@ class Election < ActiveRecord::Base
   has_many :voter_transaction_logs, :dependent => :destroy
   has_many :voters, :dependent => :destroy
 
-  def display()
-    return self.name+" "+self.day.strftime("%B %-d, %Y")
-  end
-
   def nrecords()
     self.voter_transaction_logs.inject(0) do |n,vtl|
       n+vtl.voter_transaction_records.length

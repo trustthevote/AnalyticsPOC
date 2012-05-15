@@ -201,7 +201,7 @@ class UpliftsController < ApplicationController
       end
       self.syncVoter(voter, vtr)
     end
-    vtl.archive
+    vtl.create_archive_file
     vtl.save
     return true
   end

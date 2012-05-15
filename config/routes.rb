@@ -52,6 +52,11 @@
     match "/*path/:id(.:format)" => 'elections#index'
   end
 
+  resources :voters do
+    match "/:id(.:format)" => 'voters#index'
+    match "/*path/:id(.:format)" => 'voters#index'
+  end
+
   # resource :election, only: [], path: '' do
   #   member do
   #     get :index
