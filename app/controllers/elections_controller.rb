@@ -5,11 +5,6 @@ class ElectionsController < ApplicationController
   # GET /elections
   def index
 
-    if (params[:archive])
-      self.archive
-      return
-    end
-    
     @elections = Election.all
     @showxml = params[:show_xml]
 
@@ -19,6 +14,11 @@ class ElectionsController < ApplicationController
       self.save_selection()
     end
 
+    if (params[:archive])
+      self.destroy(true)
+      return
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml do
@@ -59,7 +59,7 @@ class ElectionsController < ApplicationController
   # POST /elections
   def create
     @election = Election.new(params[:election])
-    @election.nalllogs = 0
+    @election.archived = false
 
     respond_to do |format|
       if @election.save
@@ -86,24 +86,13 @@ class ElectionsController < ApplicationController
   end
 
   # DELETE /elections/1
-  def destroy
+  def destroy(archived = false)
     did = params[:id]
     @election = Election.find(did)
-    @election.destroy
-    null_selection(did)
-    respond_to do |format|
-      format.html { redirect_to elections_url }
-    end
-  end
-
-  # ARCHIVE /elections/1
-  def archive
-    did = params[:id]
-    @election = Election.find(did)
-    @election.archived = true
     @election.voter_transaction_logs.each do |vtl|
-      vtl.archive
+      vtl.delete_archive_file unless archived == true
     end
+    @election.destroy
     null_selection(did)
     respond_to do |format|
       format.html { redirect_to elections_url }

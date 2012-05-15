@@ -70,11 +70,13 @@ class VoterTransactionLogsController < ApplicationController
   # DELETE /voter_transaction_logs/1
   def destroy
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
-    @election = Election.find(@voter_transaction_log.election_id)
+    e = Election.find(@voter_transaction_log.election_id)
+    e.log_del(@voter_transaction_log)
+    e.save
     @voter_transaction_log.destroy
 
     respond_to do |format|
-      format.html { redirect_to @election }
+      format.html { redirect_to e }
     end
   end
 

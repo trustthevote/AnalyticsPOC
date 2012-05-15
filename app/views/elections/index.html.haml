@@ -43,17 +43,17 @@
                     on
                   = e.day.strftime("%B %-d, %Y")
                 %td{:style=>"width:16%;font-weight:normal;"}
-                  = number_with_delimiter(e.voter_transaction_logs.length)+" Logs"
+                  = number_with_delimiter(e.logs_num)+" Logs"
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.elogs.blank? ? "N/A" : e.elogs)
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.erecords.blank? ? "N/A" : e.erecords)
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.evoters.blank? ? "N/A" : e.evoters)
               %tr
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
-                %td= number_with_delimiter(e.nrecords())+" Records"
-                %td= number_with_delimiter(e.uvoters())+" Voters"
+                %td= number_with_delimiter(e.records_num)+" Records"
+                %td= number_with_delimiter(e.voters_num)+" Voters"
                 %td= link_to 'Archive', :archive => true, :id => e.id, :method => :delete
                 %td= '&lowast;&lowast;&lowast;'.html_safe
                 %td= link_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete
@@ -69,11 +69,11 @@
                 %td{:style=>"width:16%;font-weight:normal;"}
                   = number_with_delimiter(e.voter_transaction_logs.length)+" Logs"
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.elogs.blank? ? "N/A" : e.elogs)
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.erecords.blank? ? "N/A" : e.erecords)
                 %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = (e.evoters.blank? ? "N/A" : e.evoters.to_s)
               %tr
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
                 %td= number_with_delimiter(e.nrecords())+" Records"
