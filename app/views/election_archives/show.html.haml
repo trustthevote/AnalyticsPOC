@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @election_archive.name
+%p
+  %b Day:
+  = @election_archive.day
+%p
+  %b Voter end day:
+  = @election_archive.voter_end_day
+%p
+  %b Voter start day:
+  = @election_archive.voter_start_day
+%p
+  %b Nlogs:
+  = @election_archive.nlogs
+%p
+  %b Log file names:
+  = @election_archive.log_file_names
+
+= link_to 'Edit', edit_election_archive_path(@election_archive)
+\|
+= link_to 'Back', election_archives_path

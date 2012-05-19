@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120515074123) do
+ActiveRecord::Schema.define(:version => 20120519063228) do
+
+  create_table "election_archives", :force => true do |t|
+    t.integer  "eid"
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "log_file_names"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "elections", :force => true do |t|
     t.string   "name"

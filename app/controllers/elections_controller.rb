@@ -89,8 +89,18 @@ class ElectionsController < ApplicationController
   def destroy(archived = false)
     did = params[:id]
     @election = Election.find(did)
-    @election.voter_transaction_logs.each do |vtl|
-      vtl.delete_archive_file unless archived == true
+    if (archived == true)
+      ea = ElectionArchive.new(:name => @election.name,
+                               :day => @election.day,
+                               :voter_end_day => @election.voter_end_day,
+                               :voter_start_day => @election.voter_start_day,
+                               :nlogs => @election.elogs.split(",")[0].to_i,
+                               :log_file_names => @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' '))
+      ea.save
+    else
+      @election.voter_transaction_logs.each do |vtl|
+        vtl.delete_archive_file unless archived == true
+      end
     end
     @election.destroy
     null_selection(did)

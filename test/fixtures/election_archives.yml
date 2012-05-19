@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  day: 2012-05-19
+  voter_end_day: 2012-05-19
+  voter_start_day: 2012-05-19
+  nlogs: 1
+  log_file_names: MyString
+
+two:
+  name: MyString
+  day: 2012-05-19
+  voter_end_day: 2012-05-19
+  voter_start_day: 2012-05-19
+  nlogs: 1
+  log_file_names: MyString

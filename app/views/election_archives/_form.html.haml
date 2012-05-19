@@ -1,0 +1,28 @@
+= form_for @election_archive do |f|
+  -if @election_archive.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@election_archive.errors.count, "error")} prohibited this election_archive from being saved:"
+      %ul
+        - @election_archive.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :day
+    = f.date_select :day
+  .field
+    = f.label :voter_end_day
+    = f.date_select :voter_end_day
+  .field
+    = f.label :voter_start_day
+    = f.date_select :voter_start_day
+  .field
+    = f.label :nlogs
+    = f.number_field :nlogs
+  .field
+    = f.label :log_file_names
+    = f.text_field :log_file_names
+  .actions
+    = f.submit 'Save'
