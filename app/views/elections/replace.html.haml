@@ -28,8 +28,9 @@
   .row
     .span2.sidebar
       %p
-        Choose the voter transaction log file you intend to use
-        as a replacement. 
+        Choose the file you intend to use as a replacement for: 
+        %span{:style=>"font-weight:bold;"}
+          = params[:file]
     .span9
       .row
         .span7
@@ -47,8 +48,3 @@
       &nbsp;
     .span1#statebacknext
       = link_to 'Back', elections_path
-    .span7
-      &nbsp;
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
-      .span1#statebacknext
-        = link_to "Next", voter_records_path

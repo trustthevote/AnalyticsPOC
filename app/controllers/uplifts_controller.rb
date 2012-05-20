@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'csv'
 
 class UpliftsController < ApplicationController
 
@@ -226,24 +227,19 @@ XSL
     puts out.to_xml
   end
 
+
   def upliftVoterRecords(document_path, eid)
+
     unless (document_path =~ /\.csv$/i)
       @uplift_err = "Invalid file type, only .CSV files accepted: "+document_path.to_s
       render :uplift
       return false
     end
     self.save_selection_vr(eid)
-    vr = VoterRecord.new(:vname => 'v1',:vtype => 'domestic',
-                          :gender => 'M', :party => 'Democratic')
-    vr.save
-    vr = VoterRecord.new(:vname => 'v2',:vtype => 'domestic',
-                          :gender => 'F', :party => 'Republican')
-    vr.save
-    vr = VoterRecord.new(:vname => 'v3',:vtype => 'UOCAVA',
-                          :gender => 'F', :party => 'Green')
-    vr.save
-    redirect_to '/voter_records', {:params=>{:id=>eid}}
-    return true
+    if self.csv_import(document_path)
+      redirect_to '/voter_records', {:params=>{:id=>eid}}
+      return true
+    end
   end
 
   def save_selection_vr(eid)
@@ -259,4 +255,30 @@ XSL
     se.save
   end
 
+  def csv_import(file)
+    unless csv = IO.readlines(file)
+      @uplift_err = "File not readable: "+file
+      render :uplift
+      return false
+    end
+    unless csv[0] =~ /^Voter,Type,Gender,Party/
+      @uplift_err = "Invalid header line of CSV file: "+csv[0]
+      render :uplift
+      return false
+    end
+    csv.shift
+    csv.each do |row|
+      unless row =~ /^.+,.+,.+,.+/
+        @uplift_err = "Invalid row in CSV file: "+row
+        render :uplift
+        return false
+      end
+      (voter,type,gender,party) = row.split(',')
+      vr=VoterRecord.new(:vname => voter, :vtype => type,
+                         :gender => gender, :party => party)
+      vr.save
+    end
+    return true
+  end
+  
 end

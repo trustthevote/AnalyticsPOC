@@ -87,9 +87,11 @@ class VoterTransactionLogsController < ApplicationController
   # REPLACE /voter_transaction_logs/1
   def replace
     params[:id] = params[:voter_transaction_log_id]
+    @voter_transaction_log = VoterTransactionLog.find(params[:id])
+    file_name = @voter_transaction_log.file_name
     e = self.destroy(true)
     respond_to do |format|
-      format.html { redirect_to '/elections/replace' }
+      format.html { redirect_to '/elections/replace?file='+file_name }
     end
   end
 
