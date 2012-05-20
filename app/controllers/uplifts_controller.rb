@@ -228,15 +228,20 @@ XSL
   end
 
 
-  def upliftVoterRecords(document_path, eid)
-
-    unless (document_path =~ /\.csv$/i)
-      @uplift_err = "Invalid file type, only .CSV files accepted: "+document_path.to_s
+  def upliftVoterRecords(csv_file, eid)
+    unless (csv_file =~ /\.csv$/i)
+      @uplift_err = "Invalid file type, only .CSV files accepted: "+csv_file.to_s
       render :uplift
       return false
     end
     self.save_selection_vr(eid)
-    if self.csv_import(document_path)
+    if self.csv_import(csv_file)
+      archive_path = 'public/archives'
+      unless File.directory?(archive_path) || FileUtils.mkdir(archive_path)
+        raise Exception, "No archive directory: "+archive_path
+      end
+      archive_file = archive_path+"/"+"voter_records.csv"
+      FileUtils.copy('public/uploads/'+self.uplift_file, archive_file)
       redirect_to '/voter_records', {:params=>{:id=>eid}}
       return true
     end
@@ -268,15 +273,14 @@ XSL
     end
     csv.shift
     csv.each do |row|
-      unless row =~ /^.+,.+,.+,.+/
+      if row =~ /^(\w+),(\w+),(\w+),(\w+)/
+        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4)
+        vr.save
+      else
         @uplift_err = "Invalid row in CSV file: "+row
         render :uplift
         return false
       end
-      (voter,type,gender,party) = row.split(',')
-      vr=VoterRecord.new(:vname => voter, :vtype => type,
-                         :gender => gender, :party => party)
-      vr.save
     end
     return true
   end
