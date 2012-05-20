@@ -68,15 +68,28 @@ class VoterTransactionLogsController < ApplicationController
   end
 
   # DELETE /voter_transaction_logs/1
-  def destroy
+  def destroy(replace = false)
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
     e = Election.find(@voter_transaction_log.election_id)
     e.log_del(@voter_transaction_log)
     e.save
     @voter_transaction_log.destroy
 
+    if replace
+      return e
+    else
+      respond_to do |format|
+        format.html { redirect_to e }
+      end
+    end
+  end
+
+  # REPLACE /voter_transaction_logs/1
+  def replace
+    params[:id] = params[:voter_transaction_log_id]
+    e = self.destroy(true)
     respond_to do |format|
-      format.html { redirect_to e }
+      format.html { redirect_to '/elections/replace' }
     end
   end
 

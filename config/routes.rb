@@ -47,11 +47,15 @@
   resources :voter_transaction_logs do
     match "/:id(.:format)" => 'voter_transaction_logs#index'
     match "/*path/:id(.:format)" => 'voter_transaction_logs#index'
+    post "" => 'voter_transaction_logs#replace'
   end
+
+  match "/elections/replace" => 'elections#replace'
 
   resources :elections do
     match "/:id(.:format)" => 'elections#index'
     match "/*path/:id(.:format)" => 'elections#index'
+    post "" => 'elections#archive'
   end
 
   resources :voters do

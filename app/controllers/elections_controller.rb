@@ -28,6 +28,13 @@ class ElectionsController < ApplicationController
     end
   end
 
+  # GET /elections/replace
+  def replace
+    respond_to do |format|
+      format.html # replace.html.haml
+    end
+  end
+
   # GET /elections/1
   def show
     @election = Election.find(params[:id])
@@ -59,7 +66,6 @@ class ElectionsController < ApplicationController
   # POST /elections
   def create
     @election = Election.new(params[:election])
-    @election.archived = false
 
     respond_to do |format|
       if @election.save
@@ -89,15 +95,7 @@ class ElectionsController < ApplicationController
   def destroy(archived = false)
     did = params[:id]
     @election = Election.find(did)
-    if (archived == true)
-      ea = ElectionArchive.new(:name => @election.name,
-                               :day => @election.day,
-                               :voter_end_day => @election.voter_end_day,
-                               :voter_start_day => @election.voter_start_day,
-                               :nlogs => @election.elogs.split(",")[0].to_i,
-                               :log_file_names => @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' '))
-      ea.save
-    else
+    unless archived
       @election.voter_transaction_logs.each do |vtl|
         vtl.delete_archive_file unless archived == true
       end
@@ -107,6 +105,21 @@ class ElectionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to elections_url }
     end
+  end
+
+  # ARCHIVE /elections/1
+  def archive
+    params[:id] = params[:election_id]
+    did = params[:id]
+    @election = Election.find(did)
+    ea = ElectionArchive.new(:name => @election.name,
+                             :day => @election.day,
+                             :voter_end_day => @election.voter_end_day,
+                             :voter_start_day => @election.voter_start_day,
+                             :nlogs => @election.elogs.split(",")[0].to_i,
+                             :log_file_names => @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' '))
+    ea.save
+    self.destroy(true)
   end
 
   def null_selection(did)

@@ -1,0 +1,54 @@
+#front
+  .row
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      .span2#redelecname
+        = Election.find(Selection.all[0].eid).name
+        %br
+        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+    -else
+      .span2#redelecname
+        No election event selected.
+    .span9
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td#doing{:style=>"width:25%;"}
+            Add Logs
+          %td#todo{:style=>"width:25%;"}
+            Add Voters
+          %td#todo{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    .span2
+      &nbsp;
+    .span9#likeh2blue
+      Upload Replacement Voter Transaction Log
+  .row
+    .span2.sidebar
+      %p
+        Choose the voter transaction log file you intend to use
+        as a replacement. 
+    .span9
+      .row
+        .span7
+          %form{:action=>"/uplift",:method=>"post",
+                :enctype=>"multipart/form-data",:style=>"margin:0;"}
+            %input{:type=>"file",:name=>"file"}
+            %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+            %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
+            %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
+            %input{:type=>"submit",:value=>"Import CSV",:disabled=>true,:style=>"color:white;background-color:#666666;"}
+        .span3
+          %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to 'Back', elections_path
+    .span7
+      &nbsp;
+    -if (Selection.all.length > 0 && Selection.all[0].eok())
+      .span1#statebacknext
+        = link_to "Next", voter_records_path

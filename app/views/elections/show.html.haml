@@ -67,22 +67,19 @@
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:30%;"}
                   = vtl.file_name
-                %td{:style=>"width:34%;"}
+                %td{:style=>"width:30%;"}
                   %span{:style=>"color:#3D59AB;"}
                     from
-                  = vtl.origin+" "+vtl.archive_name
-                %td{:style=>"width:12%;"}
-                  &nbsp;
-                %td{:style=>"width:12%;"}
-                  &nbsp;
-                %td{:style=>"width:12%;"}
-                  &nbsp;
+                  = vtl.origin
+                -if false
+                  %td{:colspan=>3,:style=>"width:40%;font-weight:normal"}
+                    = 'File: '+vtl.archive_name
               %tr
                 %td= 'Uploaded: '+vtl.created_at.strftime("%Y-%m-%d %H:%M")
                 %td= number_with_delimiter(vtl.voter_transaction_records.length)+" Records"
                 %td= link_to 'Show', vtl
                 %td= link_to 'Delete', vtl, :confirm => 'Are you sure?', :method=>:delete
-                %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:delete
+                %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:post
       -if (Selection.all.length > 0 && Selection.all[0].haslogs())
         %b#likeh2blue Upload New Voter Transaction Log
         .row

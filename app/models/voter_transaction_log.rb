@@ -2,7 +2,7 @@ class VoterTransactionLog < ActiveRecord::Base
   validates_presence_of :origin
   validates_presence_of :datime
   validates_uniqueness_of :origin, :scope => [:datime, :origin_uniq],
-                                   :message => "of log file and exact daytime identical to pre-existing log file, duplicate log presumed, rejected."
+                                   :message => "and date indicate this log file is a duplicate (it already appears under the current election event) and thus it has been rejected."
   belongs_to :election
   has_many :voter_transaction_records, :dependent => :destroy
 
