@@ -66,6 +66,9 @@ class ElectionsController < ApplicationController
   # POST /elections
   def create
     @election = Election.new(params[:election])
+    @election.elogs = 0
+    @election.erecords = 0
+    @election.evoters = 0
 
     respond_to do |format|
       if @election.save
