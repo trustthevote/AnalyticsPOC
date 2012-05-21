@@ -58,7 +58,7 @@ class Election < ActiveRecord::Base
     return uvs.length      
   end
   
-  def nvoters(dvtl) # number of unique voters
+  def nvoters(dvtl) # number of unique voters not in (to be deleted) vtl
     uvs = []
     self.voter_transaction_logs.each do |vtl|
       unless vtl == dvtl
