@@ -30,7 +30,8 @@
       %th LEO
       %th &nbsp;
       %th Note
-      %th
+      %th &nbsp;
+      %th Election
       %th
     - @voter_transaction_records.each do |vtr|
       %tr
@@ -47,8 +48,10 @@
         %td= vtr.leo
         %td
         %td= vtr.note
+        %td
+        %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
+        %td
         %td= link_to 'Show', vtr
-        %td= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
 %br
 = link_to 'Back', :root
 \|

@@ -24,7 +24,9 @@
       %th Date
       %th &nbsp;
       %th Records
-      %th
+      %th &nbsp;
+      %th Election
+      %th &nbsp;
       %th
     - @voter_transaction_logs.each do |voter_transaction_log|
       %tr
@@ -35,8 +37,10 @@
         %td= voter_transaction_log.datime
         %td
         %td= voter_transaction_log.voter_transaction_records.length
+        %td
+        %td= Election.find(voter_transaction_log.election_id).name
+        %td
         %td= link_to 'Show', voter_transaction_log
-        %td= link_to 'Destroy', voter_transaction_log, :confirm => 'Are you sure?', :method => :delete
 %br
 = link_to 'Back', :root
 \|

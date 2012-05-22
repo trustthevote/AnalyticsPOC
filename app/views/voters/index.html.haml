@@ -12,13 +12,11 @@
     %th &nbsp;
     %th Ballot
     %th &nbsp;
-    %th Election
-    %th &nbsp;
     %th Records
     %th &nbsp;
+    %th Election
+    %th &nbsp;
     %th 
-    %th
-
   - @voters.each do |voter|
     %tr
       %td= voter.vname
@@ -31,13 +29,11 @@
       %td
       %td= voter.vform
       %td
-      %td= voter.vnote
-      %td
       %td= voter.voter_transaction_records.length
       %td
+      %td= Election.find(voter.election_id).name
+      %td
       %td= link_to 'Show', voter
-      %td= link_to 'Destroy', voter, :confirm => 'Are you sure?', :method => :delete
-
 %br
 
 = link_to 'Back', :root
