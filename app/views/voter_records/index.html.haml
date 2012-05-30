@@ -8,7 +8,7 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span9
+    .span10
       %table{:style=>"width:100%;"}
         %tr#statebar
           %td{:style=>"width:25%;"}
@@ -31,23 +31,20 @@
         %p 
           If the voter record extracts are all in place, you can proceed to
           analytics.  
-      .span9
+      .span10
         #likeh2blue Voter Record Dataset
-        #scroil9{:style=>"height: 325px;"}
+        #scroil10{:style=>"height: 325px;"}
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;"}
-              %td{:style=>"width:30%;"}
+              %td{:style=>"width:35%;"}
                 = (Selection.all.length > 0 && Selection.all[0].vr_file) || 'FILE.csv'
-              %td{:style=>"width:34%;"}
+              %td{:style=>"width:35%;"}
                 %span{:style=>"color:#3D59AB;"}
                   from
                 = (Selection.all.length > 0 && Selection.all[0].vr_origin) || 'Somewhere'
-              %td{:style=>"width:12%;"}
-                &nbsp;
-              %td{:style=>"width:12%;"}
-                &nbsp;
-              %td{:style=>"width:12%;"}
-                &nbsp;
+              %td{:style=>"width:10%;"}
+              %td{:style=>"width:10%;"}
+              %td{:style=>"width:10%;"}
             %tr
               %td= 'Uploaded: '+VoterRecord.all[0].created_at.strftime("%Y-%m-%d %H:%M")
               %td= number_with_delimiter(VoterRecord.all.length)+" Records"
@@ -65,13 +62,13 @@
           If you don’t have voter records, that’s OK. You can return later and
           add them, but until you do, some analytics and reports will be
           unavailable. 
-      .span9
+      .span10
         #likeh2blue Upload New Voter Records Dataset
         .row
-          .span7
+          .span8
             %form{:action=>"/uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
-              %input{:type=>"file",:name=>"file"}
+              %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
               %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
               %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
@@ -86,7 +83,7 @@
         = link_to "Back", '/elections/'+(Election.all.find{|e|e.selected}).id.to_s
       -else
         = link_to 'Back', :back
-    .span7
+    .span8
       &nbsp;
     -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext

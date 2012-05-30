@@ -8,7 +8,7 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span9
+    .span10
       %table{:style=>"width:100%;"}
         %tr#statebar
           %td{:style=>"width:25%;"}
@@ -31,94 +31,94 @@
           %u More about reporting (add link)
         %p
           %u More about data export (add link)
-      .span9
+      .span10
         #likeh2blue Analyses and Reports
-        #scroil9{:style=>"height: 322px;"}
+        #scroil10{:style=>"height: 322px;"}
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Voter Participation'
             %tr
-              %td{:style=>"width:33%;"}
+              %td{:style=>"width:37%;"}
                 = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
-              %td{:style=>"width:10%;text-align:right"}
+              %td{:style=>"width:9%;text-align:left"}
                 = link_to 'About'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'View Report', '/report?rn=1;id='+(Election.all.find{|e|e.selected}).id.to_s
-              %td{:style=>"width:15%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Save as PDF'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:12%;text-align:left"}
                 = link_to 'View Data'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML'
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'UOCAVA Ballot Return'
             %tr
-              %td{:style=>"width:33%;"}
+              %td{:style=>"width:37%;"}
                 = "N/A Records"
-              %td{:style=>"width:10%;text-align:right"}
+              %td{:style=>"width:9%;text-align:left"}
                 = link_to 'About'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'View Report', '/report?rn=2;id='+(Election.all.find{|e|e.selected}).id.to_s
-              %td{:style=>"width:15%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Save as PDF'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:12%;text-align:left"}
                 = link_to 'View Data'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML'
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Absentee Ballot Adjudication'
             %tr
-              %td{:style=>"width:33%;"}
+              %td{:style=>"width:37%;"}
                 = "N/A Records"
-              %td{:style=>"width:10%;text-align:right"}
+              %td{:style=>"width:9%;text-align:left"}
                 = link_to 'About'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'View Report', '/report?rn=3;id='+(Election.all.find{|e|e.selected}).id.to_s
-              %td{:style=>"width:15%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Save as PDF'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:12%;text-align:left"}
                 = link_to 'View Data'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML'
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Bulk Data'
             %tr
-              %td{:style=>"width:33%;"}
+              %td{:style=>"width:37%;"}
                 = number_with_delimiter((Election.all.find{|e|e.selected}).nrecords)+" Records"
-              %td{:style=>"width:10%;text-align:right"}
+              %td{:style=>"width:9%;text-align:left"}
                 = link_to 'About'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export CSV'
-              %td{:style=>"width:15%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:12%;text-align:left"}
                 = '&nbsp;'.html_safe
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = '&nbsp;'.html_safe
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Anonymized Bulk Data'
             %tr
-              %td{:style=>"width:33%;"}
+              %td{:style=>"width:37%;"}
                 = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
-              %td{:style=>"width:10%;text-align:right"}
+              %td{:style=>"width:9%;text-align:left"}
                 = link_to 'About'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export CSV'
-              %td{:style=>"width:15%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML'
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:12%;text-align:left"}
                 = '&nbsp;'.html_safe
-              %td{:style=>"width:14%;text-align:right"}
+              %td{:style=>"width:14%;text-align:left"}
                 = '&nbsp;'.html_safe
     -else
       .span2.sidebar
         %p
           Please select an election before navagating to this page.
-      .span9
+      .span10
         #likeh2blue No Analyses and Reports Available, No Election Selected
   .row#positionbacknext
     .span2

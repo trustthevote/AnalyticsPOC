@@ -8,7 +8,7 @@
     -else
       .span2#redelecname
         No election event selected.
-    .span9
+    .span10
       %table{:style=>"width:100%;"}
         %tr#statebar
           %td{:style=>"width:25%;"}
@@ -23,7 +23,7 @@
   .row
     .span2
       &nbsp;
-    .span9#likeh2blue
+    .span10#likeh2blue
       -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         = 'Voter Transaction Logs'
       -else
@@ -46,13 +46,13 @@
         %p
           If you don’t have all the log data, that’s OK &mdash; you can return
           later and add more log data, or replace logs you have already loaded.
-    .span9
+    .span10
       -if !((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         .row
-          .span7
+          .span8
             %form{:action=>"/uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
-              %input{:type=>"file",:name=>"file"}
+              %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
               %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
@@ -60,20 +60,20 @@
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
         %b#likeh2blue No Voter Transaction Logs
-      %div#scroil9{:style=>"height:237px;"}
+      %div#scroil10{:style=>"height:237px;"}
         -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
           - (Election.all.find{|e|e.selected}).voter_transaction_logs.each do |vtl|
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
-                %td{:style=>"width:30%;"}
+                %td{:style=>"width:35%;"}
                   = vtl.file_name
-                %td{:style=>"width:30%;"}
+                %td{:style=>"width:35%;"}
                   %span{:style=>"color:#3D59AB;"}
                     from
                   = vtl.origin
-                -if false
-                  %td{:colspan=>3,:style=>"width:40%;font-weight:normal"}
-                    = 'File: '+vtl.archive_name
+                %td{:style=>"width:10%;"}
+                %td{:style=>"width:10%;"}
+                %td{:style=>"width:10%;"}
               %tr
                 %td= 'Uploaded: '+vtl.created_at.strftime("%Y-%m-%d %H:%M")
                 %td= number_with_delimiter(vtl.voter_transaction_records.length)+" Records"
@@ -83,10 +83,11 @@
       -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         %b#likeh2blue Upload New Voter Transaction Log
         .row
-          .span7
+          .span8
             %form{:action=>"/uplift",:method=>"post",
-                  :enctype=>"multipart/form-data",:style=>"margin:0;"}
-              %input{:type=>"file",:name=>"file"}
+                  :enctype=>"multipart/form-data",
+                  :style=>"margin:0;"}
+              %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
               %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
@@ -98,7 +99,7 @@
       &nbsp;
     .span1#statebacknext
       = link_to 'Back', elections_path
-    .span7
+    .span8
       &nbsp;
     -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext

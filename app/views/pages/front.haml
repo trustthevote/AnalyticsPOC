@@ -74,7 +74,7 @@
           .span4
             %form{:action=>"uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
-              %input{:type=>"file",:name=>"file"}
+              %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
               %input{:type=>"submit",:value=>"Upload"}
             %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)
           .span4
