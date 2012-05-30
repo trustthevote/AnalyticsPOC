@@ -13,10 +13,10 @@
             = link_to "Logs",'voter_transaction_logs#index', class: 'primary btn'
         %tr
           %td
-            -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+            -if !(Election.all.any?{|e|e.selected})
               %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
             -else
-              %h3= "Election: "+Election.find(Selection.all[0].eid).name+" "+Election.find(Selection.all[0].eid).day.to_s
+              %h3= "Election: "+(Election.all.find{|e|e.selected}).name+" "+(Election.all.find{|e|e.selected}).day.to_s
           %td{:style=>"text-align:left;padding-bottom:6px;"}
             = link_to "Records",'voter_transaction_records#index', class: 'primary btn'
             = link_to "Voters",'voters#index', class: 'primary btn'
@@ -45,7 +45,7 @@
         Virginia State Board of Elections
 
     .span8
-      -if ((Selection.all.length == 0) || (Selection.all[0].eid == nil) || (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+      -if !(Election.all.any?{|e|e.selected})
         -if (Election.all.length == 0)
           To get started, create an election using the Manage Elections button (upper right).
         -else
@@ -69,7 +69,7 @@
         .span4
           %p
             Analyze the voter transaction logs for the election named above.
-      -if ! ((Selection.all.length == 0) || (Selection.all[0].eid == nil) ||  (! Election.all.any? {|e| e.id == Selection.all[0].eid}))
+      -if (Election.all.any?{|e|e.selected})
         .row
           .span4
             %form{:action=>"uplift",:method=>"post",

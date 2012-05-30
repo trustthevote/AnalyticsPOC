@@ -11,7 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120519063228) do
+ActiveRecord::Schema.define(:version => 20120530042044) do
+
+  create_table "archives", :force => true do |t|
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "lognames"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "earchives", :force => true do |t|
+    t.integer  "eid"
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "log_file_names"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "elchives", :force => true do |t|
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "log_file_names"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "election_archives", :force => true do |t|
     t.integer  "eid"
@@ -36,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20120519063228) do
     t.string   "erecords"
     t.string   "elogs"
     t.string   "evoters"
+    t.boolean  "selected"
   end
 
   create_table "selections", :force => true do |t|

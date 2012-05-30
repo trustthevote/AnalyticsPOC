@@ -59,8 +59,8 @@ class ElectionArchivesController < ApplicationController
     @election_archive = ElectionArchive.find(params[:id])
     @election = Election.find(@election_archive.eid)
     @election.archived = false
+    @election.selected = (Election.all.none?{|e|e.selected})
     @election.save
-    @election.select_self
     self.destroy(true)
   end
 

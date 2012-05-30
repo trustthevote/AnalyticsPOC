@@ -1,10 +1,10 @@
 #front
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2#redelecname
-        = Election.find(Selection.all[0].eid).name
+        = (Election.all.find{|e|e.selected}).name
         %br
-        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
     -else
       .span2#redelecname
         No election event selected.
@@ -37,11 +37,11 @@
           %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;"}
               %td{:style=>"width:30%;"}
-                = ((VoterRecord.all.length > 0 && Selection.all.length > 0) ? Selection.all[0].vr_file : 'FILE.csv')
+                = (Selection.all.length > 0 && Selection.all[0].vr_file) || 'FILE.csv'
               %td{:style=>"width:34%;"}
                 %span{:style=>"color:#3D59AB;"}
                   from
-                = ((VoterRecord.all.length > 0 && Selection.all.length > 0) ? Selection.all[0].vr_origin : 'FILE.csv')
+                = (Selection.all.length > 0 && Selection.all[0].vr_origin) || 'Somewhere'
               %td{:style=>"width:12%;"}
                 &nbsp;
               %td{:style=>"width:12%;"}
@@ -72,7 +72,7 @@
             %form{:action=>"/uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
-              %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+              %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
               %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
               %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
@@ -82,12 +82,12 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      -if (Selection.all.length > 0 && Selection.all[0].eok())
-        = link_to "Back", '/elections/'+Selection.all[0].eid.to_s
+      -if (Election.all.any?{|e|e.selected})
+        = link_to "Back", '/elections/'+(Election.all.find{|e|e.selected}).id.to_s
       -else
         = link_to 'Back', :back
     .span7
       &nbsp;
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext
-        = link_to "Next", '/analytic?id'+Selection.all[0].eid.to_s
+        = link_to "Next", '/analytic?id'+(Election.all.find{|e|e.selected}).id.to_s

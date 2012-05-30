@@ -70,14 +70,13 @@ class Election < ActiveRecord::Base
     return uvs.length      
   end
   
-  def select_self
-    if (Selection.all.length == 0)
-      se = Selection.new(:eid => self.id)
+  def named
+    return self.name
+    if self.selected
+      return self.name+"("+self.id.to_s+")***"
     else
-      se = Selection.all[0]
-      se.eid = self.id
+      return self.name+"("+self.id.to_s+")"
     end
-    se.save
   end
-
+  
 end

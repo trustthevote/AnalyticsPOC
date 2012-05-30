@@ -1,10 +1,10 @@
 #front
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2#redelecname
-        = Election.find(Selection.all[0].eid).name
+        = (Election.all.find{|e|e.selected}).named
         %br
-        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d,%Y")
     -else
       .span2#redelecname
         No election event selected.
@@ -24,13 +24,13 @@
     .span2
       &nbsp;
     .span9#likeh2blue
-      -if (Selection.all.length > 0 && Selection.all[0].haslogs())
+      -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         = 'Voter Transaction Logs'
       -else
         Upload New Voter Transaction Log
   .row
     .span2.sidebar
-      - if (Selection.all.length > 0 && Selection.all[0].haslogs())
+      -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         %p
           You can update this election log by uploading additional log data,
           or by deleting existing logs that may be outdated.
@@ -47,13 +47,13 @@
           If you don’t have all the log data, that’s OK &mdash; you can return
           later and add more log data, or replace logs you have already loaded.
     .span9
-      -if !(Selection.all.length > 0 && Selection.all[0].haslogs())
+      -if !((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         .row
           .span7
             %form{:action=>"/uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
-              %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+              %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
               %input{:type=>"submit",:value=>"Import CSV",:disabled=>true,:style=>"color:white;background-color:#666666;"}
@@ -61,8 +61,8 @@
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
         %b#likeh2blue No Voter Transaction Logs
       %div#scroil9{:style=>"height:237px;"}
-        -if (Selection.all.length > 0 && Selection.all[0].haslogs())
-          - Selection.all[0].elec().voter_transaction_logs.each do |vtl|
+        -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
+          - (Election.all.find{|e|e.selected}).voter_transaction_logs.each do |vtl|
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:30%;"}
@@ -80,14 +80,14 @@
                 %td= link_to 'Show', vtl
                 %td= link_to 'Delete', vtl, :confirm => 'Are you sure?', :method=>:delete
                 %td= link_to 'Replace', vtl, :confirm => 'Are you sure?', :method=>:post
-      -if (Selection.all.length > 0 && Selection.all[0].haslogs())
+      -if ((Election.all.any?{|e|e.selected}) && (Election.all.find{|e|e.selected}).voter_transaction_logs.length>0)
         %b#likeh2blue Upload New Voter Transaction Log
         .row
           .span7
             %form{:action=>"/uplift",:method=>"post",
                   :enctype=>"multipart/form-data",:style=>"margin:0;"}
               %input{:type=>"file",:name=>"file"}
-              %input{:type=>"hidden",:name=>"eid",:value=>Selection.all[0].eid}
+              %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vtl"}
               %input{:type=>"submit",:value=>"Import XML",:style=>"color:white;background-color:#444444;"}
               %input{:type=>"submit",:value=>"Import CSV",:disabled=>true,:style=>"color:white;background-color:#666666;"}
@@ -100,6 +100,6 @@
       = link_to 'Back', elections_path
     .span7
       &nbsp;
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext
         = link_to "Next", voter_records_path

@@ -1,10 +1,10 @@
 #front
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2#redelecname
-        = Election.find(Selection.all[0].eid).name
+        = (Election.all.find{|e|e.selected}).name
         %br
-        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
     -else
       .span2#redelecname
         No election event selected.
@@ -114,7 +114,7 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      -if (Selection.all.length > 0 && Selection.all[0].eok())
-        = link_to "Back", '/analytic?id='+Selection.all[0].eid.to_s
+      -if (Election.all.any?{|e|e.selected})
+        = link_to "Back", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
       -else
         = link_to 'Back', :back

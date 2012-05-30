@@ -1,10 +1,10 @@
 #front
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2#redelecname
-        = Election.find(Selection.all[0].eid).name
+        = (Election.all.find{|e|e.selected}).name
         %br
-        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
     -else
       .span2#redelecname
         No election event selected.
@@ -21,7 +21,7 @@
             Analyze
       %hr
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2.sidebar
         %p
           With all the relevant data loaded, you can now run a variety of
@@ -39,11 +39,11 @@
               %td= 'Voter Participation'
             %tr
               %td{:style=>"width:33%;"}
-                = number_with_delimiter(Selection.all[0].elec.erecords)+" Records"
+                = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
               %td{:style=>"width:10%;text-align:right"}
                 = link_to 'About'
               %td{:style=>"width:14%;text-align:right"}
-                = link_to 'View Report', '/report?rn=1;id='+Selection.all[0].eid.to_s
+                = link_to 'View Report', '/report?rn=1;id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:15%;text-align:right"}
                 = link_to 'Save as PDF'
               %td{:style=>"width:14%;text-align:right"}
@@ -59,7 +59,7 @@
               %td{:style=>"width:10%;text-align:right"}
                 = link_to 'About'
               %td{:style=>"width:14%;text-align:right"}
-                = link_to 'View Report', '/report?rn=2;id='+Selection.all[0].eid.to_s
+                = link_to 'View Report', '/report?rn=2;id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:15%;text-align:right"}
                 = link_to 'Save as PDF'
               %td{:style=>"width:14%;text-align:right"}
@@ -75,7 +75,7 @@
               %td{:style=>"width:10%;text-align:right"}
                 = link_to 'About'
               %td{:style=>"width:14%;text-align:right"}
-                = link_to 'View Report', '/report?rn=3;id='+Selection.all[0].eid.to_s
+                = link_to 'View Report', '/report?rn=3;id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:15%;text-align:right"}
                 = link_to 'Save as PDF'
               %td{:style=>"width:14%;text-align:right"}
@@ -87,7 +87,7 @@
               %td= 'Bulk Data'
             %tr
               %td{:style=>"width:33%;"}
-                = number_with_delimiter(Selection.all[0].elec.nrecords)+" Records"
+                = number_with_delimiter((Election.all.find{|e|e.selected}).nrecords)+" Records"
               %td{:style=>"width:10%;text-align:right"}
                 = link_to 'About'
               %td{:style=>"width:14%;text-align:right"}
@@ -103,7 +103,7 @@
               %td= 'Anonymized Bulk Data'
             %tr
               %td{:style=>"width:33%;"}
-                = number_with_delimiter(Selection.all[0].elec.erecords)+" Records"
+                = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
               %td{:style=>"width:10%;text-align:right"}
                 = link_to 'About'
               %td{:style=>"width:14%;text-align:right"}

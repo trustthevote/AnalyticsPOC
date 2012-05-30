@@ -8,17 +8,23 @@ class ElectionsController < ApplicationController
     @elections = Election.all
     @showxml = params[:show_xml]
 
-    eid = (Election.all.length == 1 ? Election.all[0].id : params[:id])
-    if (params[:select] || Election.all.length == 1)
+    eid = params[:id]
+    if params[:select]
+      self.unselect_others(eid)
       @election = Election.find(eid)
+      @election.selected = true
+      @election.save
       self.select_me(eid)
-    end
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml do
-        xml = render_to_string(layout: nil)
-        send_xml "elections.xml", xml
+      redirect_to do |format|
+        format.html
+      end
+    else
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml do
+          xml = render_to_string(layout: nil)
+          send_xml "elections.xml", xml
+        end
       end
     end
   end
@@ -62,13 +68,14 @@ class ElectionsController < ApplicationController
   def create
     @election = Election.new(params[:election])
     @election.archived = false
+    @election.selected = true
     @election.elogs = "0"
     @election.erecords = "0"
     @election.evoters = "0"
 
     respond_to do |format|
       if @election.save
-        self.select_me(@election.id)
+        self.unselect_others(@election.id)
         format.html { redirect_to @election,
           notice: 'Election was successfully created.' }
       else
@@ -97,9 +104,10 @@ class ElectionsController < ApplicationController
     @election.voter_transaction_logs.each do |vtl|
       vtl.delete_archive_file
     end
+    if @election.selected
+      self.select_another(eid)
+    end
     @election.destroy
-    Selection.all[0].eid = nil
-    Selection.all[0].save
     respond_to do |format|
       format.html { redirect_to elections_url }
     end
@@ -111,6 +119,10 @@ class ElectionsController < ApplicationController
     eid = params[:id]
     @election = Election.find(eid)
     @election.archived = true
+    if @election.selected
+      @election.selected = false
+      self.select_another(eid)
+    end
     @election.save
     ea = ElectionArchive.new(:eid => eid,
                              :name => @election.name,
@@ -120,18 +132,31 @@ class ElectionsController < ApplicationController
                              :nlogs => @election.elogs.split(",")[0].to_i,
                              :log_file_names => @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' '))
     ea.save
-    Selection.all[0].eid = nil
-    Selection.all[0].save
     respond_to do |format|
       format.html { redirect_to elections_url }
     end
   end
 
+  def unselect_others(eid)
+    if true
+      Election.all.each do |e|
+        unless (e.id == eid)
+          if e.selected
+            e.selected = false
+            e.save
+          end
+        end
+      end
+    end
+    self.select_me(eid)
+  end
+
   def select_another(eid)
-    return if (Selection.all.length > 0 && Selection.all[0].eid == eid)
     Election.all.each do |e|
       unless (e.archived || e.id == eid)
-        return e.select_self()
+        e.selected = true
+        e.save
+        return self.select_me(e.id)
       end
     end
     self.select_me(nil)
@@ -144,12 +169,6 @@ class ElectionsController < ApplicationController
       se = Selection.all[0]
       se.eid = eid
     end
-    se.save
-  end
-
-  def select_none()
-    se = Selection.all[0]
-    se.eid = nil
     se.save
   end
 

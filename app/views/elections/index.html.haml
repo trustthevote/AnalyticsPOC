@@ -1,10 +1,10 @@
 #front
   .row
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span2#redelecname
-        = Election.find(Selection.all[0].eid).name
+        = (Election.all.find{|e|e.selected}).named
         %br
-        = Election.find(Selection.all[0].eid).day.strftime("%B %-d, %Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d,%Y")
     -else
       .span2#redelecname
         No election event selected.
@@ -38,12 +38,12 @@
             = link_to 'Election Archives', election_archives_path
       #scroil9{:style=>"height: 325px;"}
         - @elections.each do |e|
-          -if false && e.archived
-          -elsif (Selection.all.length > 0 && Selection.all[0].eid == e.id)
+          -if e.archived
+          -elsif e.selected
             %table{:style=>"border:1px solid #000000;width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:24%;"}
-                  = e.name.to_s
+                  = e.named.to_s
                 %td{:style=>"width:24%;"}
                   %span{:style=>"color:#3D59AB;"}
                     on
@@ -70,7 +70,7 @@
             %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:24%;"}
-                  = e.name.to_s
+                  = e.named.to_s
                 %td{:style=>"width:24%;"}
                   %span{:style=>"color:#3D59AB;"}
                     on
@@ -100,6 +100,6 @@
       = link_to 'Back', :root
     .span7
       &nbsp;
-    -if (Selection.all.length > 0 && Selection.all[0].eok())
+    -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext
-        = link_to "Next", '/elections/'+Selection.all[0].eid.to_s
+        = link_to "Next", '/elections/'+(Election.all.find{|e|e.selected}).id.to_s
