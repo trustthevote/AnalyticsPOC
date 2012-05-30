@@ -28,19 +28,20 @@
       %th Election
       %th &nbsp;
       %th
-    - @voter_transaction_logs.each do |voter_transaction_log|
-      %tr
-        %td= voter_transaction_log.origin
-        %td
-        %td= voter_transaction_log.origin_uniq
-        %td
-        %td= voter_transaction_log.datime
-        %td
-        %td= voter_transaction_log.voter_transaction_records.length
-        %td
-        %td= Election.find(voter_transaction_log.election_id).name
-        %td
-        %td= link_to 'Show', voter_transaction_log
+    - @voter_transaction_logs.each do |vtl|
+      -if ! vtl.archived
+        %tr
+          %td= vtl.origin
+          %td
+          %td= vtl.origin_uniq
+          %td
+          %td= vtl.datime
+          %td
+          %td= vtl.voter_transaction_records.length
+          %td
+          %td= Election.find(vtl.election_id).name
+          %td
+          %td= link_to 'Show', vtl
 %br
 = link_to 'Back', :root
 \|

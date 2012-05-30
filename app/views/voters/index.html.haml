@@ -18,22 +18,23 @@
     %th &nbsp;
     %th 
   - @voters.each do |voter|
-    %tr
-      %td= voter.vname
-      %td
-      %td= (voter.vtype == 'UOCAVA' ? 'UOC' : voter.vtype)
-      %td
-      %td= (voter.voted ? "Yes" : "No")
-      %td
-      %td= (voter.voted && voter.vreject ? "Yes" : "")
-      %td
-      %td= voter.vform
-      %td
-      %td= voter.voter_transaction_records.length
-      %td
-      %td= Election.find(voter.election_id).name
-      %td
-      %td= link_to 'Show', voter
+    -if ! voter.archived
+      %tr
+        %td= voter.vname
+        %td
+        %td= (voter.vtype == 'UOCAVA' ? 'UOC' : voter.vtype)
+        %td
+        %td= (voter.voted ? "Yes" : "No")
+        %td
+        %td= (voter.voted && voter.vreject ? "Yes" : "")
+        %td
+        %td= voter.vform
+        %td
+        %td= voter.voter_transaction_records.length
+        %td
+        %td= Election.find(voter.election_id).name
+        %td
+        %td= link_to 'Show', voter
 %br
 
 = link_to 'Back', :root

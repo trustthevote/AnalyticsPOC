@@ -70,4 +70,14 @@ class Election < ActiveRecord::Base
     return uvs.length      
   end
   
+  def select_self
+    if (Selection.all.length == 0)
+      se = Selection.new(:eid => self.id)
+    else
+      se = Selection.all[0]
+      se.eid = self.id
+    end
+    se.save
+  end
+
 end

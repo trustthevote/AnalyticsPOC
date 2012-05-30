@@ -1,29 +1,31 @@
-%h1 Listing election_archives
-
-%table
+%h2= "Election Archives ("+ElectionArchive.all.length.to_s+")"
+%br
+%table{:style=>"text-align:center"}
   %tr
     %th Name
+    %th &nbsp;
     %th Day
-    %th Voter end day
-    %th Voter start day
-    %th Nlogs
-    %th Log file names
-    %th
-    %th
-    %th
-
+    %th &nbsp;
+    %th # Logs
+    %th &nbsp;
+    %th EID
+    %th &nbsp;
+    %th 
   - @election_archives.each do |election_archive|
     %tr
       %td= election_archive.name
+      %td
       %td= election_archive.day
-      %td= election_archive.voter_end_day
-      %td= election_archive.voter_start_day
+      %td
       %td= election_archive.nlogs
-      %td= election_archive.log_file_names
+      %td
+      %td= election_archive.eid
+      %td
       %td= link_to 'Show', election_archive
-      %td= link_to 'Edit', edit_election_archive_path(election_archive)
-      %td= link_to 'Destroy', election_archive, :confirm => 'Are you sure?', :method => :delete
-
+      %td
+      %td= link_to 'Delete', election_archive, :confirm => 'Are you sure?', :method=>:delete
+      %td
+      %td= link_to 'Restore', election_archive, :confirm => 'Are you sure?', :method=>:put
 %br
 
-= link_to 'New Election archive', new_election_archive_path
+= link_to 'Back', :back

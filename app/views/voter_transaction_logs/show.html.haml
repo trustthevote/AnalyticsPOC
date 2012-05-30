@@ -45,7 +45,6 @@
       %th &nbsp;
       %th Note
       %th
-      %th
 
     - @voter_transaction_log.voter_transaction_records.each do |vtr|
       %tr
@@ -63,7 +62,6 @@
         %td
         %td= vtr.note
         %td= link_to 'Show', vtr
-        %td= link_to 'Destroy', vtr, :confirm => 'Are you sure?', :method => :delete
 
 %br
 

@@ -6,6 +6,14 @@ class VoterTransactionLog < ActiveRecord::Base
   belongs_to :election
   has_many :voter_transaction_records, :dependent => :destroy
 
+  def archived
+    if e = Election.find(self.election_id)
+      return e.archived
+    else
+      return true
+    end
+  end
+  
   def delete_archive_file
     File.delete(self.archive_name) if File.exists?(self.archive_name)
   end

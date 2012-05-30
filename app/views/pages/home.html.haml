@@ -52,7 +52,7 @@
             log later to add more data as needed, and run analytics over the 
             consolidated data. 
       .row
-        -if (Election.all.length > 0)
+        -if (Election.all.any? {|e| ! e.archived})
           .span2#stateget
             = link_to "Get Started Now ", 'elections'
         -else

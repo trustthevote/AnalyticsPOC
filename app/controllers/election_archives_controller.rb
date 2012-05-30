@@ -57,26 +57,28 @@ class ElectionArchivesController < ApplicationController
   # PUT /election_archives/1.json
   def update
     @election_archive = ElectionArchive.find(params[:id])
-
-    respond_to do |format|
-      if @election_archive.update_attributes(params[:election_archive])
-        format.html { redirect_to @election_archive, notice: 'Election archive was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @election_archive.errors, status: :unprocessable_entity }
-      end
-    end
+    @election = Election.find(@election_archive.eid)
+    @election.archived = false
+    @election.save
+    @election.select_self
+    self.destroy(true)
   end
 
   # DELETE /election_archives/1
   # DELETE /election_archives/1.json
-  def destroy
+  def destroy(restoring = false)
     @election_archive = ElectionArchive.find(params[:id])
+    eid = @election_archive.eid
     @election_archive.destroy
+    unless restoring
+      @election = Election.find(eid)
+      if defined?(@election)
+        @election.destroy
+      end
+    end
 
     respond_to do |format|
-      format.html { redirect_to election_archives_url }
+      format.html { redirect_to elections_url }
       format.json { head :no_content }
     end
   end

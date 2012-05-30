@@ -30,10 +30,16 @@
         data that describes each voter’s activities 
         during this election cycle.
     .span9
-      #likeh2blue Election Events
+      .row
+        .span7
+          #likeh2blue Election Events
+        -if ElectionArchive.all.length > 0
+          .span2{:style=>"text-align:right;color:#3D59AB;font-weight:bold;font-size:16px;line-height:34px;"}
+            = link_to 'Election Archives', election_archives_path
       #scroil9{:style=>"height: 325px;"}
         - @elections.each do |e|
-          -if (Selection.all.length > 0 && Selection.all[0].active(e.id))
+          -if false && e.archived
+          -elsif (Selection.all.length > 0 && Selection.all[0].eid == e.id)
             %table{:style=>"border:1px solid #000000;width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:24%;"}
@@ -54,7 +60,10 @@
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
                 %td= number_with_delimiter(e.records_num)+" Records"
                 %td= number_with_delimiter(e.voters_num)+" Voters"
-                %td= link_to 'Archive', e, :confirm => 'Are you sure?', :method => :post
+                -if e.archived
+                  %td= link_to 'Archived', e, :confirm => 'Are you sure?', :method => :post
+                -else
+                  %td= link_to 'Archive', e, :confirm => 'Are you sure?', :method => :post
                 %td= link_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete
                 %td= '&lowast;&lowast;&lowast;'.html_safe
           -else
@@ -78,7 +87,10 @@
                 %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
                 %td= number_with_delimiter(e.nrecords())+" Records"
                 %td= number_with_delimiter(e.uvoters())+" Voters"
-                %td= link_to 'Archive', e, :confirm => 'Are you sure?', :method => :post
+                -if e.archived
+                  %td= link_to 'Archived', e, :confirm => 'Are you sure?', :method => :post
+                -else
+                  %td= link_to 'Archive', e, :confirm => 'Are you sure?', :method => :post
                 %td= link_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete
                 %td= link_to 'Select', {:select => true, :id => e.id}
   .row#positionbacknext

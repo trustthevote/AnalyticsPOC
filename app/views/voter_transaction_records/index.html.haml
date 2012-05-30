@@ -34,24 +34,25 @@
       %th Election
       %th
     - @voter_transaction_records.each do |vtr|
-      %tr
-        %td= vtr.vname
-        %td
-        %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
-        %td
-        %td= vtr.datime
-        %td
-        %td= vtr.action
-        %td
-        %td= vtr.form
-        %td
-        %td= vtr.leo
-        %td
-        %td= vtr.note
-        %td
-        %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
-        %td
-        %td= link_to 'Show', vtr
+      -if ! vtr.archived
+        %tr
+          %td= vtr.vname
+          %td
+          %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
+          %td
+          %td= vtr.datime
+          %td
+          %td= vtr.action
+          %td
+          %td= vtr.form
+          %td
+          %td= vtr.leo
+          %td
+          %td= vtr.note
+          %td
+          %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
+          %td
+          %td= link_to 'Show', vtr
 %br
 = link_to 'Back', :root
 \|

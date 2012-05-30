@@ -107,7 +107,7 @@ class ReportsController < ApplicationController
               @voted += 1
             end
           elsif vtr.form =~ /Absentee Ballot/
-            unless vtr.action == 'discard' #JVC really?
+            if vtr.action == 'complete' #JVC really?
               @vote_ab += 1
               @voted += 1
             end

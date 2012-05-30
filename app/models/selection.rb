@@ -24,8 +24,4 @@ class Selection < ActiveRecord::Base
     return false
   end
 
-  def active(sid)
-    return sid == self.eid
-  end
-
 end
