@@ -1,3 +1,5 @@
 /tmp
 /log/*.log
 /public/xml/*.xml
+/public/uploads/*
+/public/archives/*

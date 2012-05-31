@@ -4,7 +4,7 @@
       .span2#redelecname
         = (Election.all.find{|e|e.selected}).named
         %br
-        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d,%Y")
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
     -else
       .span2#redelecname
         No election event selected.
