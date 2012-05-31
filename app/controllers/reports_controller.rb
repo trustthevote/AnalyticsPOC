@@ -4,24 +4,33 @@ class ReportsController < ApplicationController
     if params[:id] 
       eid = params[:id]
     else
-      eid = Selection.all[0].eid
+      eid = Election.all.find{|e|e.selected}.id
     end
     @election = Election.find(eid)
-    @report_date = "Report Date: "+Date::today.to_s
-    if params[:rn] 
-      case params[:rn].to_i
-      when 1
-        return self.report1()
-      when 2
-        return self.report2()
-      end
+    @description = []
+    @rn = (params[:rn] ? params[:rn].to_i : 1)
+    self.report()
+    respond_to do |f|
+      f.html { render '/reports/report'+@rn.to_s }
+      f.pdf  { render layout: false }
     end
-    render '/reports/report99'
-    return false
+  end
+
+  def report
+    case @rn
+    when 1
+      self.report1()
+    when 2
+      self.report2()
+    else
+      @rn = 1
+      self.report1()
+    end
   end
 
   def report1()
-    @xvoters  = 1
+    @rname = 'Voter Participation Report'
+    @description = ["This report presents voter participation based on the type of vote cast. For absentee and provisional voters, participation is further broken down according to the number of ballots approved or rejected (A/R). There is an additional caterogy of \"whacky\" voters about which nothing is currently know and subsequently nothing reported."]
     @voters   = 0
     @voted    = 0
     @vote_reg = 0
@@ -63,15 +72,31 @@ class ReportsController < ApplicationController
     end
     @voters = voter_ids.length
     if @voters > 0
-      @xvoters = @voters 
       @vote_no = @voters - @voted
     end
-    render '/reports/report1'
+    @nvoters = @voters.to_s
+    @nvoted  = @voted.to_s
+    @nvote_reg = @vote_reg.to_s
+    @nvote_no = @vote_no.to_s
+    @nvote_a = (@vote_aa+@vote_ar).to_s
+    @nvote_aa = @vote_aa.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_aa*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
+    @nvote_ar = @vote_ar.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_ar*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
+    @nvote_p = (@vote_pa+@vote_pr).to_s
+    @nvote_pa = @vote_pa.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pa*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
+    @nvote_pr = @vote_pr.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pr*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
+    @nvote_wac = @vote_wac.to_s
+    @pvoters = ((@voters < 1) ? "0%" : "100%")
+    @pvote_reg = (@vote_reg*100/[@voters,1].max).round.to_s+"%"
+    @pvote_no = (@vote_no*100/[@voters,1].max).round.to_s+"%"
+    @pvote_a = ((@vote_aa+@vote_ar)*100/[@voters,1].max).round.to_s+"%"
+    @pvote_p = ((@vote_pa+@vote_pr)*100/[@voters,1].max).round.to_s+"%"
+    @pvote_wac = (@vote_wac*100/[@voters,1].max).round.to_s+"%"
     return true
   end
 
   def report2()
-    @xvoters  = 1
+    @rname = 'UOCAVA Ballot Return Report'
+    @description = ["This report shows voting success for UOCAVA voters.  First we display the number of UOCAVA voters. Then we give the relative percentage (and count) of those who: registered to vote, updated their voter registration, requested and/or updated absentee status, and submitted an absentee ballot. Finally, we give the percentages of absentee ballots approved or rejected."]
     @voters   = 0
     @voted    = 0
     @vote_reg = 0
@@ -107,7 +132,7 @@ class ReportsController < ApplicationController
               @voted += 1
             end
           elsif vtr.form =~ /Absentee Ballot/
-            if vtr.action == 'complete' #JVC really?
+            if vtr.action == 'match'
               @vote_ab += 1
               @voted += 1
             end
@@ -117,10 +142,22 @@ class ReportsController < ApplicationController
     end
     @voters = voter_ids.length
     if @voters > 0
-      @xvoters = @voters 
       @vote_no = @voters - @voted
     end
-    render '/reports/report2'
+    @nvoters = @voters.to_s
+    @nvote_reg = @vote_reg.to_s
+    @nvote_upd = @vote_upd.to_s
+    @nvote_as = @vote_as.to_s
+    @nvote_ab = @vote_ab.to_s
+    @nvote_aa = @vote_aa.to_s
+    @nvote_ar = @vote_ar.to_s
+    @pvoters = "100%"
+    @pvote_reg = (@vote_reg*100/[@voters,1].max).round.to_s+"%"
+    @pvote_upd = (@vote_upd*100/[@voters,1].max).round.to_s+"%"
+    @pvote_as = (@vote_as*100/[@voters,1].max).round.to_s+"%"
+    @pvote_ab = (@vote_ab*100/[@voters,1].max).round.to_s+"%"
+    @pvote_aa = (@vote_aa*100/[@voters,1].max).round.to_s+"%"
+    @pvote_ar = (@vote_ar*100/[@voters,1].max).round.to_s+"%"
     return true
   end
 

@@ -50,9 +50,9 @@
       %tr
         %td= vtr.vname
         %td
-        %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
+        %td= vtr.vtype
         %td
-        %td= vtr.datime
+        %td= vtr.datime.strftime("%B %-d, %Y")
         %td
         %td= vtr.action
         %td

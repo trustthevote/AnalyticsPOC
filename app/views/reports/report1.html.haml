@@ -27,22 +27,19 @@
 
       %p
         For absentee and provisional voters, participation is further broken
-        down according to the percentage of ballots approved or
-        rejected.
+        down according to the percentage of ballots approved or rejected.
 
       %p
-        There is an additional caterogy of "whacky" voters about which nothing is
-        currently know and subsequently nothing reported.   
+        There is an additional caterogy of "whacky" voters about which nothing
+        is currently know and subsequently nothing reported.   
     .span10
       .row
-        .span5
+        .span8
           #likeh2blue Voter Participation Report
           #likeh3 
-            = @report_date
+            = 'Date: '+Date::today.strftime("%B %-d, %Y")
         .span2#likeh4
-          = link_to 'Save as PDF'
-        .span2#likeh4
-          = link_to 'Export XML'
+          = link_to "Save as PDF", report_path(format: 'pdf')+"?rn=1;id="+(Election.all.find{|e|e.selected}).id.to_s
       %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
         %tr
           %th 
@@ -66,28 +63,28 @@
           %th Voters
         %tr      
           %td= "#"
-          %td= @voters
-          %td= @vote_reg
-          %td= @vote_no
-          %td= @vote_aa+@vote_ar
-          %td= @vote_aa.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_aa*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
-          %td= @vote_ar.to_s+" ("+((@vote_aa+@vote_ar)>0 ? (@vote_ar*100/(@vote_aa+@vote_ar)).round.to_s : "0")+"%)"
-          %td= @vote_pa+@vote_pr
-          %td= @vote_pa.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pa*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
-          %td= @vote_pr.to_s+" ("+((@vote_pa+@vote_pr)>0 ? (@vote_pr*100/(@vote_pa+@vote_pr)).round.to_s : "0")+"%)"
-          %td= @vote_wac
+          %td= @nvoters
+          %td= @nvote_reg
+          %td= @nvote_no
+          %td= @nvote_a
+          %td= @nvote_aa
+          %td= @nvote_ar
+          %td= @nvote_p
+          %td= @nvote_pa
+          %td= @nvote_pr
+          %td= @nvote_wac
         %tr
           %td= "%"
-          %td= ((@voters < 1) ? "0%" : "100%")
-          %td= (@vote_reg*100/[@voters,1].max).round.to_s+"%"
-          %td= (@vote_no*100/[@voters,1].max).round.to_s+"%"
-          %td= ((@vote_aa+@vote_ar)*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvoters
+          %td= @pvote_reg
+          %td= @pvote_no
+          %td= @pvote_a
           %td 
           %td 
-          %td= ((@vote_pa+@vote_pr)*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_p
           %td 
           %td
-          %td= (@vote_wac*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_wac
       %br
   .row#positionbacknext
     .span2

@@ -34,7 +34,7 @@
       .span10
         #likeh2blue Voter Record Dataset
         #scroil10{:style=>"height: 325px;"}
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %table{:style=>"width:100%;margin-bottom:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;"}
               %td{:style=>"width:35%;"}
                 = (Selection.all.length > 0 && Selection.all[0].vr_file) || 'FILE.csv'
@@ -54,8 +54,8 @@
     -else
       .span2.sidebar
         %p 
-          Your next step is to upload one or more files that contain voter
-          records extracts &mdash; ID number and demographic data but not 
+          Your next step is to upload one or more files that contain extracts
+          of voter records &mdash; ID number and demographic data but not 
           personal identifying information &mdash; for the voters referenced
           in the log data, or even for all registered voters.	 
         %p 
@@ -71,8 +71,8 @@
               %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
               %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
               %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
-              %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
               %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
+              %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
           .span3
             %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
   .row#positionbacknext
@@ -87,4 +87,4 @@
       &nbsp;
     -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext
-        = link_to "Next", '/analytic?id'+(Election.all.find{|e|e.selected}).id.to_s
+        = link_to "Next", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s

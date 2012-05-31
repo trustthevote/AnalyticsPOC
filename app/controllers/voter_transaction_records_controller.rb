@@ -1,7 +1,28 @@
 class VoterTransactionRecordsController < ApplicationController
   # GET /voter_transaction_records
   def index
-    @voter_transaction_records = VoterTransactionRecord.all
+    if eid = params[:id]
+      eid = eid.to_i
+      filter = params[:filter]
+      @voter_transaction_records = []
+      VoterTransactionLog.all.each do |vtl|
+        if vtl.archived
+        elsif eid == vtl.election_id
+          vtl.voter_transaction_records.each do |vtr|
+            if filter =~ /uoc/
+              @voter_transaction_records.push(vtr) if vtr.vtype=~/UOCAVA/
+            elsif filter =~ /abs/
+              @voter_transaction_records.push(vtr) if vtr.form=~/Absentee\sBallot/
+            else
+              @voter_transaction_records.push(vtr)
+            end
+          end
+        end
+      end
+    else
+      @voter_transaction_records = VoterTransactionRecord.all
+    end
+    @nvtrs = @voter_transaction_records.length
     @showxml = params[:show_xml]
 
     respond_to do |format|

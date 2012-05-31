@@ -31,7 +31,7 @@ class Election < ActiveRecord::Base
     return 0 if self.elogs.blank?
     num, max = self.elogs.split(',')
     return max.to_i
-    end
+  end
 
   def records_num
     return 0 if self.erecords.blank?
@@ -44,8 +44,15 @@ class Election < ActiveRecord::Base
   end
 
   def nrecords()
-    n = self.voter_transaction_logs.inject(0) {|n,vtl| n+vtl.voter_transaction_records.length}
-    return n
+    return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.voter_transaction_records.length}
+  end
+
+  def arecords()
+    return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.arecords}
+  end
+
+  def urecords()
+    return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.urecords}
   end
 
   def uvoters() # number of unique voters

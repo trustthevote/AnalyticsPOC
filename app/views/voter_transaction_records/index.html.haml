@@ -2,14 +2,14 @@
 
 .row
   .span6
-    %h2= "All Voter Transaction Records ("+@voter_transaction_records.length.to_s+")"
+    %h2= "Voter Transaction Records ("+number_with_delimiter(@nvtrs)+")"
   .span3
     = link_to 'Show Table', :show_xml => nil
     \|
     = link_to 'Show XML', :show_xml => true
   .span2
-    -if (@voter_transaction_records.length > 0)
-      %b= link_to "Download XML", format: 'xml', class: 'btn'
+    -if (@nvtrs > 0)
+      %b= link_to "Download XML", format: 'xml'
 %br
 -if @showxml
   %table
@@ -38,9 +38,9 @@
         %tr
           %td= vtr.vname
           %td
-          %td= (vtr.vtype == 'UOCAVA' ? 'UOC' : vtr.vtype)
+          %td= vtr.vtype
           %td
-          %td= vtr.datime
+          %td= vtr.datime.strftime("%B %-d, %Y")
           %td
           %td= vtr.action
           %td

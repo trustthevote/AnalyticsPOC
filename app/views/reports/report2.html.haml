@@ -23,7 +23,7 @@
   .row
     .span2.sidebar
       First we show the number of unique UOCAVA voters
-      found in the voter transaction logs for this election. Then we give
+      for this election. Then we give
       the total number (and relative percentage) of those who:
       %ul
         %li
@@ -33,8 +33,8 @@
         %li
           requested/updated absentee status,
         %li
-          started filling out an absentee  ballot.
-      And finally, those whose absentee ballots were either
+          submitted an absentee  ballot.
+      Finally, we show how many absentee ballots were either:
       %ul
         %li
           approved, or 
@@ -42,14 +42,12 @@
           rejected.
     .span10
       .row
-        .span6
+        .span8
           #likeh2blue UOCAVA Ballot Return Report
           #likeh3 
-            = @report_date
+            = 'Date: '+Date::today.strftime("%B %-d, %Y")
         .span2#likeh4
-          = link_to 'Save as PDF'
-        .span2#likeh4
-          = link_to 'Export XML'
+          = link_to "Save as PDF", report_path(format: 'pdf')+"?rn=2;id="+(Election.all.find{|e|e.selected}).id.to_s
       %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
         %tr
           %th 
@@ -62,7 +60,7 @@
           %th &nbsp;
           %th Requested
           %th &nbsp;
-          %th Started
+          %th Submitted
           %th &nbsp;
           %th{:colspan => 2} Absentee Ballot
         %tr      
@@ -100,16 +98,16 @@
           %td
           %td= "100%"
           %td
-          %td= (@vote_reg*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_reg
           %td
-          %td= (@vote_upd*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_upd
           %td
-          %td= (@vote_as*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_as
           %td
-          %td= (@vote_ab*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_ab
           %td
-          %td= (@vote_aa*100/[@voters,1].max).round.to_s+"%"
-          %td= (@vote_ar*100/[@voters,1].max).round.to_s+"%"
+          %td= @pvote_aa
+          %td= @pvote_ar
   .row#positionbacknext
     .span2
       &nbsp;
