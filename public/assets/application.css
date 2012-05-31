@@ -5058,11 +5058,12 @@ footer hr {
 /* line 64, ../../../app/assets/stylesheets/public/front.css.scss */
 #redelecname {
   font-size: 16px;
+  line-height: 22px;
   font-weight: bold;
   color: red;
 }
 
-/* line 70, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 71, ../../../app/assets/stylesheets/public/front.css.scss */
 #stateget {
   font-size: 17px;
   text-align: center;
@@ -5070,13 +5071,13 @@ footer hr {
   padding-bottom: 5px;
   background-color: #3D59AB;
 }
-/* line 76, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 77, ../../../app/assets/stylesheets/public/front.css.scss */
 #stateget a {
   color: white;
   text-decoration: none;
 }
 
-/* line 80, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 81, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebacknext {
   font-size: 18px;
   padding-top: 5px;
@@ -5084,13 +5085,13 @@ footer hr {
   text-align: center;
   background-color: #444444;
 }
-/* line 86, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 87, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebacknext a {
   color: white;
   text-decoration: none;
 }
 
-/* line 90, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 91, ../../../app/assets/stylesheets/public/front.css.scss */
 .btnbacknext {
   font-size: 18px;
   text-align: center;
@@ -5098,7 +5099,7 @@ footer hr {
   color: white;
 }
 
-/* line 97, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 98, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebar {
   font-size: 20px;
   padding-top: 10px;
@@ -5108,7 +5109,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 106, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 107, ../../../app/assets/stylesheets/public/front.css.scss */
 #doing {
   font-size: 20px;
   padding-top: 10px;
@@ -5118,7 +5119,7 @@ footer hr {
   color: white;
 }
 
-/* line 115, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 116, ../../../app/assets/stylesheets/public/front.css.scss */
 #todo {
   font-size: 20px;
   padding-top: 10px;
@@ -5128,13 +5129,13 @@ footer hr {
   color: black;
 }
 
-/* line 124, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 125, ../../../app/assets/stylesheets/public/front.css.scss */
 #positionbacknext {
   position: absolute;
   top: 640px;
 }
 
-/* line 129, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 130, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil8 {
   background: #FFFAF0;
   width: 619px;
@@ -5143,7 +5144,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 137, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 138, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil9 {
   background: #FFFAF0;
   width: 699px;
@@ -5152,7 +5153,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 145, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 146, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil10 {
   background: #FFFAF0;
   width: 779px;
@@ -5161,7 +5162,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 153, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 154, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil {
   background: #FFFAF0;
   width: 779px;
@@ -5170,7 +5171,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 161, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 162, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh1 {
   font-weight: bold;
   font-size: 30px;
@@ -5179,7 +5180,7 @@ footer hr {
   color: black;
 }
 
-/* line 169, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 170, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2 {
   font-weight: bold;
   font-size: 24px;
@@ -5188,7 +5189,7 @@ footer hr {
   color: black;
 }
 
-/* line 177, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 178, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2blue {
   font-weight: bold;
   font-size: 24px;
@@ -5197,7 +5198,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 185, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 186, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3 {
   font-size: 18px;
   text-align: left;
@@ -5205,7 +5206,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 192, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 193, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh4 {
   font-size: 16px;
   text-align: left;
@@ -5213,7 +5214,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 199, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 200, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3b {
   font-size: 18px;
   text-align: left;
@@ -5221,7 +5222,7 @@ footer hr {
   color: black;
 }
 
-/* line 206, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 207, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3r {
   font-size: 18px;
   text-align: right;
@@ -5229,7 +5230,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 213, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 214, ../../../app/assets/stylesheets/public/front.css.scss */
 .capbold {
   text-transform: capitalize;
   font-weight: bold;

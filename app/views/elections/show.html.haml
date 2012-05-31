@@ -60,7 +60,7 @@
           %b#likeh2blue Voter Transaction Logs
           #scroil10{:style=>"height:253px;"}
             - (Election.all.find{|e|e.selected}).voter_transaction_logs.each do |vtl|
-              %table{:style=>"width:100%;margin-bottom:5px;font-size:14px;background-color:#DDDDDD;"}
+              %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
                 %tr{:style=>"font-weight:bold;"}
                   %td{:style=>"width:35%;"}
                     = vtl.file_name

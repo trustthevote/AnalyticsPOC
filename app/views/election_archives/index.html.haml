@@ -36,7 +36,7 @@
       #scroil10{:style=>"height: 325px;"}
         - Election.all.each do |e|
           -if e.archived
-            %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+            %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:25%;"}
                   = e.named.to_s

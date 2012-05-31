@@ -34,7 +34,7 @@
       .span10
         #likeh2blue Analyses and Reports
         #scroil10{:style=>"height: 324px;"}
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Voter Participation'
             %tr
@@ -50,7 +50,7 @@
                 = link_to 'View Data', '/voter_transaction_records?id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML', '/voter_transaction_records.xml?id='+(Election.all.find{|e|e.selected}).id.to_s
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#BBBBBB;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'UOCAVA Ballot Return'
             %tr
@@ -66,7 +66,7 @@
                 = link_to 'View Data', '/voter_transaction_records?filter=uocava;id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML', '/voter_transaction_records.xml?filter=uocava;id='+(Election.all.find{|e|e.selected}).id.to_s
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Absentee Ballot Adjudication'
             %tr
@@ -82,7 +82,7 @@
                 = link_to 'View Data', '/voter_transaction_records?filter=absentee;id='+(Election.all.find{|e|e.selected}).id.to_s
               %td{:style=>"width:14%;text-align:left"}
                 = link_to 'Export XML', '/voter_transaction_records.xml?filter=absentee;id='+(Election.all.find{|e|e.selected}).id.to_s
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#BBBBBB;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#BBBBBB;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Bulk Data'
             %tr
@@ -98,7 +98,7 @@
                 = '&nbsp;'.html_safe
               %td{:style=>"width:14%;text-align:left"}
                 = '&nbsp;'.html_safe
-          %table{:style=>"width:100%;margin:5px;font-size:14px;background-color:#DDDDDD;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;colspan=6"}
               %td= 'Anonymized Bulk Data'
             %tr

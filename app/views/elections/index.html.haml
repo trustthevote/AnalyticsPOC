@@ -33,14 +33,14 @@
       .row
         .span8
           #likeh2blue Election Events
-        -if ElectionArchive.all.length > 0
+        -if Election.all.any?{|e|e.archived}
           .span2{:style=>"text-align:right;color:#3D59AB;font-weight:bold;font-size:16px;line-height:34px;"}
             = link_to 'Election Archives', election_archives_path
       #scroil10{:style=>"height: 325px;"}
         - @elections.each do |e|
           -if e.archived
           -elsif e.selected
-            %table{:style=>"border:1px solid #000000;width:100%;margin-bottom:5px;font-size:14px;background-color:#BBBBBB;"}
+            %table{:style=>"border:1px solid #000000;width:100%;margin-top:5px;font-size:14px;background-color:#BBBBBB;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:25%;"}
                   = e.named.to_s
@@ -67,7 +67,7 @@
                 %td= link_to 'Delete', e, :confirm => 'Are you sure?', :method => :delete
                 %td= '&lowast;&lowast;&lowast;'.html_safe
           -else
-            %table{:style=>"width:100%;margin-bottom:5px;font-size:14px;background-color:#DDDDDD;"}
+            %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
               %tr{:style=>"font-weight:bold;"}
                 %td{:style=>"width:25%;"}
                   = e.named.to_s
