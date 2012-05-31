@@ -44,16 +44,16 @@
         %tr
           %th 
           %th All
+          %th Non-
           %th &nbsp;Regular&nbsp;
-          %th No
           %th{:colspan => 3} Absentee Ballot
           %th{:colspan => 3} Provisional Ballot
           %th &nbsp;Whacky&nbsp;
         %tr      
           %th 
           %th &nbsp;Voters&nbsp;
+          %th &nbsp;Voting&nbsp;
           %th Vote
-          %th &nbsp;Vote&nbsp;
           %th &nbsp;Total
           %th Approved
           %th Rejected&nbsp;
@@ -64,8 +64,8 @@
         %tr      
           %td= "#"
           %td= @nvoters
-          %td= @nvote_reg
           %td= @nvote_no
+          %td= @nvote_reg
           %td= @nvote_a
           %td= @nvote_aa
           %td= @nvote_ar
@@ -76,8 +76,8 @@
         %tr
           %td= "%"
           %td= @pvoters
-          %td= @pvote_reg
           %td= @pvote_no
+          %td= @pvote_reg
           %td= @pvote_a
           %td 
           %td 
