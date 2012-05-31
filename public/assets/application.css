@@ -5153,7 +5153,7 @@ footer hr {
 }
 
 /* line 145, ../../../app/assets/stylesheets/public/front.css.scss */
-#scroil {
+#scroil10 {
   background: #FFFAF0;
   width: 779px;
   height: 345px;
@@ -5162,6 +5162,15 @@ footer hr {
 }
 
 /* line 153, ../../../app/assets/stylesheets/public/front.css.scss */
+#scroil {
+  background: #FFFAF0;
+  width: 779px;
+  height: 345px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* line 161, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh1 {
   font-weight: bold;
   font-size: 30px;
@@ -5170,7 +5179,7 @@ footer hr {
   color: black;
 }
 
-/* line 161, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 169, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2 {
   font-weight: bold;
   font-size: 24px;
@@ -5179,7 +5188,7 @@ footer hr {
   color: black;
 }
 
-/* line 169, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 177, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2blue {
   font-weight: bold;
   font-size: 24px;
@@ -5188,7 +5197,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 177, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 185, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3 {
   font-size: 18px;
   text-align: left;
@@ -5196,7 +5205,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 184, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 192, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh4 {
   font-size: 16px;
   text-align: left;
@@ -5204,7 +5213,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 191, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 199, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3b {
   font-size: 18px;
   text-align: left;
@@ -5212,7 +5221,7 @@ footer hr {
   color: black;
 }
 
-/* line 198, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 206, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3r {
   font-size: 18px;
   text-align: right;
@@ -5220,7 +5229,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 205, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 213, ../../../app/assets/stylesheets/public/front.css.scss */
 .capbold {
   text-transform: capitalize;
   font-weight: bold;
