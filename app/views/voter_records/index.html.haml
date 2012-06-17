@@ -37,11 +37,11 @@
           %table{:style=>"width:100%;margin-bottom:5px;font-size:14px;background-color:#DDDDDD;"}
             %tr{:style=>"font-weight:bold;"}
               %td{:style=>"width:35%;"}
-                = (Selection.all.length > 0 && Selection.all[0].vr_file) || 'FILE.csv'
+                = voter_records_file_name
               %td{:style=>"width:35%;"}
                 %span{:style=>"color:#3D59AB;"}
                   from
-                = (Selection.all.length > 0 && Selection.all[0].vr_origin) || 'Somewhere'
+                = 'Virginia'
               %td{:style=>"width:10%;"}
               %td{:style=>"width:10%;"}
               %td{:style=>"width:10%;"}

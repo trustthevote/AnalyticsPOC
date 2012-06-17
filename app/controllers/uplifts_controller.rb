@@ -234,30 +234,11 @@ XSL
       render :uplift
       return false
     end
-    self.save_selection_vr(eid)
     if self.csv_import(csv_file)
-      archive_path = 'public/archives'
-      unless File.directory?(archive_path) || FileUtils.mkdir(archive_path)
-        raise Exception, "No archive directory: "+archive_path
-      end
-      archive_file = archive_path+"/"+"voter_records.csv"
-      FileUtils.copy('public/uploads/'+self.uplift_file, archive_file)
+      voter_records_file_new('public/uploads/',self.uplift_file)
       redirect_to '/voter_records', {:params=>{:id=>eid}}
       return true
     end
-  end
-
-  def save_selection_vr(eid)
-    file = self.uplift_file
-    origin = 'Virginia'
-    if (Selection.all.length == 0)
-      se = Selection.new(:eid => eid, :vr_file => file, :vr_origin => origin)
-    else
-      se = Selection.all[0]
-      se.vr_file = file
-      se.vr_origin = origin
-    end
-    se.save
   end
 
   def csv_import(file)
@@ -285,4 +266,23 @@ XSL
     return true
   end
   
+  def voter_records_file_new (fupath, file)
+    path = 'public/records'
+    unless File.directory?(path) || FileUtils.mkdir(path)
+      raise Exception, "No voter records repository: "+path
+    end
+    files = Array.new
+    Dir.new(path).entries.each do |f|
+      if f =~ /\.csv$/i
+        unless File.delete(path+"/"+f)
+          raise Exception, "Cannot delete old voter records file: "+f
+        end
+      end
+    end
+    FileUtils.copy(fupath+"/"+file, path+"/"+file)
+    unless File.exists?(path+"/"+file)
+      raise Exception, "Cannot store voter records file: "+file
+    end
+  end
+
 end

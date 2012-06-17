@@ -14,7 +14,6 @@ class ElectionsController < ApplicationController
       @election = Election.find(eid)
       @election.selected = true
       @election.save
-      self.select_me(eid)
       redirect_to do |format|
         format.html
       end
@@ -148,7 +147,6 @@ class ElectionsController < ApplicationController
         end
       end
     end
-    self.select_me(eid)
   end
 
   def select_another(eid)
@@ -156,20 +154,9 @@ class ElectionsController < ApplicationController
       unless (e.archived || e.id == eid)
         e.selected = true
         e.save
-        return self.select_me(e.id)
+        return
       end
     end
-    self.select_me(nil)
-  end
-
-  def select_me(eid)
-    if (Selection.all.length == 0)
-      se = Selection.new(:eid => eid)
-    else
-      se = Selection.all[0]
-      se.eid = eid
-    end
-    se.save
   end
 
 end

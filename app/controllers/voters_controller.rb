@@ -4,7 +4,7 @@ class VotersController < ApplicationController
     if params[:id] 
       eid = params[:id]
     else
-      eid = Selection.all[0].eid
+      raise Exception, "No Election ID provided"
     end
     @election = Election.find(eid)
     render :voter
