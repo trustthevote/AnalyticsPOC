@@ -1,2 +1,0 @@
-class SelectionsController < ApplicationController
-end

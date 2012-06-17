@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120530042044) do
+ActiveRecord::Schema.define(:version => 20120617025316) do
 
   create_table "election_archives", :force => true do |t|
     t.integer  "eid"
@@ -37,14 +37,6 @@ ActiveRecord::Schema.define(:version => 20120530042044) do
     t.string   "elogs"
     t.string   "evoters"
     t.boolean  "selected"
-  end
-
-  create_table "selections", :force => true do |t|
-    t.integer  "eid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "vr_file"
-    t.string   "vr_origin"
   end
 
   create_table "voter_records", :force => true do |t|
