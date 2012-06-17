@@ -71,6 +71,7 @@ class ElectionsController < ApplicationController
     @election.elogs = "0"
     @election.erecords = "0"
     @election.evoters = "0"
+    @election.log_file_names = ""
 
     respond_to do |format|
       if @election.save
@@ -86,13 +87,11 @@ class ElectionsController < ApplicationController
   # PUT /elections/1
   def update
     @election = Election.find(params[:id])
-
+    @election.archived = false
+    @election.selected = (Election.all.none?{|e|e.selected})
+    @election.save
     respond_to do |format|
-      if @election.update_attributes(params[:election])
-        format.html { redirect_to @election, notice: 'Election was successfully updated.' }
-      else
-        format.html { render action: "edit" }
-      end
+      format.html { redirect_to elections_url }
     end
   end
 
@@ -118,19 +117,12 @@ class ElectionsController < ApplicationController
     eid = params[:id]
     @election = Election.find(eid)
     @election.archived = true
+    @election.log_file_names = @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' ')
     if @election.selected
       @election.selected = false
       self.select_another(eid)
     end
     @election.save
-    ea = ElectionArchive.new(:eid => eid,
-                             :name => @election.name,
-                             :day => @election.day,
-                             :voter_end_day => @election.voter_end_day,
-                             :voter_start_day => @election.voter_start_day,
-                             :nlogs => @election.elogs.split(",")[0].to_i,
-                             :log_file_names => @election.voter_transaction_logs.collect {|vtl| vtl.archive_name}.join(' '))
-    ea.save
     respond_to do |format|
       format.html { redirect_to elections_url }
     end
