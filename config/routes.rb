@@ -1,6 +1,6 @@
  VoterLogAnalytics::Application.routes.draw do
 
-  resources :election_archives
+  resources :analytic_reports
 
   resources :voter_records
 

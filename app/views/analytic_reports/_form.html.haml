@@ -1,0 +1,22 @@
+= form_for @analytic_report do |f|
+  -if @analytic_report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@analytic_report.errors.count, "error")} prohibited this analytic_report from being saved:"
+      %ul
+        - @analytic_report.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :num
+    = f.number_field :num
+  .field
+    = f.label :desc
+    = f.text_field :desc
+  .field
+    = f.label :data
+    = f.text_area :data
+  .field
+    = f.label :other
+    = f.text_field :other
+  .actions
+    = f.submit 'Save'

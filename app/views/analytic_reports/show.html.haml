@@ -1,0 +1,127 @@
+#front
+  .row
+    -if (Election.all.any?{|e|e.selected})
+      .span2#redelecname
+        = (Election.all.find{|e|e.selected}).name
+        %br
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
+    -else
+      .span2#redelecname
+        No election event selected.
+    .span10
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    -if (Election.all.any?{|e|e.selected})
+      .span2.sidebar
+        %p
+          With all the relevant data loaded, you can now run a variety of
+          analytics over the consolidated set data from all the logs that
+          have been previously loaded.
+        %p
+          %u More about reporting (add link)
+        %p
+          %u More about data export (add link)
+      .span10
+        #likeh2blue Analyses and Reports (Show)
+        #scroil10{:style=>"height: 324px;"}
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
+            %tr{:style=>"font-weight:bold;colspan=6"}
+              %td= 'Voter Participation'
+            %tr
+              %td{:style=>"width:37%;"}
+                = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
+              %td{:style=>"width:9%;text-align:left"}
+                = link_to 'About'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'View Report', '/report?rn=1;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Save as PDF', '/report.pdf?rn=1;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:12%;text-align:left"}
+                = link_to 'View Data', '/voter_transaction_records?id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export XML', '/voter_transaction_records.xml?id='+(Election.all.find{|e|e.selected}).id.to_s
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#BBBBBB;"}
+            %tr{:style=>"font-weight:bold;colspan=6"}
+              %td= 'UOCAVA Ballot Return'
+            %tr
+              %td{:style=>"width:37%;"}
+                = number_with_delimiter((Election.all.find{|e|e.selected}).urecords)+" Records"
+              %td{:style=>"width:9%;text-align:left"}
+                = link_to 'About'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'View Report', '/report?rn=2;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Save as PDF', '/report.pdf?rn=2;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:12%;text-align:left"}
+                = link_to 'View Data', '/voter_transaction_records?filter=uocava;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export XML', '/voter_transaction_records.xml?filter=uocava;id='+(Election.all.find{|e|e.selected}).id.to_s
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
+            %tr{:style=>"font-weight:bold;colspan=6"}
+              %td= 'Absentee Ballot Adjudication'
+            %tr
+              %td{:style=>"width:37%;"}
+                = number_with_delimiter((Election.all.find{|e|e.selected}).arecords)+" Records"
+              %td{:style=>"width:9%;text-align:left"}
+                = link_to 'About'
+              %td{:style=>"width:14%;text-align:left"}
+                = 'View Report'
+              %td{:style=>"width:14%;text-align:left"}
+                = 'Save as PDF'
+              %td{:style=>"width:12%;text-align:left"}
+                = link_to 'View Data', '/voter_transaction_records?filter=absentee;id='+(Election.all.find{|e|e.selected}).id.to_s
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export XML', '/voter_transaction_records.xml?filter=absentee;id='+(Election.all.find{|e|e.selected}).id.to_s
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#BBBBBB;"}
+            %tr{:style=>"font-weight:bold;colspan=6"}
+              %td= 'Bulk Data'
+            %tr
+              %td{:style=>"width:37%;"}
+                = number_with_delimiter((Election.all.find{|e|e.selected}).nrecords)+" Records"
+              %td{:style=>"width:9%;text-align:left"}
+                = link_to 'About'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export CSV'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export XML'
+              %td{:style=>"width:12%;text-align:left"}
+                = '&nbsp;'.html_safe
+              %td{:style=>"width:14%;text-align:left"}
+                = '&nbsp;'.html_safe
+          %table{:style=>"width:100%;margin-top:5px;font-size:14px;background-color:#DDDDDD;"}
+            %tr{:style=>"font-weight:bold;colspan=6"}
+              %td= 'Anonymized Bulk Data'
+            %tr
+              %td{:style=>"width:37%;"}
+                = number_with_delimiter((Election.all.find{|e|e.selected}).erecords)+" Records"
+              %td{:style=>"width:9%;text-align:left"}
+                = link_to 'About'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export CSV'
+              %td{:style=>"width:14%;text-align:left"}
+                = link_to 'Export XML'
+              %td{:style=>"width:12%;text-align:left"}
+                = '&nbsp;'.html_safe
+              %td{:style=>"width:14%;text-align:left"}
+                = '&nbsp;'.html_safe
+    -else
+      .span2.sidebar
+        %p
+          Please select an election before navagating to this page.
+      .span10
+        #likeh2blue No Analyses and Reports Available, No Election Selected
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      = link_to "Back", voter_records_path

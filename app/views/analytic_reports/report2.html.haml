@@ -1,0 +1,118 @@
+#front
+  .row
+    -if (Election.all.any?{|e|e.selected})
+      .span2#redelecname
+        = (Election.all.find{|e|e.selected}).name
+        %br
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
+    -else
+      .span2#redelecname
+        No election event selected.
+    .span10
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    .span2.sidebar
+      First we show the number of unique UOCAVA voters
+      for this election. Then we give
+      the total number (and relative percentage) of those who:
+      %ul
+        %li
+          registered to vote,
+        %li
+          updated their voter registration,
+        %li
+          requested/updated absentee status,
+        %li
+          submitted an absentee  ballot.
+      Finally, we show how many absentee ballots were either:
+      %ul
+        %li
+          approved, or 
+        %li
+          rejected.
+    .span10
+      .row
+        .span8
+          #likeh2blue UOCAVA Ballot Return Report
+          #likeh3 
+            = 'Date: '+Date::today.strftime("%B %-d, %Y")
+        .span2#likeh4
+          = link_to "Save as PDF", report_path(format: 'pdf')+"?rn=2;id="+(Election.all.find{|e|e.selected}).id.to_s
+      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
+        %tr
+          %th 
+          %th &nbsp;
+          %th UOCAVA
+          %th &nbsp;
+          %th Registered
+          %th &nbsp;
+          %th Updated
+          %th &nbsp;
+          %th Requested
+          %th &nbsp;
+          %th Submitted
+          %th &nbsp;
+          %th{:colspan => 2} Absentee Ballot
+        %tr      
+          %th 
+          %th &nbsp;
+          %th Voters
+          %th &nbsp;
+          %th To Vote
+          %th &nbsp;
+          %th Voter Record
+          %th &nbsp;
+          %th Absentee Status
+          %th &nbsp;
+          %th Absentee Ballot
+          %th &nbsp;
+          %th Approved&nbsp;
+          %th &nbsp;Rejected&nbsp;
+        %tr      
+          %td= "#"
+          %td
+          %td= @voters
+          %td
+          %td= @vote_reg
+          %td
+          %td= @vote_upd
+          %td
+          %td= @vote_as
+          %td
+          %td= @vote_ab
+          %td
+          %td= @vote_aa
+          %td= @vote_ar
+        %tr
+          %td= "%"
+          %td
+          %td= "100%"
+          %td
+          %td= @pvote_reg
+          %td
+          %td= @pvote_upd
+          %td
+          %td= @pvote_as
+          %td
+          %td= @pvote_ab
+          %td
+          %td= @pvote_aa
+          %td= @pvote_ar
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      -if (Election.all.any?{|e|e.selected})
+        = link_to "Back", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
+      -else
+        = link_to 'Back', :back

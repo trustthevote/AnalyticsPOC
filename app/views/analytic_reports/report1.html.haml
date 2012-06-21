@@ -1,0 +1,96 @@
+#front
+  .row
+    -if (Election.all.any?{|e|e.selected})
+      .span2#redelecname
+        = (Election.all.find{|e|e.selected}).name
+        %br
+        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
+    -else
+      .span2#redelecname
+        No election event selected.
+    .span10
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    .span2.sidebar
+      %p 
+        This report presents voter participation based on the type of vote cast.
+
+      %p
+        For absentee and provisional voters, participation is further broken
+        down according to the percentage of ballots approved or rejected.
+
+      %p
+        There is an additional caterogy of "whacky" voters about which nothing
+        is currently know and subsequently nothing reported.   
+    .span10
+      .row
+        .span8
+          #likeh2blue Voter Participation Report
+          #likeh3 
+            = 'Date: '+Date::today.strftime("%B %-d, %Y")
+        .span2#likeh4
+          = link_to "Save as PDF", report_path(format: 'pdf')+"?rn=1;id="+(Election.all.find{|e|e.selected}).id.to_s
+      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
+        %tr
+          %th 
+          %th All
+          %th Non-
+          %th &nbsp;Regular&nbsp;
+          %th{:colspan => 3} Absentee Ballot
+          %th{:colspan => 3} Provisional Ballot
+          %th &nbsp;Whacky&nbsp;
+        %tr      
+          %th 
+          %th &nbsp;Voters&nbsp;
+          %th &nbsp;Voting&nbsp;
+          %th Vote
+          %th &nbsp;Total
+          %th Approved
+          %th Rejected&nbsp;
+          %th &nbsp;Total
+          %th Approved
+          %th Rejected&nbsp;
+          %th Voters
+        %tr      
+          %td= "#"
+          %td= @nvoters
+          %td= @nvote_no
+          %td= @nvote_reg
+          %td= @nvote_a
+          %td= @nvote_aa
+          %td= @nvote_ar
+          %td= @nvote_p
+          %td= @nvote_pa
+          %td= @nvote_pr
+          %td= @nvote_wac
+        %tr
+          %td= "%"
+          %td= @pvoters
+          %td= @pvote_no
+          %td= @pvote_reg
+          %td= @pvote_a
+          %td 
+          %td 
+          %td= @pvote_p
+          %td 
+          %td
+          %td= @pvote_wac
+      %br
+  .row#positionbacknext
+    .span2
+      &nbsp;
+    .span1#statebacknext
+      -if (Election.all.any?{|e|e.selected})
+        = link_to "Back", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
+      -else
+        = link_to 'Back', :back

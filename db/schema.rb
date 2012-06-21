@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120617070714) do
+ActiveRecord::Schema.define(:version => 20120621011826) do
+
+  create_table "analytic_reports", :force => true do |t|
+    t.integer  "num"
+    t.date     "day"
+    t.string   "name"
+    t.string   "desc"
+    t.text     "data"
+    t.integer  "val"
+    t.string   "info"
+    t.boolean  "test"
+    t.integer  "election_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "analytic_reports", ["election_id"], :name => "index_analytic_reports_on_election_id"
 
   create_table "elections", :force => true do |t|
     t.string   "name"
