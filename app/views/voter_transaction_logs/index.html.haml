@@ -1,48 +1,50 @@
 %p#notice= notice
 
 .row
-  .span6
-    %h2= "All Voter Transaction Logs ("+@voter_transaction_logs.length.to_s+")"
-  .span3
-    = link_to 'Show Table', :show_xml => nil
-    \|
-    = link_to 'Show XML', :show_xml => true
-  .span2
-    -if (@voter_transaction_logs.length > 0)
+  -if (@voter_transaction_logs.length > 0)
+    .span6
+      %h2= "All Voter Transaction Logs ("+@voter_transaction_logs.length.to_s+")  "
+    .span3
+      = link_to 'Show Table', :show_xml => nil
+      \|
+      = link_to 'Show XML', :show_xml => true
+    .span2
       %b= link_to "Download XML", format: 'xml', class: 'btn'
+  -else
+    .span6
+      %h2= "No Voter Transaction Logs"
 %br
--if @showxml
-  %table
-    %pre= render partial: 'vtls', formats: [ :xml ]
--else
-  %table{:style=>"text-align:center"}
-    %tr
-      %th Origin
-      %th &nbsp;
-      %th Uniq
-      %th &nbsp;
-      %th Date
-      %th &nbsp;
-      %th Records
-      %th &nbsp;
-      %th Election
-      %th &nbsp;
-      %th
-    - @voter_transaction_logs.each do |vtl|
-      -if ! vtl.archived
-        %tr
-          %td= vtl.origin
-          %td
-          %td= vtl.origin_uniq
-          %td
-          %td= vtl.datime
-          %td
-          %td= vtl.voter_transaction_records.length
-          %td
-          %td= Election.find(vtl.election_id).name
-          %td
-          %td= link_to 'Show', vtl
-%br
-= link_to 'Back', :root
-\|
-= link_to 'New Voter Transaction Log', new_voter_transaction_log_path
+-if (@voter_transaction_logs.length > 0)
+  -if @showxml
+    %table
+      %pre= render partial: 'vtls', formats: [ :xml ]
+  -else
+    %table{:style=>"text-align:center"}
+      %tr
+        %th Origin
+        %th &nbsp;
+        %th Uniq
+        %th &nbsp;
+        %th Date
+        %th &nbsp;
+        %th Records
+        %th &nbsp;
+        %th Election
+        %th &nbsp;
+        %th
+      - @voter_transaction_logs.each do |vtl|
+        -if ! vtl.archived
+          %tr
+            %td= vtl.origin
+            %td
+            %td= vtl.origin_uniq
+            %td
+            %td= vtl.datime
+            %td
+            %td= vtl.voter_transaction_records.length
+            %td
+            %td= Election.find(vtl.election_id).name
+            %td
+            %td= link_to 'Show', vtl
+  %br
+= link_to 'Back', :back

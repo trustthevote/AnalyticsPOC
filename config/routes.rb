@@ -1,7 +1,5 @@
  VoterLogAnalytics::Application.routes.draw do
 
-  resources :voter_records
-
   root :to => "pages#home"
 
   resource :page, only: [], path: '' do
@@ -12,13 +10,6 @@
       get :about
       get :security
       get :feedback
-    end
-  end
-
-  resource :analytic, only: [], path: '' do
-    member do
-      post :analytic
-      get :analytic
     end
   end
 
@@ -39,6 +30,8 @@
     end
   end
 
+  resources :voter_records
+
   resources :voter_transaction_records do
     match "/:id(.:format)" => 'voter_transaction_records#index'
     match "/*path/:id(.:format)" => 'voter_transaction_records#index'
@@ -50,13 +43,13 @@
     post "" => 'voter_transaction_logs#replace'
   end
 
-  match "/elections/replace" => 'elections#replace'
-
   resources :elections do
     match "/:id(.:format)" => 'elections#index'
     match "/*path/:id(.:format)" => 'elections#index'
     post "" => 'elections#archive'
   end
+
+  match "/elections/replace" => 'elections#replace'
 
   resources :voters do
     match "/:id(.:format)" => 'voters#index'

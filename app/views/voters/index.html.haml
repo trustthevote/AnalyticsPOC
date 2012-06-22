@@ -1,40 +1,44 @@
-%h2= "All Voters ("+@voters.length.to_s+")"
-%br
-%table{:style=>"text-align:center"}
-  %tr
-    %th Voter
-    %th &nbsp;
-    %th VType
-    %th &nbsp;
-    %th Voted
-    %th &nbsp;
-    %th Reject?
-    %th &nbsp;
-    %th Ballot
-    %th &nbsp;
-    %th Records
-    %th &nbsp;
-    %th Election
-    %th &nbsp;
-    %th 
-  - @voters.each do |voter|
-    -if ! voter.archived
-      %tr
-        %td= voter.vname
-        %td
-        %td= voter.vtype
-        %td
-        %td= (voter.voted ? "Yes" : "No")
-        %td
-        %td= (voter.voted && voter.vreject ? "Yes" : "")
-        %td
-        %td= voter.vform
-        %td
-        %td= voter.voter_transaction_records.length
-        %td
-        %td= Election.find(voter.election_id).name
-        %td
-        %td= link_to 'Show', voter
-%br
+%p#notice= notice
 
-= link_to 'Back', :root
+-if @voters.length > 0
+  %h2= "All Voters ("+@voters.length.to_s+")"
+  %br
+  %table{:style=>"text-align:center"}
+    %tr
+      %th Voter
+      %th &nbsp;
+      %th VType
+      %th &nbsp;
+      %th Voted
+      %th &nbsp;
+      %th Reject?
+      %th &nbsp;
+      %th Ballot
+      %th &nbsp;
+      %th Records
+      %th &nbsp;
+      %th Election
+      %th &nbsp;
+      %th 
+    - @voters.each do |voter|
+      -if ! voter.archived
+        %tr
+          %td= voter.vname
+          %td
+          %td= voter.vtype
+          %td
+          %td= (voter.voted ? "Yes" : "No")
+          %td
+          %td= (voter.voted && voter.vreject ? "Yes" : "")
+          %td
+          %td= voter.vform
+          %td
+          %td= voter.voter_transaction_records.length
+          %td
+          %td= Election.find(voter.election_id).name
+          %td
+          %td= link_to 'Show', voter
+-else 
+  %h2= "No Voters"
+%br
+= link_to 'Back', :back

@@ -7,16 +7,16 @@ class AnalyticReport < ActiveRecord::Base
     self.data = ""
     case self.num
     when 1
-      self.name="Report #1"
+      self.name="Voter Participation Report"
       self.desc="What Report #1 does is ..."
     when 2
-      self.name="Report #2"
+      self.name="Voter Outcome Report"
       self.desc="What Report #2 does is ..."
     when 3
-      self.name="Report #3"
+      self.name="UOCAVA Voter Usage Report"
       self.desc="What Report #3 does is ..."
     when 4
-      self.name="Report #4"
+      self.name="UOCAVA Voter Activity Report"
       self.desc="What Report #4 does is ..."
     else
       raise Exception, "Unknown Report Number: "+self.num.to_s

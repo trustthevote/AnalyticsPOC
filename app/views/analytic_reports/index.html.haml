@@ -1,17 +1,16 @@
 %p#notice= notice
 
-.row
-  .span6
-    %h2= "All Analytic Reports ("+AnalyticReport.all.length.to_s+")"
-  .span3
-    = link_to 'Show Table', :show_xml => nil
-    \|
-    = link_to 'Show XML', :show_xml => true
-  .span2
-    -if (AnalyticReport.all.length > 0)
+-if (AnalyticReport.all.length > 0)
+  .row
+    .span6
+      %h2= "All Analytic Reports ("+AnalyticReport.all.length.to_s+")"
+    .span3
+      = link_to 'Show Table', :show_xml => nil
+      \|
+      = link_to 'Show XML', :show_xml => true
+    .span2
       %b= link_to "Download XML", format: 'xml', class: 'btn'
-%br
--if AnalyticReport.all.length > 0
+  %br
   %table{:style=>"text-align:center"}
     %tr
       %th Num
@@ -42,5 +41,9 @@
         %td= ar.election_id.to_s
         %td
         %td= link_to 'Delete', ar, :confirm=>'Are you sure?', :method=>:delete
+-else
+  .row
+    .span6
+      %h2= "No Analytic Reports"
 %br
-= link_to 'Back', :root
+= link_to 'Back', :back

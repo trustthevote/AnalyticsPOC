@@ -1,59 +1,61 @@
 %p#notice= notice
 
 .row
-  .span6
-    %h2= "Voter Transaction Records ("+number_with_delimiter(@nvtrs)+")"
-  .span3
-    = link_to 'Show Table', :show_xml => nil
-    \|
-    = link_to 'Show XML', :show_xml => true
-  .span2
-    -if (@nvtrs > 0)
+  -if (@nvtrs > 0)
+    .span6
+      %h2= "Voter Transaction Records ("+number_with_delimiter(@nvtrs)+")"
+    .span3
+      = link_to 'Show Table', :show_xml => nil
+      \|
+      = link_to 'Show XML', :show_xml => true
+    .span2
       %b= link_to "Download XML", format: 'xml'
+  -else
+    .span6
+      %h2= "No Voter Transaction Records"
 %br
--if @showxml
-  %table
-    %pre= render partial: 'vtrs', formats: [ :xml ]
--else
-  %table{:style=>"text-align:center"}
-    %tr
-      %th Voter
-      %th &nbsp;
-      %th VType
-      %th &nbsp;
-      %th Date
-      %th &nbsp;
-      %th Action
-      %th &nbsp;
-      %th Form
-      %th &nbsp;
-      %th LEO
-      %th &nbsp;
-      %th Note
-      %th &nbsp;
-      %th Election
-      %th
-    - @voter_transaction_records.each do |vtr|
-      -if ! vtr.archived
-        %tr
-          %td= vtr.vname
-          %td
-          %td= vtr.vtype
-          %td
-          %td= vtr.datime.strftime("%B %-d, %Y")
-          %td
-          %td= vtr.action
-          %td
-          %td= vtr.form
-          %td
-          %td= vtr.leo
-          %td
-          %td= vtr.note
-          %td
-          %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
-          %td
-          %td= link_to 'Show', vtr
-%br
-= link_to 'Back', :root
-\|
-= link_to 'New Voter Transaction Record', new_voter_transaction_record_path
+-if (@nvtrs > 0)
+  -if @showxml
+    %table
+      %pre= render partial: 'vtrs', formats: [ :xml ]
+  -else
+    %table{:style=>"text-align:center"}
+      %tr
+        %th Voter
+        %th &nbsp;
+        %th VType
+        %th &nbsp;
+        %th Date
+        %th &nbsp;
+        %th Action
+        %th &nbsp;
+        %th Form
+        %th &nbsp;
+        %th LEO
+        %th &nbsp;
+        %th Note
+        %th &nbsp;
+        %th Election
+        %th
+      - @voter_transaction_records.each do |vtr|
+        -if ! vtr.archived
+          %tr
+            %td= vtr.vname
+            %td
+            %td= vtr.vtype
+            %td
+            %td= vtr.datime.strftime("%B %-d, %Y")
+            %td
+            %td= vtr.action
+            %td
+            %td= vtr.form
+            %td
+            %td= vtr.leo
+            %td
+            %td= vtr.note
+            %td
+            %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
+            %td
+            %td= link_to 'Show', vtr
+  %br
+= link_to 'Back', :back

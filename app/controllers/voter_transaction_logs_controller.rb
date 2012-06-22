@@ -1,4 +1,5 @@
 class VoterTransactionLogsController < ApplicationController
+
   # GET /voter_transaction_logs
   def index
     @voter_transaction_logs = VoterTransactionLog.all
