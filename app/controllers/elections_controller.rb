@@ -76,6 +76,9 @@ class ElectionsController < ApplicationController
     respond_to do |format|
       if @election.save
         self.unselect_others(@election.id)
+        [4, 3, 2, 1].each do |rn|
+          AnalyticReport.new(:num=>rn,:election_id=>@election.id).fill
+        end
         format.html { redirect_to @election,
           notice: 'Election was successfully created.' }
       else

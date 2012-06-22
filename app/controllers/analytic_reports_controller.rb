@@ -1,7 +1,18 @@
 class AnalyticReportsController < ApplicationController
+
+  def analytic
+    if params[:id] 
+      eid = params[:id]
+    else
+      raise Exception, "No Election ID provided"
+    end
+    @election = Election.find(eid)
+    render '/analytic_reports/analytic'
+  end
+
   # GET /analytic_reports
   def index
-    @election = Election.find(params[:eid])
+    #@election = Election.find(params[:eid])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -22,10 +33,9 @@ class AnalyticReportsController < ApplicationController
     @election = Election.find(eid)
     @description = []
     @rn = (params[:rn] ? params[:rn].to_i : 1)
-    @rn = 1
     self.report()
     respond_to do |f|
-      f.html { render '/reports/report'+@rn.to_s }
+      f.html { render '/analytic_reports/report'+@rn.to_s }
       f.pdf  { render layout: false }
     end
   end
@@ -173,6 +183,18 @@ class AnalyticReportsController < ApplicationController
     @pvote_aa = (@vote_aa*100/[@voters,1].max).round.to_s+"%"
     @pvote_ar = (@vote_ar*100/[@voters,1].max).round.to_s+"%"
     return true
+  end
+
+  # DELETE /analytic_reports/1
+  # DELETE /analytic_reports/1.json
+  def destroy
+    @analytic_report = AnalyticReport.find(params[:id])
+    @analytic_report.destroy
+
+    respond_to do |format|
+      format.html { redirect_to analytic_reports_url }
+      format.json { head :no_content }
+    end
   end
 
 end

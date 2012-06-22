@@ -48,4 +48,4 @@
       &nbsp;
     -if (Election.all.any?{|e|e.selected})
       .span1#statebacknext
-        = link_to "Next", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
+        = link_to "Next", '/analytic_reports/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s

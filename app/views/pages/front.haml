@@ -23,7 +23,8 @@
         %tr
           %td
           %td{:style=>"text-align:left;"}
-            = link_to "Voter Records",'voter_records#index', class: 'primary btn'
+            = link_to "VRecords",'voter_records#index', class: 'primary btn'
+            = link_to "Reports",'/analytic_reports/index', class: 'primary btn'
 
   .row.main
     .span4.sidebar
@@ -78,4 +79,4 @@
               %input{:type=>"submit",:value=>"Upload"}
             %b= (@uplift_msg ? @uplift_msg : "&nbsp;".html_safe)
           .span4
-            = link_to "Analytics", '/analytic', class: 'primary btn'
+            = link_to "Analytics", '/analytic_reports/analytic', class: 'primary btn'

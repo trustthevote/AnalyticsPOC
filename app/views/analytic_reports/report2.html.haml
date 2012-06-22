@@ -47,7 +47,7 @@
           #likeh3 
             = 'Date: '+Date::today.strftime("%B %-d, %Y")
         .span2#likeh4
-          = link_to "Save as PDF", report_path(format: 'pdf')+"?rn=2;id="+(Election.all.find{|e|e.selected}).id.to_s
+          = link_to "Save as PDF", analytic_report_path(format: 'pdf')+"?rn=2;id="+(Election.all.find{|e|e.selected}).id.to_s
       %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
         %tr
           %th 
@@ -112,7 +112,4 @@
     .span2
       &nbsp;
     .span1#statebacknext
-      -if (Election.all.any?{|e|e.selected})
-        = link_to "Back", '/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
-      -else
-        = link_to 'Back', :back
+      = link_to 'Back', :back

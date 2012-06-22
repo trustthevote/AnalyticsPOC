@@ -3,6 +3,7 @@ class Election < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :day
   has_many :voter_transaction_logs, :dependent => :destroy
   has_many :voters, :dependent => :destroy
+  has_many :analytic_reports, :dependent => :destroy
 
   def log_add(vtl)
     if self.elogs.blank?

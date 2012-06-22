@@ -13,6 +13,21 @@
 
 ActiveRecord::Schema.define(:version => 20120621011826) do
 
+  create_table "elections", :force => true do |t|
+    t.string   "name"
+    t.date     "day"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.boolean  "archived"
+    t.string   "erecords"
+    t.string   "elogs"
+    t.string   "evoters"
+    t.boolean  "selected"
+    t.string   "log_file_names"
+  end
+
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
     t.date     "day"
@@ -28,21 +43,6 @@ ActiveRecord::Schema.define(:version => 20120621011826) do
   end
 
   add_index "analytic_reports", ["election_id"], :name => "index_analytic_reports_on_election_id"
-
-  create_table "elections", :force => true do |t|
-    t.string   "name"
-    t.date     "day"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.date     "voter_end_day"
-    t.date     "voter_start_day"
-    t.boolean  "archived"
-    t.string   "erecords"
-    t.string   "elogs"
-    t.string   "evoters"
-    t.boolean  "selected"
-    t.string   "log_file_names"
-  end
 
   create_table "voter_records", :force => true do |t|
     t.string   "vname"

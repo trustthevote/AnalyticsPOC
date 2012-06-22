@@ -1,7 +1,5 @@
  VoterLogAnalytics::Application.routes.draw do
 
-  resources :analytic_reports
-
   resources :voter_records
 
   root :to => "pages#home"
@@ -24,6 +22,10 @@
     end
   end
 
+  resource :analytic_report
+  match "/analytic_reports/index" => 'analytic_reports#index'
+  match "/analytic_reports/analytic" => 'analytic_reports#analytic'
+
   resource :voter, only: [], path: '' do
     member do
       post :voter
@@ -36,8 +38,6 @@
       post :uplift
     end
   end
-
-  resource :report
 
   resources :voter_transaction_records do
     match "/:id(.:format)" => 'voter_transaction_records#index'
