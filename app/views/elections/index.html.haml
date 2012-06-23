@@ -64,8 +64,8 @@
                     = (true || e.evoters.blank? ? "" : e.evoters.to_s)
                 %tr
                   %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
-                  %td= number_with_delimiter(e.nrecords())+" Records"
-                  %td= number_with_delimiter(e.uvoters())+" Voters"
+                  %td= number_with_delimiter(e.records_num)+" Records"
+                  %td= number_with_delimiter(e.voters_num)+" Voters"
                   %td= link_to 'Restore', e, :confirm=>'Are you sure?', :method=>:put
                   %td= link_to 'Delete', e, :confirm=>'Are you sure?', :method=>:delete
           -else
@@ -116,8 +116,8 @@
                     = (true || e.evoters.blank? ? "" : e.evoters.to_s)
                 %tr
                   %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
-                  %td= number_with_delimiter(e.nrecords())+" Records"
-                  %td= number_with_delimiter(e.uvoters())+" Voters"
+                  %td= number_with_delimiter(e.records_num)+" Records"
+                  %td= number_with_delimiter(e.voters_num)+" Voters"
                   -if e.archived
                     %td= link_to 'Archived', e, :confirm => 'Are you sure?', :method => :post
                   -else

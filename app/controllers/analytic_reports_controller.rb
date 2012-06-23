@@ -46,6 +46,24 @@ class AnalyticReportsController < ApplicationController
       self.report1()
     when 2
       self.report2()
+    when 3
+      @uv = VoterRecord.sum{|vr|(vr.vtype=="UOCAVA" ? 1 : 0)}
+      @uvoters = []
+      @election.voters.each do |v|
+        if (v.vtype=~/UOCAVA/)
+          @uvoters.push(v)
+        end
+      end
+      self.report3()
+    when 4
+      @uv = VoterRecord.sum{|vr|(vr.vtype=="UOCAVA" ? 1 : 0)}
+      @uvoters = []
+      @election.voters.each do |v|
+        if (v.vtype=~/UOCAVA/)
+          @uvoters.push(v)
+        end
+      end
+      self.report4()
     else
       @rn = 1
       self.report1()
@@ -183,6 +201,244 @@ class AnalyticReportsController < ApplicationController
     @pvote_aa = (@vote_aa*100/[@voters,1].max).round.to_s+"%"
     @pvote_ar = (@vote_ar*100/[@voters,1].max).round.to_s+"%"
     return true
+  end
+
+  def report3()
+
+    @su1 = @uvoters.sum do |v|
+      (v.vtrs.any? do |vtr|
+         (vtr.form =~ /Voter/ || vtr.form =~ /Request/)
+       end ? 1 : 0)
+    end
+    @su2 = @uvoters.sum do |v|
+      (v.vtrs.any? do |vtr|
+         ((vtr.form =~ /Voter/ || vtr.form =~ /Request/) &&
+          vtr.action == "complete")
+       end ? 1 : 0)
+    end
+    @su3 = @uvoters.sum do |v|
+      (v.vtrs.any? do |vtr|
+         (vtr.form =~ /Absentee Ballot/)
+       end ? 1 : 0)
+    end
+    @su4 = @uvoters.sum do |v|
+      (v.vtrs.any? do |vtr|
+         (vtr.form =~ /Absentee Ballot/ && vtr.action == "complete")
+       end ? 1 : 0)
+    end
+
+    @vr1 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Registration/ && vtr.action == "complete")
+          @vr1 += 1
+        end
+      end
+    end
+    @vr2 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Registration/ && vtr.action == "match")
+          @vr2 += 1
+        end
+      end
+    end
+    @vr3 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Registration/ && vtr.action == "approve")
+          @vr3 += 1
+        end
+      end
+    end
+    @vr4 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Registration/ && vtr.action == "reject")
+          @vr4 += 1
+        end
+      end
+    end
+    @vr5 = @vr1-@vr2
+    @vr6 = 0
+    nvoters = VoterRecord.count
+    if nvoters > 0
+      @vr6 = (100*@vr3)/nvoters
+    end
+    @vr6 = @vr6.to_s+"%"
+    @vu1 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Record Update/ && vtr.action == "complete")
+          @vu1 += 1
+        end
+      end
+    end
+    @vu2 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Record Update/ && vtr.action == "match")
+          @vu2 += 1
+        end
+      end
+    end
+    @vu3 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Record Update/ && vtr.action == "approve")
+          @vu3 += 1
+        end
+      end
+    end
+    @vu4 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Voter Record Update/ && vtr.action == "reject")
+          @vu4 += 1
+        end
+      end
+    end
+    @vu5 = @vu1-@vu2
+    @ar1 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Request/ && vtr.action == "complete")
+          @ar1 += 1
+        end
+      end
+    end
+    @ar2 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Request/ && vtr.action == "match")
+          @ar2 += 1
+        end
+      end
+    end
+    @ar3 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Request/ && vtr.action == "approve")
+          @ar3 += 1
+        end
+      end
+    end
+    @ar4 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Request/ && vtr.action == "reject")
+          @ar4 += 1
+        end
+      end
+    end
+    @ar5 = @ar1-@ar2
+    @ab1 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "complete")
+          @ab1 +=  1
+        end
+      end
+    end
+    @ab2 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "match")
+          @ab2 += 1
+        end
+      end
+    end
+    @ab3 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "approve")
+          @ab3 += 1
+        end
+      end
+    end
+    @ab4 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "reject")
+          @ab4 += 1
+        end
+      end
+    end
+    @ab5 = @ab1-@ab2
+    @sr1 = @vr1+@vu1+@ar1+@ab1
+    @sr2 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if ((vtr.form =~ /Voter/ || vtr.form =~ /Request/) &&
+            vtr.action == "match")
+          @sr2 += 1
+        end
+      end
+    end
+    @sr3 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if ((vtr.form =~ /Voter/ || vtr.form =~ /Request/) &&
+            (vtr.action == "approve"))
+          @sr3 += 1
+        end
+      end
+    end
+    @sr4 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if ((vtr.form =~ /Voter/ || vtr.form =~ /Request/) &&
+            (vtr.action == "reject"))
+          @sr4 += 1
+        end
+      end
+    end
+    @sr5 = @sr1 - @sr2
+    @sr6 = 0
+    @uvoters.each do |v|
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "complete")
+          @sr6 += 1
+        end
+      end
+    end
+    @sr7 = @su4
+    @sr8 = 0
+    @uvoters.each do |v|
+      found = 0
+      v.vtrs.each do |vtr|
+        if (vtr.form =~ /Absentee Ballot/ && vtr.action == "complete")
+          found += 1
+        end
+      end
+      if found > 1
+        @sr8 += 1
+      end
+    end
+    @uv1p = (@uv==0 ? "0%" : ((100*@su1)/@uv).to_s+"%")
+    @uv2p = (@uv==0 ? "0%" : ((100*@su2)/@uv).to_s+"%")
+    @uv3p = (@uv==0 ? "0%" : ((100*@su3)/@uv).to_s+"%")
+    @uv4p = (@uv==0 ? "0%" : ((100*@su4)/@uv).to_s+"%")
+    @su2p = (@su1==0 ? "0%" : ((100*@su2)/@su1).to_s+"%")
+    @su4p = (@su1==0 ? "0%" : ((100*@su4)/@su1).to_s+"%")
+    @vr3p = "("+(@vr2==0 ? "0" : ((100*@vr3)/@vr2).to_s)+"%)"
+    @vr4p = "("+(@vr2==0 ? "0" : ((100*@vr4)/@vr2).to_s)+"%)"
+    @vr5p = "("+(@vr1==0 ? "0" : ((100*@vr5)/@vr1).to_s)+"% of forms generated)"
+    @vu3p = "("+(@vu2==0 ? "0" : ((100*@vu3)/@vu2).to_s)+"%)"
+    @vu4p = "("+(@vu2==0 ? "0" : ((100*@vu4)/@vu2).to_s)+"%)"
+    @vu5p = "("+(@vu1==0 ? "0" : ((100*@vu5)/@vu1).to_s)+"% of forms generated)"
+    @ar3p = "("+(@ar2==0 ? "0" : ((100*@ar3)/@ar2).to_s)+"%)"
+    @ar4p = "("+(@ar2==0 ? "0" : ((100*@ar4)/@ar2).to_s)+"%)"
+    @ar5p = "("+(@ar1==0 ? "0" : ((100*@ar5)/@ar1).to_s)+"% of forms generated)"
+    @ab3p = "("+(@ab2==0 ? "0" : ((100*@ab3)/@ab2).to_s)+"%)"
+    @ab4p = "("+(@ab2==0 ? "0" : ((100*@ab4)/@ab2).to_s)+"%)"
+    @ab5p = "("+(@ab1==0 ? "0" : ((100*@ab5)/@ab1).to_s)+"% of forms generated)"
+    @sr3p = "("+(@sr2==0 ? "0" : ((100*@sr3)/@sr2).to_s)+"%)"
+    @sr4p = "("+(@sr2==0 ? "0" : ((100*@sr4)/@sr2).to_s)+"%)"
+    @sr5p = "("+(@sr1==0 ? "0" : ((100*@sr5)/@sr1).to_s)+"% of forms generated)"
+  end
+
+  def report4()
   end
 
   # DELETE /analytic_reports/1

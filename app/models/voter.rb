@@ -11,4 +11,8 @@ class Voter < ActiveRecord::Base
     end
   end
 
+  def vtrs
+    self.voter_transaction_records
+  end
+
 end

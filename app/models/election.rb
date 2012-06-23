@@ -40,6 +40,8 @@ class Election < ActiveRecord::Base
   end
 
   def voters_num
+    n = VoterRecord.count
+    return n if n > 0
     return 0 if self.evoters.blank?
     return self.evoters.to_i
   end
@@ -87,4 +89,12 @@ class Election < ActiveRecord::Base
     end
   end
   
+  def namedate
+    return self.name+" ("+self.date+")"
+  end
+
+  def date
+    return self.day.strftime("%B %-d, %Y")
+  end
+
 end

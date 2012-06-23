@@ -13,7 +13,7 @@ class AnalyticReport < ActiveRecord::Base
       self.name="Voter Outcome Report"
       self.desc="What Report #2 does is ..."
     when 3
-      self.name="UOCAVA Voter Usage Report"
+      self.name="UOCAVA Voter Online Usage Report"
       self.desc="What Report #3 does is ..."
     when 4
       self.name="UOCAVA Voter Activity Report"

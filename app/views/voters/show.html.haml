@@ -18,7 +18,7 @@
     = @voter.vuniq
 %p
   %b Election:
-  = @voter.vnote
+  = Election.find(@voter.election_id).namedate
 %br
 - if true
   %h3

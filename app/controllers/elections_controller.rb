@@ -109,9 +109,15 @@ class ElectionsController < ApplicationController
       self.select_another(eid)
     end
     @election.destroy
-    respond_to do |format|
-      format.html { redirect_to elections_url }
+    Election.all.each do |e|
+      if !e.archived
+        respond_to do |format|
+          format.html { redirect_to elections_url }
+        end
+        return
+      end
     end
+    redirect_to :root
   end
 
   # ARCHIVE /elections/1
@@ -126,9 +132,15 @@ class ElectionsController < ApplicationController
       self.select_another(eid)
     end
     @election.save
-    respond_to do |format|
-      format.html { redirect_to elections_url }
+    Election.all.each do |e|
+      if !e.archived
+        respond_to do |format|
+          format.html { redirect_to elections_url }
+        end
+        return
+      end
     end
+    redirect_to :root
   end
 
   def unselect_others(eid)

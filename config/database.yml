@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: jeffdev
   pool: 5
-  username: jvc
+  username: jeff
   password: OSDV
 
 # Warning: The database defined as "test" will be erased and
@@ -19,7 +19,7 @@ test:
   encoding: unicode
   database: jefftest
   pool: 5
-  username: jvc
+  username: jeff
   password: OSDV
 
 production:
@@ -27,5 +27,5 @@ production:
   encoding: unicode
   database: jeffprod
   pool: 5
-  username: jvc
+  username: jeff
   password: OSDV
