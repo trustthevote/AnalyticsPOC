@@ -63,28 +63,34 @@
           add them, but until you do, some analytics and reports will be
           unavailable. 
       .span10
-        #likeh2blue Upload New Voter Records Dataset
-        .row
-          .span8
-            %form{:action=>"/uplift",:method=>"post",
-                  :enctype=>"multipart/form-data",:style=>"margin:0;"}
-              %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
-              %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
-              %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
-              %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
-              %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
-          .span3
-            %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
-  .row#positionbacknext
-    .span2
-      &nbsp;
-    .span1#statebacknext
-      -if (Election.all.any?{|e|e.selected})
+        -if (Election.all.any?{|e|e.selected})
+          #likeh2blue Upload New Voter Records Dataset
+          .row
+            .span8
+              %form{:action=>"/uplift",:method=>"post",
+                    :enctype=>"multipart/form-data",:style=>"margin:0;"}
+                %input{:type=>"file",:name=>"file",:style=>"width:300px;"}
+                %input{:type=>"hidden",:name=>"uptype",:value=>"vr"}
+                %input{:type=>"hidden",:name=>"eid",:value=>(Election.all.find{|e|e.selected}).id}
+                %input{:type=>"submit",:value=>"Import CSV",:style=>"color:white;background-color:#444444;"}
+                %input{:type=>"submit",:value=>"Import EML",:disabled=>true,:style=>"color:white;background-color:#666666;"}
+            .span3
+              %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
+        -else
+          #likeh2blue No Election Selected
+  -if (Election.all.any?{|e|e.selected})
+    .row#positionbacknext
+      .span2
+        &nbsp;
+      .span1#statebacknext
         = link_to "Back", '/elections/'+(Election.all.find{|e|e.selected}).id.to_s
-      -else
-        = link_to 'Back', :back
-    .span8
-      &nbsp;
-    -if (Election.all.any?{|e|e.selected})
+      .span8
+        &nbsp;
       .span1#statebacknext
         = link_to "Next", '/analytic_reports/analytic?id='+(Election.all.find{|e|e.selected}).id.to_s
+  -else
+    .row#positionbacknext
+      .span2
+        &nbsp;
+      .span1#statebacknext
+        = link_to "Back", :root

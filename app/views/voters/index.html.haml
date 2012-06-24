@@ -9,6 +9,12 @@
       %th &nbsp;
       %th VType
       %th &nbsp;
+      %th Gender
+      %th &nbsp;
+      %th Party
+      %th &nbsp;
+      %th Other
+      %th &nbsp;
       %th Voted
       %th &nbsp;
       %th Reject?
@@ -26,6 +32,12 @@
           %td= voter.vname
           %td
           %td= voter.vtype
+          %td
+          %td= voter.vgender
+          %td
+          %td= voter.vparty
+          %td
+          %td= voter.vother
           %td
           %td= (voter.voted ? "Yes" : "No")
           %td

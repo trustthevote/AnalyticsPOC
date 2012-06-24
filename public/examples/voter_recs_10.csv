@@ -1,11 +1,11 @@
 Voter,Type,Gender,Party
-v1,domestic,M,Republican
+v1,domestic,M,Republican,military
 v2,domestic,F,Democratic
-v3,domestic,M,Democratic
+v3,domestic,M,Democratic,military
 v4,domestic,M,Democratic
-v5,domestic,F,Democratic
+v5,domestic,F,Democratic,military
 v6,domestic,M,Republican
-v7,domestic,M,Democratic
+v7,domestic,M,Democratic,military
 v8,domestic,F,Republican
-v9,UOCAVA,M,Republican
+v9,UOCAVA,M,Republican,military
 v10,domestic,M,Democratic

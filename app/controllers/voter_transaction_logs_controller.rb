@@ -73,8 +73,13 @@ class VoterTransactionLogsController < ApplicationController
     @voter_transaction_log = VoterTransactionLog.find(params[:id])
     e = Election.find(@voter_transaction_log.election_id)
     e.log_del(@voter_transaction_log)
-    e.save
     @voter_transaction_log.destroy
+    e.voters.all.each do |v|
+      if v.voter_transaction_records.count == 0
+        v.destroy
+      end
+    end
+    e.save
 
     if replace
       return e

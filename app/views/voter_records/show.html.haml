@@ -17,6 +17,8 @@
     %th Gender
     %th &nbsp;
     %th Party
+    %th &nbsp;
+    %th Other
   - VoterRecord.all.each do |vr|
     %tr
       %td= vr.vname
@@ -26,5 +28,7 @@
       %td= vr.gender
       %td
       %td= vr.party
+      %td
+      %td= vr.other
 %br
 = link_to 'Back', :back

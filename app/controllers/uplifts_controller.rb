@@ -114,9 +114,37 @@ class UpliftsController < ApplicationController
         v.vform = ""
         v.vnote = ""
         v.election_id = eid
+        #fetchVoterFields(v)
       end
     end
     return voter
+  end
+
+  def fetchVoterFields(v)
+    VoterRecord.all.each do |vr|
+      if v.vname == vr.vname
+        v.vgender = vr.gender
+        v.vparty = vr.party
+        v.vother = vr.other
+        return
+      end
+    end
+  end
+
+  def updateVoterFieldsFromRecord(vr)
+    Voter.all.each do |v|
+      if v.vname == vr.vname
+        v.vgender = vr.gender
+        v.vparty = vr.party
+        v.vother = vr.other
+        v.save
+        return
+      end
+      v.vgender = ""
+      v.vparty = ""
+      v.vother = ""
+      v.save
+    end
   end
 
   def syncVoter(voter, vtr)
@@ -227,7 +255,6 @@ XSL
     puts out.to_xml
   end
 
-
   def upliftVoterRecords(csv_file, eid)
     unless (csv_file =~ /\.csv$/i)
       @uplift_err = "Invalid file type, only .CSV files accepted: "+csv_file.to_s
@@ -252,15 +279,33 @@ XSL
       render :uplift
       return false
     end
+    vrhash = Hash.new {}
     csv.shift
     csv.each do |row|
-      if row =~ /^(\w+),(\w+),(\w+),(\w+)/
-        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4)
+      if row =~ /^(\w+),(\w+),(\w+),(\w+),(\w+)/
+        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
+                           :other=>$5)
+        vrhash[vr.vname] = [vr.gender, vr.party, vr.other]
+        vr.save
+      elsif row =~ /^(\w+),(\w+),(\w+),(\w+)/
+        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
+                           :other=>"")
+        vrhash[vr.vname] = [vr.gender, vr.party, vr.other]
         vr.save
       else
         @uplift_err = "Invalid row in CSV file: "+row
         render :uplift
         return false
+      end
+    end
+    Voter.all.each do |v|
+      gender, party, other = "", "", ""
+      if vrhash.keys.include?(v.vname)
+        gender, party, other = vrhash[v.vname]
+      end
+      if (v.vgender != gender || v.vparty != party || v.vother != other)
+        v.vgender, v.vparty, v.vother = gender, party, other
+        v.save
       end
     end
     return true
