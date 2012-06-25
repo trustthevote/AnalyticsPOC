@@ -46,27 +46,26 @@ class AnalyticReportsController < ApplicationController
       self.report1()
     when 2
       self.report2()
-    when 3
-      @uv = VoterRecord.sum{|vr|(vr.vtype=="UOCAVA" ? 1 : 0)}
-      @uvoters = []
-      @election.voters.each do |v|
-        if (v.vtype=~/UOCAVA/)
-          @uvoters.push(v)
-        end
-      end
-      self.report3()
-    when 4
-      @uv = VoterRecord.sum{|vr|(vr.vtype=="UOCAVA" ? 1 : 0)}
-      @uvoters = []
-      @election.voters.each do |v|
-        if (v.vtype=~/UOCAVA/)
-          @uvoters.push(v)
-        end
-      end
-      self.report4()
     else
-      @rn = 1
-      self.report1()
+      @uv, @uvm = 0, 0
+      VoterRecord.all.each do |vr|
+        if (vr.vtype=="UOCAVA")
+          @uv += 1
+          if (vr.other =~ /military/i)
+            @uvm += 1
+          end
+         end
+      end
+      @uvo = @uv - @uvm
+      @uvmp = (@uv==0 ? "0%" : ((100*@uvm)/@uv).to_s+"%")
+      @uvop = (@uv==0 ? "0%" : ((100*@uvo)/@uv).to_s+"%")
+      @uvoters = []
+      @election.voters.each do |v|
+        if (v.vtype=~/UOCAVA/)
+          @uvoters.push(v)
+        end
+      end
+      self.reportu()
     end
   end
 
@@ -203,7 +202,7 @@ class AnalyticReportsController < ApplicationController
     return true
   end
 
-  def report3()
+  def reportu()
 
     @su1 = @uvoters.sum do |v|
       (v.vtrs.any? do |vtr|
@@ -332,40 +331,57 @@ class AnalyticReportsController < ApplicationController
       end
     end
     @ar5 = @ar1-@ar2
-    @ab1 = 0
+    @uab_generated = 0
     @uvoters.each do |v|
       v.vtrs.each do |vtr|
         if (vtr.form =~ /Absentee Ballot/ && vtr.action == "complete")
-          @ab1 +=  1
+          @uab_generated +=  1
         end
       end
     end
-    @ab2 = 0
+    @uab_received, @uab_receivedm = 0, 0
     @uvoters.each do |v|
       v.vtrs.each do |vtr|
         if (vtr.form =~ /Absentee Ballot/ && vtr.action == "match")
-          @ab2 += 1
+          @uab_received += 1
+          @uab_receivedm += 1 if (v.vother =~ /military/i)
         end
       end
     end
-    @ab3 = 0
+    @uab_receivedo = @uab_received - @uab_receivedm
+    @uab_receivedmp = (@uab_received==0 ? "0%" : ((100*@uab_receivedm)/@uab_received).to_s+"%")
+    @uab_receivedop = (@uab_received==0 ? "0%" : ((100*@uab_receivedo)/@uab_received).to_s+"%")
+    @uab_approved, @uab_approvedm = 0, 0
     @uvoters.each do |v|
       v.vtrs.each do |vtr|
         if (vtr.form =~ /Absentee Ballot/ && vtr.action == "approve")
-          @ab3 += 1
+          @uab_approved += 1
+          @uab_approvedm += 1 if (v.vother =~ /military/i)
         end
       end
     end
-    @ab4 = 0
+    @uab_approvedo = @uab_approved - @uab_approvedm
+    @uab_rejected, @uab_rejectedm, @uab_rejectedla, @uab_rejectedlam = 0, 0, 0, 0
+    @uab_rejectedgm, @uab_rejectedgf, @uab_rejectedpd, @uab_rejectedpr = 0, 0, 0, 0
     @uvoters.each do |v|
       v.vtrs.each do |vtr|
         if (vtr.form =~ /Absentee Ballot/ && vtr.action == "reject")
-          @ab4 += 1
+          @uab_rejected += 1
+          @uab_rejectedgm += 1 if (v.vgender == 'M')
+          @uab_rejectedgf += 1 if (v.vgender == 'F')
+          @uab_rejectedpd += 1 if (v.vparty =~ /democrat/i)
+          @uab_rejectedpr += 1 if (v.vparty =~ /republic/i)
+          if (vtr.note =~ /late/)
+            @uab_rejectedla += 1
+            @uab_rejectedlam += 1 if (v.vother =~ /military/i)
+          end
         end
       end
     end
-    @ab5 = @ab1-@ab2
-    @sr1 = @vr1+@vu1+@ar1+@ab1
+    @uab_rejectedo = @uab_rejected - @uab_rejectedm
+    @uab_rejectedlao = @uab_rejectedla - @uab_rejectedlam
+    @uab_lost = @uab_generated-@uab_received
+    @sr1 = @vr1+@vu1+@ar1+@uab_generated
     @sr2 = 0
     @uvoters.each do |v|
       v.vtrs.each do |vtr|
@@ -430,15 +446,12 @@ class AnalyticReportsController < ApplicationController
     @ar3p = "("+(@ar2==0 ? "0" : ((100*@ar3)/@ar2).to_s)+"%)"
     @ar4p = "("+(@ar2==0 ? "0" : ((100*@ar4)/@ar2).to_s)+"%)"
     @ar5p = "("+(@ar1==0 ? "0" : ((100*@ar5)/@ar1).to_s)+"% of forms generated)"
-    @ab3p = "("+(@ab2==0 ? "0" : ((100*@ab3)/@ab2).to_s)+"%)"
-    @ab4p = "("+(@ab2==0 ? "0" : ((100*@ab4)/@ab2).to_s)+"%)"
-    @ab5p = "("+(@ab1==0 ? "0" : ((100*@ab5)/@ab1).to_s)+"% of forms generated)"
+    @uab_approvedp = "("+(@uab_received==0 ? "0" : ((100*@uab_approved)/@uab_received).to_s)+"%)"
+    @uab_rejectedp = "("+(@uab_received==0 ? "0" : ((100*@uab_rejected)/@uab_received).to_s)+"%)"
+    @uab_lostp = "("+(@uab_generated==0 ? "0" : ((100*@uab_lost)/@uab_generated).to_s)+"% of forms generated)"
     @sr3p = "("+(@sr2==0 ? "0" : ((100*@sr3)/@sr2).to_s)+"%)"
     @sr4p = "("+(@sr2==0 ? "0" : ((100*@sr4)/@sr2).to_s)+"%)"
     @sr5p = "("+(@sr1==0 ? "0" : ((100*@sr5)/@sr1).to_s)+"% of forms generated)"
-  end
-
-  def report4()
   end
 
   # DELETE /analytic_reports/1
