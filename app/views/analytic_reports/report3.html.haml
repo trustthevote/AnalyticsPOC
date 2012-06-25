@@ -73,7 +73,7 @@
               #likeh4b Aggregate Service Usage
               %table
                 %tr
-                  %td= @su1
+                  %td= @urm_generate
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Voters who made use of 
@@ -83,13 +83,13 @@
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @uv1p
+                    = @urm_generatep
                     of eligible UOCAVA voters
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td
-                  %td= @su2
+                  %td= @urm_complete
                   %td= "&ndash;".html_safe
                   %td
                     Voters who 
@@ -100,21 +100,21 @@
                   %td
                   %td
                   %td{:colspan=>2}
-                    = @uv2p
+                    = @urm_completep
                     of eligible UOCAVA voters
                 %tr
                   %td
                   %td
                   %td
                   %td{:colspan=>2}
-                    = @su2p
+                    = @urm_completep
                     of users of 
                     %b registration management
                     services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= @su3
+                  %td= @uam_generate
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Voters who made use of 
@@ -124,13 +124,13 @@
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @uv3p
+                    = @uam_generatep
                     of eligible UOCAVA voters
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td
-                  %td= @su4
+                  %td= @uam_complete
                   %td= "&ndash;".html_safe
                   %td
                     Voters who 
@@ -141,62 +141,62 @@
                   %td
                   %td
                   %td{:colspan=>2}
-                    = @uv4p
+                    = @uam_completep
                     of eligible UOCAVA voters
                 %tr
                   %td
                   %td
                   %td
                   %td{:colspan=>2}
-                    = @su4p
+                    = @uam_completep
                     of users of 
                     %b registration management
                     services
               #likeh4b Online Service Request Arrival and Success Rate
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr1
+                  %td{:style=>"text-align:right;"}= @usr_generated
                   %td= "&ndash;".html_safe
                   %td
                     Total
                     %b registration management 
                     forms generated
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr2
+                  %td{:style=>"text-align:right;"}= @usr_received
                   %td= "&ndash;".html_safe
                   %td
                     Generated forms received by local election officials during
                     reporting period 
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr3
+                  %td{:style=>"text-align:right;"}= @usr_approved
                   %td= "&ndash;".html_safe
                   %td
                     Approval of forms received 
-                    = @sr3p
+                    = @usr_approvedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr4
+                  %td{:style=>"text-align:right;"}= @usr_rejected
                   %td= "&ndash;".html_safe
                   %td
                     Rejection of forms received
-                    = @sr4p
+                    = @usr_rejectedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr5
+                  %td{:style=>"text-align:right;"}= @usr_lost
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received
-                    = @sr5p
+                    = @usr_lostp
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr6
+                  %td{:style=>"text-align:right;"}= @usr_ab_downloads
                   %td= "&ndash;".html_safe
                   %td
                     Downloaded absentee ballots
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr7
+                  %td{:style=>"text-align:right;"}= @usr_ab_voters
                   %td= "&ndash;".html_safe
                   %td
                     Voters who downloaded ballot(s)
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr8
+                  %td{:style=>"text-align:right;"}= @usr_ab_doubles
                   %td= "&ndash;".html_safe
                   %td
                     Voters who downloaded a ballot more than once
@@ -204,38 +204,38 @@
               %p{:style=>"font-weight:bold;"} Voter Registration
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr1
+                  %td{:style=>"text-align:right;"}= @urr_generated
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Total
                     %b voter registration
                     request forms generated
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr2
+                  %td{:style=>"text-align:right;"}= @urr_received
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Generated forms received by local election officials during
                     reporting period 
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr3
+                  %td{:style=>"text-align:right;"}= @urr_approved
                   %td= "&ndash;".html_safe
                   %td
                     Approval of forms received 
-                    = @vr3p
+                    = @urr_approvedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr4
+                  %td{:style=>"text-align:right;"}= @urr_rejected
                   %td= "&ndash;".html_safe
                   %td
                     Rejection of forms received
-                    = @vr4p
+                    = @urr_rejectedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr5
+                  %td{:style=>"text-align:right;"}= @urr_lost
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received
-                    = @vr5p
+                    = @urr_lostp
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr6
+                  %td{:style=>"text-align:right;"}= @urr_new
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Newly approved UOCAVA voter registrations, as a percentage
@@ -245,70 +245,70 @@
               %p{:style=>"font-weight:bold;"} Voter Record Update
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu1
+                  %td{:style=>"text-align:right;"}= @uru_generated
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Total
                     %b voter record update
                     request forms generated
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu2
+                  %td{:style=>"text-align:right;"}= @uru_received
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Generated forms received by local election officials during
                     reporting period 
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu3
+                  %td{:style=>"text-align:right;"}= @uru_approved
                   %td= "&ndash;".html_safe
                   %td
                     Approval of forms received 
-                    = @vu3p
+                    = @uru_approvedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu4
+                  %td{:style=>"text-align:right;"}= @uru_rejected
                   %td= "&ndash;".html_safe
                   %td
                     Rejection of forms received
-                    = @vu4p
+                    = @uru_rejectedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu5
+                  %td{:style=>"text-align:right;"}= @uru_lost
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received
-                    = @vu5p
+                    = @uru_lostp
               %br
               %p{:style=>"font-weight:bold;"} Absentee Status Update
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar1
+                  %td{:style=>"text-align:right;"}= @uar_generated
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Total
                     %b absentee status update
                     request forms generated
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar2
+                  %td{:style=>"text-align:right;"}= @uar_received
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Generated forms received by local election officials during
                     reporting period 
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar3
+                  %td{:style=>"text-align:right;"}= @uar_approved
                   %td= "&ndash;".html_safe
                   %td
                     Approval of forms received 
-                    = @ar3p
+                    = @uar_approvedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar4
+                  %td{:style=>"text-align:right;"}= @uar_rejected
                   %td= "&ndash;".html_safe
                   %td
                     Rejection of forms received
-                    = @ar4p
+                    = @uar_rejectedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar5
+                  %td{:style=>"text-align:right;"}= @uar_lost
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received
-                    = @ar5p
+                    = @uar_lostp
               %br
               %p{:style=>"font-weight:bold;"} Absentee Ballot
               %table
@@ -338,7 +338,7 @@
                     Rejection of forms received
                     = @uab_rejectedp
                 %tr
-                  %td{:style=>"text-align:right;"}= @ab5
+                  %td{:style=>"text-align:right;"}= @uab_lost
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received

@@ -81,6 +81,8 @@
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Total registered voters at the end of the reporting period
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}= number_with_delimiter(@uv)
                   %td= "&ndash;".html_safe
@@ -101,11 +103,11 @@
               #likeh4b Aggregate Transaction Statistics: Absentee Ballots
               %table
                 %tr
-                  %td= number_with_delimiter(@uab_received)
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uab_received)
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     UOCAVA absentee ballots received
-                    = "("+@uv3p+" of eligible UOCAVA voters)"
+                    = "("+@uv3p.to_s+" of eligible UOCAVA voters)"
                 %tr
                   %td
                   %td
@@ -121,223 +123,247 @@
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@uab_received)
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uab_approved)
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
-                    UOCAVA absentee ballots received
-                %tr
-                  %td
-                  %td
-                  %td{:colspan=>2}
-                    = @uab_approved
-                    = "&ndash;".html_safe
                     Ballots approved and cast
                     = "(Military: "+@uab_approvedm.to_s+"; Overseas: "+@uab_approvedo.to_s+")"
                 %tr
-                  %td
-                  %td
-                  %td{:colspan=>2}
-                    = @uab_rejected
-                    = "&ndash;".html_safe
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uab_rejected)
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
                     Ballots rejected for any reason
                     = "(Military: "+@uab_rejectedm.to_s+"; Overseas: "+@uab_rejectedo.to_s+")"
                 %tr
-                  %td
-                  %td
-                  %td{:colspan=>2}
-                    = @uab_rejectedla
-                    = "&ndash;".html_safe
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uab_rejectedla)
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
                     Ballots rejected due to late arrival
                     = "(Military: "+@uab_rejectedlam.to_s+"; Overseas: "+@uab_rejectedlao.to_s+")"
-              #likeh4b Demographic Breakdown: Absentee Ballots
-              %i UOCAVA Absentee Ballots rejected for any reason
+              #likeh4b Demographic Breakdown: Absentee Ballots Rejected
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @uab_rejectedgf
-                  %td= "&ndash;".html_safe
-                  %td
-                    Female UOCAVA voters, age of UOCAVA voters
+                  %td{:colspan=>5} 
+                    %i UOCAVA Absentee Ballots rejected for any reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @uab_rejectedgm
+                  %td{:style=>"text-align:right;"}= @uab_rejectedgfp
                   %td= "&ndash;".html_safe
-                  %td
-                    Male UOCAVA voters, age of UOCAVA voters
+                  %td= 'Female UOCAVA voters ('+@uab_rejectedgf.to_s+')'
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr3
+                  %td{:style=>"text-align:right;"}= @uab_rejectedgmp
                   %td= "&ndash;".html_safe
-                  %td
-                    Approval of forms received 
-                    = @sr3p
+                  %td= 'Male UOCAVA voters ('+@uab_rejectedgm.to_s+')'
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr4
+                  %td{:style=>"text-align:right;"}= @vab_rejectedgfp
                   %td= "&ndash;".html_safe
-                  %td
-                    Rejection of forms received
-                    = @sr4p
+                  %td= 'All Female voters ('+@vab_rejectedgf.to_s+')'
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr5
+                  %td{:style=>"text-align:right;"}= @vab_rejectedgmp
                   %td= "&ndash;".html_safe
-                  %td
-                    Forms not received
-                    = @sr5p
+                  %td= 'All Male voters ('+@vab_rejectedgm.to_s+')'
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr6
+                  %td{:style=>"text-align:right;"}= @uab_rejectedpdp
                   %td= "&ndash;".html_safe
-                  %td
-                    Downloaded absentee ballots
+                  %td= 'Democratic UOCAVA voters ('+@uab_rejectedpd.to_s+')'
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr7
+                  %td{:style=>"text-align:right;"}= @uab_rejectedprp
                   %td= "&ndash;".html_safe
-                  %td
-                    Voters who downloaded ballot(s)
+                  %td= 'Republican UOCAVA voters ('+@uab_rejectedpr.to_s+')'
                 %tr
-                  %td{:style=>"text-align:right;"}= @sr8
+                  %td{:style=>"text-align:right;"}= @uab_rejectedpop
                   %td= "&ndash;".html_safe
-                  %td
-                    Voters who downloaded a ballot more than once
-              #likeh4b Online Service Request Breakdown by Request Type
-              %p{:style=>"font-weight:bold;"} Voter Registration
+                  %td= '3rd Party UOCAVA voters ('+@uab_rejectedpo.to_s+')'
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}= @vab_rejectedpdp
+                  %td= "&ndash;".html_safe
+                  %td= 'All Democratic voters ('+@vab_rejectedpd.to_s+')'
+                %tr
+                  %td{:style=>"text-align:right;"}= @vab_rejectedprp
+                  %td= "&ndash;".html_safe
+                  %td= 'All Republican voters ('+@vab_rejectedpr.to_s+')'
+                %tr
+                  %td{:style=>"text-align:right;"}= @vab_rejectedpop
+                  %td= "&ndash;".html_safe
+                  %td= '3rd Party UOCAVA voters ('+@vab_rejectedpo.to_s+')'
+              #likeh4b Specific Transaction Statistics: Voter Registration Requests
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr1
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@urr_received)
                   %td= "&ndash;".html_safe
-                  %td{:colspan=>3}
-                    Total
-                    %b voter registration
-                    request forms generated
+                  %td{:colspan=>3} 
+                    UOCAVA voter registration requests received
                 %tr
-                  %td{:style=>"text-align:right;"}= @vr2
-                  %td= "&ndash;".html_safe
-                  %td{:colspan=>3}
-                    Generated forms received by local election officials during
-                    reporting period 
-                %tr
-                  %td{:style=>"text-align:right;"}= @vr3
-                  %td= "&ndash;".html_safe
                   %td
-                    Approval of forms received 
-                    = @vr3p
-                %tr
-                  %td{:style=>"text-align:right;"}= @vr4
-                  %td= "&ndash;".html_safe
                   %td
-                    Rejection of forms received
-                    = @vr4p
-                %tr
-                  %td{:style=>"text-align:right;"}= @vr5
-                  %td= "&ndash;".html_safe
-                  %td
-                    Forms not received
-                    = @vr5p
-                %tr
-                  %td{:style=>"text-align:right;"}= @vr6
-                  %td= "&ndash;".html_safe
                   %td{:colspan=>3}
-                    Newly approved UOCAVA voter registrations, as a percentage
-                    of total registered voters on
-                    = @election.date
-              %br
-              %p{:style=>"font-weight:bold;"} Voter Record Update
+                    = @urr_receivedmp
+                    = "Military voters ("+number_with_delimiter(@urr_receivedm)+")"
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @urr_receivedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@urr_receivedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@urr_approved)
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA voter registration requests approved
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @urr_approvedmp
+                    = "Military voters ("+number_with_delimiter(@urr_approvedm)+")"
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @urr_approvedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@urr_approvedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@urr_rejected)
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA voter registration requests rejected
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @urr_rejectedmp
+                    = "Military voters ("+number_with_delimiter(@urr_rejectedm)+")"
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @urr_rejectedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@urr_rejectedo)+")"
+              #likeh4b Specific Transaction Statistics: Voter Record Update Requests
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu1
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uru_received)
                   %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA voter record update requests received
+                %tr
+                  %td
+                  %td
                   %td{:colspan=>3}
-                    Total
-                    %b voter record update
-                    request forms generated
+                    = @uru_receivedmp
+                    = "Military voters ("+number_with_delimiter(@uru_receivedm)+")"
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu2
-                  %td= "&ndash;".html_safe
+                  %td
+                  %td
                   %td{:colspan=>3}
-                    Generated forms received by local election officials during
-                    reporting period 
+                    = @uru_receivedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uru_receivedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu3
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uru_approved)
                   %td= "&ndash;".html_safe
-                  %td
-                    Approval of forms received 
-                    = @vu3p
+                  %td{:colspan=>3} 
+                    UOCAVA voter record update requests approved
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu4
-                  %td= "&ndash;".html_safe
                   %td
-                    Rejection of forms received
-                    = @vu4p
+                  %td
+                  %td{:colspan=>3}
+                    = @uru_approvedmp
+                    = "Military voters ("+number_with_delimiter(@uru_approvedm)+")"
                 %tr
-                  %td{:style=>"text-align:right;"}= @vu5
-                  %td= "&ndash;".html_safe
                   %td
-                    Forms not received
-                    = @vu5p
-              %br
-              %p{:style=>"font-weight:bold;"} Absentee Status Update
+                  %td
+                  %td{:colspan=>3}
+                    = @uru_approvedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uru_approvedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uru_rejected)
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA voter record update requests rejected
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @uru_rejectedmp
+                    = "Military voters ("+number_with_delimiter(@uru_rejectedm)+")"
+                %tr
+                  %td
+                  %td
+                  %td{:colspan=>3}
+                    = @uru_rejectedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uru_rejectedo)+")"
+              #likeh4b Specific Transaction Statistics: Absentee Requests
               %table
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar1
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uar_received)
                   %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA absentee requests received
+                %tr
+                  %td
+                  %td
                   %td{:colspan=>3}
-                    Total
-                    %b absentee status update
-                    request forms generated
+                    = @uar_receivedmp
+                    = "Military voters ("+number_with_delimiter(@uar_receivedm)+")"
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar2
-                  %td= "&ndash;".html_safe
+                  %td
+                  %td
                   %td{:colspan=>3}
-                    Generated forms received by local election officials during
-                    reporting period 
+                    = @uar_receivedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uar_receivedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @ar3
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uar_approved)
                   %td= "&ndash;".html_safe
+                  %td{:colspan=>3} 
+                    UOCAVA absentee requests approved
+                %tr
                   %td
-                    Approval of forms received 
-                    = @ar3p
-                %tr
-                  %td{:style=>"text-align:right;"}= @ar4
-                  %td= "&ndash;".html_safe
                   %td
-                    Rejection of forms received
-                    = @ar4p
-                %tr
-                  %td{:style=>"text-align:right;"}= @ar5
-                  %td= "&ndash;".html_safe
-                  %td
-                    Forms not received
-                    = @ar5p
-              %br
-              %p{:style=>"font-weight:bold;"} Absentee Ballot
-              %table
-                %tr
-                  %td{:style=>"text-align:right;"}= @uab_generated
-                  %td= "&ndash;".html_safe
                   %td{:colspan=>3}
-                    Total
-                    %b absentee ballot
-                    forms generated
+                    = @uar_approvedmp
+                    = "Military voters ("+number_with_delimiter(@uar_approvedm)+")"
                 %tr
-                  %td{:style=>"text-align:right;"}= @uab_received
-                  %td= "&ndash;".html_safe
+                  %td
+                  %td
                   %td{:colspan=>3}
-                    Generated forms received by local election officials during
-                    reporting period 
+                    = @uar_approvedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uar_approvedo)+")"
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= @uab_approved
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@uar_rejected)
                   %td= "&ndash;".html_safe
-                  %td
-                    Approval of forms received 
-                    = @uab_approvedp
+                  %td{:colspan=>3} 
+                    UOCAVA absentee requests rejected
                 %tr
-                  %td{:style=>"text-align:right;"}= @uab_rejected
-                  %td= "&ndash;".html_safe
                   %td
-                    Rejection of forms received
-                    = @uab_rejectedp
+                  %td
+                  %td{:colspan=>3}
+                    = @uar_rejectedmp
+                    = "Military voters ("+number_with_delimiter(@uar_rejectedm)+")"
                 %tr
-                  %td{:style=>"text-align:right;"}= @ab5
-                  %td= "&ndash;".html_safe
                   %td
-                    Forms not received
-                    = @ab5p
+                  %td
+                  %td{:colspan=>3}
+                    = @uar_rejectedop
+                    = "Non-military overseas voters ("+number_with_delimiter(@uar_rejectedo)+")"
               %br
           -else
             %p#redelecname
