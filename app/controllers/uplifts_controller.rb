@@ -110,9 +110,14 @@ class UpliftsController < ApplicationController
       if v.vname.blank?
         v.vname = vname
         v.vtype = vtype
-        v.voted, v.vreject = false, false
+        v.voted, v.vreject, v.vonline = false, false, false
         v.vform = ""
         v.vnote = ""
+        v.vgender = ""
+        v.vparty = ""
+        v.vother = ""
+        v.vupdate = ""
+        v.vabsreq = ""
         v.election_id = eid
         #fetchVoterFields(v)
       end
@@ -140,12 +145,6 @@ class UpliftsController < ApplicationController
         v.save
         return
       end
-      v.vgender = ""
-      v.vparty = ""
-      v.vother = ""
-      v.vupdate = ""
-      v.vabsreq = ""
-      v.save
     end
   end
 
@@ -194,6 +193,9 @@ class UpliftsController < ApplicationController
       else
         voter.vabsreq = 'try' unless voter.vabsreq == 'approve'
       end
+    end
+    if ["identify","start","discard","complete","submit"].include?(vtr.action)
+      voter.vonline = true
     end
     voter.save
   end

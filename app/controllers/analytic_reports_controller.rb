@@ -336,11 +336,12 @@
     @varfail = Hash.new { |h, k| h[k] = 0 }
     @varappr = Hash.new { |h, k| h[k] = 0 }
       #"tot"=>0,"vno"=>0,"vpb"=0,"vpa"=>0,"vpr"=>0,"vaa"=>0,"varl"=>0,"varo"=>0,
-      #"vm"=>0,"vf"=>0,"vd"=>0,"vr"=>0,"vo"=>0
+      #"von"=>0,"vm"=>0,"vf"=>0,"vd"=>0,"vr"=>0,"vo"=>0
     @election.voters.each do |v|
       @avoters['tot'] += 1
       @avoters['vm'] += 1 if (v.vgender=='M')
       @avoters['vf'] += 1 if (v.vgender=='F')
+      @avoters['von'] += 1 if (v.vonline)
       if (v.vparty=~/democrat/i)
         @avoters['vd'] += 1
       elsif (v.vparty=~/republic/i)
@@ -352,6 +353,7 @@
         @vnoruar['tot'] += 1
         @vnoruar['vm'] += 1 if (v.vgender=='M')
         @vnoruar['vf'] += 1 if (v.vgender=='F')
+        @vnoruar['von'] += 1 if (v.vonline)
         if (v.vparty=~/democrat/i)
           @vnoruar['vd'] += 1
         elsif (v.vparty=~/republic/i)
@@ -376,6 +378,7 @@
           @vruappr['tot'] += 1
           @vruappr['vm'] += 1 if (v.vgender=='M')
           @vruappr['vf'] += 1 if (v.vgender=='F')
+          @vruappr['von'] += 1 if (v.vonline)
           if (v.vparty=~/democrat/i)
             @vruappr['vd'] += 1
           elsif (v.vparty=~/republic/i)
@@ -398,6 +401,7 @@
           @vrufail['tot'] += 1
           @vrufail['vm'] += 1 if (v.vgender=='M')
           @vrufail['vf'] += 1 if (v.vgender=='F')
+          @vrufail['von'] += 1 if (v.vonline)
           if (v.vparty=~/democrat/i)
             @vrufail['vd'] += 1
           elsif (v.vparty=~/republic/i)
@@ -423,6 +427,7 @@
           @varappr['tot'] += 1
           @varappr['vm'] += 1 if (v.vgender=='M')
           @varappr['vf'] += 1 if (v.vgender=='F')
+          @varappr['von'] += 1 if (v.vonline)
           if (v.vparty=~/democrat/i)
             @varappr['vd'] += 1
           elsif (v.vparty=~/republic/i)
@@ -445,6 +450,7 @@
           @varfail['tot'] += 1
           @varfail['vm'] += 1 if (v.vgender=='M')
           @varfail['vf'] += 1 if (v.vgender=='F')
+          @varfail['von'] += 1 if (v.vonline)
           if (v.vparty=~/democrat/i)
             @varfail['vd'] += 1
           elsif (v.vparty=~/republic/i)
@@ -466,11 +472,11 @@
         end
       end
     end
-    @avotersp = [self.percent(@avoters['vm'],@avoters['tot']),
-                 self.percent(@avoters['vf'],@avoters['tot']),
-                 self.percent(@avoters['vd'],@avoters['tot']),
-                 self.percent(@avoters['vr'],@avoters['tot']),
-                 self.percent(@avoters['vo'],@avoters['tot'])]
+    @avotersp = [self.percent(@avoters['vm'],@tv),
+                 self.percent(@avoters['vf'],@tv),
+                 self.percent(@avoters['vd'],@tv),
+                 self.percent(@avoters['vr'],@tv),
+                 self.percent(@avoters['vo'],@tv)]
     @vnoruarp = [self.percent(@vnoruar['vm'],@vnoruar['tot']),
                  self.percent(@vnoruar['vf'],@vnoruar['tot']),
                  self.percent(@vnoruar['vd'],@vnoruar['tot']),
@@ -480,22 +486,30 @@
                  self.percent(@vrufail['vf'],@vrufail['tot']),
                  self.percent(@vrufail['vd'],@vrufail['tot']),
                  self.percent(@vrufail['vr'],@vrufail['tot']),
-                 self.percent(@vrufail['vo'],@vrufail['tot'])]
+                 self.percent(@vrufail['vo'],@vrufail['tot']),
+                 self.percent(@vrufail['von'],@vrufail['tot']),
+                 self.percent(@vrufail['tot']-@vrufail['von'],@vrufail['tot'])]
     @vruapprp = [self.percent(@vruappr['vm'],@vruappr['tot']),
                  self.percent(@vruappr['vf'],@vruappr['tot']),
                  self.percent(@vruappr['vd'],@vruappr['tot']),
                  self.percent(@vruappr['vr'],@vruappr['tot']),
-                 self.percent(@vruappr['vo'],@vruappr['tot'])]
+                 self.percent(@vruappr['vo'],@vruappr['tot']),
+                 self.percent(@vruappr['von'],@vruappr['tot']),
+                 self.percent(@vruappr['tot']-@vruappr['von'],@vruappr['tot'])]
     @varfailp = [self.percent(@varfail['vm'],@varfail['tot']),
                  self.percent(@varfail['vf'],@varfail['tot']),
                  self.percent(@varfail['vd'],@varfail['tot']),
                  self.percent(@varfail['vr'],@varfail['tot']),
-                 self.percent(@varfail['vo'],@varfail['tot'])]
+                 self.percent(@varfail['vo'],@varfail['tot']),
+                 self.percent(@varfail['von'],@varfail['tot']),
+                 self.percent(@varfail['tot']-@varfail['von'],@varfail['tot'])]
     @varapprp = [self.percent(@varappr['vm'],@varappr['tot']),
                  self.percent(@varappr['vf'],@varappr['tot']),
                  self.percent(@varappr['vd'],@varappr['tot']),
                  self.percent(@varappr['vr'],@varappr['tot']),
-                 self.percent(@varappr['vo'],@varappr['tot'])]
+                 self.percent(@varappr['vo'],@varappr['tot']),
+                 self.percent(@varappr['von'],@varappr['tot']),
+                 self.percent(@varappr['tot']-@varappr['von'],@varappr['tot'])]
   end
 
   def percente(x,y)
