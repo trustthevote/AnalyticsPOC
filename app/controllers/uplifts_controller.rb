@@ -143,6 +143,8 @@ class UpliftsController < ApplicationController
       v.vgender = ""
       v.vparty = ""
       v.vother = ""
+      v.vupdate = ""
+      v.vabsreq = ""
       v.save
     end
   end
@@ -162,6 +164,7 @@ class UpliftsController < ApplicationController
       elsif (vtr.action == 'reject')
         voter.voted = true
         voter.vreject = true
+        voter.vnote = vtr.note
         voter.vform = "Absentee"
       end
     elsif (vtr.form =~ /Provisional Ballot/)
@@ -172,7 +175,24 @@ class UpliftsController < ApplicationController
       elsif (vtr.action == 'reject')
         voter.voted = true
         voter.vreject = true
+        voter.vnote = vtr.note
         voter.vform = "Provisional"
+      end
+    elsif (vtr.form =~ /Record Update/)
+      if (vtr.action == 'approve')
+        voter.vupdate = 'approve'
+      elsif (vtr.action == 'reject')
+        voter.vupdate = 'reject'
+      else
+        voter.vupdate = 'try' unless voter.vupdate == 'approve'
+      end
+    elsif (vtr.form =~ /Absentee Request/)
+      if (vtr.action == 'approve')
+        voter.vabsreq = 'approve'
+      elsif (vtr.action == 'reject')
+        voter.vabsreq = 'reject'
+      else
+        voter.vabsreq = 'try' unless voter.vabsreq == 'approve'
       end
     end
     voter.save

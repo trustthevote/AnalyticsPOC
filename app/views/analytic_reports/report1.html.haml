@@ -1,10 +1,10 @@
-#front
+#frontal
   .row
-    -if (Election.all.any?{|e|e.selected})
+    -if defined?(@election) && @election.id.to_s == params[:id]
       .span2#redelecname
-        = (Election.all.find{|e|e.selected}).name
+        = @election.name
         %br
-        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
+        = @election.date
     -else
       .span2#redelecname
         No election event selected.
@@ -22,72 +22,321 @@
       %hr
   .row
     .span2.sidebar
-      %p 
-        This report presents voter participation based on the type of vote cast.
-
-      %p
-        For absentee and provisional voters, participation is further broken
-        down according to the percentage of ballots approved or rejected.
-
-      %p
-        There is an additional caterogy of "whacky" voters about which nothing
-        is currently know and subsequently nothing reported.   
+      Textual description of report here.
     .span10
       .row
-        .span8
-          #likeh2blue Voter Participation Report
-          #likeh3 
-            = 'Date: '+Date::today.strftime("%B %-d, %Y")
-        .span2#likeh4
-          = link_to "Save as PDF", analytic_report_path(format: 'pdf')+"?rn=1;id="+(Election.all.find{|e|e.selected}).id.to_s
-      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
-        %tr
-          %th 
-          %th All
-          %th Non-
-          %th &nbsp;Regular&nbsp;
-          %th{:colspan => 3} Absentee Ballot
-          %th{:colspan => 3} Provisional Ballot
-          %th &nbsp;Whacky&nbsp;
-        %tr      
-          %th 
-          %th &nbsp;Voters&nbsp;
-          %th &nbsp;Voting&nbsp;
-          %th Vote
-          %th &nbsp;Total
-          %th Approved
-          %th Rejected&nbsp;
-          %th &nbsp;Total
-          %th Approved
-          %th Rejected&nbsp;
-          %th Voters
-        %tr      
-          %td= "#"
-          %td= @nvoters
-          %td= @nvote_no
-          %td= @nvote_reg
-          %td= @nvote_a
-          %td= @nvote_aa
-          %td= @nvote_ar
-          %td= @nvote_p
-          %td= @nvote_pa
-          %td= @nvote_pr
-          %td= @nvote_wac
-        %tr
-          %td= "%"
-          %td= @pvoters
-          %td= @pvote_no
-          %td= @pvote_reg
-          %td= @pvote_a
-          %td 
-          %td 
-          %td= @pvote_p
-          %td 
-          %td
-          %td= @pvote_wac
-      %br
-  .row#positionbacknext
-    .span2
-      &nbsp;
-    .span1#statebacknext
-      = link_to 'Back', :back
+        .span7
+          #likeh2blue Voter Outcome Report
+        -if defined?(@election) && @election.id.to_s == params[:id]
+          .span2#likeh4
+            = link_to "Save as PDF", '/analytic_report.pdf?rn=1;id='+params[:id]
+        .span1#statebacknext
+          = link_to 'Back', :back
+      .row
+        .span10
+          %hr{:style=>"margin:0;border:0;border-top:1px solid #BBBBBB;"}
+          -if defined?(@election) && @election.id.to_s == params[:id]
+            %span
+              #likeh4b Scope
+              %table
+                %tr
+                  %td= 'Election:'
+                  %td= @election.name
+                %tr
+                  %td= 'Election Date:'
+                  %td= @election.date
+                %tr
+                  %td= 'Reporting Period:'
+                  %td
+                    = @election.voter_start_day.strftime("%B %-d, %Y")
+                    = "&ndash;".html_safe
+                    = @election.voter_end_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= 'Voter Population:'
+                  %td= number_with_delimiter(VoterRecord.count)+" Registered Voters"
+              #likeh4b Summary
+              %p 
+                This report summarizes the full record of the transactions of
+                all voters during the reporting period for the
+                = @election.name
+                = (@election.name =~ /election/i ? "" : ' Election')
+                held on 
+                = @election.date+"."
+                The reported statistics cover a variety of
+                %i voter participation outcomes,
+                for example, voters who updated their voter record
+                successfully before the election, voted absentee, and had
+                their ballot counted.  
+              %p 
+                The statistics cover all such requests, both those made with
+                or without the assistance of online services such as online
+                registration assistance, or online marking and downloading of
+                absentee ballots for printing, signing, and postal return to
+                election officials.  
+              %p 
+                There are several voter class reported, some with subtle but
+                important distinctions about their activity in the reporting
+                period:  
+                %ul
+                  %li
+                    Voters who did not attempt any changes to their voter
+                    record, and did not make an absentee ballot request,
+                    including UOCAVA voters with pre-existing absentee status
+                    that was unchanged. 
+                  %li
+                    Voters who successfully updated their voter record,
+                    possibly with other voter record requests that were
+                    rejected.  
+                  %li
+                    Voters who made one or more unsuccessful record update
+                    requests, and were unable to update their record. 
+                  %li
+                    Voters who successfully requested an absentee ballot
+                    = "&ndash;".html_safe
+                    and UOCAVA voters who updated their absentee status
+                    = "&ndash;".html_safe
+                    possibly with other absentee requests that were rejected. 
+                  %li
+                    Voters who made one or more unsuccessful absentee
+                    requests, and were unable to vote absentee.
+
+              #likeh4b Outcomes
+              %table
+                %tr
+                  %td= @urm_use
+                  %td= "&ndash;".html_safe
+                  %td
+                    Voters who did not request any record update or absentee
+                    ballot
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Did not participate
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted in person
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = @urm_use
+                    Voted absentee, ballot rejected for other reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              #likeh4b Demographics
+              %table
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_generated
+                  %td= "&ndash;".html_safe
+                  %td
+                    Total
+                    %b registration management 
+                    forms generated
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_received
+                  %td= "&ndash;".html_safe
+                  %td
+                    Generated forms received by local election officials during
+                    reporting period 
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_approved
+                  %td= "&ndash;".html_safe
+                  %td
+                    Approval of forms received 
+                    = @usr_approvedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_rejected
+                  %td= "&ndash;".html_safe
+                  %td
+                    Rejection of forms received
+                    = @usr_rejectedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_lost
+                  %td= "&ndash;".html_safe
+                  %td
+                    Forms not received
+                    = @usr_lostp
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_ab_downloads
+                  %td= "&ndash;".html_safe
+                  %td
+                    Downloaded absentee ballots
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_ab_voters
+                  %td= "&ndash;".html_safe
+                  %td
+                    Voters who downloaded ballot(s)
+                %tr
+                  %td{:style=>"text-align:right;"}= @usr_ab_doubles
+                  %td= "&ndash;".html_safe
+                  %td
+                    Voters who downloaded a ballot more than once
+              #likeh4b Online Service Request Breakdown by Request Type
+              %p{:style=>"font-weight:bold;"} Voter Registration
+              %table
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_generated
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Total
+                    %b voter registration
+                    request forms generated
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_received
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Generated forms received by local election officials during
+                    reporting period 
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_approved
+                  %td= "&ndash;".html_safe
+                  %td
+                    Approval of forms received 
+                    = @urr_approvedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_rejected
+                  %td= "&ndash;".html_safe
+                  %td
+                    Rejection of forms received
+                    = @urr_rejectedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_lost
+                  %td= "&ndash;".html_safe
+                  %td
+                    Forms not received
+                    = @urr_lostp
+                %tr
+                  %td{:style=>"text-align:right;"}= @urr_new
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Newly approved UOCAVA voter registrations, as a percentage
+                    of total registered voters on
+                    = @election.date
+              %br
+              %p{:style=>"font-weight:bold;"} Voter Record Update
+              %table
+                %tr
+                  %td{:style=>"text-align:right;"}= @uru_generated
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Total
+                    %b voter record update
+                    request forms generated
+                %tr
+                  %td{:style=>"text-align:right;"}= @uru_received
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Generated forms received by local election officials during
+                    reporting period 
+                %tr
+                  %td{:style=>"text-align:right;"}= @uru_approved
+                  %td= "&ndash;".html_safe
+                  %td
+                    Approval of forms received 
+                    = @uru_approvedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uru_rejected
+                  %td= "&ndash;".html_safe
+                  %td
+                    Rejection of forms received
+                    = @uru_rejectedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uru_lost
+                  %td= "&ndash;".html_safe
+                  %td
+                    Forms not received
+                    = @uru_lostp
+              %br
+              %p{:style=>"font-weight:bold;"} Absentee Status
+              %table
+                %tr
+                  %td{:style=>"text-align:right;"}= @uar_generated
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Total
+                    %b absentee status
+                    request forms generated
+                %tr
+                  %td{:style=>"text-align:right;"}= @uar_received
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Generated forms received by local election officials during
+                    reporting period 
+                %tr
+                  %td{:style=>"text-align:right;"}= @uar_approved
+                  %td= "&ndash;".html_safe
+                  %td
+                    Approval of forms received 
+                    = @uar_approvedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uar_rejected
+                  %td= "&ndash;".html_safe
+                  %td
+                    Rejection of forms received
+                    = @uar_rejectedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uar_lost
+                  %td= "&ndash;".html_safe
+                  %td
+                    Forms not received
+                    = @uar_lostp
+              %br
+              %p{:style=>"font-weight:bold;"} Absentee Ballot
+              %table
+                %tr
+                  %td{:style=>"text-align:right;"}= @uab_generated
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Total
+                    %b absentee ballot
+                    forms generated
+                %tr
+                  %td{:style=>"text-align:right;"}= @uab_received
+                  %td= "&ndash;".html_safe
+                  %td{:colspan=>3}
+                    Generated forms received by local election officials during
+                    reporting period 
+                %tr
+                  %td{:style=>"text-align:right;"}= @uab_approved
+                  %td= "&ndash;".html_safe
+                  %td
+                    Approval of forms received 
+                    = @uab_approvedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uab_rejected
+                  %td= "&ndash;".html_safe
+                  %td
+                    Rejection of forms received
+                    = @uab_rejectedp
+                %tr
+                  %td{:style=>"text-align:right;"}= @uab_lost
+                  %td= "&ndash;".html_safe
+                  %td
+                    Forms not received
+                    = @uab_lostp
+          -else
+            %p#redelecname
+              %br
+              ERROR: No Election Selected

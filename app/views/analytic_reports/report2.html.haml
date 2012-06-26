@@ -1,10 +1,10 @@
-#front
+#frontal
   .row
-    -if (Election.all.any?{|e|e.selected})
+    -if defined?(@election) && @election.id.to_s == params[:id]
       .span2#redelecname
-        = (Election.all.find{|e|e.selected}).name
+        = @election.name
         %br
-        = (Election.all.find{|e|e.selected}).day.strftime("%B %-d, %Y")
+        = @election.date
     -else
       .span2#redelecname
         No election event selected.
@@ -22,94 +22,429 @@
       %hr
   .row
     .span2.sidebar
-      First we show the number of unique UOCAVA voters
-      for this election. Then we give
-      the total number (and relative percentage) of those who:
-      %ul
-        %li
-          registered to vote,
-        %li
-          updated their voter registration,
-        %li
-          requested/updated absentee status,
-        %li
-          submitted an absentee  ballot.
-      Finally, we show how many absentee ballots were either:
-      %ul
-        %li
-          approved, or 
-        %li
-          rejected.
+      Textual description of report here.
     .span10
       .row
-        .span8
-          #likeh2blue UOCAVA Ballot Return Report
-          #likeh3 
-            = 'Date: '+Date::today.strftime("%B %-d, %Y")
-        .span2#likeh4
-          = link_to "Save as PDF", analytic_report_path(format: 'pdf')+"?rn=2;id="+(Election.all.find{|e|e.selected}).id.to_s
-      %table{:style=>"text-align:center;margin-top:10px;border:1px solid #000000;"}
-        %tr
-          %th 
-          %th &nbsp;
-          %th UOCAVA
-          %th &nbsp;
-          %th Registered
-          %th &nbsp;
-          %th Updated
-          %th &nbsp;
-          %th Requested
-          %th &nbsp;
-          %th Submitted
-          %th &nbsp;
-          %th{:colspan => 2} Absentee Ballot
-        %tr      
-          %th 
-          %th &nbsp;
-          %th Voters
-          %th &nbsp;
-          %th To Vote
-          %th &nbsp;
-          %th Voter Record
-          %th &nbsp;
-          %th Absentee Status
-          %th &nbsp;
-          %th Absentee Ballot
-          %th &nbsp;
-          %th Approved&nbsp;
-          %th &nbsp;Rejected&nbsp;
-        %tr      
-          %td= "#"
-          %td
-          %td= @voters
-          %td
-          %td= @vote_reg
-          %td
-          %td= @vote_upd
-          %td
-          %td= @vote_as
-          %td
-          %td= @vote_ab
-          %td
-          %td= @vote_aa
-          %td= @vote_ar
-        %tr
-          %td= "%"
-          %td
-          %td= "100%"
-          %td
-          %td= @pvote_reg
-          %td
-          %td= @pvote_upd
-          %td
-          %td= @pvote_as
-          %td
-          %td= @pvote_ab
-          %td
-          %td= @pvote_aa
-          %td= @pvote_ar
-  .row#positionbacknext
-    .span2
-      &nbsp;
-    .span1#statebacknext
-      = link_to 'Back', :back
+        .span7
+          #likeh2blue Voter Outcome Report
+        -if defined?(@election) && @election.id.to_s == params[:id]
+          .span2#likeh4
+            = link_to "Save as PDF", '/analytic_report.pdf?rn=2;id='+params[:id]
+        .span1#statebacknext
+          = link_to 'Back', :back
+      .row
+        .span10
+          %hr{:style=>"margin:0;border:0;border-top:1px solid #BBBBBB;"}
+          -if defined?(@election) && @election.id.to_s == params[:id]
+            %span
+              #likeh4b Scope
+              %table
+                %tr
+                  %td= 'Election:'
+                  %td= @election.name
+                %tr
+                  %td= 'Election Date:'
+                  %td= @election.date
+                %tr
+                  %td= 'Reporting Period:'
+                  %td
+                    = @election.voter_start_day.strftime("%B %-d, %Y")
+                    = "&ndash;".html_safe
+                    = @election.voter_end_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= 'Voter Population:'
+                  %td= number_with_delimiter(VoterRecord.count)+" Registered Voters"
+              #likeh4b Summary
+              %p 
+                This report summarizes the full record of the transactions of
+                all voters during the reporting period for the
+                = @election.name
+                = (@election.name =~ /election/i ? "" : ' Election')
+                held on 
+                = @election.date+"."
+                The reported statistics cover a variety of
+                %i voter participation outcomes,
+                for example, voters who updated their voter record
+                successfully before the election, voted absentee, and had
+                their ballot counted.  
+              %p 
+                The statistics cover all such requests, both those made with
+                or without the assistance of online services such as online
+                registration assistance, or online marking and downloading of
+                absentee ballots for printing, signing, and postal return to
+                election officials.  
+              %p 
+                There are several voter class reported, some with subtle but
+                important distinctions about their activity in the reporting
+                period:  
+                %ul
+                  %li
+                    Voters who did not attempt any changes to their voter
+                    record, and did not make an absentee ballot request,
+                    including UOCAVA voters with pre-existing absentee status
+                    that was unchanged. 
+                  %li
+                    Voters who successfully updated their voter record,
+                    possibly with other voter record requests that were
+                    rejected.  
+                  %li
+                    Voters who made one or more unsuccessful record update
+                    requests, and were unable to update their record. 
+                  %li
+                    Voters who successfully requested an absentee ballot
+                    = "&ndash;".html_safe
+                    and UOCAVA voters who updated their absentee status
+                    = "&ndash;".html_safe
+                    possibly with other absentee requests that were rejected. 
+                  %li
+                    Voters who made one or more unsuccessful absentee
+                    requests, and were unable to vote absentee.
+
+              #likeh4b Outcomes
+              %table
+                %tr
+                  %td= @vnoruar['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who did not request any record update or absentee ballot
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vno'].to_s
+                  %td Did not participate
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vpb'].to_s
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vpa'].to_s
+                  %td Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vpr'].to_s
+                  %td Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vaa'].to_s
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vrul'].to_s
+                  %td Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruar['vruo'].to_s
+                  %td Voted absentee, ballot rejected for other reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td= @vruappr['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who made a record update request that was accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vno'].to_s
+                  %td Did not participate
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vpb'].to_s
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vpa'].to_s
+                  %td Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vpr'].to_s
+                  %td Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vaa'].to_s
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vrul'].to_s
+                  %td Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruappr['vruo'].to_s
+                  %td Voted absentee, ballot rejected for other reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td= @vrufail['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who attempted an ultimately unsuccessful record update request
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vno'].to_s
+                  %td Did not participate
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vpb'].to_s
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vpa'].to_s
+                  %td Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vpr'].to_s
+                  %td Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vaa'].to_s
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vrul'].to_s
+                  %td Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufail['vruo'].to_s
+                  %td Voted absentee, ballot rejected for other reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td= @varappr['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who made an absentee request that was accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['vno'].to_s
+                  %td Did not participate
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['vpb'].to_s
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['vpa'].to_s
+                  %td Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['vpr'].to_s
+                  %td Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['vaa'].to_s
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['varl'].to_s
+                  %td Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varappr['varo'].to_s
+                  %td Voted absentee, ballot rejected for other reason
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td= @varfail['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who attempted an ultimately unsuccessful absentee request
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['vno'].to_s
+                  %td Did not participate
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['vpb'].to_s
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['vpa'].to_s
+                  %td Voted provisionally, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['vpr'].to_s
+                  %td Voted provisionally, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['vaa'].to_s
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['varl'].to_s
+                  %td Voted absentee, ballot rejected as late
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfail['varo'].to_s
+                  %td Voted absentee, ballot rejected for other reason
+              #likeh4b Demographics
+              %table
+                %tr
+                  %td= @avoters['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Total voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @avotersp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @avotersp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @avotersp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @avotersp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @avotersp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              %table
+                %tr
+                  %td= @vnoruar['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who did not request any record update or absentee ballot
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruarp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruarp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruarp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruarp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vnoruarp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              %table
+                %tr
+                  %td= @vruappr['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who made a record update request that was accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruapprp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruapprp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruapprp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruapprp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vruapprp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              %table
+                %tr
+                  %td= @vrufail['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who attempted an ultimately unsuccessful record update request
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufailp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufailp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufailp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufailp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vrufailp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              %table
+                %tr
+                  %td= @varappr['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who made an absentee request that was accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varapprp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varapprp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varapprp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varapprp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varapprp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+              %table
+                %tr
+                  %td= @varfail['tot'].to_s
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Voters who attempted an ultimately unsuccessful absentee request
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfailp[0]
+                  %td Male
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfailp[1]
+                  %td Female
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfailp[2]
+                  %td Democratic Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfailp[3] 
+                  %td Republican Party
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @varfailp[4]
+                  %td 3rd Party
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+          -else
+            %p#redelecname
+              %br
+              ERROR: No Election Selected

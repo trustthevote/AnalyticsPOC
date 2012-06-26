@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120624000538) do
+ActiveRecord::Schema.define(:version => 20120626012742) do
 
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(:version => 20120624000538) do
 
   add_index "analytic_reports", ["election_id"], :name => "index_analytic_reports_on_election_id"
 
+  create_table "election_archives", :force => true do |t|
+    t.integer  "eid"
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "log_file_names"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "elections", :force => true do |t|
     t.string   "name"
     t.date     "day"
@@ -42,6 +54,14 @@ ActiveRecord::Schema.define(:version => 20120624000538) do
     t.string   "evoters"
     t.boolean  "selected"
     t.string   "log_file_names"
+  end
+
+  create_table "selections", :force => true do |t|
+    t.integer  "eid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "vr_file"
+    t.string   "vr_origin"
   end
 
   create_table "voter_records", :force => true do |t|
@@ -99,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20120624000538) do
     t.string   "vgender"
     t.string   "vparty"
     t.string   "vother"
+    t.string   "vupdate"
+    t.string   "vabsreq"
   end
 
   add_index "voters", ["election_id"], :name => "index_voters_on_election_id"

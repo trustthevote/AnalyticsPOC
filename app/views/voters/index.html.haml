@@ -7,7 +7,7 @@
     %tr
       %th Voter
       %th &nbsp;
-      %th VType
+      %th Type
       %th &nbsp;
       %th Gender
       %th &nbsp;
@@ -15,41 +15,49 @@
       %th &nbsp;
       %th Other
       %th &nbsp;
+      %th VRU
+      %th &nbsp;
+      %th ASR
+      %th &nbsp;
       %th Voted
       %th &nbsp;
       %th Reject?
       %th &nbsp;
       %th Ballot
       %th &nbsp;
-      %th Records
+      %th Recs
       %th &nbsp;
       %th Election
       %th &nbsp;
       %th 
-    - @voters.each do |voter|
-      -if ! voter.archived
+    - @voters.each do |v|
+      -if ! v.archived
         %tr
-          %td= voter.vname
+          %td= v.vname
           %td
-          %td= voter.vtype
+          %td= (v.vtype=~/UOC/ ? 'UOC' : '')
           %td
-          %td= voter.vgender
+          %td= v.vgender
           %td
-          %td= voter.vparty
+          %td= v.vparty
           %td
-          %td= voter.vother
+          %td= (v.vother=~/military/i ? 'Mil' : '')
           %td
-          %td= (voter.voted ? "Yes" : "No")
+          %td= v.vupdate
           %td
-          %td= (voter.voted && voter.vreject ? "Yes" : "")
+          %td= v.vabsreq
           %td
-          %td= voter.vform
+          %td= (v.voted ? 'Yes' : 'No')
           %td
-          %td= voter.voter_transaction_records.length
+          %td= (v.voted && v.vreject ? (v.vnote=~/late/i ? 'Late' : 'Yes') : '')
           %td
-          %td= Election.find(voter.election_id).name
+          %td= v.vform
           %td
-          %td= link_to 'Show', voter
+          %td= v.voter_transaction_records.length
+          %td
+          %td= Election.find(v.election_id).name
+          %td
+          %td= link_to 'Show', v
 -else 
   %h2= "No Voters"
 %br

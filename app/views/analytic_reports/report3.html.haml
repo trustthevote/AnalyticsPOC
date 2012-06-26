@@ -1,4 +1,4 @@
-#front
+#frontal
   .row
     -if defined?(@election) && @election.id.to_s == params[:id]
       .span2#redelecname
@@ -25,16 +25,18 @@
       Textual description of report here.
     .span10
       .row
-        .span8
+        .span7
           #likeh2blue UOCAVA Voter Online Usage Report
         -if defined?(@election) && @election.id.to_s == params[:id]
           .span2#likeh4
             = link_to "Save as PDF", '/analytic_report.pdf?rn=3;id='+params[:id]
+        .span1#statebacknext
+          = link_to 'Back', :back
       .row
         .span10
           %hr{:style=>"margin:0;border:0;border-top:1px solid #BBBBBB;"}
           -if defined?(@election) && @election.id.to_s == params[:id]
-            #scroil10{:style=>"height: 324px;"}
+            %span
               #likeh4b Scope
               %table
                 %tr
@@ -56,24 +58,27 @@
               %p 
                 This report summarizes the usage of the online Virginia Voter
                 Services by UOCAVA voters, during the reporting period for the
-                = @election.name+" held on "+@election.date+"."
+                = @election.name
+                = (@election.name =~ /election/i ? "" : ' Election')
+                held on 
+                = @election.date+"."
                 Included in this report are statistics on voters’ use of:
                 %ul
                   %li
                     online services for
                     %b registration management
                     = "&ndash;".html_safe
-                    voter registration, voter registration update, and absentee
+                    voter registration, voter record update, and absentee
                     status  
                   %li
                     online services for 
                     %b absentee ballot access,
                     online marking, and downloading for printing, signing, and
-                    postal return ton election officials.  
+                    postal return to election officials.  
               #likeh4b Aggregate Service Usage
               %table
                 %tr
-                  %td= @urm_generate
+                  %td= @urm_use
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Voters who made use of 
@@ -83,20 +88,18 @@
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @urm_generatep
+                    = @urm_usep
                     of eligible UOCAVA voters
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td
                   %td= @urm_complete
                   %td= "&ndash;".html_safe
                   %td
                     Voters who 
                     %b completed 
-                    a registration, update, or absentee request form
+                    a registration, record update, or absentee status form
                 %tr
-                  %td
                   %td
                   %td
                   %td{:colspan=>2}
@@ -105,16 +108,15 @@
                 %tr
                   %td
                   %td
-                  %td
                   %td{:colspan=>2}
-                    = @urm_completep
+                    = @urm_completep_reg
                     of users of 
                     %b registration management
                     services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= @uam_generate
+                  %td= @uam_use
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Voters who made use of 
@@ -124,12 +126,11 @@
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @uam_generatep
+                    = @uam_usep
                     of eligible UOCAVA voters
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td
                   %td= @uam_complete
                   %td= "&ndash;".html_safe
                   %td
@@ -139,16 +140,14 @@
                 %tr
                   %td
                   %td
-                  %td
                   %td{:colspan=>2}
                     = @uam_completep
                     of eligible UOCAVA voters
                 %tr
                   %td
                   %td
-                  %td
                   %td{:colspan=>2}
-                    = @uam_completep
+                    = @uam_completep_reg
                     of users of 
                     %b registration management
                     services
@@ -276,14 +275,14 @@
                     Forms not received
                     = @uru_lostp
               %br
-              %p{:style=>"font-weight:bold;"} Absentee Status Update
+              %p{:style=>"font-weight:bold;"} Absentee Status
               %table
                 %tr
                   %td{:style=>"text-align:right;"}= @uar_generated
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3}
                     Total
-                    %b absentee status update
+                    %b absentee status
                     request forms generated
                 %tr
                   %td{:style=>"text-align:right;"}= @uar_received
@@ -342,14 +341,8 @@
                   %td= "&ndash;".html_safe
                   %td
                     Forms not received
-                    = @ab5p
-              %br
+                    = @uab_lostp
           -else
             %p#redelecname
               %br
               ERROR: No Election Selected
-  .row#positionbacknext
-    .span2
-      &nbsp;
-    .span1#statebacknext
-      = link_to 'Back', :back
