@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(VoterRecord.count)+" Registered Voters"
+                  %td= number_with_delimiter(@tv)+" Registered Voters"
               #likeh4b Summary
               %p 
                 This report summarizes the full record of the transactions of
@@ -303,7 +303,6 @@
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
-              %table
                 %tr
                   %td= number_with_delimiter(@vnoruar['tot'])
                   %td{:style=>"text-align:right;"}
@@ -331,7 +330,6 @@
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
-              %table
                 %tr
                   %td= number_with_delimiter(@vruappr['tot'])
                   %td{:style=>"text-align:right;"}
@@ -367,7 +365,6 @@
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
-              %table
                 %tr
                   %td= number_with_delimiter(@vrufail['tot'])
                   %td{:style=>"text-align:right;"}
@@ -403,7 +400,6 @@
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
-              %table
                 %tr
                   %td= number_with_delimiter(@varappr['tot'])
                   %td{:style=>"text-align:right;"}
@@ -439,7 +435,6 @@
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
-              %table
                 %tr
                   %td= number_with_delimiter(@varfail['tot'])
                   %td{:style=>"text-align:right;"}

@@ -9,11 +9,11 @@
       %th &nbsp;
       %th Type
       %th &nbsp;
-      %th Gender
+      %th Gndr
       %th &nbsp;
       %th Party
       %th &nbsp;
-      %th Other
+      %th Oth
       %th &nbsp;
       %th ONL
       %th &nbsp;
@@ -21,9 +21,11 @@
       %th &nbsp;
       %th ASR
       %th &nbsp;
+      %th Stat
+      %th &nbsp;
       %th Voted
       %th &nbsp;
-      %th Reject?
+      %th Reject
       %th &nbsp;
       %th Ballot
       %th &nbsp;
@@ -47,9 +49,11 @@
           %td
           %td= (v.vonline ? '' : 'No')
           %td
-          %td= v.vupdate
+          %td= (v.vupdate=~/approve/?'ok':v.vupdate)
           %td
-          %td= v.vabsreq
+          %td= (v.vabsreq=~/approve/?'ok':v.vabsreq)
+          %td
+          %td= (v.vstatus=~/abs/i?'Abs':'')
           %td
           %td= (v.voted ? 'Yes' : 'No')
           %td

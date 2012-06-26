@@ -42,7 +42,7 @@
 
   def report
     case @rn
-    when 1
+    when 0
       self.report1()
     else
       @tv, @uv, @uvm = 0, 0, 0
@@ -328,6 +328,41 @@
     return true
   end
 
+  def report2data(v,vhash)
+    vhash['tot'] += 1
+    vhash['vm'] += 1 if (v.vgender=='M')
+    vhash['vf'] += 1 if (v.vgender=='F')
+    vhash['von'] += 1 if (v.vonline)
+    if (v.vparty=~/democrat/i)
+      vhash['vd'] += 1
+    elsif (v.vparty=~/republic/i)
+      vhash['vr'] += 1
+    else
+      vhash['vo'] += 1
+    end
+    if (!v.voted)
+      vhash['vno'] += 1
+    elsif (!v.vreject)
+      vhash['vpb'] += 1 if (v.vform=~/Regular/)
+      vhash['vpa'] += 1 if (v.vform=~/Provisional/)
+      vhash['vaa'] += 1 if (v.vform=~/Absentee/)
+    else
+      vhash['vpr'] += 1 if (v.vform=~/Provisional/)
+      vhash['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
+      vhash['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
+    end
+  end
+
+  def report2percent(vhash,total)
+    return [self.percent(vhash['vm'],total),
+            self.percent(vhash['vf'],total),
+            self.percent(vhash['vd'],total),
+            self.percent(vhash['vr'],total),
+            self.percent(vhash['vo'],total),
+            self.percent(vhash['von'],total),
+            self.percent(total-vhash['von'],total)]
+  end
+
   def report2()
     @avoters = Hash.new { |h, k| h[k] = 0 }
     @vnoruar = Hash.new { |h, k| h[k] = 0 }
@@ -339,8 +374,8 @@
       #"von"=>0,"vm"=>0,"vf"=>0,"vd"=>0,"vr"=>0,"vo"=>0
     @election.voters.each do |v|
       @avoters['tot'] += 1
-      @avoters['vm'] += 1 if (v.vgender=='M')
-      @avoters['vf'] += 1 if (v.vgender=='F')
+      @avoters['vm']  += 1 if (v.vgender=='M')
+      @avoters['vf']  += 1 if (v.vgender=='F')
       @avoters['von'] += 1 if (v.vonline)
       if (v.vparty=~/democrat/i)
         @avoters['vd'] += 1
@@ -349,167 +384,30 @@
       else
         @avoters['vo'] += 1
       end
-      if (v.vupdate.blank? && v.vabsreq.blank?) # no record update or absentee request
-        @vnoruar['tot'] += 1
-        @vnoruar['vm'] += 1 if (v.vgender=='M')
-        @vnoruar['vf'] += 1 if (v.vgender=='F')
-        @vnoruar['von'] += 1 if (v.vonline)
-        if (v.vparty=~/democrat/i)
-          @vnoruar['vd'] += 1
-        elsif (v.vparty=~/republic/i)
-          @vnoruar['vr'] += 1
-        else
-          @vnoruar['vo'] += 1
-        end
-        if (!v.voted)
-          @vnoruar['vno'] += 1
-        elsif (!v.vreject)
-          @vnoruar['vpb'] += 1 if (v.vform=~/Regular/)
-          @vnoruar['vpa'] += 1 if (v.vform=~/Provisional/)
-          @vnoruar['vaa'] += 1 if (v.vform=~/Absentee/)
-        else
-          @vnoruar['vpr'] += 1 if (v.vform=~/Provisional/)
-          @vnoruar['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-          @vnoruar['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
-        end
+      if (v.vupdate.blank? && v.vabsreq.blank?) # no VRU or ASR
+        self.report2data(v,@vnoruar)
       end
       if (!v.vupdate.blank?)
         if (v.vupdate =~ /approve/) # record update approved
-          @vruappr['tot'] += 1
-          @vruappr['vm'] += 1 if (v.vgender=='M')
-          @vruappr['vf'] += 1 if (v.vgender=='F')
-          @vruappr['von'] += 1 if (v.vonline)
-          if (v.vparty=~/democrat/i)
-            @vruappr['vd'] += 1
-          elsif (v.vparty=~/republic/i)
-            @vruappr['vr'] += 1
-          else
-            @vruappr['vo'] += 1
-          end
-          if (!v.voted)
-            @vruappr['vno'] += 1
-          elsif (!v.vreject)
-            @vruappr['vpb'] += 1 if (v.vform=~/Regular/)
-            @vruappr['vpa'] += 1 if (v.vform=~/Provisional/)
-            @vruappr['vaa'] += 1 if (v.vform=~/Absentee/)
-          else
-            @vruappr['vpr'] += 1 if (v.vform=~/Provisional/)
-            @vruappr['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-            @vruappr['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
-          end
+          self.report2data(v,@vruappr)
         else # record update tried but not approved
-          @vrufail['tot'] += 1
-          @vrufail['vm'] += 1 if (v.vgender=='M')
-          @vrufail['vf'] += 1 if (v.vgender=='F')
-          @vrufail['von'] += 1 if (v.vonline)
-          if (v.vparty=~/democrat/i)
-            @vrufail['vd'] += 1
-          elsif (v.vparty=~/republic/i)
-            @vrufail['vr'] += 1
-          else
-            @vrufail['vo'] += 1
-          end
-          if (!v.voted)
-            @vrufail['vno'] += 1
-          elsif (!v.vreject)
-            @vrufail['vpb'] += 1 if (v.vform=~/Regular/)
-            @vrufail['vpa'] += 1 if (v.vform=~/Provisional/)
-            @vrufail['vaa'] += 1 if (v.vform=~/Absentee/)
-          else
-            @vrufail['vpr'] += 1 if (v.vform=~/Provisional/)
-            @vrufail['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-            @vrufail['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
-          end
+          self.report2data(v,@vrufail)
         end
       end
       if (!v.vabsreq.blank?)
         if (v.vabsreq =~ /approve/) # absentee request approved
-          @varappr['tot'] += 1
-          @varappr['vm'] += 1 if (v.vgender=='M')
-          @varappr['vf'] += 1 if (v.vgender=='F')
-          @varappr['von'] += 1 if (v.vonline)
-          if (v.vparty=~/democrat/i)
-            @varappr['vd'] += 1
-          elsif (v.vparty=~/republic/i)
-            @varappr['vr'] += 1
-          else
-            @varappr['vo'] += 1
-          end
-          if (!v.voted)
-            @varappr['vno'] += 1
-          elsif (!v.vreject)
-            @varappr['vpb'] += 1 if (v.vform=~/Regular/)
-            @varappr['vpa'] += 1 if (v.vform=~/Provisional/)
-            @varappr['vaa'] += 1 if (v.vform=~/Absentee/)
-          else
-            @varappr['vpr'] += 1 if (v.vform=~/Provisional/)
-            @varappr['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-            @varappr['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
-          end
+          self.report2data(v,@varappr)
         else # absentee request tried but not approved
-          @varfail['tot'] += 1
-          @varfail['vm'] += 1 if (v.vgender=='M')
-          @varfail['vf'] += 1 if (v.vgender=='F')
-          @varfail['von'] += 1 if (v.vonline)
-          if (v.vparty=~/democrat/i)
-            @varfail['vd'] += 1
-          elsif (v.vparty=~/republic/i)
-            @varfail['vr'] += 1
-          else
-            @varfail['vo'] += 1
-          end
-          if (!v.voted)
-            @varfail['vno'] += 1
-          elsif (!v.vreject)
-            @varfail['vpb'] += 1 if (v.vform=~/Regular/)
-            @varfail['vpa'] += 1 if (v.vform=~/Provisional/)
-            @varfail['vaa'] += 1 if (v.vform=~/Absentee/)
-          else
-            @varfail['vpr'] += 1 if (v.vform=~/Provisional/)
-            @varfail['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-            @varfail['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
-          end
+          self.report2data(v,@varfail)
         end
       end
     end
-    @avotersp = [self.percent(@avoters['vm'],@tv),
-                 self.percent(@avoters['vf'],@tv),
-                 self.percent(@avoters['vd'],@tv),
-                 self.percent(@avoters['vr'],@tv),
-                 self.percent(@avoters['vo'],@tv)]
-    @vnoruarp = [self.percent(@vnoruar['vm'],@vnoruar['tot']),
-                 self.percent(@vnoruar['vf'],@vnoruar['tot']),
-                 self.percent(@vnoruar['vd'],@vnoruar['tot']),
-                 self.percent(@vnoruar['vr'],@vnoruar['tot']),
-                 self.percent(@vnoruar['vo'],@vnoruar['tot'])]
-    @vrufailp = [self.percent(@vrufail['vm'],@vrufail['tot']),
-                 self.percent(@vrufail['vf'],@vrufail['tot']),
-                 self.percent(@vrufail['vd'],@vrufail['tot']),
-                 self.percent(@vrufail['vr'],@vrufail['tot']),
-                 self.percent(@vrufail['vo'],@vrufail['tot']),
-                 self.percent(@vrufail['von'],@vrufail['tot']),
-                 self.percent(@vrufail['tot']-@vrufail['von'],@vrufail['tot'])]
-    @vruapprp = [self.percent(@vruappr['vm'],@vruappr['tot']),
-                 self.percent(@vruappr['vf'],@vruappr['tot']),
-                 self.percent(@vruappr['vd'],@vruappr['tot']),
-                 self.percent(@vruappr['vr'],@vruappr['tot']),
-                 self.percent(@vruappr['vo'],@vruappr['tot']),
-                 self.percent(@vruappr['von'],@vruappr['tot']),
-                 self.percent(@vruappr['tot']-@vruappr['von'],@vruappr['tot'])]
-    @varfailp = [self.percent(@varfail['vm'],@varfail['tot']),
-                 self.percent(@varfail['vf'],@varfail['tot']),
-                 self.percent(@varfail['vd'],@varfail['tot']),
-                 self.percent(@varfail['vr'],@varfail['tot']),
-                 self.percent(@varfail['vo'],@varfail['tot']),
-                 self.percent(@varfail['von'],@varfail['tot']),
-                 self.percent(@varfail['tot']-@varfail['von'],@varfail['tot'])]
-    @varapprp = [self.percent(@varappr['vm'],@varappr['tot']),
-                 self.percent(@varappr['vf'],@varappr['tot']),
-                 self.percent(@varappr['vd'],@varappr['tot']),
-                 self.percent(@varappr['vr'],@varappr['tot']),
-                 self.percent(@varappr['vo'],@varappr['tot']),
-                 self.percent(@varappr['von'],@varappr['tot']),
-                 self.percent(@varappr['tot']-@varappr['von'],@varappr['tot'])]
+    @avotersp = self.report2percent(@avoters,@tv)
+    @vnoruarp = self.report2percent(@vnoruar,@vnoruar['tot'])
+    @vrufailp = self.report2percent(@vrufail,@vrufail['tot'])
+    @vruapprp = self.report2percent(@vruappr,@vruappr['tot'])
+    @varfailp = self.report2percent(@varfail,@varfail['tot'])
+    @varapprp = self.report2percent(@varappr,@varappr['tot'])
   end
 
   def percente(x,y)

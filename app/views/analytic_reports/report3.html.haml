@@ -34,7 +34,6 @@
           = link_to 'Back', :back
       .row
         .span10
-          %hr{:style=>"margin:0;border:0;border-top:1px solid #BBBBBB;"}
           -if defined?(@election) && @election.id.to_s == params[:id]
             %span
               #likeh4b Scope
