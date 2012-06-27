@@ -39,12 +39,14 @@
             %td
             %td= vtl.origin_uniq
             %td
-            %td= vtl.datime
+            %td= vtl.date
             %td
-            %td= vtl.voter_transaction_records.length
+            %td= number_with_delimiter(vtl.voter_transaction_records.length)
             %td
             %td= Election.find(vtl.election_id).name
             %td
             %td= link_to 'Show', vtl
+            %td
+            %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
   %br
 = link_to 'Back', :back

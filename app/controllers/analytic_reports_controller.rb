@@ -1,4 +1,4 @@
- class AnalyticReportsController < ApplicationController
+class AnalyticReportsController < ApplicationController
 
   def analytic
     if params[:id] 
@@ -45,27 +45,147 @@
     when 0
       self.report1()
     else
-      @tv, @uv, @uvm = 0, 0, 0
-      if VoterRecord.count == 0
-        @tv = @election.voters.count
-        @election.voters.each do |v|
-          if (v.vtype=="UOCAVA")
-            @uv += 1
-            @uvm += 1 if (v.vother=~/military/i)
-          end
+      @trv, @trva, @trdv, @trdva = 0,0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
+      @trvm, @trvf, @trvd, @trvr, @trvo = 0,0,0,0,0
+      @tpvm, @tpvf, @tpvd, @tpvr, @tpvo = 0,0,0,0,0
+      @trnv, @trnvm, @trnvf, @trnvd, @trnvr, @trnvo = 0,0,0,0,0,0
+      @tpnv, @tpnvm, @tpnvf, @tpnvd, @tpnvr, @tpnvo = 0,0,0,0,0,0
+      @truv, @truvm, @truvla = 0,0,0# Total UOC/U+mil/U+lapsed+Abs Voters
+      @tpv, @tpdv, @tpdvv = 0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
+      @tpdva, @tpdvaa, @tpdvar, @tpdvarl, @tpdvaro = 0,0,0,0,0
+      @tpdvp, @tpdvpa, @tpdvpr = 0,0,0
+      @tpdvi = 0
+      @tpuv, @tpuvv, @tpuvm, @tpuvla = 0,0,0,0# Total UOC/U+mil/U+lapsed+Abs Voters
+      @tpuva, @tpuvr, @tpuvrl, @tpuvro = 0,0,0,0
+      @nvrdnp = 0
+      @nvuadnp, @nvurdnp, @nvaadnp, @nvardnp = 0, 0, 0, 0
+      @trv = @election.voters.count if VoterRecord.count==0
+      @tpv = 0
+      @election.voters.each do |v|
+        @tpva += 1 if VoterRecord.count==0 && v.voted_absentee
+        if (v.voted)
+          @tpv += 1
+          @tpvm += 1 if v.male
+          @tpvf += 1 if v.female
+          @tpvd += 1 if v.party_democratic
+          @tpvr += 1 if v.party_republican
+          @tpvo += 1 if v.party_other
+          @tpnv += 1 if v.new
+          @tpnvm += 1 if v.new && v.male 
+          @tpnvf += 1 if v.new && v.female
+          @tpnvd += 1 if v.new && v.party_democratic
+          @tpnvr += 1 if v.new && v.party_republican
+          @tpnvo += 1 if v.new && v.party_other
+        else
+          @nvrdnp += 1 if v.new
+          @nvuadnp += 1 if v.vru_approved
+          @nvurdnp += 1 if v.vru_rejected
+          @nvaadnp += 1 if v.asr_approved
+          @nvardnp += 1 if v.asr_rejected
         end
-      else
-        @tv = VoterRecord.count
-        VoterRecord.all.each do |vr|
-          if (vr.vtype=="UOCAVA")
-            @uv += 1
-            @uvm += 1 if (vr.other =~ /military/i)
+        if (v.vtype=="UOCAVA")
+          if VoterRecord.count==0
+            @truv += 1
+            @truvm += 1 if v.military
+            @truvla += 1 if v.absentee_ulapsed
+          end
+          @tpuv += 1
+          @tpuvv += 1 if v.voted
+          @tpuva += 1 if v.ballot_accepted
+          @tpuvr += 1 if v.ballot_rejected
+          @tpuvrl += 1 if v.ballot_rejected_late
+          @tpuvro += 1 if v.ballot_rejected_notlate
+          @tpuvm += 1 if v.military
+          @tpuvla += 1 if v.absentee_ulapsed
+        else
+          if VoterRecord.count==0
+            @trdv += 1
+            @trvm += 1 if v.male
+            @trvf += 1 if v.female
+            @trvd += 1 if v.party_democratic
+            @trvr += 1 if v.party_republican
+            @trvo += 1 if v.party_other
+            @trva += 1 if v.absentee_status
+            @trdva += 1 if v.voted_absentee
+          end
+          @tpdv += 1
+          @tpdvv += 1 if v.voted
+          @tpdva += 1 if v.voted_absentee
+          @tpdvaa += 1 if v.voted_absentee && v.ballot_accepted
+          @tpdvar += 1 if v.voted_absentee && v.ballot_rejected
+          @tpdvarl += 1 if v.voted_absentee && v.ballot_rejected_late
+          @tpdvaro += 1 if v.voted_absentee && v.ballot_rejected_notlate
+          @tpdvi += 1 if v.voted_inperson
+          @tpdvp += 1 if v.voted_provisional
+          @tpdvpa += 1 if v.voted_provisional && v.ballot_accepted
+          @tpdvpr += 1 if v.voted_provisional && v.ballot_rejected
+        end
+      end
+      if VoterRecord.count > 0
+        @trv = VoterRecord.count
+        VoterRecord.all.each do |v|
+          @trvm += 1 if v.male
+          @trvf += 1 if v.female
+          @trvd += 1 if v.party_democratic
+          @trvr += 1 if v.party_republican
+          @trvo += 1 if v.party_other
+          @trva += 1 if v.absentee_status
+          if v.new #JVC
+            @trnv += 1
+            @trnvm += 1 if v.male 
+            @trnvf += 1 if v.female
+            @trnvd += 1 if v.party_democratic
+            @trnvr += 1 if v.party_republican
+            @trnvo += 1 if v.party_other
+          end
+          if (v.vtype=="UOCAVA")
+            @truv += 1
+            @truvm += 1 if v.military
+            @truvla += 1 if v.absentee_ulapsed
+          else
+            @trdv += 1
+            @trdva += 1 if v.absentee_status
           end
         end
       end
-      @uvo = @uv - @uvm
-      @uvmp = self.percente(@uvm,@uv)
-      @uvop = self.percente(@uvo,@uv)
+      @tpdvpap = self.percent(@tpdvpa,@tpdvp)
+      @tpvp =   self.percent(@tpv,@trv)
+      @tpdvip =  self.percent(@tpdvi,@trv)
+      @tpdvap =  self.percent(@tpdva,@trv)
+      @tpdvpp =  self.percent(@tpdvp,@trv)
+      @tpdvpap = self.percent(@tpdvpa,@tpdvpa+@tpdvpr)
+      @tpuvp =   self.percent(@tpuv,@trv)
+      @tpuvmp =  self.percent(@tpuvm,@trv)
+      @tpuvlap = self.percent(@tpuvla,@trv)
+      @truvo = @truv - @truvm
+      @truvmp = self.percente(@truvm,@truv)
+      @truvop = self.percente(@truvo,@truv)
+      @avp1p = self.percent(@trv-(@tpdvi+@tpdva+@tpdvp+@tpuvv),@trv)
+      @avp2p = self.percent(@tpdvi,@trv)
+      @avp3p = self.percent(@tpdvaa+@tpuva,@trv)
+      @avp4p = self.percent(@tpdvar+@tpuvr,@trv)
+      @avp5p = self.percent(@tpdvpa,@trv)
+      @avp6p = self.percent(@tpdvpr,@trv)
+      @trvmp = self.percent(@trvm,@trv)
+      @trvfp = self.percent(@trvf,@trv)
+      @trvdp = self.percent(@trvd,@trv)
+      @trvrp = self.percent(@trvr,@trv)
+      @trvop = self.percent(@trvo,@trv)
+      @tpvmp = self.percent(@tpvm,@tpv)
+      @tpvfp = self.percent(@tpvf,@tpv)
+      @tpvdp = self.percent(@tpvd,@tpv)
+      @tpvrp = self.percent(@tpvr,@tpv)
+      @tpvop = self.percent(@tpvo,@tpv)
+      @trnvmp = self.percent(@trnvm,@trnv)
+      @trnvfp = self.percent(@trnvf,@trnv)
+      @trnvdp = self.percent(@trnvd,@trnv)
+      @trnvrp = self.percent(@trnvr,@trnv)
+      @trnvop = self.percent(@trnvo,@trnv)
+      @tpnvmp = self.percent(@tpnvm,@tpnv)
+      @tpnvfp = self.percent(@tpnvf,@tpnv)
+      @tpnvdp = self.percent(@tpnvd,@tpnv)
+      @tpnvrp = self.percent(@tpnvr,@tpnv)
+      @tpnvop = self.percent(@tpnvo,@tpnv)
       @uvoters = []
       @vrr_generated = 0
       @vrr_received = 0
@@ -195,139 +315,6 @@
     end
   end
 
-  def report1()
-    @rname = 'Voter Participation Report'
-    @description = ["This report presents voter participation based on the type of vote cast. For absentee and provisional voters, participation is further broken down according to the number of ballots approved or rejected (A/R). There is an additional caterogy of \"whacky\" voters about which nothing is currently know and subsequently nothing reported."]
-    @voters   = 0
-    @voted    = 0
-    @vote_reg = 0
-    @vote_upd = 0
-    @vote_no  = 0
-    @vote_aa  = 0
-    @vote_ar  = 0
-    @vote_pa  = 0    
-    @vote_pr  = 0
-    @vote_wac = 0    
-    voter_ids = []
-    @election.voter_transaction_logs.each do |vtl|
-      vtl.voter_transaction_records.each do |vtr|
-        vid = vtr.vname
-        voter_ids.push(vid) unless voter_ids.include?(vid)
-        if vtr.action=~/approve/
-          if vtr.form =~ /Absentee Ballot/
-            @vote_aa += 1
-            @voted += 1
-          elsif vtr.form =~ /Provisional Ballot/
-            @vote_pa += 1
-            @voted += 1
-          end
-        elsif vtr.action=~/reject/
-          if vtr.form =~ /Absentee Ballot/
-            @vote_ar += 1
-            @voted += 1
-          elsif vtr.form =~ /Provisional Ballot/
-            @vote_pr += 1 
-            @voted += 1
-          end
-        elsif vtr.action == "identify"
-          if vtr.form =~ /Poll Book/
-            @vote_reg += 1
-            @voted += 1
-          end
-        end
-      end
-    end
-    @voters = voter_ids.length
-    if @voters > 0
-      @vote_no = @voters - @voted
-    end
-    @nvoters = @voters.to_s
-    @nvoted  = @voted.to_s
-    @nvote_reg = @vote_reg.to_s
-    @nvote_no = @vote_no.to_s
-    @nvote_a = (@vote_aa+@vote_ar).to_s
-    @nvote_aa = @vote_aa.to_s+" "+self.percente_parens(@vote_aa,(@vote_aa+@vote_ar))
-    @nvote_ar = @vote_ar.to_s+" "+self.percente_parens(@vote_ar,(@vote_aa+@vote_ar))
-    @nvote_p = (@vote_pa+@vote_pr).to_s
-    @nvote_pa = @vote_pa.to_s+" "+self.percente_parens(@vote_pa,(@vote_pa+@vote_pr))
-    @nvote_pr = @vote_pr.to_s+" "+self.percente_parens(@vote_pr,(@vote_pa+@vote_pr))
-    @nvote_wac = @vote_wac.to_s
-    @pvoters = ((@voters < 1) ? "0%" : "100%")
-    @pvote_reg = self.percente(@vote_reg,@voters)
-    @pvote_no = self.percente(@vote_no,@voters)
-    @pvote_a = self.percente(@vote_aa+@vote_ar,@voters)
-    @pvote_p = self.percente(@vote_pa+@vote_pr,@voters)
-    @pvote_wac = self.percente(@vote_wac,@voters)
-    return true
-  end
-
-  def report2_old()
-    @rname = 'UOCAVA Ballot Return Report'
-    @description = ["This report shows voting success for UOCAVA voters.  First we display the number of UOCAVA voters. Then we give the relative percentage (and count) of those who: registered to vote, updated their voter registration, requested and/or updated absentee status, and submitted an absentee ballot. Finally, we give the percentages of absentee ballots approved or rejected."]
-    @voters   = 0
-    @voted    = 0
-    @vote_reg = 0
-    @vote_upd = 0
-    @vote_no  = 0
-    @vote_as  = 0
-    @vote_ab  = 0    
-    @vote_aa  = 0
-    @vote_ar  = 0
-    voter_ids = []
-    @election.voter_transaction_logs.each do |vtl|
-      vtl.voter_transaction_records.each do |vtr|
-        vid = vtr.vname
-        if vtr.vtype =~ /UOCAVA/
-          voter_ids.push(vid) unless voter_ids.include?(vid)
-          if vtr.action == 'approve'
-            if vtr.form =~ /Absentee Ballot/
-              @vote_aa += 1
-              @voted += 1
-            elsif vtr.form =~ /Absentee Request/
-              @vote_as += 1 
-              @voted += 1
-            elsif vtr.form =~ /Voter Registration/
-              @vote_reg += 1 
-              @voted += 1
-            elsif vtr.form =~ /Voter Record Update/
-              @vote_upd += 1 
-              @voted += 1
-            end
-          elsif vtr.action == 'reject'
-            if vtr.form =~ /Absentee Ballot/
-              @vote_ar += 1
-              @voted += 1
-            end
-          elsif vtr.form =~ /Absentee Ballot/
-            if vtr.action == 'match'
-              @vote_ab += 1
-              @voted += 1
-            end
-          end
-        end
-      end
-    end
-    @voters = voter_ids.length
-    if @voters > 0
-      @vote_no = @voters - @voted
-    end
-    @nvoters = @voters.to_s
-    @nvote_reg = @vote_reg.to_s
-    @nvote_upd = @vote_upd.to_s
-    @nvote_as = @vote_as.to_s
-    @nvote_ab = @vote_ab.to_s
-    @nvote_aa = @vote_aa.to_s
-    @nvote_ar = @vote_ar.to_s
-    @pvoters = "100%"
-    @pvote_reg = self.percente(@vote_reg,@voters)
-    @pvote_upd = self.percente(@vote_upd,@voters)
-    @pvote_as = self.percente(@vote_as,@voters)
-    @pvote_ab = self.percente(@vote_ab,@voters)
-    @pvote_aa = self.percente(@vote_aa,@voters)
-    @pvote_ar = self.percente(@vote_ar,@voters)
-    return true
-  end
-
   def report2data(v,vhash)
     vhash['tot'] += 1
     vhash['vm'] += 1 if (v.vgender=='M')
@@ -402,7 +389,7 @@
         end
       end
     end
-    @avotersp = self.report2percent(@avoters,@tv)
+    @avotersp = self.report2percent(@avoters,@trv)
     @vnoruarp = self.report2percent(@vnoruar,@vnoruar['tot'])
     @vrufailp = self.report2percent(@vrufail,@vrufail['tot'])
     @vruapprp = self.report2percent(@vruappr,@vruappr['tot'])
@@ -594,22 +581,22 @@
       @uam_complete += 1 if foundac > 0
     end
 
-    @urm_usep = self.percent(@urm_use,@uv)
-    @urm_completep = self.percent(@urm_complete,@uv)
+    @urm_usep = self.percent(@urm_use,@truv)
+    @urm_completep = self.percent(@urm_complete,@truv)
     @urm_completep_reg = self.percent(@urm_complete,@urm_use)
-    @uam_usep = self.percent(@uam_use,@uv)
-    @uam_completep = self.percent(@uam_complete,@uv)
+    @uam_usep = self.percent(@uam_use,@truv)
+    @uam_completep = self.percent(@uam_complete,@truv)
     @uam_completep_reg = self.percent(@uam_complete,@urm_use)
     
     @usr_generated = @urr_generated+@uru_generated+@uar_generated+@uab_generated
-    @usr_receivedp = self.percent(@usr_received,@uv)
+    @usr_receivedp = self.percent(@usr_received,@truv)
     @usr_ab_voters = @uam_complete
-    @usr_lost = @usr_generated - @usr_received
+    @usr_lost = [@usr_generated-@usr_received,0].max
     @usr_approvedp = self.percent_parens(@usr_approved,@usr_received)
     @usr_rejectedp = self.percent_parens(@usr_rejected,@usr_received)
     @usr_lostp = self.percent_forms(@usr_lost,@usr_generated)
 
-    @urr_receivedp = self.percent(@urr_received,@uv)
+    @urr_receivedp = self.percent(@urr_received,@truv)
     @urr_receivedo = @urr_received - @urr_receivedm
     @urr_receivedmp = self.percent(@urr_receivedm,@urr_received)
     @urr_receivedop = self.percent(@urr_receivedo,@urr_received)
@@ -626,13 +613,13 @@
     @urr_rejectedop = self.percent(@urr_rejectedo,@urr_rejected)
     @urr_rejectedmp = self.percent(@urr_rejectedm,@urr_rejected)
     @urr_rejectedlao = @urr_rejectedla - @urr_rejectedlam
-    @urr_lost = @urr_generated-@urr_received
+    @urr_lost = [@urr_generated-@urr_received,0].max
     @urr_approvedp = self.percent_parens(@urr_approved,@urr_received)
     @urr_rejectedp = self.percent_parens(@urr_rejected,@urr_received)
     @urr_lostp = self.percent_forms(@urr_lost,@urr_generated)
-    @urr_new = self.percent(@urr_approved,@tv)
+    @urr_new = self.percent(@urr_approved,@trv)
 
-    @uru_receivedp = self.percent(@uru_received,@uv)
+    @uru_receivedp = self.percent(@uru_received,@truv)
     @uru_receivedo = @uru_received - @uru_receivedm
     @uru_receivedmp = self.percent(@uru_receivedm,@uru_received)
     @uru_receivedop = self.percent(@uru_receivedo,@uru_received)
@@ -649,12 +636,12 @@
     @uru_rejectedop = self.percent(@uru_rejectedo,@uru_rejected)
     @uru_rejectedmp = self.percent(@uru_rejectedm,@uru_rejected)
     @uru_rejectedlao = @uru_rejectedla - @uru_rejectedlam
-    @uru_lost = @uru_generated-@uru_received
+    @uru_lost = [@uru_generated-@uru_received,0].max
     @uru_approvedp = self.percent_parens(@uru_approved,@uru_received)
     @uru_rejectedp = self.percent_parens(@uru_rejected,@uru_received)
     @uru_lostp = self.percent_forms(@uru_lost,@uru_generated)
 
-    @uar_receivedp = self.percent(@uar_received,@uv)
+    @uar_receivedp = self.percent(@uar_received,@truv)
     @uar_receivedo = @uar_received - @uar_receivedm
     @uar_receivedmp = self.percent(@uar_receivedm,@uar_received)
     @uar_receivedop = self.percent(@uar_receivedo,@uar_received)
@@ -671,12 +658,12 @@
     @uar_rejectedop = self.percent(@uar_rejectedo,@uar_rejected)
     @uar_rejectedmp = self.percent(@uar_rejectedm,@uar_rejected)
     @uar_rejectedlao = @uar_rejectedla - @uar_rejectedlam
-    @uar_lost = @uar_generated-@uar_received
+    @uar_lost = [@uar_generated-@uar_received,0].max
     @uar_approvedp = self.percent_parens(@uar_approved,@uar_received)
     @uar_rejectedp = self.percent_parens(@uar_rejected,@uar_received)
     @uar_lostp = self.percent_forms(@uar_lost,@uar_generated)
 
-    @uab_receivedp = self.percent(@uab_received,@uv)
+    @uab_receivedp = self.percent(@uab_received,@truv)
     @uab_receivedo = @uab_received - @uab_receivedm
     @uab_receivedmp = self.percent(@uab_receivedm,@uab_received)
     @uab_receivedop = self.percent(@uab_receivedo,@uab_received)
@@ -693,7 +680,7 @@
     @uab_rejectedop = self.percent(@uab_rejectedo,@uab_rejected)
     @uab_rejectedmp = self.percent(@uab_rejectedm,@uab_rejected)
     @uab_rejectedlao = @uab_rejectedla - @uab_rejectedlam
-    @uab_lost = @uab_generated-@uab_received
+    @uab_lost = [@uab_generated-@uab_received,0].max
     @uab_approvedp = self.percent_parens(@uab_approved,@uab_received)
     @uab_rejectedp = self.percent_parens(@uab_rejected,@uab_received)
     @uab_lostp = self.percent_forms(@uab_lost,@uab_generated)

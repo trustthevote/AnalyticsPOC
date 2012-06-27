@@ -5,11 +5,11 @@
   %br
   %table{:style=>"text-align:center"}
     %tr
-      %th Voter
+      %th VID
       %th &nbsp;
       %th Type
       %th &nbsp;
-      %th Gndr
+      %th M/F
       %th &nbsp;
       %th Party
       %th &nbsp;
@@ -22,6 +22,8 @@
       %th ASR
       %th &nbsp;
       %th Stat
+      %th &nbsp;
+      %th New
       %th &nbsp;
       %th Voted
       %th &nbsp;
@@ -49,11 +51,13 @@
           %td
           %td= (v.vonline ? '' : 'No')
           %td
-          %td= (v.vupdate=~/approve/?'ok':v.vupdate)
+          %td= (v.vupdate=~/approve/?'Yes':v.vupdate)
           %td
-          %td= (v.vabsreq=~/approve/?'ok':v.vabsreq)
+          %td= (v.vabsreq=~/approve/?'Yes':v.vabsreq)
           %td
           %td= (v.vstatus=~/abs/i?'Abs':'')
+          %td
+          %td= (v.vnew ? 'Yes' : '')
           %td
           %td= (v.voted ? 'Yes' : 'No')
           %td

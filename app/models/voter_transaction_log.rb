@@ -41,4 +41,8 @@ class VoterTransactionLog < ActiveRecord::Base
     e.save
   end
 
+  def date
+    return self.datime.strftime("%B %-d, %Y")
+  end
+
 end

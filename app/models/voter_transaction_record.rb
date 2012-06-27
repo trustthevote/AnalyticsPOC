@@ -12,4 +12,8 @@ class VoterTransactionRecord < ActiveRecord::Base
     end
   end
 
+  def date
+    return self.datime.strftime("%B %-d, %Y")
+  end
+
 end

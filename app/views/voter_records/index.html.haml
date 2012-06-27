@@ -77,7 +77,7 @@
             .span3
               %b= (@uplift_msg ? "Last "+@uplift_msg : "&nbsp;".html_safe)
         -else
-          #likeh2blue No Election Selected
+          #likeh2blue No Voter Records Available (No Election Selected)
   -if (Election.all.any?{|e|e.selected})
     .row#positionbacknext
       .span2

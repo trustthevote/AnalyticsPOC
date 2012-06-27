@@ -88,20 +88,20 @@ class UpliftsController < ApplicationController
   end
 
   def upliftMungeForm(type1, type2, name, number)
-    if type1.empty?
+    if type1.blank?
       return ""
-    elsif type2.empty?
-      if name.empty? and number.empty?
+    elsif type2.blank?
+      if name.blank? and number.blank?
         return type1
       else
-        return type1+" | "+(name.empty? ? " | " : " | "+name)+
-          (number.empty? ? "" : " | "+number)
+        return type1+" | "+(name.blank? ? " | " : " | "+name)+
+          (number.blank? ? "" : " | "+number)
       end
-    elsif name.empty? and number.empty?
+    elsif name.blank? and number.blank?
       return type1+" | "+type2
     else
-      return type1+" | "+type2+(name.empty? ? " | " : " | "+name)+
-        (number.empty? ? "" : " | "+number)
+      return type1+" | "+type2+(name.blank? ? " | " : " | "+name)+
+        (number.blank? ? "" : " | "+number)
     end
   end
 
@@ -110,7 +110,7 @@ class UpliftsController < ApplicationController
       if v.vname.blank?
         v.vname = vname
         v.vtype = vtype
-        v.voted, v.vreject, v.vonline = false, false, false
+        v.voted, v.vreject, v.vonline, v.vnew = false, false, false, false
         v.vform = ""
         v.vnote = ""
         v.vgender = ""
@@ -152,6 +152,8 @@ class UpliftsController < ApplicationController
   end
 
   def syncVoter(voter, vtr)
+    voter.vnew = true if (vtr.action == 'approve' &&
+                          vtr.form =~ /Voter Registration/)
     if voter.voted
       return
     elsif (vtr.form =~ /Poll Book/)

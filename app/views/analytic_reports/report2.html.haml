@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@tv)+" Registered Voters"
+                  %td= number_with_delimiter(@trv)+" Registered Voters"
               #likeh4b Summary
               %p 
                 This report summarizes the full record of the transactions of
@@ -277,7 +277,7 @@
               #likeh4b Demographics
               %table
                 %tr
-                  %td= number_with_delimiter(@tv)
+                  %td= number_with_delimiter(@trv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total voters
