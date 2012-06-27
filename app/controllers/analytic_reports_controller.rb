@@ -53,16 +53,27 @@ class AnalyticReportsController < ApplicationController
       @truv, @truvm, @truvla = 0,0,0# Total UOC/U+mil/U+lapsed+Abs Voters
       @tpv, @tpdv, @tpdvv = 0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
       @tpdva, @tpdvaa, @tpdvar, @tpdvarl, @tpdvaro = 0,0,0,0,0
-      @tpdvp, @tpdvpa, @tpdvpr = 0,0,0
-      @tpdvi = 0
+      @tpdvp, @tpdvpa, @tpdvpr, @tpdvi = 0,0,0,0
       @tpuv, @tpuvv, @tpuvm, @tpuvla = 0,0,0,0# Total UOC/U+mil/U+lapsed+Abs Voters
       @tpuva, @tpuvr, @tpuvrl, @tpuvro = 0,0,0,0
+      @tnv, @tndv, @tndvv = 0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
+      @tndva, @tndvaa, @tndvar, @tndvarl, @tndvaro = 0,0,0,0,0
+      @tndvp, @tndvpa, @tndvpr, @tndvi = 0,0,0,0
+      @tnuv, @tnuvv, @tnuvm, @tnuvla = 0,0,0,0
+      @tnuva, @tnuvr, @tnuvrl, @tnuvro = 0,0,0,0
       @nvrdnp = 0
       @nvuadnp, @nvurdnp, @nvaadnp, @nvardnp = 0, 0, 0, 0
       @trv = @election.voters.count if VoterRecord.count==0
-      @tpv = 0
       @election.voters.each do |v|
-        @tpva += 1 if VoterRecord.count==0 && v.voted_absentee
+        if VoterRecord.count==0 
+          @trvm += 1 if v.male
+          @trvf += 1 if v.female
+          @trvd += 1 if v.party_democratic
+          @trvr += 1 if v.party_republican
+          @trvo += 1 if v.party_other
+          @trva += 1 if v.absentee_status
+        end
+        @tnv += 1 if v.new
         if (v.voted)
           @tpv += 1
           @tpvm += 1 if v.male
@@ -70,12 +81,14 @@ class AnalyticReportsController < ApplicationController
           @tpvd += 1 if v.party_democratic
           @tpvr += 1 if v.party_republican
           @tpvo += 1 if v.party_other
-          @tpnv += 1 if v.new
-          @tpnvm += 1 if v.new && v.male 
-          @tpnvf += 1 if v.new && v.female
-          @tpnvd += 1 if v.new && v.party_democratic
-          @tpnvr += 1 if v.new && v.party_republican
-          @tpnvo += 1 if v.new && v.party_other
+          if v.new
+            @tpnv += 1
+            @tpnvm += 1 if v.male 
+            @tpnvf += 1 if v.female
+            @tpnvd += 1 if v.party_democratic
+            @tpnvr += 1 if v.party_republican
+            @tpnvo += 1 if v.party_other
+          end
         else
           @nvrdnp += 1 if v.new
           @nvuadnp += 1 if v.vru_approved
@@ -97,28 +110,53 @@ class AnalyticReportsController < ApplicationController
           @tpuvro += 1 if v.ballot_rejected_notlate
           @tpuvm += 1 if v.military
           @tpuvla += 1 if v.absentee_ulapsed
+          if v.new
+            @tnuv += 1
+            @tnuvv += 1 if v.voted
+            @tnuva += 1 if v.ballot_accepted
+            @tnuvr += 1 if v.ballot_rejected
+            @tnuvrl += 1 if v.ballot_rejected_late
+            @tnuvro += 1 if v.ballot_rejected_notlate
+            @tnuvm += 1 if v.military
+            @tnuvla += 1 if v.absentee_ulapsed
+          end            
         else
           if VoterRecord.count==0
             @trdv += 1
-            @trvm += 1 if v.male
-            @trvf += 1 if v.female
-            @trvd += 1 if v.party_democratic
-            @trvr += 1 if v.party_republican
-            @trvo += 1 if v.party_other
-            @trva += 1 if v.absentee_status
             @trdva += 1 if v.voted_absentee
           end
           @tpdv += 1
           @tpdvv += 1 if v.voted
-          @tpdva += 1 if v.voted_absentee
-          @tpdvaa += 1 if v.voted_absentee && v.ballot_accepted
-          @tpdvar += 1 if v.voted_absentee && v.ballot_rejected
-          @tpdvarl += 1 if v.voted_absentee && v.ballot_rejected_late
-          @tpdvaro += 1 if v.voted_absentee && v.ballot_rejected_notlate
+          if v.new
+            @tndv += 1
+            @tndvv += 1 if v.voted
+          end
+          if v.voted_absentee
+            @tpdva += 1
+            @tpdvaa += 1 if v.ballot_accepted
+            @tpdvar += 1 if v.ballot_rejected
+            @tpdvarl += 1 if v.ballot_rejected_late
+            @tpdvaro += 1 if v.ballot_rejected_notlate
+            if v.new
+              @tndva += 1
+              @tndvaa += 1 if v.ballot_accepted
+              @tndvar += 1 if v.ballot_rejected
+              @tndvarl += 1 if v.ballot_rejected_late
+              @tndvaro += 1 if v.ballot_rejected_notlate
+            end
+          end
           @tpdvi += 1 if v.voted_inperson
-          @tpdvp += 1 if v.voted_provisional
-          @tpdvpa += 1 if v.voted_provisional && v.ballot_accepted
-          @tpdvpr += 1 if v.voted_provisional && v.ballot_rejected
+          @tndvi += 1 if v.voted_inperson && v.new
+          if v.voted_provisional
+            @tpdvp += 1
+            @tpdvpa += 1 if v.ballot_accepted
+            @tpdvpr += 1 if v.ballot_rejected
+            if v.new
+              @tndvp += 1
+              @tndvpa += 1 if v.ballot_accepted
+              @tndvpr += 1 if v.ballot_rejected
+            end
+          end
         end
       end
       if VoterRecord.count > 0
@@ -131,12 +169,6 @@ class AnalyticReportsController < ApplicationController
           @trvo += 1 if v.party_other
           @trva += 1 if v.absentee_status
           if v.new #JVC
-            @trnv += 1
-            @trnvm += 1 if v.male 
-            @trnvf += 1 if v.female
-            @trnvd += 1 if v.party_democratic
-            @trnvr += 1 if v.party_republican
-            @trnvo += 1 if v.party_other
           end
           if (v.vtype=="UOCAVA")
             @truv += 1
@@ -148,6 +180,12 @@ class AnalyticReportsController < ApplicationController
           end
         end
       end
+      @trnv = @tpnv
+      @trnvm = @tpnvm
+      @trnvf = @tpnvf
+      @trnvd = @tpnvd
+      @trnvr = @tpnvr
+      @trnvo = @tpnvo
       @tpdvpap = self.percent(@tpdvpa,@tpdvp)
       @tpvp =   self.percent(@tpv,@trv)
       @tpdvip =  self.percent(@tpdvi,@trv)
@@ -166,6 +204,12 @@ class AnalyticReportsController < ApplicationController
       @avp4p = self.percent(@tpdvar+@tpuvr,@trv)
       @avp5p = self.percent(@tpdvpa,@trv)
       @avp6p = self.percent(@tpdvpr,@trv)
+      @anp1p = self.percent(@tnv-(@tndvi+@tndva+@tndvp+@tnuvv),@trv)
+      @anp2p = self.percent(@tndvi,@tnv)
+      @anp3p = self.percent(@tndvaa+@tnuva,@tnv)
+      @anp4p = self.percent(@tndvar+@tnuvr,@tnv)
+      @anp5p = self.percent(@tndvpa,@tnv)
+      @anp6p = self.percent(@tndvpr,@tnv)
       @trvmp = self.percent(@trvm,@trv)
       @trvfp = self.percent(@trvf,@trv)
       @trvdp = self.percent(@trvd,@trv)

@@ -215,7 +215,7 @@
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv)
+                    = number_with_delimiter(@tnv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters at the end of the reporting period
@@ -250,6 +250,112 @@
                     = "&mdash;".html_safe
                   %td Acceptance rate
               #likeh4b New Voters and Participation
+              %table
+                %tr
+                  %td= number_with_delimiter(@tnv)
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td New voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnv-@tndva)
+                  %td Domestic in-person voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndva)
+                  %td Domestic absentee voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnuv)
+                  %td Eligible UOCAVA voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnuvla)
+                  %td UOCAVA voters with lapsed absentee status
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnv)
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td New voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnv-(@tndvi+@tndva+@tndvp+@tnuvv))
+                  %td Did not vote
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndvi)
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndvaa+@tnuva)
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = number_with_delimiter(@tndvaa)
+                    = "&ndash;".html_safe+' Domestic absentee'
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = number_with_delimiter(@tnuva)
+                    = "&ndash;".html_safe+' UOCAVA'
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndvar+@tnuvr)
+                  %td Voted absentee, ballot rejected
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = number_with_delimiter(@tndvar)
+                    = "&ndash;".html_safe+' Domestic absentee'
+                %tr
+                  %td{:colspan=>2}
+                  %td
+                    = number_with_delimiter(@tnuvr)
+                    = "&ndash;".html_safe+' UOCAVA'
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndvpa)
+                  %td Voted provisional, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = number_with_delimiter(@tndvpr)
+                  %td Voted provisional, ballot rejected
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td{:style=>"text-align:right;"}
+                    = number_with_delimiter(@tnv)
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td New voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp1p
+                  %td Did not vote
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp2p
+                  %td Voted in person
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp3p
+                  %td Voted absentee, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp4p
+                  %td Voted absentee, ballot rejected
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp5p
+                  %td Voted provisional, ballot accepted
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @anp6p
+                  %td Voted provisional, ballot rejected
               #likeh4b All Voters and Participation
               %table
                 %tr
