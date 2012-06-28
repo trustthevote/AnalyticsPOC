@@ -40,6 +40,101 @@ class AnalyticReportsController < ApplicationController
     end
   end
 
+# Data type names
+# 
+# @?v ? Voters
+#
+# @av All
+# @vv Voting (Participating)
+# @uv UOCAVA
+# @dv Domestic
+# @nv Not Voting
+#
+# Keys
+  # total - Total
+  # voted - Voted
+  # gf    - Gender Female
+  # gm    - Gender Male
+  # pd    - Party Democrat
+  # pr    - Party Republican
+  # po    - Party Other
+  # abs   - Absentee Status
+  # absla - Absentee Status Lapsed
+
+  # rr    - Registration Request
+  # rrm   - Registration Request Matched
+  # rra   - Registration Request Approved
+    # um  - Registration Request Approved UOCAVA Military
+    # uo  - Registration Request Approved UOCAVA Other
+  # rrr   - Registration Request Rejected
+    # gf  - Registration Request Rejected Gender Female
+    # gm  - Registration Request Rejected Gender Male
+    # pd  - Registration Request Rejected Party Democrat
+    # pr  - Registration Request Rejected Party Republican
+    # po  - Registration Request Rejected Party Other
+    # um  - Registration Request Rejected UOCAVA Military
+    # uo  - Registration Request Rejected UOCAVA Other
+    # rl  - Registration Request Rejected Late
+    # ro  - Registration Request Rejected Other Reason
+
+  # ru    - Record Update
+  # rum   - Record Update Matched
+  # rua   - Record Update Approved
+    # um  - Record Update Approved UOCAVA Military
+    # uo  - Record Update Approved UOCAVA Other
+  # rur   - Record Update Rejected
+    # gf  - Record Update Rejected Gender Female
+    # gm  - Record Update Rejected Gender Male
+    # pd  - Record Update Rejected Party Democrat
+    # pr  - Record Update Rejected Party Republican
+    # po  - Record Update Rejected Party Other
+    # um  - Record Update Rejected UOCAVA Military
+    # uo  - Record Update Rejected UOCAVA Other
+    # rl  - Record Update Rejected Late
+    # ro  - Record Update Rejected Other Reason
+
+  # as    - Absentee Status
+  # asm   - Absentee Status Matched
+  # asa   - Absentee Status Approved
+    # um  - Absentee Status Approved UOCAVA Military
+    # uo  - Absentee Status Approved UOCAVA Other
+  # asr   - Absentee Status Rejected
+    # gf  - Absentee Status Rejected Gender Female
+    # gm  - Absentee Status Rejected Gender Male
+    # pd  - Absentee Status Rejected Party Democrat
+    # pr  - Absentee Status Rejected Party Republican
+    # po  - Absentee Status Rejected Party Other
+    # um  - Absentee Status Rejected UOCAVA Military
+    # uo  - Absentee Status Rejected UOCAVA Other
+    # rl  - Absentee Status Rejected Late
+    # ro  - Absentee Status Rejected Other Reason
+
+  # vi    - Voted In-Person
+
+  # va    - Voted Absentee
+  # vaa   - Voted Absentee Approved
+    # um  - Voted Absentee Approved UOCAVA Military
+    # uo  - Voted Absentee Approved UOCAVA Other
+  # var   - Voted Absentee Rejected
+    # gf  - Voted Absentee Rejected Gender Female
+    # gm  - Voted Absentee Rejected Gender Male
+    # pd  - Voted Absentee Rejected Party Democrat
+    # pr  - Voted Absentee Rejected Party Republican
+    # po  - Voted Absentee Rejected Party Other
+    # ul  - Voted Absentee Rejected UOCAVA Late
+    # ulm - Voted Absentee Rejected UOCAVA Late Military
+    # ulo - Voted Absentee Rejected UOCAVA Late Other
+    # um  - Voted Absentee Rejected UOCAVA Military
+    # uo  - Voted Absentee Rejected UOCAVA Other
+    # rl  - Voted Absentee Rejected Late
+    # ro  - Voted Absentee Rejected Other Reason
+
+  # vp    - Voted Provisional
+  # vpa   - Voted Provisional Approved
+  # vpr   - Voted Provisional Rejected
+
+  # vnot  - Did Not Vote
+
   def report
     case @rn
     when 0
@@ -374,7 +469,7 @@ class AnalyticReportsController < ApplicationController
     if (!v.voted)
       vhash['vno'] += 1
     elsif (!v.vreject)
-      vhash['vpb'] += 1 if (v.vform=~/Regular/)
+      vhash['vra'] += 1 if (v.vform=~/Regular/)
       vhash['vpa'] += 1 if (v.vform=~/Provisional/)
       vhash['vaa'] += 1 if (v.vform=~/Absentee/)
     else
@@ -401,7 +496,7 @@ class AnalyticReportsController < ApplicationController
     @vruappr = Hash.new { |h, k| h[k] = 0 }
     @varfail = Hash.new { |h, k| h[k] = 0 }
     @varappr = Hash.new { |h, k| h[k] = 0 }
-      #"tot"=>0,"vno"=>0,"vpb"=0,"vpa"=>0,"vpr"=>0,"vaa"=>0,"varl"=>0,"varo"=>0,
+      #"tot"=>0,"vno"=>0,"vra"=0,"vpa"=>0,"vpr"=>0,"vaa"=>0,"varl"=>0,"varo"=>0,
       #"von"=>0,"vm"=>0,"vf"=>0,"vd"=>0,"vr"=>0,"vo"=>0
     @election.voters.each do |v|
       @avoters['tot'] += 1
