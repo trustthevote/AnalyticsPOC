@@ -2,7 +2,10 @@
 
 .row
   .span6
-    %h2= "All Voter Records ("+VoterRecord.all.length.to_s+")"
+    -if VoterRecord.count>0
+      %h2= "All Voter Records ("+VoterRecord.count.to_s+")"
+    -else
+      %h2= "No Voter Records"
   .span3
     &nbsp;
   .span2

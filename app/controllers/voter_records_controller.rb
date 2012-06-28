@@ -10,7 +10,7 @@ class VoterRecordsController < ApplicationController
 
   # GET /voter_records/1
   def show
-    @voter_record = VoterRecord.find(params[:id])
+    #@voter_record = VoterRecord.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
