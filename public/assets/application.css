@@ -5056,6 +5056,74 @@ footer hr {
 }
 
 /* line 64, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal {
+  backgroundcolor: #ffff00;
+  border: 1px;
+  overflow: hidden;
+}
+/* line 71, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal td {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+/* line 73, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal h2 {
+  font-size: 225%;
+}
+/* line 77, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .main {
+  margin-top: 20px;
+}
+/* line 81, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .marker {
+  font-size: 400%;
+  line-height: 100%;
+}
+/* line 86, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal h3 {
+  font-size: 125%;
+}
+/* line 90, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .option {
+  border-top: 3px solid #BBBBBB;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+/* line 96, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .buttons {
+  margin-top: 20px;
+}
+/* line 100, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .dates .row {
+  margin: 10px 0 10px 0;
+}
+/* line 102, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .dates .row div {
+  font-size: 110%;
+}
+/* line 105, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .dates .row > [class*='span'] {
+  margin-left: 0;
+}
+/* line 110, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal a {
+  color: #3D59AB;
+  text-decoration: underline;
+}
+/* line 113, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal .sidebar {
+  color: #3D59AB;
+}
+/* line 117, ../../../app/assets/stylesheets/public/front.css.scss */
+#frontal hr {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  border: 0;
+  border-top: 1px solid #BBBBBB;
+  border-bottom: 1px solid #BBBBBB;
+}
+
+/* line 126, ../../../app/assets/stylesheets/public/front.css.scss */
 #redelecname {
   font-size: 16px;
   line-height: 22px;
@@ -5063,7 +5131,7 @@ footer hr {
   color: red;
 }
 
-/* line 71, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 133, ../../../app/assets/stylesheets/public/front.css.scss */
 #stateget {
   font-size: 17px;
   text-align: center;
@@ -5071,13 +5139,13 @@ footer hr {
   padding-bottom: 5px;
   background-color: #3D59AB;
 }
-/* line 77, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 139, ../../../app/assets/stylesheets/public/front.css.scss */
 #stateget a {
   color: white;
   text-decoration: none;
 }
 
-/* line 81, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 143, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebacknext {
   font-size: 18px;
   padding-top: 5px;
@@ -5085,13 +5153,13 @@ footer hr {
   text-align: center;
   background-color: #444444;
 }
-/* line 87, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 149, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebacknext a {
   color: white;
   text-decoration: none;
 }
 
-/* line 91, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 153, ../../../app/assets/stylesheets/public/front.css.scss */
 .btnbacknext {
   font-size: 18px;
   text-align: center;
@@ -5099,7 +5167,7 @@ footer hr {
   color: white;
 }
 
-/* line 98, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 160, ../../../app/assets/stylesheets/public/front.css.scss */
 #statebar {
   font-size: 20px;
   padding-top: 10px;
@@ -5109,7 +5177,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 107, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 169, ../../../app/assets/stylesheets/public/front.css.scss */
 #doing {
   font-size: 20px;
   padding-top: 10px;
@@ -5119,7 +5187,7 @@ footer hr {
   color: white;
 }
 
-/* line 116, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 178, ../../../app/assets/stylesheets/public/front.css.scss */
 #todo {
   font-size: 20px;
   padding-top: 10px;
@@ -5129,13 +5197,13 @@ footer hr {
   color: black;
 }
 
-/* line 125, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 187, ../../../app/assets/stylesheets/public/front.css.scss */
 #positionbacknext {
   position: absolute;
   top: 640px;
 }
 
-/* line 130, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 192, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil8 {
   background: #FFFAF0;
   width: 619px;
@@ -5144,7 +5212,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 138, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 200, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil9 {
   background: #FFFAF0;
   width: 699px;
@@ -5153,7 +5221,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 146, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 208, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil10 {
   background: #FFFAF0;
   width: 779px;
@@ -5162,7 +5230,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 154, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 216, ../../../app/assets/stylesheets/public/front.css.scss */
 #scroil {
   background: #FFFAF0;
   width: 779px;
@@ -5171,7 +5239,7 @@ footer hr {
   overflow-x: hidden;
 }
 
-/* line 162, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 224, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh1 {
   font-weight: bold;
   font-size: 30px;
@@ -5180,7 +5248,7 @@ footer hr {
   color: black;
 }
 
-/* line 170, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 232, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2 {
   font-weight: bold;
   font-size: 24px;
@@ -5189,7 +5257,7 @@ footer hr {
   color: black;
 }
 
-/* line 178, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 240, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh2blue {
   font-weight: bold;
   font-size: 24px;
@@ -5198,7 +5266,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 186, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 248, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3 {
   font-size: 18px;
   text-align: left;
@@ -5206,7 +5274,7 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 193, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 255, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh4 {
   font-size: 16px;
   text-align: left;
@@ -5214,7 +5282,16 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 200, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 262, ../../../app/assets/stylesheets/public/front.css.scss */
+#likeh4b {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: left;
+  line-height: 34px;
+  color: black;
+}
+
+/* line 270, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3b {
   font-size: 18px;
   text-align: left;
@@ -5222,7 +5299,7 @@ footer hr {
   color: black;
 }
 
-/* line 207, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 277, ../../../app/assets/stylesheets/public/front.css.scss */
 #likeh3r {
   font-size: 18px;
   text-align: right;
@@ -5230,7 +5307,23 @@ footer hr {
   color: #3D59AB;
 }
 
-/* line 214, ../../../app/assets/stylesheets/public/front.css.scss */
+/* line 284, ../../../app/assets/stylesheets/public/front.css.scss */
+.tableBBB {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 14px;
+  background-color: #BBBBBB;
+}
+
+/* line 291, ../../../app/assets/stylesheets/public/front.css.scss */
+.tableDDD {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 14px;
+  background-color: #DDDDDD;
+}
+
+/* line 298, ../../../app/assets/stylesheets/public/front.css.scss */
 .capbold {
   text-transform: capitalize;
   font-weight: bold;
