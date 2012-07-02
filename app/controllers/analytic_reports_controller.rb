@@ -24,7 +24,6 @@ class AnalyticReportsController < ApplicationController
   #   @election = Election.find(params[:id])
   #   respond_to do |format|
   #     format.html # show.html.erb
-  #     format.json { render json: @analytic_report }
   #   end
   # end
 
@@ -33,114 +32,24 @@ class AnalyticReportsController < ApplicationController
     @election = Election.find(eid)
     @description = []
     @rn = (params[:rn] ? params[:rn].to_i : 1)
-    self.report()
+    self.report(eid)
     respond_to do |f|
       f.html { render '/analytic_reports/report'+@rn.to_s }
       f.pdf  { render layout: false }
     end
   end
 
-# Data type names
-# 
-# @?v ? Voters
-#
-# @av All
-# @vv Voting (Participating)
-# @uv UOCAVA
-# @dv Domestic
-# @nv Not Voting
-#
-# Keys
-  # total - Total
-  # voted - Voted
-  # gf    - Gender Female
-  # gm    - Gender Male
-  # pd    - Party Democrat
-  # pr    - Party Republican
-  # po    - Party Other
-  # abs   - Absentee Status
-  # absla - Absentee Status Lapsed
-
-  # rr    - Registration Request
-  # rrm   - Registration Request Matched
-  # rra   - Registration Request Approved
-    # um  - Registration Request Approved UOCAVA Military
-    # uo  - Registration Request Approved UOCAVA Other
-  # rrr   - Registration Request Rejected
-    # gf  - Registration Request Rejected Gender Female
-    # gm  - Registration Request Rejected Gender Male
-    # pd  - Registration Request Rejected Party Democrat
-    # pr  - Registration Request Rejected Party Republican
-    # po  - Registration Request Rejected Party Other
-    # um  - Registration Request Rejected UOCAVA Military
-    # uo  - Registration Request Rejected UOCAVA Other
-    # rl  - Registration Request Rejected Late
-    # ro  - Registration Request Rejected Other Reason
-
-  # ru    - Record Update
-  # rum   - Record Update Matched
-  # rua   - Record Update Approved
-    # um  - Record Update Approved UOCAVA Military
-    # uo  - Record Update Approved UOCAVA Other
-  # rur   - Record Update Rejected
-    # gf  - Record Update Rejected Gender Female
-    # gm  - Record Update Rejected Gender Male
-    # pd  - Record Update Rejected Party Democrat
-    # pr  - Record Update Rejected Party Republican
-    # po  - Record Update Rejected Party Other
-    # um  - Record Update Rejected UOCAVA Military
-    # uo  - Record Update Rejected UOCAVA Other
-    # rl  - Record Update Rejected Late
-    # ro  - Record Update Rejected Other Reason
-
-  # as    - Absentee Status
-  # asm   - Absentee Status Matched
-  # asa   - Absentee Status Approved
-    # um  - Absentee Status Approved UOCAVA Military
-    # uo  - Absentee Status Approved UOCAVA Other
-  # asr   - Absentee Status Rejected
-    # gf  - Absentee Status Rejected Gender Female
-    # gm  - Absentee Status Rejected Gender Male
-    # pd  - Absentee Status Rejected Party Democrat
-    # pr  - Absentee Status Rejected Party Republican
-    # po  - Absentee Status Rejected Party Other
-    # um  - Absentee Status Rejected UOCAVA Military
-    # uo  - Absentee Status Rejected UOCAVA Other
-    # rl  - Absentee Status Rejected Late
-    # ro  - Absentee Status Rejected Other Reason
-
-  # vi    - Voted In-Person
-
-  # va    - Voted Absentee
-  # vaa   - Voted Absentee Approved
-    # um  - Voted Absentee Approved UOCAVA Military
-    # uo  - Voted Absentee Approved UOCAVA Other
-  # var   - Voted Absentee Rejected
-    # gf  - Voted Absentee Rejected Gender Female
-    # gm  - Voted Absentee Rejected Gender Male
-    # pd  - Voted Absentee Rejected Party Democrat
-    # pr  - Voted Absentee Rejected Party Republican
-    # po  - Voted Absentee Rejected Party Other
-    # ul  - Voted Absentee Rejected UOCAVA Late
-    # ulm - Voted Absentee Rejected UOCAVA Late Military
-    # ulo - Voted Absentee Rejected UOCAVA Late Other
-    # um  - Voted Absentee Rejected UOCAVA Military
-    # uo  - Voted Absentee Rejected UOCAVA Other
-    # rl  - Voted Absentee Rejected Late
-    # ro  - Voted Absentee Rejected Other Reason
-
-  # vp    - Voted Provisional
-  # vpa   - Voted Provisional Approved
-  # vpr   - Voted Provisional Rejected
-
-  # vnot  - Did Not Vote
-
-  def report
+  def report(eid)
+    if false && (@rn==3 or @rn==4)
+      self.reportuv()
+      return
+    end
     case @rn
     when 0
       self.report1()
     else
-      @trv, @trva, @trdv, @trdva = 0,0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
+      @trv = (VoterRecord.count==0 ? @election.voters.count : VoterRecord.count)
+      @trva, @trdv, @trdva = 0,0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
       @trvm, @trvf, @trvd, @trvr, @trvo = 0,0,0,0,0
       @tpvm, @tpvf, @tpvd, @tpvr, @tpvo = 0,0,0,0,0
       @trnv, @trnvm, @trnvf, @trnvd, @trnvr, @trnvo = 0,0,0,0,0,0
@@ -158,7 +67,6 @@ class AnalyticReportsController < ApplicationController
       @tnuva, @tnuvr, @tnuvrl, @tnuvro = 0,0,0,0
       @nvrdnp = 0
       @nvuadnp, @nvurdnp, @nvaadnp, @nvardnp = 0, 0, 0, 0
-      @trv = @election.voters.count if VoterRecord.count==0
       @election.voters.each do |v|
         if VoterRecord.count==0 
           @trvm += 1 if v.male
@@ -255,7 +163,6 @@ class AnalyticReportsController < ApplicationController
         end
       end
       if VoterRecord.count > 0
-        @trv = VoterRecord.count
         VoterRecord.all.each do |v|
           @trvm += 1 if v.male
           @trvf += 1 if v.female
@@ -448,8 +355,8 @@ class AnalyticReportsController < ApplicationController
       @vab_rejectedpop = self.percente(@vab_rejectedpo,@vab_rejected)
       if (@rn==2)
         self.report2()
-      else
-        self.reportu()
+      elsif (@rn==3 or @rn==4)
+        self.reportuv()
       end
     end
   end
@@ -565,8 +472,22 @@ class AnalyticReportsController < ApplicationController
     return "("+percent(x,y)+" of forms generated)"
   end
 
-  def reportu()
+  def reportuv()
+    eid = @election.id
+    unless uvr = AnalyticReport.find{|ar|ar.election_id==eid&&ar.num==3}
+      raise Exception, "No UV report found for election with id: "+eid
+    end
+    if (false && (uvr.data != "") && (@election.updated_at < uvr.updated_at))
+      reportuv_restore(uvr.get_data)
+      reportuv_percentages()
+      return
+    end
+    reportuv_compute()
+    uvr.set_data(reportuv_save(),eid)
+    reportuv_percentages()
+  end
 
+  def reportuv_compute()
     # UOCAVA Aggregate Service Requests
     @urm_use = 0
     @urm_complete = 0
@@ -720,6 +641,36 @@ class AnalyticReportsController < ApplicationController
       @uam_complete += 1 if foundac > 0
     end
 
+    @usr_ab_voters = @uam_complete
+    @usr_generated = @urr_generated+@uru_generated+@uar_generated+@uab_generated
+    @usr_lost = [@usr_generated-@usr_received,0].max
+    @urr_lost = [@urr_generated-@urr_received,0].max
+    @uru_lost = [@uru_generated-@uru_received,0].max
+    @uab_lost = [@uab_generated-@uab_received,0].max
+    @uar_lost = [@uab_generated-@uar_received,0].max
+    @urr_receivedo = @urr_received - @urr_receivedm
+    @urr_approvedo = @urr_approved - @urr_approvedm
+    @urr_rejectedo = @urr_rejected - @urr_rejectedm
+    @urr_rejectedpo = @urr_rejected-(@urr_rejectedpd+@urr_rejectedpr)
+    @urr_rejectedlao = @urr_rejectedla - @urr_rejectedlam
+    @uru_approvedo = @uru_approved - @uru_approvedm
+    @uru_receivedo = @uru_received - @uru_receivedm
+    @uru_rejectedo = @uru_rejected - @uru_rejectedm
+    @uru_rejectedpo = @uru_rejected-(@uru_rejectedpd+@uru_rejectedpr)
+    @uru_rejectedlao = @uru_rejectedla - @uru_rejectedlam
+    @uar_receivedo = @uar_received - @uar_receivedm
+    @uar_approvedo = @uar_approved - @uar_approvedm
+    @uar_rejectedo = @uar_rejected - @uar_rejectedm
+    @uar_rejectedpo = @uar_rejected-(@uar_rejectedpd+@uar_rejectedpr)
+    @uar_rejectedlao = @uar_rejectedla - @uar_rejectedlam
+    @uab_receivedo = @uab_received - @uab_receivedm
+    @uab_approvedo = @uab_approved - @uab_approvedm
+    @uab_rejectedo = @uab_rejected - @uab_rejectedm
+    @uab_rejectedpo = @uab_rejected-(@uab_rejectedpd+@uab_rejectedpr)
+    @uab_rejectedlao = @uar_rejectedla - @uar_rejectedlam
+  end
+ 
+  def reportuv_percentages()
     @urm_usep = self.percent(@urm_use,@truv)
     @urm_completep = self.percent(@urm_complete,@truv)
     @urm_completep_reg = self.percent(@urm_complete,@urm_use)
@@ -727,114 +678,299 @@ class AnalyticReportsController < ApplicationController
     @uam_completep = self.percent(@uam_complete,@truv)
     @uam_completep_reg = self.percent(@uam_complete,@urm_use)
     
-    @usr_generated = @urr_generated+@uru_generated+@uar_generated+@uab_generated
     @usr_receivedp = self.percent(@usr_received,@truv)
-    @usr_ab_voters = @uam_complete
-    @usr_lost = [@usr_generated-@usr_received,0].max
     @usr_approvedp = self.percent_parens(@usr_approved,@usr_received)
     @usr_rejectedp = self.percent_parens(@usr_rejected,@usr_received)
     @usr_lostp = self.percent_forms(@usr_lost,@usr_generated)
 
     @urr_receivedp = self.percent(@urr_received,@truv)
-    @urr_receivedo = @urr_received - @urr_receivedm
     @urr_receivedmp = self.percent(@urr_receivedm,@urr_received)
     @urr_receivedop = self.percent(@urr_receivedo,@urr_received)
-    @urr_approvedo = @urr_approved - @urr_approvedm
     @urr_approvedop = self.percent(@urr_approvedo,@urr_approved)
     @urr_approvedmp = self.percent(@urr_approvedm,@urr_approved)
-    @urr_rejectedpo = @urr_rejected-(@urr_rejectedpd+@urr_rejectedpr)
     @urr_rejectedgmp = self.percente(@urr_rejectedgm,@urr_rejected)
     @urr_rejectedgfp = self.percente(@urr_rejectedgf,@urr_rejected)
     @urr_rejectedpdp = self.percente(@urr_rejectedpd,@urr_rejected)
     @urr_rejectedprp = self.percente(@urr_rejectedpr,@urr_rejected)
     @urr_rejectedpop = self.percente(@urr_rejectedpo,@urr_rejected)
-    @urr_rejectedo = @urr_rejected - @urr_rejectedm
     @urr_rejectedop = self.percent(@urr_rejectedo,@urr_rejected)
     @urr_rejectedmp = self.percent(@urr_rejectedm,@urr_rejected)
-    @urr_rejectedlao = @urr_rejectedla - @urr_rejectedlam
-    @urr_lost = [@urr_generated-@urr_received,0].max
     @urr_approvedp = self.percent_parens(@urr_approved,@urr_received)
     @urr_rejectedp = self.percent_parens(@urr_rejected,@urr_received)
     @urr_lostp = self.percent_forms(@urr_lost,@urr_generated)
-    @urr_new = self.percent(@urr_approved,@trv)
+    @urr_newp = self.percent(@urr_approved,@trv)
 
     @uru_receivedp = self.percent(@uru_received,@truv)
-    @uru_receivedo = @uru_received - @uru_receivedm
     @uru_receivedmp = self.percent(@uru_receivedm,@uru_received)
     @uru_receivedop = self.percent(@uru_receivedo,@uru_received)
-    @uru_approvedo = @uru_approved - @uru_approvedm
     @uru_approvedop = self.percent(@uru_approvedo,@uru_approved)
     @uru_approvedmp = self.percent(@uru_approvedm,@uru_approved)
-    @uru_rejectedpo = @uru_rejected-(@uru_rejectedpd+@uru_rejectedpr)
     @uru_rejectedgmp = self.percente(@uru_rejectedgm,@uru_rejected)
     @uru_rejectedgfp = self.percente(@uru_rejectedgf,@uru_rejected)
     @uru_rejectedpdp = self.percente(@uru_rejectedpd,@uru_rejected)
     @uru_rejectedprp = self.percente(@uru_rejectedpr,@uru_rejected)
     @uru_rejectedpop = self.percente(@uru_rejectedpo,@uru_rejected)
-    @uru_rejectedo = @uru_rejected - @uru_rejectedm
     @uru_rejectedop = self.percent(@uru_rejectedo,@uru_rejected)
     @uru_rejectedmp = self.percent(@uru_rejectedm,@uru_rejected)
-    @uru_rejectedlao = @uru_rejectedla - @uru_rejectedlam
-    @uru_lost = [@uru_generated-@uru_received,0].max
     @uru_approvedp = self.percent_parens(@uru_approved,@uru_received)
     @uru_rejectedp = self.percent_parens(@uru_rejected,@uru_received)
     @uru_lostp = self.percent_forms(@uru_lost,@uru_generated)
 
     @uar_receivedp = self.percent(@uar_received,@truv)
-    @uar_receivedo = @uar_received - @uar_receivedm
     @uar_receivedmp = self.percent(@uar_receivedm,@uar_received)
     @uar_receivedop = self.percent(@uar_receivedo,@uar_received)
-    @uar_approvedo = @uar_approved - @uar_approvedm
     @uar_approvedop = self.percent(@uar_approvedo,@uar_approved)
     @uar_approvedmp = self.percent(@uar_approvedm,@uar_approved)
-    @uar_rejectedpo = @uar_rejected-(@uar_rejectedpd+@uar_rejectedpr)
     @uar_rejectedgmp = self.percente(@uar_rejectedgm,@uar_rejected)
     @uar_rejectedgfp = self.percente(@uar_rejectedgf,@uar_rejected)
     @uar_rejectedpdp = self.percente(@uar_rejectedpd,@uar_rejected)
     @uar_rejectedprp = self.percente(@uar_rejectedpr,@uar_rejected)
     @uar_rejectedpop = self.percente(@uar_rejectedpo,@uar_rejected)
-    @uar_rejectedo = @uar_rejected - @uar_rejectedm
     @uar_rejectedop = self.percent(@uar_rejectedo,@uar_rejected)
     @uar_rejectedmp = self.percent(@uar_rejectedm,@uar_rejected)
-    @uar_rejectedlao = @uar_rejectedla - @uar_rejectedlam
-    @uar_lost = [@uar_generated-@uar_received,0].max
     @uar_approvedp = self.percent_parens(@uar_approved,@uar_received)
     @uar_rejectedp = self.percent_parens(@uar_rejected,@uar_received)
     @uar_lostp = self.percent_forms(@uar_lost,@uar_generated)
 
     @uab_receivedp = self.percent(@uab_received,@truv)
-    @uab_receivedo = @uab_received - @uab_receivedm
     @uab_receivedmp = self.percent(@uab_receivedm,@uab_received)
     @uab_receivedop = self.percent(@uab_receivedo,@uab_received)
-    @uab_approvedo = @uab_approved - @uab_approvedm
     @uab_approvedop = self.percent(@uab_approvedo,@uab_approved)
     @uab_approvedmp = self.percent(@uab_approvedm,@uab_approved)
-    @uab_rejectedpo = @uab_rejected-(@uab_rejectedpd+@uab_rejectedpr)
     @uab_rejectedgmp = self.percente(@uab_rejectedgm,@uab_rejected)
     @uab_rejectedgfp = self.percente(@uab_rejectedgf,@uab_rejected)
     @uab_rejectedpdp = self.percente(@uab_rejectedpd,@uab_rejected)
     @uab_rejectedprp = self.percente(@uab_rejectedpr,@uab_rejected)
     @uab_rejectedpop = self.percente(@uab_rejectedpo,@uab_rejected)
-    @uab_rejectedo = @uab_rejected - @uab_rejectedm
     @uab_rejectedop = self.percent(@uab_rejectedo,@uab_rejected)
     @uab_rejectedmp = self.percent(@uab_rejectedm,@uab_rejected)
-    @uab_rejectedlao = @uab_rejectedla - @uab_rejectedlam
-    @uab_lost = [@uab_generated-@uab_received,0].max
     @uab_approvedp = self.percent_parens(@uab_approved,@uab_received)
     @uab_rejectedp = self.percent_parens(@uab_rejected,@uab_received)
     @uab_lostp = self.percent_forms(@uab_lost,@uab_generated)
+  end
 
+  def reportuv_save()
+    @vu = Hash.new {}
+    @vu['tmp'] = [@trv, @truv, @truvm, @truvo]
+
+    @vu['aab'] = Hash.new {}
+    @vu['aas'] = Hash.new {}
+    @vu['aru'] = Hash.new {}
+    @vu['arr'] = Hash.new {}
+    @vu['aur'] = Hash.new {}
+    @vu['aua'] = Hash.new {} 
+
+    ['rapp', 'rgen', 'rlos', 'rrec', 'rrej'].each do |key|
+      @vu['aab'][key] = Hash.new { |h, k| h[k] = 0 }
+      @vu['aas'][key] = Hash.new { |h, k| h[k] = 0 }
+      @vu['aur'][key] = Hash.new { |h, k| h[k] = 0 }
+      @vu['arr'][key] = Hash.new { |h, k| h[k] = 0 }
+      @vu['aru'][key] = Hash.new { |h, k| h[k] = 0 }
+    end
+
+    @vu['aab']['tota'] = Hash.new { |h, k| h[k] = 0 }
+
+    ['rcom', 'rdou', 'rdow', 'tota'].each do |key|
+      @vu['aua'][key] = Hash.new { |h, k| h[k] = 0 }
+    end
+
+    ['rcom', 'tota'].each do |key|
+      @vu['aur'][key] = Hash.new { |h, k| h[k] = 0 }
+    end
+
+    @vu['aab']['tota']['tot'] = @usr_ab_voters
+    @vu['aab']['rapp']['tot'] = @uab_approved
+    @vu['aab']['rapp']['dum'] = @uab_approvedm
+    @vu['aab']['rapp']['duo'] = @uab_approvedo
+    @vu['aab']['rgen']['tot'] = @uab_generated
+    @vu['aab']['rlos']['tot'] = @uab_lost
+    @vu['aab']['rrec']['tot'] = @uab_received
+    @vu['aab']['rrec']['dum'] = @uab_receivedm
+    @vu['aab']['rrec']['duo'] = @uab_receivedo
+    @vu['aab']['rrej']['tot'] = @uab_rejected
+    @vu['aab']['rrej']['dla'] = @uab_rejectedla
+    @vu['aab']['rrej']['dlm'] = @uab_rejectedlam
+    @vu['aab']['rrej']['dlo'] = @uab_rejectedlao
+    @vu['aab']['rrej']['dum'] = @uab_rejectedm
+    @vu['aab']['rrej']['duo'] = @uab_rejectedo
+    @vu['aab']['rrej']['dgm'] = @uab_rejectedgm
+    @vu['aab']['rrej']['dgf'] = @uab_rejectedgf
+    @vu['aab']['rrej']['dpd'] = @uab_rejectedpd
+    @vu['aab']['rrej']['dpr'] = @uab_rejectedpr
+    @vu['aab']['rrej']['dpo'] = @uab_rejectedpo
+    @vu['aua']['rcom']['tot'] = @uam_complete
+    @vu['aua']['rdou']['tot'] = @usr_ab_doubles
+    @vu['aua']['rdow']['tot'] = @usr_ab_downloads
+    @vu['aua']['tota']['tot'] = @uam_use
+    @vu['aas']['rapp']['tot'] = @uar_approved
+    @vu['aas']['rapp']['dum'] = @uar_approvedm
+    @vu['aas']['rapp']['duo'] = @uar_approvedo
+    @vu['aas']['rgen']['tot'] = @uar_generated
+    @vu['aas']['rlos']['tot'] = @uar_lost
+    @vu['aas']['rrec']['tot'] = @uar_received
+    @vu['aas']['rrec']['dum'] = @uar_receivedm
+    @vu['aas']['rrec']['duo'] = @uar_receivedo
+    @vu['aas']['rrej']['tot'] = @uar_rejected
+    @vu['aas']['rrej']['dla'] = @uar_rejectedla
+    @vu['aas']['rrej']['dlm'] = @uar_rejectedlam
+    @vu['aas']['rrej']['dlo'] = @uar_rejectedlao
+    @vu['aas']['rrej']['dum'] = @uar_rejectedm
+    @vu['aas']['rrej']['duo'] = @uar_rejectedo
+    @vu['aas']['rrej']['dgm'] = @uar_rejectedgm
+    @vu['aas']['rrej']['dgf'] = @uar_rejectedgf
+    @vu['aas']['rrej']['dpd'] = @uar_rejectedpd
+    @vu['aas']['rrej']['dpr'] = @uar_rejectedpr
+    @vu['aas']['rrej']['dpo'] = @uar_rejectedpo
+    @vu['aur']['rcom']['tot'] = @urm_complete
+    @vu['aur']['tota']['tot'] = @urm_use
+    @vu['aur']['rapp']['tot'] = @usr_approved
+    @vu['aur']['rgen']['tot'] = @usr_generated
+    @vu['aur']['rlos']['tot'] = @usr_lost
+    @vu['aur']['rrec']['tot'] = @usr_received
+    @vu['aur']['rrej']['tot'] = @usr_rejected
+    @vu['arr']['rapp']['tot'] = @urr_approved
+    @vu['arr']['rapp']['dum'] = @urr_approvedm
+    @vu['arr']['rapp']['duo'] = @urr_approvedo
+    @vu['arr']['rgen']['tot'] = @urr_generated
+    @vu['arr']['rlos']['tot'] = @urr_lost
+    @vu['arr']['rrec']['tot'] = @urr_received
+    @vu['arr']['rrec']['dum'] = @urr_receivedm
+    @vu['arr']['rrec']['duo'] = @urr_receivedo
+    @vu['arr']['rrej']['tot'] = @urr_rejected
+    @vu['arr']['rrej']['dla'] = @urr_rejectedla
+    @vu['arr']['rrej']['dlm'] = @urr_rejectedlam
+    @vu['arr']['rrej']['dlo'] = @urr_rejectedlao
+    @vu['arr']['rrej']['dum'] = @urr_rejectedm
+    @vu['arr']['rrej']['duo'] = @urr_rejectedo
+    @vu['arr']['rrej']['dgm'] = @urr_rejectedgm
+    @vu['arr']['rrej']['dgf'] = @urr_rejectedgf
+    @vu['arr']['rrej']['dpd'] = @urr_rejectedpd
+    @vu['arr']['rrej']['dpr'] = @urr_rejectedpr
+    @vu['arr']['rrej']['dpo'] = @urr_rejectedpo
+    @vu['aru']['rapp']['tot'] = @uru_approved
+    @vu['aru']['rapp']['dum'] = @uru_approvedm
+    @vu['aru']['rapp']['duo'] = @uru_approvedo
+    @vu['aru']['rgen']['tot'] = @uru_generated
+    @vu['aru']['rlos']['tot'] = @uru_lost
+    @vu['aru']['rrec']['tot'] = @uru_received
+    @vu['aru']['rrec']['dum'] = @uru_receivedm
+    @vu['aru']['rrec']['duo'] = @uru_receivedo
+    @vu['aru']['rrej']['tot'] = @uru_rejected
+    @vu['aru']['rrej']['dla'] = @uru_rejectedla
+    @vu['aru']['rrej']['dlm'] = @uru_rejectedlam
+    @vu['aru']['rrej']['dlo'] = @uru_rejectedlao
+    @vu['aru']['rrej']['dum'] = @uru_rejectedm
+    @vu['aru']['rrej']['duo'] = @uru_rejectedo
+    @vu['aru']['rrej']['dgm'] = @uru_rejectedgm
+    @vu['aru']['rrej']['dgf'] = @uru_rejectedgf
+    @vu['aru']['rrej']['dpd'] = @uru_rejectedpd
+    @vu['aru']['rrej']['dpr'] = @uru_rejectedpr
+    @vu['aru']['rrej']['dpo'] = @uru_rejectedpo
+    return @vu
+  end
+
+  def reportuv_restore(datum)
+    @vu = datum
+    @trv, @truv, @truvm, @truvo = @vu['tmp']
+    @truvmp = self.percente(@truvm,@truv)
+    @truvop = self.percente(@truvo,@truv)
+    @usr_ab_voters =   @vu['aab']['tota']['tot']
+    @uab_approved =    @vu['aab']['rapp']['tot']
+    @uab_approvedm =   @vu['aab']['rapp']['dum']
+    @uab_approvedo =   @vu['aab']['rapp']['duo']
+    @uab_generated =   @vu['aab']['rgen']['tot']
+    @uab_lost =        @vu['aab']['rlos']['tot']
+    @uab_received =    @vu['aab']['rrec']['tot']
+    @uab_receivedm =   @vu['aab']['rrec']['dum']
+    @uab_receivedo =   @vu['aab']['rrec']['duo']
+    @uab_rejected =    @vu['aab']['rrej']['tot']
+    @uab_rejectedla =  @vu['aab']['rrej']['dla']
+    @uab_rejectedlam = @vu['aab']['rrej']['dlm']
+    @uab_rejectedlao = @vu['aab']['rrej']['dlo']
+    @uab_rejectedm =   @vu['aab']['rrej']['dum']
+    @uab_rejectedo =   @vu['aab']['rrej']['duo']
+    @uab_rejectedgm =  @vu['aab']['rrej']['dgm']
+    @uab_rejectedgf =  @vu['aab']['rrej']['dgf']
+    @uab_rejectedpd =  @vu['aab']['rrej']['dpd']
+    @uab_rejectedpr =  @vu['aab']['rrej']['dpr']
+    @uab_rejectedpo =  @vu['aab']['rrej']['dpo']
+    @uam_complete =    @vu['aua']['rcom']['tot']
+    @usr_ab_doubles =  @vu['aua']['rdou']['tot']
+    @usr_ab_downlds =  @vu['aua']['rdow']['tot']
+    @uam_use =         @vu['aua']['tota']['tot']
+    @uar_approved =    @vu['aas']['rapp']['tot']
+    @uar_approvedm =   @vu['aas']['rapp']['dum']
+    @uar_approvedo =   @vu['aas']['rapp']['duo']
+    @uar_generated =   @vu['aas']['rgen']['tot']
+    @uar_lost =        @vu['aas']['rlos']['tot']
+    @uar_received =    @vu['aas']['rrec']['tot']
+    @uar_receivedm =   @vu['aas']['rrec']['dum']
+    @uar_receivedo =   @vu['aas']['rrec']['duo']
+    @uar_rejected =    @vu['aas']['rrej']['tot']
+    @uar_rejectedla =  @vu['aas']['rrej']['dla']
+    @uar_rejectedlam = @vu['aas']['rrej']['dlm']
+    @uar_rejectedlao = @vu['aas']['rrej']['dlo']
+    @uar_rejectedm =   @vu['aas']['rrej']['dum']
+    @uar_rejectedo =   @vu['aas']['rrej']['duo']
+    @uar_rejectedgm =  @vu['aas']['rrej']['dgm']
+    @uar_rejectedgf =  @vu['aas']['rrej']['dgf']
+    @uar_rejectedpd =  @vu['aas']['rrej']['dpd']
+    @uar_rejectedpr =  @vu['aas']['rrej']['dpr']
+    @uar_rejectedpo =  @vu['aas']['rrej']['dpo']
+    @urm_complete =    @vu['aur']['rcom']['tot']
+    @urm_use =         @vu['aur']['tota']['tot']
+    @usr_approved =    @vu['aur']['rapp']['tot']
+    @usr_generated =   @vu['aur']['rgen']['tot']
+    @usr_lost =        @vu['aur']['rlos']['tot']
+    @usr_received =    @vu['aur']['rrec']['tot']
+    @usr_rejected =    @vu['aur']['rrej']['tot']
+    @urr_approved =    @vu['arr']['rapp']['tot']
+    @urr_approvedm =   @vu['arr']['rapp']['dum']
+    @urr_approvedo =   @vu['arr']['rapp']['duo']
+    @urr_generated =   @vu['arr']['rgen']['tot']
+    @urr_lost =        @vu['arr']['rlos']['tot']
+    @urr_received =    @vu['arr']['rrec']['tot']
+    @urr_receivedm =   @vu['arr']['rrec']['dum']
+    @urr_receivedo =   @vu['arr']['rrec']['duo']
+    @urr_rejected =    @vu['arr']['rrej']['tot']
+    @urr_rejectedla =  @vu['arr']['rrej']['dla']
+    @urr_rejectedlam = @vu['arr']['rrej']['dlm']
+    @urr_rejectedlao = @vu['arr']['rrej']['dlo']
+    @urr_rejectedm =   @vu['arr']['rrej']['dum']
+    @urr_rejectedo =   @vu['arr']['rrej']['duo']
+    @urr_rejectedgm =  @vu['arr']['rrej']['dgm']
+    @urr_rejectedgf =  @vu['arr']['rrej']['dgf']
+    @urr_rejectedpd =  @vu['arr']['rrej']['dpd']
+    @urr_rejectedpr =  @vu['arr']['rrej']['dpr']
+    @urr_rejectedpo =  @vu['arr']['rrej']['dpo']
+    @uru_approved =    @vu['aru']['rapp']['tot']
+    @uru_approvedm =   @vu['aru']['rapp']['dum']
+    @uru_approvedo =   @vu['aru']['rapp']['duo']
+    @uru_generated =   @vu['aru']['rgen']['tot']
+    @uru_lost =        @vu['aru']['rlos']['tot']
+    @uru_received =    @vu['aru']['rrec']['tot']
+    @uru_receivedm =   @vu['aru']['rrec']['dum']
+    @uru_receivedo =   @vu['aru']['rrec']['duo']
+    @uru_rejected =    @vu['aru']['rrej']['tot']
+    @uru_rejectedla =  @vu['aru']['rrej']['dla']
+    @uru_rejectedlam = @vu['aru']['rrej']['dlm']
+    @uru_rejectedlao = @vu['aru']['rrej']['dlo']
+    @uru_rejectedm =   @vu['aru']['rrej']['dum']
+    @uru_rejectedo =   @vu['aru']['rrej']['duo']
+    @uru_rejectedgm =  @vu['aru']['rrej']['dgm']
+    @uru_rejectedgf =  @vu['aru']['rrej']['dgf']
+    @uru_rejectedpd =  @vu['aru']['rrej']['dpd']
+    @uru_rejectedpr =  @vu['aru']['rrej']['dpr']
+    @uru_rejectedpo =  @vu['aru']['rrej']['dpo']
   end
 
   # DELETE /analytic_reports/1
-  # DELETE /analytic_reports/1.json
   def destroy
     @analytic_report = AnalyticReport.find(params[:id])
     @analytic_report.destroy
 
     respond_to do |format|
       format.html { redirect_to analytic_reports_url }
-      format.json { head :no_content }
     end
   end
 

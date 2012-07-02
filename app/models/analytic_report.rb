@@ -21,23 +21,15 @@ class AnalyticReport < ActiveRecord::Base
     else
       raise Exception, "Unknown Report Number: "+self.num.to_s
     end
-    self.data = "{\"nreports\":"+self.num.to_s+"}"
+    self.data = ""
     self.save
-  end
-
-  def get_val(key)
-    datum = self.get_data
-    if (datum.is_a?(Hash) && datum.keys.include?(key))
-      return datum[key].to_s
-    end
-    return ""
   end
 
   def get_data
     return ActiveSupport::JSON.decode(self.data)
   end
 
-  def set_data(datum)
+  def set_data(datum,eid)
     self.data = ActiveSupport::JSON.encode(datum).to_s
     self.save
   end
