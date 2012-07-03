@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@av['tot'])+" Registered Voters"
+                  %td= number_with_delimiter(@trv)+" Registered Voters"
               #likeh4b Summary
               %p 
                 This report summarizes the participation of
@@ -64,25 +64,25 @@
               #likeh4b Registered and Participating Voters
               %table
                 %tr
-                  %td= number_with_delimiter(@av['tot'])
+                  %td= number_with_delimiter(@trv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters at the end of the reporting period
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot']-@av['dda'])
+                    = number_with_delimiter(@trv-@trdva)
                   %td Domestic in-person voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['dda'])
+                    = number_with_delimiter(@trdva)
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['duu'])
+                    = number_with_delimiter(@truv)
                   %td Eligible UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['dul'])
+                    = number_with_delimiter(@truvla)
                   %td UOCAVA voters with lapsed absentee status
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
@@ -128,12 +128,12 @@
                   %td Eligible UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpuvlas
+                    = @tpuvlap
                   %td UOCAVA voters with lapsed absentee status
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@av['das'])
+                  %td= number_with_delimiter(@trva)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered absentee voters at the end of the reporting period
@@ -360,13 +360,13 @@
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot'])
+                    = number_with_delimiter(@trv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td All voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot']-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
+                    = number_with_delimiter(@trv-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -412,7 +412,7 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot'])
+                    = number_with_delimiter(@trv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td All voters
@@ -458,29 +458,29 @@
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot'])
+                    = number_with_delimiter(@trv)
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @av['dgf_p']
+                    = @trvfp
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @av['dgm_p']
+                    = @trvmp
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @av['dpd_p']
+                    = @trvdp
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @av['dpr_p']
+                    = @trvrp
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @av['dpo_p']
+                    = @trvop
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
@@ -606,7 +606,7 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@av['tot']-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
+                    = number_with_delimiter(@trv-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating registered voters

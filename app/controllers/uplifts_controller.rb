@@ -120,7 +120,7 @@ class UpliftsController < ApplicationController
         v.vupdate = ""
         v.vabsreq = ""
         v.election_id = eid
-        #fetchVoterFieldsFromRecord(v)
+        fetchVoterFieldsFromRecord(v)
       end
     end
     return voter

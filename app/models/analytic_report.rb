@@ -8,19 +8,16 @@ class AnalyticReport < ActiveRecord::Base
     case self.num
     when 1
       self.name="Voter Participation Report"
-      self.desc="What Report #1 does is ..."
     when 2
       self.name="Voter Outcome Report"
-      self.desc="What Report #2 does is ..."
     when 3
       self.name="UOCAVA Voter Online Usage Report"
-      self.desc="What Report #3 does is ..."
     when 4
       self.name="UOCAVA Voter Activity Report"
-      self.desc="What Report #4 does is ..."
     else
       raise Exception, "Unknown Report Number: "+self.num.to_s
     end
+    self.desc = ""
     self.data = ""
     self.save
   end
@@ -41,6 +38,26 @@ class AnalyticReport < ActiveRecord::Base
 
   def stale_data(update=false)
     return (self.data == "" || (update && update > self.updated_at))
+  end
+
+  def linebreak(n)
+    len = self.data.length
+    return self.data if len <= n
+    return self.lbreak(self.data,len,n)
+  end
+
+  def lbreak(str,len,n)
+    return str if len <= n
+    while (n < len)
+      if str[n] =~ /[:,}]/
+        return str[0..n]+" "+lbreak(str[n+1..-1],1+len-n,n)
+      elsif str[n] =~ /{/
+        return str[0..n-1]+" "+lbreak(str[n..-1],len-n,n)
+      else
+        n += 1
+      end
+    end
+    return str
   end
 
 end
