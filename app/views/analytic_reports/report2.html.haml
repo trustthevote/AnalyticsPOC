@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@trv)+" Registered Voters"
+                  %td= number_with_delimiter(@av['tot'])+" Registered Voters"
               #likeh4b Summary
               %p 
                 This report summarizes the full record of the transactions of
@@ -102,371 +102,371 @@
               #likeh4b Outcomes
               %table
                 %tr
-                  %td= number_with_delimiter(@vnoruar['tot'])
+                  %td= number_with_delimiter(@vp['nra']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters who did not request a record update or absentee ballot
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['vno'])
+                    = number_with_delimiter(@vp['nra']['vno'])
                   %td Did not participate
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['vra'])
+                    = number_with_delimiter(@vp['nra']['vra'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['vpa'])
+                    = number_with_delimiter(@vp['nra']['vpa'])
                   %td Voted provisionally, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['vpr'])
+                    = number_with_delimiter(@vp['nra']['vpr'])
                   %td Voted provisionally, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['vaa'])
+                    = number_with_delimiter(@vp['nra']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['varl'])
+                    = number_with_delimiter(@vp['nra']['varl'])
                   %td Voted absentee, ballot rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vnoruar['varo'])
+                    = number_with_delimiter(@vp['nra']['varo'])
                   %td Voted absentee, ballot rejected for other reason
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@vruappr['tot'])
+                  %td= number_with_delimiter(@vp['rua']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose record update requests were approved
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['vno'])
+                    = number_with_delimiter(@vp['rua']['vno'])
                   %td Did not participate
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['vra'])
+                    = number_with_delimiter(@vp['rua']['vra'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['vpa'])
+                    = number_with_delimiter(@vp['rua']['vpa'])
                   %td Voted provisionally, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['vpr'])
+                    = number_with_delimiter(@vp['rua']['vpr'])
                   %td Voted provisionally, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['vaa'])
+                    = number_with_delimiter(@vp['rua']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['varl'])
+                    = number_with_delimiter(@vp['rua']['varl'])
                   %td Voted absentee, ballot rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vruappr['varo'])
+                    = number_with_delimiter(@vp['rua']['varo'])
                   %td Voted absentee, ballot rejected for other reason
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@vrufail['tot'])
+                  %td= number_with_delimiter(@vp['rur']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose record update requests were ultimately unsuccessful
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['vno'])
+                    = number_with_delimiter(@vp['rur']['vno'])
                   %td Did not participate
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['vra'])
+                    = number_with_delimiter(@vp['rur']['vra'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['vpa'])
+                    = number_with_delimiter(@vp['rur']['vpa'])
                   %td Voted provisionally, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['vpr'])
+                    = number_with_delimiter(@vp['rur']['vpr'])
                   %td Voted provisionally, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['vaa'])
+                    = number_with_delimiter(@vp['rur']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['varl'])
+                    = number_with_delimiter(@vp['rur']['varl'])
                   %td Voted absentee, ballot rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vrufail['varo'])
+                    = number_with_delimiter(@vp['rur']['varo'])
                   %td Voted absentee, ballot rejected for other reason
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@varappr['tot'])
+                  %td= number_with_delimiter(@vp['asa']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose absentee requests were approved
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['vno'])
+                    = number_with_delimiter(@vp['asa']['vno'])
                   %td Did not participate
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['vra'])
+                    = number_with_delimiter(@vp['asa']['vra'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['vpa'])
+                    = number_with_delimiter(@vp['asa']['vpa'])
                   %td Voted provisionally, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['vpr'])
+                    = number_with_delimiter(@vp['asa']['vpr'])
                   %td Voted provisionally, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['vaa'])
+                    = number_with_delimiter(@vp['asa']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['varl'])
+                    = number_with_delimiter(@vp['asa']['varl'])
                   %td Voted absentee, ballot rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varappr['varo'])
+                    = number_with_delimiter(@vp['asa']['varo'])
                   %td Voted absentee, ballot rejected for other reason
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@varfail['tot'])
+                  %td= number_with_delimiter(@vp['asr']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose absentee requests were ultimately unsuccessful
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['vno'])
+                    = number_with_delimiter(@vp['asr']['vno'])
                   %td Did not participate
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['vra'])
+                    = number_with_delimiter(@vp['asr']['vra'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['vpa'])
+                    = number_with_delimiter(@vp['asr']['vpa'])
                   %td Voted provisionally, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['vpr'])
+                    = number_with_delimiter(@vp['asr']['vpr'])
                   %td Voted provisionally, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['vaa'])
+                    = number_with_delimiter(@vp['asr']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['varl'])
+                    = number_with_delimiter(@vp['asr']['varl'])
                   %td Voted absentee, ballot rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@varfail['varo'])
+                    = number_with_delimiter(@vp['asr']['varo'])
                   %td Voted absentee, ballot rejected for other reason
               #likeh4b Demographics
               %table
                 %tr
-                  %td= number_with_delimiter(@trv)
+                  %td= number_with_delimiter(@vp['all']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avotersp[0]
+                    = @vp['allp']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avotersp[1]
+                    = @vp['allp']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avotersp[2]
+                    = @vp['allp']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avotersp[3] 
+                    = @vp['allp']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avotersp[4]
+                    = @vp['allp']['dpo']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@vnoruar['tot'])
+                  %td= number_with_delimiter(@vp['nra']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters who did not request a record update or absentee ballot
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vnoruarp[0]
+                    = @vp['nrap']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vnoruarp[1]
+                    = @vp['nrap']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vnoruarp[2]
+                    = @vp['nrap']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vnoruarp[3] 
+                    = @vp['nrap']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vnoruarp[4]
+                    = @vp['nrap']['dpo']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@vruappr['tot'])
+                  %td= number_with_delimiter(@vp['rua']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose record update requests were approved
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[0]
+                    = @vp['ruap']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[1]
+                    = @vp['ruap']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[2]
+                    = @vp['ruap']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[3] 
+                    = @vp['ruap']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[4]
+                    = @vp['ruap']['dpo']
                   %td 3rd Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[5]
+                    = @vp['ruap']['don']
                   %td Used online voter services
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vruapprp[6]
+                    = @vp['ruap']['dox']
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@vrufail['tot'])
+                  %td= number_with_delimiter(@vp['rur']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose record update requests were ultimately unsuccessful
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[0]
+                    = @vp['rurp']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[1]
+                    = @vp['rurp']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[2]
+                    = @vp['rurp']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[3] 
+                    = @vp['rurp']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[4]
+                    = @vp['rurp']['dpo']
                   %td 3rd Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[5]
+                    = @vp['rurp']['don']
                   %td Used online voter services
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vrufailp[6]
+                    = @vp['rurp']['dox']
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@varappr['tot'])
+                  %td= number_with_delimiter(@vp['asa']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose absentee requests were approved
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[0]
+                    = @vp['asap']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[1]
+                    = @vp['asap']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[2]
+                    = @vp['asap']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[3] 
+                    = @vp['asap']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[4]
+                    = @vp['asap']['dpo']
                   %td 3rd Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[5]
+                    = @vp['asap']['don']
                   %td Used online voter services
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varapprp[6]
+                    = @vp['asap']['dox']
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@varfail['tot'])
+                  %td= number_with_delimiter(@vp['asr']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose absentee requests were ultimately unsuccessful
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[0]
+                    = @vp['asrp']['dgm']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[1]
+                    = @vp['asrp']['dgf']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[2]
+                    = @vp['asrp']['dpd']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[3] 
+                    = @vp['asrp']['dpr'] 
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[4]
+                    = @vp['asrp']['dpo']
                   %td 3rd Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[5]
+                    = @vp['asrp']['don']
                   %td Used online voter services
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @varfailp[6]
+                    = @vp['asrp']['dox']
                   %td Did not use online voter services
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;

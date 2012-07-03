@@ -29,9 +29,18 @@ class AnalyticReport < ActiveRecord::Base
     return ActiveSupport::JSON.decode(self.data)
   end
 
-  def set_data(datum,eid)
+  def set_data(datum)
     self.data = ActiveSupport::JSON.encode(datum).to_s
     self.save
+  end
+
+  def unset_data(datum)
+    self.data = ""
+    self.save
+  end
+
+  def stale_data(update=false)
+    return (self.data == "" || (update && update > self.updated_at))
   end
 
 end

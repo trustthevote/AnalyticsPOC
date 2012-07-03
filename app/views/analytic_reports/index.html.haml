@@ -1,5 +1,4 @@
-%p#notice= notice
-
+#frontal
 -if (AnalyticReport.all.length > 0)
   .row
     .span6
@@ -10,37 +9,28 @@
       = link_to 'Show XML', :show_xml => true
     .span2
       %b= link_to "Download XML", format: 'xml', class: 'btn'
-  %br
-  %table{:style=>"text-align:center"}
-    %tr
-      %th Num
-      %th &nbsp;
-      %th Date
-      %th &nbsp;
-      %th Name
-      %th &nbsp;
-      %th Desc
-      %th &nbsp;
-      %th Data
-      %th &nbsp;
-      %th Election ID
-      %th &nbsp;
-      %th
-    - AnalyticReport.all.each do |ar|
-      %tr
-        %td= ar.num
-        %td
-        %td= ar.day.to_s
-        %td
-        %td= ar.name
-        %td
-        %td= ar.desc
-        %td
-        %td= ar.data
-        %td
-        %td= ar.election_id.to_s
-        %td
-        %td= link_to 'Delete', ar, :confirm=>'Are you sure?', :method=>:delete
+  .row
+    .span12
+      %table
+        %tr
+          %th Num
+          %th &nbsp;
+          %th ID
+          %th &nbsp;
+          %th Data
+          %th &nbsp;
+          %th
+        - AnalyticReport.all.each do |ar|
+          %tr
+            %td= ar.num
+            %td
+            %td= ar.election_id.to_s
+            %td
+            %td= ar.data
+            %td
+            %td= link_to 'Delete', ar, :confirm=>'Are you sure?', :method=>:delete
+          %tr
+            %td &nbsp;
 -else
   .row
     .span6

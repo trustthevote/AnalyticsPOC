@@ -120,33 +120,30 @@ class UpliftsController < ApplicationController
         v.vupdate = ""
         v.vabsreq = ""
         v.election_id = eid
-        #fetchVoterFields(v)
+        #fetchVoterFieldsFromRecord(v)
       end
     end
     return voter
   end
 
-  def fetchVoterFields(v)
-    VoterRecord.all.each do |vr|
-      if v.vname == vr.vname
-        v.vgender = vr.gender
-        v.vparty = vr.party
-        v.vother = vr.other
-        v.vstatus = vr.status
-        return
-      end
+  def fetchVoterFieldsFromRecord(v)
+    if vr = VoterRecord.where(:vname=>v.vname).first
+      v.vgender = vr.gender
+      v.vparty = vr.party
+      v.vother = vr.other
+      v.vstatus = vr.status
     end
   end
 
   def updateVoterFieldsFromRecord(vr)
-    Voter.all.each do |v|
-      if v.vname == vr.vname
+    if v = Voter.where(:vname=>vr.vname).first
+      unless (v.vgender == vr.gender && v.vparty == vr.party &&
+              v.vother == vr.other && v.vstatus == vr.status)
         v.vgender = vr.gender
         v.vparty = vr.party
         v.vother = vr.other
         v.vstatus = vr.status
         v.save
-        return
       end
     end
   end
@@ -306,44 +303,69 @@ XSL
       render :uplift
       return false
     end
+    avhash = Hash.new {}
+    %w(das dda ddo dgf dgm dnw dpd dpo dpr dul dum duo duu tot).each do |k|
+      avhash[k] = 0
+    end
     vrhash = Hash.new {}
     csv.shift
     csv.each do |row|
       if row =~ /^(\w+),(\w+),(\w+),(\w+),(\w*),(\w*)/
         vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
                            :other=>$5, :status=>$6)
-        vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
-        vr.save
       elsif row =~ /^(\w+),(\w+),(\w+),(\w+),(\w*)/
         vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
                            :other=>$5, :status=>"")
-        vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
-        vr.save
       elsif row =~ /^(\w+),(\w+),(\w+),(\w+)/
         vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
                            :other=>"", :status=>"")
-        vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
-        vr.save
       else
         @uplift_err = "Invalid row in CSV file: "+row
         render :uplift
         return false
       end
+      vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
+      vr.save
+      avhash['tot'] += 1
+      avhash['dgm'] += 1 if vr.male
+      avhash['dgf'] += 1 if vr.female
+      avhash['dpd'] += 1 if vr.party_democratic
+      avhash['dpr'] += 1 if vr.party_republican
+      avhash['dpo'] += 1 if vr.party_other
+      avhash['das'] += 1 if vr.absentee_status
+      avhash['dnw'] += 1 if vr.new #JVC
+      if (vr.vtype=="UOCAVA")
+        avhash['duu'] += 1
+        avhash['dum'] += 1 if vr.military
+        avhash['dul'] += 1 if vr.absentee_ulapsed
+      else
+        avhash['ddo'] += 1
+        avhash['dda'] += 1 if vr.absentee_status
+      end
     end
+    avhash['duo'] = avhash['duu']-avhash['dum']
+    avhash['dum_p'] = self.percent(avhash['dum'],avhash['duu'])
+    avhash['duo_p'] = self.percent(avhash['duo'],avhash['duu'])
+    avhash['dgm_p'] = self.percent(avhash['dgm'],avhash['tot'])
+    avhash['dgf_p'] = self.percent(avhash['dgf'],avhash['tot'])
+    avhash['dpd_p'] = self.percent(avhash['dpd'],avhash['tot'])
+    avhash['dpr_p'] = self.percent(avhash['dpr'],avhash['tot'])
+    avhash['dpo_p'] = self.percent(avhash['dpo'],avhash['tot'])
+    voter_record_report_save(avhash,@election.id)
     Voter.all.each do |v|
       gender, party, other, status = "", "", "", ""
       if vrhash.keys.include?(v.vname)
         gender, party, other, status = vrhash[v.vname]
-      end
-      if (v.vgender != gender || v.vparty != party ||
-          v.vother != other || v.vstatus != status)
-        v.vgender, v.vparty, v.vother, v.vstatus = gender, party, other, status
-        v.save
+        if (v.vgender != gender || v.vparty != party ||
+            v.vother != other || v.vstatus != status)
+          v.vgender, v.vparty, v.vother, v.vstatus = gender,party,other,status
+          v.save
+        end
       end
     end
     return true
   end
-  
+
   def voter_records_file_new (fupath, file)
     path = 'public/records'
     unless File.directory?(path) || FileUtils.mkdir(path)
