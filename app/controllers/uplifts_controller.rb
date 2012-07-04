@@ -132,25 +132,25 @@ class UpliftsController < ApplicationController
       v.vparty = vr.party
       v.vother = vr.other
       v.vstatus = vr.status
+      v.vnew = vr.new
     end
   end
 
   def updateVoterFieldsFromRecord(vr)
     if v = Voter.where(:vname=>vr.vname).first
-      unless (v.vgender == vr.gender && v.vparty == vr.party &&
-              v.vother == vr.other && v.vstatus == vr.status)
+      unless (v.vgender==vr.gender && v.vparty==vr.party &&
+              v.vother==vr.other && v.vstatus==vr.status && v.vnew==vr.new)
         v.vgender = vr.gender
         v.vparty = vr.party
         v.vother = vr.other
         v.vstatus = vr.status
+        v.vnew = vr.new
         v.save
       end
     end
   end
 
   def syncVoter(voter, vtr)
-    voter.vnew = true if (vtr.action == 'approve' &&
-                          vtr.form =~ /Voter Registration/)
     if voter.voted
       return
     elsif (vtr.form =~ /Poll Book/)
@@ -304,7 +304,10 @@ XSL
       return false
     end
     avhash = Hash.new {}
-    %w(das dda ddo dgf dgm dnw dpd dpo dpr dul dum duo duu tot).each do |k|
+    %w(tot das dda ddo dgf dgm dpd dpo dpr dua dul dum duo duu).each do |k|
+      avhash[k] = 0
+    end
+    %w(dnw ngf ngm npd npo npr).each do |k|
       avhash[k] = 0
     end
     vrhash = Hash.new {}
@@ -327,17 +330,25 @@ XSL
       vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
       vr.save
       avhash['tot'] += 1
+      avhash['das'] += 1 if vr.absentee_status
       avhash['dgm'] += 1 if vr.male
       avhash['dgf'] += 1 if vr.female
       avhash['dpd'] += 1 if vr.party_democratic
       avhash['dpr'] += 1 if vr.party_republican
       avhash['dpo'] += 1 if vr.party_other
-      avhash['das'] += 1 if vr.absentee_status
-      avhash['dnw'] += 1 if vr.new #JVC
-      if (vr.vtype=="UOCAVA")
+      if vr.new
+        avhash['dnw'] += 1
+        avhash['ngm'] += 1 if vr.male
+        avhash['ngf'] += 1 if vr.female
+        avhash['npd'] += 1 if vr.party_democratic
+        avhash['npr'] += 1 if vr.party_republican
+        avhash['npo'] += 1 if vr.party_other
+      end
+      if vr.uocava
         avhash['duu'] += 1
         avhash['dum'] += 1 if vr.military
         avhash['dul'] += 1 if vr.absentee_ulapsed
+        avhash['dua'] += 1 unless vr.absentee_ulapsed
       else
         avhash['ddo'] += 1
         avhash['dda'] += 1 if vr.absentee_status
@@ -346,11 +357,12 @@ XSL
     avhash['duo'] = avhash['duu']-avhash['dum']
     avhash['dum_p'] = self.percent(avhash['dum'],avhash['duu'])
     avhash['duo_p'] = self.percent(avhash['duo'],avhash['duu'])
-    avhash['dgm_p'] = self.percent(avhash['dgm'],avhash['tot'])
-    avhash['dgf_p'] = self.percent(avhash['dgf'],avhash['tot'])
-    avhash['dpd_p'] = self.percent(avhash['dpd'],avhash['tot'])
-    avhash['dpr_p'] = self.percent(avhash['dpr'],avhash['tot'])
-    avhash['dpo_p'] = self.percent(avhash['dpo'],avhash['tot'])
+    %w(dgf dgm dpd dpo dpr).each do |k|
+      avhash[k+'_p'] = self.percent(avhash[k],avhash['tot'])
+    end
+    %w(ngf ngm npd npo npr).each do |k|
+      avhash[k+'_p'] = self.percent(avhash[k],avhash['dnw'])
+    end
     voter_record_report_save(avhash,@election.id)
     Voter.all.each do |v|
       gender, party, other, status = "", "", "", ""

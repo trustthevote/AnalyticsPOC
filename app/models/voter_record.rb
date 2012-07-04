@@ -1,5 +1,9 @@
 class VoterRecord < ActiveRecord::Base
 
+  def uocava
+    self.vtype=~/uoc/i
+  end
+  
   def military
     self.other=~/military/i
   end
@@ -13,7 +17,7 @@ class VoterRecord < ActiveRecord::Base
   end
   
   def new
-    rand(100) < 12
+    (self.vname[1..-1].to_i)%5==0
   end
 
   def male

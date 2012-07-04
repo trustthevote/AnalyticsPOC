@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@av['duu'])+" UOCAVA Voters"
+                  %td= number_with_delimiter(@va['duu'])+" UOCAVA Voters"
               #likeh4b Summary
               %p{:style=>"margin-right:10px;"}
                 This report summarizes the full record of the transactions of
@@ -81,14 +81,14 @@
               #likeh4b Registered Voters
               %table{:style=>"margin-bottom:5px;"}
                 %tr
-                  %td{:style=>"text-align:right;"}=number_with_delimiter(@av['tot'])
+                  %td{:style=>"text-align:right;"}=number_with_delimiter(@va['tot'])
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Total registered voters at the end of the reporting period
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td{:style=>"text-align:right;"}= number_with_delimiter(@av['duu'])
+                  %td{:style=>"text-align:right;"}= number_with_delimiter(@va['duu'])
                   %td= "&ndash;".html_safe
                   %td{:colspan=>3} 
                     Total UOCAVA registered voters at the end of the reporting period
@@ -96,14 +96,14 @@
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @av['dum_p']
-                    = "Military voters ("+number_with_delimiter(@av['dum'])+")"
+                    = @va['dum_p']
+                    = "Military voters ("+number_with_delimiter(@va['dum'])+")"
                 %tr
                   %td
                   %td
                   %td{:colspan=>3}
-                    = @av['duo_p']
-                    = "Non-military overseas voters ("+number_with_delimiter(@av['duo'])+")"
+                    = @va['duo_p']
+                    = "Non-military overseas voters ("+number_with_delimiter(@va['duo'])+")"
               #likeh4b Demographic Breakdown: Service Request Rejections (For Any Reason)
               %table{:style=>"margin-bottom:5px;"}
                 %tr

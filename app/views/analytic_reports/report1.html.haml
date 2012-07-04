@@ -52,7 +52,7 @@
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@trv)+" Registered Voters"
+                  %td= number_with_delimiter(@va['tot'])+" Registered Voters"
               #likeh4b Summary
               %p 
                 This report summarizes the participation of
@@ -64,150 +64,150 @@
               #likeh4b Registered and Participating Voters
               %table
                 %tr
-                  %td= number_with_delimiter(@trv)
+                  %td= number_with_delimiter(@va['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters at the end of the reporting period
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv-@trdva)
+                    = number_with_delimiter(@vp['ddo']['vi'])
                   %td Domestic in-person voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@trdva)
+                    = number_with_delimiter(@va['dda'])
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@truv)
+                    = number_with_delimiter(@va['duu'])
                   %td Eligible UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@truvla)
+                    = number_with_delimiter(@va['dul'])
                   %td UOCAVA voters with lapsed absentee status
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@tpv)
-                  %td{:style=>"text-align:right;"}
-                    = "&mdash;".html_safe
-                  %td Voters who participated in the election
-                %tr
-                  %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvv-@tpdva)
-                  %td Domestic in-person voters
-                %tr
-                  %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdva)
-                  %td Domestic absentee voters
-                %tr
-                  %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuv)
-                  %td Eligible UOCAVA voters
-                %tr
-                  %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuvla)
-                  %td UOCAVA voters with lapsed absentee status
-                %tr{:style=>"line-height:10px;"}
-                  %td{:colspan=>5} &nbsp;
-                %tr
-                  %td= @tpvp
+                  %td= number_with_delimiter(@vp['vot']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Registered Voters who participated in the election
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpdvip
+                    = number_with_delimiter(@vp['ddo']['vtot']-@vp['ddo']['va']-@vp['ddo']['vp'])
                   %td Domestic in-person voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpdvap
+                    = number_with_delimiter(@vp['ddo']['vaa'])
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpuvp
+                    = number_with_delimiter(@vp['duu']['vtot'])
                   %td Eligible UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpuvlap
+                    = number_with_delimiter(@vp['duu']['vla'])
                   %td UOCAVA voters with lapsed absentee status
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@trva)
+                  %td= @vp['vot']['tot']
+                  %td{:style=>"text-align:right;"}
+                    = "&mdash;".html_safe
+                  %td Registered Voters who participated in the election
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vp['ddo']['vi_p']
+                  %td Domestic in-person voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vp['ddo']['va_p']
+                  %td Domestic absentee voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vp['duu']['tot_p']
+                  %td Eligible UOCAVA voters
+                %tr
+                  %td{:colspan=>2,:style=>"text-align:right;"}
+                    = @vp['duu']['vla_p']
+                  %td UOCAVA voters with lapsed absentee status
+                %tr{:style=>"line-height:10px;"}
+                  %td{:colspan=>5} &nbsp;
+                %tr
+                  %td= number_with_delimiter(@va['dda']+@va['duu'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered absentee voters at the end of the reporting period
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@tpdva+@tpuv)
+                  %td= number_with_delimiter(@vp['ddo']['va']+@vp['duu']['vtot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdva)
+                    = number_with_delimiter(@vp['ddo']['vaa'])
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuv)
+                    = number_with_delimiter(@vp['duu']['vtot'])
                   %td UOCAVA voters
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@tpdva+@tpuvv)
+                  %td= number_with_delimiter(@vp['ddo']['va']+@vp['duu']['vtot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaa+@tpuva)
+                    = number_with_delimiter(@vp['ddo']['vaa']+@vp['duu']['vaa'])
                   %td Voters whose ballot was accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvarl+@tpuvrl)
+                    = number_with_delimiter(@vp['ddo']['varl']+@vp['duu']['varl'])
                   %td Voters whose ballot was rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaro+@tpuvro)
+                    = number_with_delimiter(@vp['ddo']['varo']+@vp['duu']['varo'])
                   %td Voters whose ballot was rejected for other reasons
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@tpdva)
+                  %td= number_with_delimiter(@vp['ddo']['va'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaa)
+                    = number_with_delimiter(@vp['ddo']['vaa'])
                   %td Voters whose ballot was accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvarl)
+                    = number_with_delimiter(@vp['ddo']['varl'])
                   %td Voters whose ballot was rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaro)
+                    = number_with_delimiter(@vp['ddo']['varo'])
                   %td Voters whose ballot was rejected for other reasons
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@tpuvv)
+                  %td= number_with_delimiter(@vp['duu']['vtot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuva)
+                    = number_with_delimiter(@vp['duu']['vaa'])
                   %td Voters whose ballot was accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuvrl)
+                    = number_with_delimiter(@vp['duu']['varl'])
                   %td Voters whose ballot was rejected as late
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpuvro)
+                    = number_with_delimiter(@vp['duu']['varo'])
                   %td Voters whose ballot was rejected for other reasons
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
@@ -215,242 +215,242 @@
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnv)
+                    = number_with_delimiter(@va['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters at the end of the reporting period
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpv)
+                    = number_with_delimiter(@vp['ddo']['vtot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating voters
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpp)
+                    = number_with_delimiter(@vp['ddo']['vp'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Participating voters who voted provisional ballots
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpa)
+                    = number_with_delimiter(@vp['ddo']['vpa'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose ballot was accepted
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpr)
+                    = number_with_delimiter(@vp['ddo']['vpr'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters whose ballot was rejected
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpap)
+                    = number_with_delimiter(@vp['ddo']['vpp_p'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Acceptance rate
               #likeh4b New Voters and Participation
               %table
                 %tr
-                  %td= number_with_delimiter(@tnv)
+                  %td= number_with_delimiter(@vp['new']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnv-@tndva)
+                    = number_with_delimiter(@vp['ddn']['vi'])
                   %td Domestic in-person voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndva)
+                    = number_with_delimiter(@vp['ddn']['va'])
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnuv)
+                    = number_with_delimiter(@vp['dun']['tot'])
                   %td Eligible UOCAVA voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnuvla)
+                    = number_with_delimiter(@vp['dun']['vla'])
                   %td UOCAVA voters with lapsed absentee status
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnv)
+                    = number_with_delimiter(@va['dnw'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnv-(@tndvi+@tndva+@tndvp+@tnuvv))
+                    = number_with_delimiter(@vp['vno']['new'])
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndvi)
+                    = number_with_delimiter(@vp['ddn']['vi'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndvaa+@tnuva)
+                    = number_with_delimiter(@vp['ddn']['vaa']+@vp['dun']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tndvaa)
+                    = number_with_delimiter(@vp['ddn']['vaa'])
                     = "&ndash;".html_safe+' Domestic absentee'
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tnuva)
+                    = number_with_delimiter(@vp['dun']['vaa'])
                     = "&ndash;".html_safe+' UOCAVA'
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndvar+@tnuvr)
+                    = number_with_delimiter(@vp['ddn']['var']+@vp['dun']['var'])
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tndvar)
+                    = number_with_delimiter(@vp['ddn']['var'])
                     = "&ndash;".html_safe+' Domestic absentee'
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tnuvr)
+                    = number_with_delimiter(@vp['dun']['var'])
                     = "&ndash;".html_safe+' UOCAVA'
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndvpa)
+                    = number_with_delimiter(@vp['ddn']['vpa'])
                   %td Voted provisional, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tndvpr)
+                    = number_with_delimiter(@vp['ddn']['vpr'])
                   %td Voted provisional, ballot rejected
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tnv)
+                    = number_with_delimiter(@va['dnw'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp1p
+                    = @vp['vno']['new_p']
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp2p
+                    = @vp['ddn']['vi_p']
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp3p
+                    = @vp['ddn']['vaa_p']
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp4p
+                    = @vp['ddn']['var_p']
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp5p
+                    = @vp['ddn']['vpa_p']
                   %td Voted provisional, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @anp6p
+                    = @vp['ddn']['vpr_p']
                   %td Voted provisional, ballot rejected
               #likeh4b All Voters and Participation
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv)
+                    = number_with_delimiter(@va['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td All voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
+                    = number_with_delimiter(@va['tot']-(@vp['ddo']['vtot']+@vp['duu']['vtot']))
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvi)
+                    = number_with_delimiter(@vp['ddo']['vi'])
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaa+@tpuva)
+                    = number_with_delimiter(@vp['ddo']['vaa']+@vp['duu']['vaa'])
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tpdvaa)
+                    = number_with_delimiter(@vp['ddo']['vaa'])
                     = "&ndash;".html_safe+' Domestic absentee'
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tpuva)
+                    = number_with_delimiter(@vp['duu']['vaa'])
                     = "&ndash;".html_safe+' UOCAVA'
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvar+@tpuvr)
+                    = number_with_delimiter(@vp['ddo']['var']+@vp['duu']['var'])
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tpdvar)
+                    = number_with_delimiter(@vp['ddo']['var'])
                     = "&ndash;".html_safe+' Domestic absentee'
                 %tr
                   %td{:colspan=>2}
                   %td
-                    = number_with_delimiter(@tpuvr)
+                    = number_with_delimiter(@vp['duu']['var'])
                     = "&ndash;".html_safe+' UOCAVA'
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpa)
+                    = number_with_delimiter(@vp['ddo']['vpa'])
                   %td Voted provisional, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpr)
+                    = number_with_delimiter(@vp['ddo']['vpr'])
                   %td Voted provisional, ballot rejected
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv)
+                    = number_with_delimiter(@va['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td All voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    =@avp1p
+                    =@vp['ddo']['tot_p']
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avp2p
+                    = @vp['ddo']['vi_p']
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avp3p
+                    = @vp['ddo']['vaa_p']
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avp4p
+                    = @vp['ddo']['var_p']
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avp5p
+                    = @vp['ddo']['vpa_p']
                   %td Voted provisional, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @avp6p
+                    = @vp['ddo']['vpr_p']
                   %td Voted provisional, ballot rejected
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvrdnp)
+                    = number_with_delimiter(@vp['vno']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New registration but did not vote in election
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvuadnp)
+                    = number_with_delimiter(@vp['vno']['rua'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Updated existing record but did not vote in election
@@ -458,119 +458,119 @@
               %table
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv)
+                    = number_with_delimiter(@va['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trvfp
+                    = @va['dgf_p']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trvmp
+                    = @va['dgm_p']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trvdp
+                    = @va['dpd_p']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trvrp
+                    = @va['dpr_p']
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trvop
+                    = @va['dpo_p']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpv)
+                    = number_with_delimiter(@vp['vot']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Voters who participated in this election
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpvfp
+                    = @vp['vot']['dgf_p']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpvmp
+                    = @vp['vot']['dgm_p']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpvdp
+                    = @vp['vot']['dpd_p']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpvrp
+                    = @vp['vot']['dpr_p']
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpvop
+                    = @vp['vot']['dpo_p']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trnv)
+                    = number_with_delimiter(@va['dnw'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New registered voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trnvfp
+                    = @va['ngf_p']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trnvmp
+                    = @va['ngm_p']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trnvdp
+                    = @va['npd_p']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trnvrp
+                    = @va['npr_p']
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @trnvop
+                    = @va['npo_p']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpnv)
+                    = number_with_delimiter(@vp['new']['vtot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New voters who participated in this election
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpnvfp
+                    = @vp['new']['dgf_p']
                   %td Female
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpnvmp
+                    = @vp['new']['dgm_p']
                   %td Male
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpnvdp
+                    = @vp['new']['dpd_p']
                   %td Democratic Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpnvrp
+                    = @vp['new']['dpr_p']
                   %td Republican Party
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @tpnvop
+                    = @vp['new']['dpo_p']
                   %td 3rd Party
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvi)
+                    = number_with_delimiter(@vp['ddo']['vi'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td In-person voters 
@@ -578,13 +578,13 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvaa+@tpuva)
+                    = number_with_delimiter(@vp['ddo']['vaa']+@vp['duu']['vaa'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Absentee voters whose ballot was accepted
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvar+@tpuvr)
+                    = number_with_delimiter(@vp['ddo']['var']+@vp['duu']['var'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Absentee voters whose ballot was rejected
@@ -592,13 +592,13 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpa)
+                    = number_with_delimiter(@vp['ddo']['vpa'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Provisional voters whose ballot was accepted
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@tpdvpr)
+                    = number_with_delimiter(@vp['ddo']['vpr'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Provisional voters whose ballot was rejected
@@ -606,7 +606,7 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@trv-(@tpdvi+@tpdva+@tpdvp+@tpuvv))
+                    = number_with_delimiter(@va['tot']-(@vp['ddo']['vtot']+@vp['duu']['vtot']))
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating registered voters
@@ -614,13 +614,13 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvuadnp)
+                    = number_with_delimiter(@vp['vno']['rua'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating voters, registration update request accepted
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvurdnp)
+                    = number_with_delimiter(@vp['vno']['rur'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating voters, registration update request rejected
@@ -628,13 +628,13 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvaadnp)
+                    = number_with_delimiter(@vp['vno']['asa'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating voters, absentee ballot request accepted
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@nvardnp)
+                    = number_with_delimiter(@vp['vno']['asr'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating voters, absentee ballot request rejected

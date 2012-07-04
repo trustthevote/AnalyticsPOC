@@ -15,6 +15,10 @@ class Voter < ActiveRecord::Base
     self.voter_transaction_records
   end
 
+  def uocava
+    self.vtype=~/uoc/i
+  end
+  
   def new
     self.vnew
   end
