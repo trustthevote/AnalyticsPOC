@@ -110,7 +110,7 @@
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= @vp['vot']['tot']
+                  %td= @vp['vot']['tot_p']
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Registered Voters who participated in the election
@@ -133,7 +133,7 @@
                 %tr{:style=>"line-height:10px;"}
                   %td{:colspan=>5} &nbsp;
                 %tr
-                  %td= number_with_delimiter(@va['dda']+@va['duu'])
+                  %td= number_with_delimiter(@va['dda']+@va['duu']-@va['dul'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Total registered absentee voters at the end of the reporting period
@@ -146,7 +146,7 @@
                   %td Participating absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vp['ddo']['vaa'])
+                    = number_with_delimiter(@vp['ddo']['va'])
                   %td Domestic absentee voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -252,7 +252,7 @@
               #likeh4b New Voters and Participation
               %table
                 %tr
-                  %td= number_with_delimiter(@vp['new']['tot'])
+                  %td= number_with_delimiter(@va['dnw'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New voters
@@ -444,7 +444,7 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@vp['vno']['tot'])
+                    = number_with_delimiter(@vp['vno']['rra'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td New registration but did not vote in election

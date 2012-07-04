@@ -74,7 +74,7 @@ class AnalyticReportsController < ApplicationController
   def report_vp_init()
     @vp = Hash.new {}
     @vp['vno'] = Hash.new {}
-    %w(tot new rua rur asa asr).each{|k|@vp['vno'][k]=0}
+    %w(tot new rra rua rur asa asr).each{|k|@vp['vno'][k]=0}
     @vp['vno']['new_p'] = "0%"
     %w(vot new).each do |k1|
       @vp[k1] = Hash.new {}
@@ -124,24 +124,7 @@ class AnalyticReportsController < ApplicationController
       end
       return
     else
-      report_vu_init()
       report_vp_init()
-      if false
-      @vp['vot']['tot'], @vp['vot']['dgm'], @vp['vot']['dgf'], @vp['vot']['dpd'], @vp['vot']['dpr'], @vp['vot']['dpo'] = 0,0,0,0,0,0
-      @vp['new']['tot'], @vp['new']['dgm'], @vp['new']['dgf'], @vp['new']['dpd'], @vp['new']['dpr'], @vp['new']['dpo'] = 0,0,0,0,0,0
-      @vp['new']['vtot'], @vp['ddo']['tot'], @vp['ddo']['vtot'] = 0,0,0  # Tot Registered/Domestic/Domestic+Abs Voters
-      @vp['ddo']['va'], @vp['ddo']['vaa'], @vp['ddo']['var'], @vp['ddo']['varl'], @vp['ddo']['varo'] = 0,0,0,0,0
-      @vp['ddo']['vp'], @vp['ddo']['vpa'], @vp['ddo']['vpr'], @vp['ddo']['vi'] = 0,0,0,0
-      @vp['duu']['tot'], @vp['duu']['vtot'], @vp['duu']['vm'], @vp['duu']['vla'] = 0,0,0,0# Total UOC/U+mil/U+lapsed+Abs Voters
-      @vp['duu']['va'], @vp['duu']['vr'], @vp['duu']['vrl'], @vp['duu']['vro'] = 0,0,0,0
-      @vp['ddn']['tot'], @vp['ddn']['vtot'] = 0,0  # Tot Registered/Domestic/Domestic+Abs Voters
-      @vp['ddn']['va'], @vp['ddn']['vaa'], @vp['ddn']['var'], @vp['ddn']['varl'], @vp['ddn']['varo'] = 0,0,0,0,0
-      @vp['ddn']['vp'], @vp['ddn']['vpa'], @vp['ddn']['vpr'], @vp['ddn']['vi'] = 0,0,0,0
-      @vp['dun']['tot'], @vp['dun']['vtot'], @vp['dun']['vm'], @vp['dun']['vla'] = 0,0,0,0
-      @vp['dun']['va'], @vp['dun']['vr'], @vp['dun']['vrl'], @vp['dun']['vro'] = 0,0,0,0
-      @vp['vno']['tot'] = 0
-        @vp['vno']['rua'], @vp['vno']['rur'], @vp['vno']['asa'], @vp['vno']['asr'] = 0, 0, 0, 0
-      end
       @election.voters.each do |v|
         if VoterRecord.count==0 && nova
           @va['dgm'] += 1 if v.male
@@ -169,6 +152,7 @@ class AnalyticReportsController < ApplicationController
           end
         else
           @vp['vno']['new'] += 1 if v.new
+          @vp['vno']['rra'] += 1 if v.vtrs.find{|vtr|(vtr.form=~/Voter Registration/ && vtr.action=~/approve/)} #JVC
           @vp['vno']['rua'] += 1 if v.vru_approved
           @vp['vno']['rur'] += 1 if v.vru_rejected
           @vp['vno']['asa'] += 1 if v.asr_approved

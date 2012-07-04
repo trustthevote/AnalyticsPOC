@@ -20,11 +20,7 @@ class Voter < ActiveRecord::Base
   end
   
   def new
-    self.vnew
-  end
-
-  def vru
-    self.vupdate=~/approve/i
+    (self.vname[1..-1].to_i)%5==0
   end
 
   def male
