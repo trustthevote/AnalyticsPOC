@@ -11,25 +11,117 @@ class ApplicationController < ActionController::Base
       disposition:  'attachment;'
   end
 
-  def voter_record_report_find(eid)
-    unless avr = AnalyticReport.find{|ar|ar.election_id==eid&&ar.num==1}
-      raise Exception, "No Voter Record report found for election with id: "+eid
-    end
-    return avr
-  end
-
-  def voter_record_report_save(avhash, eid)
-    avr = self.voter_record_report_find(eid)
-    avr.set_data(avhash)
-  end
-
-  def voter_record_report_fetch(eid)
-    avr = self.voter_record_report_find(eid)
-    if avr.data == ""
-      return false
+  def voter_report_find(n, eid)
+    if eid==false
+      unless ar = AnalyticReport.find{|ar|ar.num==n}
+        raise Exception, "No #"+n.to_s+" report found"
+      end
     else
-      return avr.get_data
+      unless ar = AnalyticReport.find{|ar|ar.num==n && ar.election_id==eid}
+        raise Exception, "No #"+n.to_s+" report found for election id: "+eid
+      end
     end
+    return ar
+  end
+
+  def voter_report_save(vhash, n, eid)
+    ar = voter_report_find(n, eid)
+    ar.set_data(vhash)
+  end
+
+  def voter_report_fetch(n, eid)
+    ar = voter_report_find(n, eid)
+    return false if ar.data == ""
+    return ar.get_data
+  end
+
+  def voter_participating_report_save(vhash, eid)
+    return voter_report_save(vhash, 2, eid)
+  end
+
+  def voter_participating_report_fetch(eid)
+    return voter_report_fetch(2, eid)
+  end
+
+  def voter_uocava_report_save(vhash, eid)
+    return voter_report_save(vhash, 3, eid)
+  end
+
+  def voter_uocava_report_fetch(eid)
+    return voter_report_fetch(3, eid)
+  end
+
+  def voter_record_report_save(vhash, eid=false)
+    if eid==false
+      return voter_report_save(vhash, 1, eid)
+    elsif eid<0
+      return voter_report_save(vhash, 4, -eid)
+    else
+      return voter_report_save(vhash, 1, eid)
+    end
+  end
+
+  def voter_record_report_fetch(eid=false)
+    if eid==false
+      return voter_report_fetch(1, eid)
+    elsif eid<0
+      return voter_report_fetch(4, -eid)
+    else
+      return voter_report_fetch(1, eid)
+    end
+  end
+
+  def voter_record_report_init()
+    vhash = Hash.new {}
+    %w(tot das dda ddo dgf dgm dpd dpo dpr dua dul dum duo duu).each do |k|
+      vhash[k] = 0
+    end
+    %w(dnw ngf ngm npd npo npr).each do |k|
+      vhash[k] = 0
+    end
+    return vhash
+  end
+
+  def voter_record_report_update(vhash, v)
+    report_demographic(v, vhash)
+    vhash['das'] += 1 if v.absentee_status
+    if v.new
+      vhash['dnw'] += 1
+      vhash['ngm'] += 1 if v.male
+      vhash['ngf'] += 1 if v.female
+      vhash['npd'] += 1 if v.party_democratic
+      vhash['npr'] += 1 if v.party_republican
+      vhash['npo'] += 1 if v.party_other
+    end
+    if v.uocava
+      vhash['duu'] += 1
+      vhash['dum'] += 1 if v.military
+      vhash['dul'] += 1 if v.absentee_ulapsed
+      vhash['dua'] += 1 unless v.absentee_ulapsed
+    else
+      vhash['ddo'] += 1
+      vhash['dda'] += 1 if v.absentee_status
+    end
+  end
+
+  def voter_record_report_finalize(vhash)
+    vhash['duo'] = vhash['duu']-vhash['dum']
+    report_percentage(vhash, %w(dum duo), vhash['duu'])
+    report_percentage(vhash, %w(dgm dgf dpd dpr dpo), vhash['tot'])
+    report_percentage(vhash, %w(ngf ngm npd npo npr), vhash['dnw'])
+  end
+
+  def report_percentage(vhash, keys, total)
+    keys.each{|k| vhash[k+'_p'] = percent(vhash[k],total) }
+  end
+      
+  def report_demographic(v, vhash)
+    vhash['tot'] += 1
+    vhash['dgm'] += 1 if v.male
+    vhash['dgf'] += 1 if v.female
+    vhash['dpd'] += 1 if v.party_democratic
+    vhash['dpr'] += 1 if v.party_republican
+    vhash['dpo'] += 1 if v.party_other
   end
 
   def extra(x,y)

@@ -15,6 +15,7 @@
 
   resource :analytic_report
   match "/analytic_reports/index" => 'analytic_reports#index'
+  match "/analytic_reports/reset" => 'analytic_reports#reset'
   match "/analytic_reports/analytic" => 'analytic_reports#analytic'
 
   resource :voter, only: [], path: '' do

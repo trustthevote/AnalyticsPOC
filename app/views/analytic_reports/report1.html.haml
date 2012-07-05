@@ -90,10 +90,10 @@
                   %td= number_with_delimiter(@vp['vot']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
-                  %td Registered Voters who participated in the election
+                  %td Registered voters who participated in the election
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@vp['ddo']['vtot']-@vp['ddo']['va']-@vp['ddo']['vp'])
+                    = number_with_delimiter(@vp['ddo']['vi'])
                   %td Domestic in-person voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -113,7 +113,7 @@
                   %td= @vp['vot']['tot_p']
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
-                  %td Registered Voters who participated in the election
+                  %td Registered voters who participated in the election
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
                     = @vp['ddo']['vi_p']
@@ -342,11 +342,11 @@
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vp['ddn']['vaa_p']
+                    = @vp['new']['vaa_p']
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vp['ddn']['var_p']
+                    = @vp['new']['var_p']
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -366,7 +366,7 @@
                   %td All voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = number_with_delimiter(@va['tot']-(@vp['ddo']['vtot']+@vp['duu']['vtot']))
+                    = number_with_delimiter(@va['tot']-@vp['vot']['tot'])
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -418,7 +418,7 @@
                   %td All voters
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    =@vp['ddo']['tot_p']
+                    =@vp['vno']['tot_p']
                   %td Did not vote
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -426,11 +426,11 @@
                   %td Voted in person
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vp['ddo']['vaa_p']
+                    = @vp['vot']['vaa_p']
                   %td Voted absentee, ballot accepted
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
-                    = @vp['ddo']['var_p']
+                    = @vp['vot']['var_p']
                   %td Voted absentee, ballot rejected
                 %tr
                   %td{:colspan=>2,:style=>"text-align:right;"}
@@ -606,7 +606,7 @@
                   %td{:colspan=>5} &nbsp;
                 %tr
                   %td{:style=>"text-align:right;"}
-                    = number_with_delimiter(@va['tot']-(@vp['ddo']['vtot']+@vp['duu']['vtot']))
+                    = number_with_delimiter(@va['tot']-@vp['vot']['tot'])
                   %td{:style=>"text-align:right;"}
                     = "&mdash;".html_safe
                   %td Non-participating registered voters
