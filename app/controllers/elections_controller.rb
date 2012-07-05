@@ -5,7 +5,7 @@ class ElectionsController < ApplicationController
   # GET /elections
   def index
 
-    @elections = Election.all
+    @elections = Election.order("day ASC")
     @showxml = params[:show_xml]
 
     eid = params[:id]

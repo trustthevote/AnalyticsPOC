@@ -151,7 +151,7 @@ class UpliftsController < ApplicationController
   end
 
   def syncVoter(voter, vtr)
-    if voter.voted
+    if voter.voted #JVC
       return
     elsif (vtr.form =~ /Poll Book/)
       voter.voted = true
