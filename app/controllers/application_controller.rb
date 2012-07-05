@@ -12,14 +12,8 @@ class ApplicationController < ActionController::Base
   end
 
   def voter_report_find(n, eid)
-    if eid==false
-      unless ar = AnalyticReport.find{|ar|ar.num==n}
-        raise Exception, "No #"+n.to_s+" report found"
-      end
-    else
-      unless ar = AnalyticReport.find{|ar|ar.num==n && ar.election_id==eid}
-        raise Exception, "No #"+n.to_s+" report found for election id: "+eid
-      end
+    unless ar = AnalyticReport.find{|ar|ar.num==n && ar.election_id==eid}
+      raise Exception, "No #"+n.to_s+" report found for election id: "+eid
     end
     return ar
   end
@@ -29,46 +23,36 @@ class ApplicationController < ActionController::Base
     ar.set_data(vhash)
   end
 
-  def voter_report_fetch(n, eid)
+  def voter_report_fetch(n, e)
+    eid = e.id
     ar = voter_report_find(n, eid)
     return false if ar.data == ""
+    return false if ar.updated_at < e.updated_at
     return ar.get_data
   end
 
-  def voter_participating_report_save(vhash, eid)
-    return voter_report_save(vhash, 2, eid)
-  end
-
-  def voter_participating_report_fetch(eid)
-    return voter_report_fetch(2, eid)
-  end
-
-  def voter_uocava_report_save(vhash, eid)
-    return voter_report_save(vhash, 3, eid)
-  end
-
-  def voter_uocava_report_fetch(eid)
-    return voter_report_fetch(3, eid)
-  end
-
-  def voter_record_report_save(vhash, eid=false)
-    if eid==false
-      return voter_report_save(vhash, 1, eid)
-    elsif eid<0
-      return voter_report_save(vhash, 4, -eid)
-    else
-      return voter_report_save(vhash, 1, eid)
+  def voter_record_report_save(vhash, e)
+    eid = e.id
+    [2, 3, 4].each do |n|
+      if ar = voter_report_find(n, eid)
+        ar.data = ""
+        ar.save
+      end
     end
+    return voter_report_save(vhash, 1, eid)
+  end
+  
+  def voter_record_report_fetch(e)
+    return voter_report_fetch(1, e)
+  end
+  
+  def voter_record_reporx_save(vhash, e)
+    eid = e.id
+    return voter_report_save(vhash, 4, eid)
   end
 
-  def voter_record_report_fetch(eid=false)
-    if eid==false
-      return voter_report_fetch(1, eid)
-    elsif eid<0
-      return voter_report_fetch(4, -eid)
-    else
-      return voter_report_fetch(1, eid)
-    end
+  def voter_record_reporx_fetch(e)
+    return voter_report_fetch(4, e)
   end
 
   def voter_record_report_init()
@@ -122,6 +106,24 @@ class ApplicationController < ActionController::Base
     vhash['dpd'] += 1 if v.party_democratic
     vhash['dpr'] += 1 if v.party_republican
     vhash['dpo'] += 1 if v.party_other
+  end
+
+  def voter_participating_report_save(vhash, e)
+    eid = e.id
+    return voter_report_save(vhash, 2, eid)
+  end
+
+  def voter_participating_report_fetch(e)
+    return voter_report_fetch(2, e)
+  end
+
+  def voter_uocava_report_save(vhash, e)
+    eid = e.id
+    return voter_report_save(vhash, 3, eid)
+  end
+
+  def voter_uocava_report_fetch(e)
+    return voter_report_fetch(3, e)
   end
 
   def extra(x,y)

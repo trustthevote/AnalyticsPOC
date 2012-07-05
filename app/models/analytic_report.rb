@@ -17,8 +17,6 @@ class AnalyticReport < ActiveRecord::Base
     else
       raise Exception, "Unknown Report Number: "+self.num.to_s
     end
-    self.desc = ""
-    self.data = ""
     self.save
   end
 
@@ -28,11 +26,6 @@ class AnalyticReport < ActiveRecord::Base
 
   def set_data(datum)
     self.data = ActiveSupport::JSON.encode(datum).to_s
-    self.save
-  end
-
-  def unset_data(datum)
-    self.data = ""
     self.save
   end
 

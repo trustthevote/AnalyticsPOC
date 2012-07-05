@@ -11,25 +11,19 @@
       %b= link_to "Download XML", format: 'xml', class: 'btn'
   .row
     .span12
-      %table
+      %table{:width=>"100%",:style=>"text-align:center;"}
         %tr
-          %th Num
-          %th &nbsp;
-          %th ID
-          %th &nbsp;
-          %th Data
-          %th &nbsp;
-          %th
+          %th{:width=>"5%"} Num
+          %th{:width=>"10%"} Election
+          %th{:width=>"75%"} Data
+          %th{:width=>"5%"}
+          %th{:width=>"5%"}
         - AnalyticReport.all.each do |ar|
           %tr
             %td= ar.num
-            %td
-            %td= ar.election_id.to_s
-            %td
-            %td= ar.linebreak(90)
-            %td
+            %td= (Election.all.find{|e|e.id==ar.election_id}).name
+            %td{:style=>"text-align:left;"}= ar.linebreak(75)
             %td= link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
-            %td
             %td= link_to 'Delete', ar, :confirm=>'Are you sure?', :method=>:delete
           %tr
             %td &nbsp;

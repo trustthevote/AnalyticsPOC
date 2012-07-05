@@ -40,7 +40,7 @@ class Voter < ActiveRecord::Base
   end
 
   def party_other
-    !self.party_democratic && !self.party_republican
+    self.vparty != "" && !self.party_democratic && !self.party_republican
   end
 
   def asr_approved

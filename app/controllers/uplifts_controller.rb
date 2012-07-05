@@ -326,7 +326,7 @@ XSL
       voter_record_report_update(avhash, vr)
     end
     voter_record_report_finalize(avhash)
-    voter_record_report_save(avhash, @election.id)
+    voter_record_report_save(avhash, @election)
     Voter.all.each do |v|
       gender, party, other, status = "", "", "", ""
       if vrhash.keys.include?(v.vname)

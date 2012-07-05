@@ -62,24 +62,37 @@ class AnalyticReportsController < ApplicationController
 # npr New Party Republican
 
   def report()
-    yesva = true
-    unless @va = voter_record_report_fetch(@election.id)
-      yesva = false
-      @va = voter_record_report_init()
+    nova = false
+    unless @va = voter_record_report_fetch(@election)
+      if VoterRecord.count > 0 #JVC try to find existing saved report
+        @va = voter_record_report_init()
+        VoterRecord.all.each do |vr|
+          voter_record_report_update(@va, vr)
+        end
+        voter_record_report_finalize(@va)
+        voter_record_report_save(@va, @election)
+      else
+        unless @va = voter_record_reporx_fetch(@election)
+          nova = true
+          @va = voter_record_report_init()
+        end
+      end
     end
     case @rn
     when 1,2
-      @vp = voter_participating_report_fetch(@election.id)
-      return if yesva && @vp
+      @vp = voter_participating_report_fetch(@election)
+      return if @vp && !nova
       @vp = voter_participating_report_init()
-      voter_participating_report_compute(!yesva)
-      voter_participating_report_save(@vp, @election.id)
+      voter_participating_report_compute(nova)
+      voter_record_reporx_save(@va, @election) if nova
+      voter_participating_report_save(@vp, @election)
     when 3,4
-      @vu = voter_uocava_report_fetch(@election.id)
-      return if yesva && @vu
+      @vu = voter_uocava_report_fetch(@election)
+      return if @vu && !nova
       @vu = voter_uocava_report_init()
-      voter_uocava_report_compute(!yesva)
-      voter_uocava_report_save(@vu, @election.id)
+      voter_uocava_report_compute(nova)
+      voter_record_reporx_save(@va, @election) if nova
+      voter_uocava_report_save(@vu, @election)
     else
       raise Exception, "Unknown report number: "+@rn
     end
