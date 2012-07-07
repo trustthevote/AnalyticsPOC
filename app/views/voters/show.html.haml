@@ -19,6 +19,9 @@
 %p
   %b Election:
   = Election.find(@voter.election_id).namedate
+%p
+  %b State:
+  = @voter.vtr_state
 %br
 - if true
   %h3

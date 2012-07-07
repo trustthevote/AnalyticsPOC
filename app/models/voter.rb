@@ -103,4 +103,36 @@ class Voter < ActiveRecord::Base
     self.vote_reject && !(self.vote_note=~/late/i)
   end
 
+  def vtr_state_current
+    [self.vonline, self.vregister, self.vupdate, self.vabsreq,
+     self.voted, self.vote_reject, self.vote_note, self.vote_form]
+  end
+
+  def vtr_state_encode(values)
+    values.each{|v|(v.is_a?(String) && v.gsub!("\+",""))}
+    return ActiveSupport::JSON.encode(values).to_s
+  end
+
+  def vtr_state_decode(string)
+    values = ActiveSupport::JSON.decode(string)
+    return values.collect{|v|(v=~/true/i?true:(v=~/false/i?false:v))}
+  end
+
+  def vtr_state_push
+    self.vtr_state = self.vtr_state_encode(self.vtr_state_current()) +
+      "\+" + self.vtr_state
+  end
+    
+  def vtr_state_pop # JVC Voter State
+    state, states = self.vtr_state.split("\+",2)
+    if states == ""
+      raise Exception, "Fatal error, Voter vtr state popped too far"
+    end
+    self.vtr_state = states
+    state, states = self.vtr_state.split("\+",2)
+    self.vonline, self.vregister, self.vupdate, self.vabsreq,
+      self.voted, self.vote_reject, self.vote_note,
+      self.vote_form = self.vtr_state_decode(state)
+  end
+    
 end

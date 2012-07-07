@@ -110,15 +110,19 @@ class UpliftsController < ApplicationController
       if v.vname.blank?
         v.vname = vname
         v.vtype = vtype
-        v.voted, v.vote_reject, v.vonline, v.vnew = false, false, false, false
+        v.voted, v.vote_reject, v.vonline = false, false, false
         v.vote_form = ""
         v.vote_note = ""
+        v.vregister = ""
+        v.vupdate = ""
+        v.vabsreq = ""
+        v.vnew = false
         v.vgender = ""
         v.vparty = ""
         v.vother = ""
         v.vstatus = ""
-        v.vupdate = ""
-        v.vabsreq = ""
+        v.vtr_state = ""
+        v.vtr_state_push() # JVC Voter State
         v.election_id = eid
         fetchVoterFieldsFromRecord(v)
       end
@@ -207,6 +211,7 @@ class UpliftsController < ApplicationController
     if ["identify","start","discard","complete","submit"].include?(vtr.action)
       voter.vonline = true
     end
+    voter.vtr_state_push()
     voter.save
   end
 

@@ -45,4 +45,8 @@ class VoterTransactionLog < ActiveRecord::Base
     return self.datime.strftime("%B %-d, %Y")
   end
 
+  def vtrs
+    self.voter_transaction_records
+  end
+
 end
