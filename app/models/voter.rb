@@ -59,6 +59,10 @@ class Voter < ActiveRecord::Base
     self.vupdate=~/reject/i
   end
 
+  def vrr_approved
+    self.vregister=~/approve/i
+  end
+
   def military
     self.vother=~/military/i
   end
@@ -72,31 +76,31 @@ class Voter < ActiveRecord::Base
   end
   
   def voted_provisional
-    self.vform=~/pro/i
+    self.vote_form=~/pro/i
   end
 
   def voted_absentee
-    self.vform=~/abs/i
+    self.vote_form=~/abs/i
   end
 
   def voted_inperson
-    self.vform=~/reg/i
+    self.vote_form=~/reg/i
   end
 
   def ballot_accepted
-    !self.vreject
+    !self.vote_reject
   end
 
   def ballot_rejected
-    self.vreject
+    self.vote_reject
   end
 
   def ballot_rejected_late
-    self.vreject && (self.vnote=~/late/i)
+    self.vote_reject && (self.vote_note=~/late/i)
   end
 
   def ballot_rejected_notlate
-    self.vreject && !(self.vnote=~/late/i)
+    self.vote_reject && !(self.vote_note=~/late/i)
   end
 
 end

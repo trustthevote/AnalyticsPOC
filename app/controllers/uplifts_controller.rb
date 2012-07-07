@@ -110,9 +110,9 @@ class UpliftsController < ApplicationController
       if v.vname.blank?
         v.vname = vname
         v.vtype = vtype
-        v.voted, v.vreject, v.vonline, v.vnew = false, false, false, false
-        v.vform = ""
-        v.vnote = ""
+        v.voted, v.vote_reject, v.vonline, v.vnew = false, false, false, false
+        v.vote_form = ""
+        v.vote_note = ""
         v.vgender = ""
         v.vparty = ""
         v.vother = ""
@@ -155,29 +155,37 @@ class UpliftsController < ApplicationController
       return
     elsif (vtr.form =~ /Poll Book/)
       voter.voted = true
-      voter.vreject = false
-      voter.vform = "Regular"
+      voter.vote_reject = false
+      voter.vote_form = "Regular"
     elsif (vtr.form =~ /Absentee Ballot/)
       if (vtr.action == 'approve')
         voter.voted = true
-        voter.vreject = false
-        voter.vform = "Absentee"
+        voter.vote_reject = false
+        voter.vote_form = "Absentee"
       elsif (vtr.action == 'reject')
         voter.voted = true
-        voter.vreject = true
-        voter.vnote = vtr.note
-        voter.vform = "Absentee"
+        voter.vote_reject = true
+        voter.vote_note = vtr.note
+        voter.vote_form = "Absentee"
       end
     elsif (vtr.form =~ /Provisional Ballot/)
       if (vtr.action == 'approve')
         voter.voted = true
-        voter.vreject = false
-        voter.vform = "Provisional"
+        voter.vote_reject = false
+        voter.vote_form = "Provisional"
       elsif (vtr.action == 'reject')
         voter.voted = true
-        voter.vreject = true
-        voter.vnote = vtr.note
-        voter.vform = "Provisional"
+        voter.vote_reject = true
+        voter.vote_note = vtr.note
+        voter.vote_form = "Provisional"
+      end
+    elsif (vtr.form =~ /Voter Registration/)
+      if (vtr.action == 'approve')
+        voter.vregister = 'approve'
+      elsif (vtr.action == 'reject')
+        voter.vregister = 'reject'
+      else
+        voter.vregister = 'try' unless voter.vregister == 'approve'
       end
     elsif (vtr.form =~ /Record Update/)
       if (vtr.action == 'approve')

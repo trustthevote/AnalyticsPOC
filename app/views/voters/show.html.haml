@@ -7,11 +7,11 @@
   = @voter.vname+(@voter.vtype.length > 0 ? ' / '+@voter.vtype : '')
 %p
   %b Voted:
-  = (@voter.voted ? (@voter.vreject ? "Yes / Rejected" : "Yes" ) : "No")
-- if ! @voter.vform.blank?
+  = (@voter.voted ? (@voter.vote_reject ? "Yes / Rejected" : "Yes" ) : "No")
+- if ! @voter.vote_form.blank?
   %p
     %b Form:
-    = @voter.vform
+    = @voter.vote_form
 - if ! @voter.vuniq.blank?
   %p
     %b Uniq:

@@ -162,7 +162,7 @@ class AnalyticReportsController < ApplicationController
       else
         @vp['new']['tot'] += 1 if v.new
         @vp['vno']['new'] += 1 if v.new
-        @vp['vno']['rra'] += 1 if v.vtrs.find{|vtr|(vtr.form=~/Voter Registration/ && vtr.action=~/approve/)} #JVC
+        @vp['vno']['rra'] += 1 if v.vrr_approved
         @vp['vno']['rua'] += 1 if v.vru_approved
         @vp['vno']['rur'] += 1 if v.vru_rejected
         @vp['vno']['asa'] += 1 if v.asr_approved
@@ -251,14 +251,14 @@ class AnalyticReportsController < ApplicationController
     self.report_demographic(v, vhash)
     if (!v.voted)
       vhash['vno'] += 1
-    elsif (!v.vreject)
-      vhash['vra'] += 1 if (v.vform=~/Regular/)
-      vhash['vpa'] += 1 if (v.vform=~/Provisional/)
-      vhash['vaa'] += 1 if (v.vform=~/Absentee/)
+    elsif (!v.vote_reject)
+      vhash['vra'] += 1 if (v.vote_form=~/Regular/)
+      vhash['vpa'] += 1 if (v.vote_form=~/Provisional/)
+      vhash['vaa'] += 1 if (v.vote_form=~/Absentee/)
     else
-      vhash['vpr'] += 1 if (v.vform=~/Provisional/)
-      vhash['varl'] += 1 if (v.vform=~/Absentee/ && v.vnote=~/late/i)
-      vhash['varo'] += 1 if (v.vform=~/Absentee/ && !(v.vnote=~/late/i))
+      vhash['vpr'] += 1 if (v.vote_form=~/Provisional/)
+      vhash['varl'] += 1 if (v.vote_form=~/Absentee/ && v.vote_note=~/late/i)
+      vhash['varo'] += 1 if (v.vote_form=~/Absentee/ && !(v.vote_note=~/late/i))
     end
   end
 

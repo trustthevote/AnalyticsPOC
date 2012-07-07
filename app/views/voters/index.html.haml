@@ -61,9 +61,9 @@
           %td
           %td= (v.voted ? 'Yes' : 'No')
           %td
-          %td= (v.voted && v.vreject ? (v.vnote=~/late/i ? 'Late' : 'Yes') : '')
+          %td= (v.voted && v.vote_reject ? (v.vote_note=~/late/i ? 'Late' : 'Yes') : '')
           %td
-          %td= v.vform
+          %td= v.vote_form
           %td
           %td= v.voter_transaction_records.length
           %td

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627042452) do
+ActiveRecord::Schema.define(:version => 20120707042854) do
 
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
@@ -29,6 +29,18 @@ ActiveRecord::Schema.define(:version => 20120627042452) do
 
   add_index "analytic_reports", ["election_id"], :name => "index_analytic_reports_on_election_id"
 
+  create_table "election_archives", :force => true do |t|
+    t.integer  "eid"
+    t.string   "name"
+    t.date     "day"
+    t.date     "voter_end_day"
+    t.date     "voter_start_day"
+    t.integer  "nlogs"
+    t.string   "log_file_names"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "elections", :force => true do |t|
     t.string   "name"
     t.date     "day"
@@ -42,6 +54,14 @@ ActiveRecord::Schema.define(:version => 20120627042452) do
     t.string   "evoters"
     t.boolean  "selected"
     t.string   "log_file_names"
+  end
+
+  create_table "selections", :force => true do |t|
+    t.integer  "eid"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "vr_file"
+    t.string   "vr_origin"
   end
 
   create_table "voter_records", :force => true do |t|
@@ -90,9 +110,9 @@ ActiveRecord::Schema.define(:version => 20120627042452) do
     t.string   "vname"
     t.string   "vtype"
     t.boolean  "voted"
-    t.boolean  "vreject"
-    t.string   "vform"
-    t.string   "vnote"
+    t.boolean  "vote_reject"
+    t.string   "vote_form"
+    t.string   "vote_note"
     t.string   "vuniq"
     t.integer  "election_id"
     t.datetime "created_at",  :null => false
@@ -105,6 +125,8 @@ ActiveRecord::Schema.define(:version => 20120627042452) do
     t.boolean  "vonline"
     t.string   "vstatus"
     t.boolean  "vnew"
+    t.string   "vregister"
+    t.text     "vtr_state"
   end
 
   add_index "voters", ["election_id"], :name => "index_voters_on_election_id"
