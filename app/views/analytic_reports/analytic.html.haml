@@ -36,7 +36,7 @@
         #scroil10{:style=>"height: 324px;"}
           - Election.all.each do |e|
             -if e.selected
-              - e.analytic_reports.each do |ar|
+              - e.analytic_reports.order("num ASC").each do |ar|
                 %table{:class=>cycle('tableDDD','tableBBB')}
                   %tr{:style=>"font-weight:bold;colspan=6"}
                     %td= ar.name

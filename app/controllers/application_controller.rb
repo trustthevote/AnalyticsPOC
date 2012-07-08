@@ -136,7 +136,8 @@ class ApplicationController < ActionController::Base
   end
   
   def percent(x,y)
-    return extra(x,y)+(y==0 ? "0%" : ((100*x)/y).round.to_s+"%")
+    #return extra(x,y)+(y==0 ? "0%" : ((100*x)/y).round.to_s+"%")
+    return extra(x,y)+(y==0 ? "0%" : sprintf("%.1f",((100*x.to_f)/y.to_f))+"%")
   end
   
   def percent_parens(x,y)

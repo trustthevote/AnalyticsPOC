@@ -221,19 +221,19 @@ class AnalyticReportsController < ApplicationController
 
     @vp['new']['vaa'] = @vp['ddn']['vaa']+@vp['dun']['vaa']
     @vp['new']['var'] = @vp['ddn']['var']+@vp['dun']['var']
-    self.report_percentage(@vp['new'], %w(vaa var), @va['tot'])
+    report_percentage(@vp['new'], %w(vaa var), @va['tot'])
 
-    self.report_percentage(@vp['vot'], %w(dgm dgf dpd dpr dpo), @vp['vot']['tot'])
-    self.report_percentage(@vp['new'], %w(dgm dgf dpd dpr dpo), @vp['new']['vtot'])
-    self.report_percentage(@vp['duu'], %w(tot vm vla), @va['tot'])
+    report_percentage(@vp['vot'], %w(dgm dgf dpd dpr dpo), @vp['vot']['tot'])
+    report_percentage(@vp['new'], %w(dgm dgf dpd dpr dpo), @vp['new']['vtot'])
+    report_percentage(@vp['duu'], %w(tot vm vla), @va['tot'])
 
     @vp['ddo']['vpp_p'] = percent(@vp['ddo']['vpa'],@vp['ddo']['vp'])
 
-    self.report_percentage(@vp['ddo'], %w(vi va vp vpa vpr), @va['tot'])
-    self.report_percentage(@vp['ddn'], %w(vi vpa vpr), @vp['new']['tot'])
+    report_percentage(@vp['ddo'], %w(vi va vp vpa vpr), @va['tot'])
+    report_percentage(@vp['ddn'], %w(vi vpa vpr), @vp['new']['tot'])
     
     %w(all nra rur rua asr asa).each do |k|
-      self.report_percentage(@vp[k], %w(dgm dgf dpd dpr dpo don), @vp[k]['tot'])
+      report_percentage(@vp[k], %w(dgm dgf dpd dpr dpo don), @vp[k]['tot'])
       @vp[k]['dox_p'] = percent(@vp[k]['tot']-@vp[k]['don'],@vp[k]['tot'])
     end
   end
@@ -257,201 +257,155 @@ class AnalyticReportsController < ApplicationController
       vhash['vaa'] += 1 if (v.vote_form=~/Absentee/)
     else
       vhash['vpr'] += 1 if (v.vote_form=~/Provisional/)
-      vhash['varl'] += 1 if (v.vote_form=~/Absentee/ && v.vote_note=~/late/i)
-      vhash['varo'] += 1 if (v.vote_form=~/Absentee/ && !(v.vote_note=~/late/i))
+      vhash['varl'] += 1 if (v.vote_form=~/Absentee/ && v.ballot_rejected_late)
+      vhash['varo'] += 1 if (v.vote_form=~/Absentee/ && v.ballot_rejected_notlate)
     end
   end
 
   def voter_uocava_report_init()
-      @vu = Hash.new {}
-      %w(aab aas arr aru).each do |k1|
-        @vu[k1] = Hash.new {}
-        %w(rapp rrec rrej).each do |k2|
-          @vu[k1][k2] = Hash.new {}
-          %w(dum duo tot).each do |k3|
-            @vu[k1][k2][k3] = 0  
-            @vu[k1][k2][k3+'_p'] = "0%"
-          end
+    @vu = Hash.new {}
+    %w(aab aas arr aru).each do |k1|
+      @vu[k1] = Hash.new {}
+      %w(rapp rrec rrej drej).each do |k2|
+        @vu[k1][k2] = Hash.new {}
+        %w(dum duo tot).each do |k3|
+          @vu[k1][k2][k3] = 0  
+          @vu[k1][k2][k3+'_p'] = "0%"
         end
-        k2 = 'rrej'
+      end
+      %w(rrej drej).each do |k2|
         %w(dgf dgm dpd dpr dpo).each do |k3|
           @vu[k1][k2][k3] = 0  
           @vu[k1][k2][k3+'_p'] = "0%"
         end
-        %w(dla dlm).each do |k3|
-          @vu[k1][k2][k3] = 0  
-        end
-        k2 = 'rgen'
-        @vu[k1][k2] = Hash.new {}
-        @vu[k1][k2]['tot'] = 0
-        k2 = 'rlos'
-        @vu[k1][k2] = Hash.new {}
-        @vu[k1][k2]['tot'] = 0
-        @vu[k1][k2]['tot_p'] = "0%"
       end
-      @vu['arr']['rnew'] = Hash.new {}
-      @vu['arr']['rnew']['tot_p'] = "0%"
-      
-      @vu['aab']['tota'] = Hash.new {}
-      @vu['aab']['tota']['tot'] = 0
-      @vu['aab']['tota']['abs'] = 0
-      @vu['aab']['tota']['abl'] = 0
-
-      @vu['aua'] = Hash.new {}
-      @vu['aua']['rcom'] = Hash.new {}
-      @vu['aua']['rcom']['tot'] = 0
-      @vu['aua']['rcom']['tot_p'] = "0%"
-      @vu['aua']['rcom']['tor_p'] = "0%"
-      @vu['aua']['tota'] = Hash.new
-      @vu['aua']['tota']['tot'] = 0
-      @vu['aua']['rdou'] = Hash.new
-      @vu['aua']['rdou']['tot'] = 0
-      @vu['aua']['rdow'] = Hash.new
-      @vu['aua']['rdow']['tot'] = 0
-
-      @vu['aur'] = Hash.new {}
-      @vu['aur']['rapp'] = Hash.new {}
-      @vu['aur']['rapp']['tot'] = 0
-      @vu['aur']['rapp']['tot_p'] = "0%"
-      @vu['aur']['tota'] = Hash.new {}
-      @vu['aur']['tota']['tot'] = 0
-      @vu['aur']['rcom'] = Hash.new {}
-      @vu['aur']['rcom']['tot'] = 0
-      @vu['aur']['rcom']['tot_p'] = "0%"
-      @vu['aur']['rcom']['tor_p'] = "0%"
-      @vu['aur']['rgen'] = Hash.new {}
-      @vu['aur']['rgen']['tot'] = 0
-      @vu['aur']['rlos'] = Hash.new {}
-      @vu['aur']['rlos']['tot'] = 0
-      @vu['aur']['rlos']['tot_p'] = "0%"
-      @vu['aur']['rrec'] = Hash.new {}
-      @vu['aur']['rrec']['tot'] = 0
-      @vu['aur']['rrec']['tot_p'] = "0%"
-      @vu['aur']['rrej'] = Hash.new {}
-      @vu['aur']['rrej']['tot'] = 0
-    @vu['aur']['rrej']['tot_p'] = "0%"
+      k2 = 'rrej'
+      %w(dla dlm).each do |k3|
+        @vu[k1][k2][k3] = 0
+      end
+      %w(rgen rlos).each do |k2|
+        @vu[k1][k2] = Hash.new {}
+        @vu[k1][k2]['tot'] = 0
+      end
+      @vu[k1]['rlos']['tot_p'] = "0%"
+    end
+    @vu['arr']['rnew'] = Hash.new {}
+    @vu['arr']['rnew']['tot_p'] = "0%"
+    
+    @vu['aab']['tota'] = Hash.new {}
+    %w(tot abs abl).each do |k3|
+      @vu['aab']['tota'][k3] = 0
+    end
+    
+    @vu['aua'] = Hash.new {}
+    %w(rcom tota rdou rdow).each do |k2|
+      @vu['aua'][k2] = Hash.new {}
+      @vu['aua'][k2]['tot'] = 0
+    end
+    @vu['aua']['rcom']['tot_p'] = "0%"
+    @vu['aua']['rcom']['tor_p'] = "0%"
+    
+    @vu['aur'] = Hash.new {}
+    %w(rapp tota rcom rgen rlos rrec rrej).each do |k2|
+      @vu['aur'][k2] = Hash.new {}
+      @vu['aur'][k2]['tot'] = 0
+      @vu['aur'][k2]['tot_p'] = "0%" unless %w(tota rgen).include?(k2)
+    end
+    @vu['aur']['rcom']['tor_p'] = "0%"
     return @vu
+  end
+
+  def voter_uocava_domestic_form(vtr, v, k1)
+    if (vtr.action=~/reject/)
+      report_demographic(v, @vu[k1]['drej'])
+    end
+  end
+
+  def voter_uocava_report_form(vtr, v, k1)
+    if (vtr.action=~/complete/)
+      @vu[k1]['rgen']['tot'] +=  1
+    elsif (vtr.action=~/match/ || vtr.action=~/transcribe/)
+      @vu[k1]['rrec']['tot'] += 1
+      @vu[k1]['rrec']['dum'] += 1 if v.military
+    elsif (vtr.action=~/approve/)
+      @vu[k1]['rapp']['tot'] += 1
+      @vu[k1]['rapp']['dum'] += 1 if v.military
+    elsif (vtr.action=~/reject/)
+      @vu[k1]['rrej']['tot'] += 1
+      @vu[k1]['rrej']['dum'] += 1 if v.military
+      @vu[k1]['rrej']['dgm'] += 1 if v.male
+      @vu[k1]['rrej']['dgf'] += 1 if v.female
+      @vu[k1]['rrej']['dpd'] += 1 if v.party_democratic
+      @vu[k1]['rrej']['dpr'] += 1 if v.party_republican
+      if (vtr.note =~ /late/)
+        @vu[k1]['rrej']['dla'] += 1
+        @vu[k1]['rrej']['dlm'] += 1 if v.military
+      end
+    end
   end
 
   def voter_uocava_report_compute(nova)
     @uvoters = []
     @election.voters.each do |v|
       if v.uocava
-        @uvoters.push(v)
+        @vu['aab']['tota']['tot'] += 1
+        @vu['aab']['tota']['abs'] += 1 if v.absentee_status
+        @vu['aab']['tota']['abl'] += 1 if v.absentee_ulapsed
+        foundrm, foundrc, foundam, foundac = 0, 0, 0, 0
+        v.vtrs.each do |vtr|
+          if (vtr.form =~ /Voter/ || vtr.form =~ /Request/)
+            foundrm += 1
+            foundrc += 1 if vtr.action=~/complete/
+            @vu['aur']['rrec']['tot'] += 1 if vtr.action=~/match/ || vtr.action=~/transcribe/
+            @vu['aur']['rapp']['tot'] += 1 if vtr.action=~/approve/
+            @vu['aur']['rrej']['tot'] += 1 if vtr.action=~/reject/
+            if (vtr.form =~ /Voter Registration/)
+              voter_uocava_report_form(vtr, v, 'arr')
+            elsif (vtr.form =~ /Voter Record Update/)
+              voter_uocava_report_form(vtr, v, 'aru')
+            elsif (vtr.form =~ /Absentee Request/)
+              voter_uocava_report_form(vtr, v, 'aas')
+            end
+          elsif (vtr.form =~ /Absentee Ballot/)
+            foundam += 1
+            foundac += 1 if vtr.action=~/complete/
+            voter_uocava_report_form(vtr, v, 'aab')
+          end
+        end
+        @vu['aua']['rdow']['tot'] += foundac
+        if foundac > 1
+          @vu['aua']['rdou']['tot'] += 1
+        end
+        @vu['aur']['tota']['tot'] += 1 if foundrm > 0
+        @vu['aur']['rcom']['tot'] += 1 if foundrc > 0
+        @vu['aua']['tota']['tot'] += 1 if foundam > 0
+        @vu['aua']['rcom']['tot'] += 1 if foundac > 0
+      else
+        v.vtrs.each do |vtr|
+          if (vtr.form =~ /Voter Registration/)
+            voter_uocava_domestic_form(vtr, v, 'arr')
+          elsif (vtr.form =~ /Voter Record Update/)
+            voter_uocava_domestic_form(vtr, v, 'aru')
+          elsif (vtr.form =~ /Absentee Request/)
+            voter_uocava_domestic_form(vtr, v, 'aas')
+          elsif (vtr.form =~ /Absentee Ballot/)
+            voter_uocava_domestic_form(vtr, v, 'aab')
+          end
+        end
       end
       voter_record_report_update(@va, v) if nova
     end
     voter_record_report_finalize(@va) if nova
-    @uvoters.each do |v|
-      @vu['aab']['tota']['tot'] += 1
-      @vu['aab']['tota']['abs'] += 1 if v.absentee_status
-      @vu['aab']['tota']['abl'] += 1 if v.absentee_ulapsed
-      foundrm, foundrc, foundam, foundac = 0, 0, 0, 0
-      v.vtrs.each do |vtr|
-        if (vtr.form =~ /Voter/ || vtr.form =~ /Request/)
-          foundrm += 1
-          foundrc += 1 if vtr.action=~/complete/
-          @vu['aur']['rrec']['tot'] += 1 if vtr.action=~/match/
-          @vu['aur']['rapp']['tot'] += 1 if vtr.action=~/approve/
-          @vu['aur']['rrej']['tot'] += 1 if vtr.action=~/reject/
-          if (vtr.form =~ /Voter Registration/)
-            if (vtr.action=~/complete/)
-              @vu['arr']['rgen']['tot'] +=  1
-            elsif (vtr.action=~/match/)
-              @vu['arr']['rrec']['tot'] += 1
-              @vu['arr']['rrec']['dum'] += 1 if v.military
-            elsif (vtr.action=~/approve/)
-              @vu['arr']['rapp']['tot'] += 1
-              @vu['arr']['rapp']['dum'] += 1 if v.military
-            elsif (vtr.action=~/reject/)
-              @vu['arr']['rrej']['tot'] += 1
-              @vu['arr']['rrej']['dum'] += 1 if v.military
-              @vu['arr']['rrej']['dgm'] += 1 if v.male
-              @vu['arr']['rrej']['dgf'] += 1 if v.female
-              @vu['arr']['rrej']['dpd'] += 1 if v.party_democratic
-              @vu['arr']['rrej']['dpr'] += 1 if v.party_republican
-              if (vtr.note =~ /late/)
-                @vu['arr']['rrej']['dla'] += 1
-                @vu['arr']['rrej']['dlm'] += 1 if v.military
-              end
-            end
-          elsif (vtr.form =~ /Voter Record Update/)
-            if (vtr.action=~/complete/)
-              @vu['aru']['rgen']['tot'] +=  1
-            elsif (vtr.action=~/match/)
-              @vu['aru']['rrec']['tot'] += 1
-              @vu['aru']['rrec']['dum'] += 1 if v.military
-            elsif (vtr.action=~/approve/)
-              @vu['aru']['rapp']['tot'] += 1
-              @vu['aru']['rapp']['dum'] += 1 if v.military
-            elsif (vtr.action=~/reject/)
-              @vu['aru']['rrej']['tot'] += 1
-              @vu['aru']['rrej']['dum'] += 1 if v.military
-              @vu['aru']['rrej']['dgm'] += 1 if v.male
-              @vu['aru']['rrej']['dgf'] += 1 if v.female
-              @vu['aru']['rrej']['dpd'] += 1 if v.party_democratic
-              @vu['aru']['rrej']['dpr'] += 1 if v.party_republican
-              if (vtr.note =~ /late/)
-                @vu['aru']['rrej']['dla'] += 1
-                @vu['aru']['rrej']['dlm'] += 1 if v.military
-              end
-            end
-          elsif (vtr.form =~ /Absentee Request/)
-            if (vtr.action=~/complete/)
-              @vu['aas']['rgen']['tot'] +=  1
-            elsif (vtr.action=~/match/)
-              @vu['aas']['rrec']['tot'] += 1
-              @vu['aas']['rrec']['dum'] += 1 if v.military
-            elsif (vtr.action=~/approve/)
-              @vu['aas']['rapp']['tot'] += 1
-              @vu['aas']['rapp']['dum'] += 1 if v.military
-            elsif (vtr.action=~/reject/)
-              @vu['aas']['rrej']['tot'] += 1
-              @vu['aas']['rrej']['dum'] += 1 if v.military
-              @vu['aas']['rrej']['dgm'] += 1 if v.male
-              @vu['aas']['rrej']['dgf'] += 1 if v.female
-              @vu['aas']['rrej']['dpd'] += 1 if v.party_democratic
-              @vu['aas']['rrej']['dpr'] += 1 if v.party_republican
-              if (vtr.note =~ /late/)
-                @vu['aas']['rrej']['dla'] += 1
-                @vu['aas']['rrej']['dlm'] += 1 if v.military
-              end
-            end
-          end
-        elsif (vtr.form =~ /Absentee Ballot/)
-          foundam += 1
-          foundac += 1 if vtr.action=~/complete/
-          if (vtr.action=~/complete/)
-            @vu['aab']['rgen']['tot'] +=  1
-          elsif (vtr.action=~/match/)
-            @vu['aab']['rrec']['tot'] += 1
-            @vu['aab']['rrec']['dum'] += 1 if v.military
-          elsif (vtr.action=~/approve/)
-            @vu['aab']['rapp']['tot'] += 1
-            @vu['aab']['rapp']['dum'] += 1 if v.military
-          elsif (vtr.action=~/reject/)
-            @vu['aab']['rrej']['tot'] += 1
-            @vu['aab']['rrej']['dum'] += 1 if v.military
-            @vu['aab']['rrej']['dgm'] += 1 if v.male
-            @vu['aab']['rrej']['dgf'] += 1 if v.female
-            @vu['aab']['rrej']['dpd'] += 1 if v.party_democratic
-            @vu['aab']['rrej']['dpr'] += 1 if v.party_republican
-            if (vtr.note =~ /late/)
-              @vu['aab']['rrej']['dla'] += 1
-              @vu['aab']['rrej']['dlm'] += 1 if v.military
-            end
-          end
-        end
-      end
-      @vu['aua']['rdow']['tot'] += foundac
-      if foundac > 1
-        @vu['aua']['rdou']['tot'] += 1
-      end
-      @vu['aur']['tota']['tot'] += 1 if foundrm > 0
-      @vu['aur']['rcom']['tot'] += 1 if foundrc > 0
-      @vu['aua']['tota']['tot'] += 1 if foundam > 0
-      @vu['aua']['rcom']['tot'] += 1 if foundac > 0
-    end
+
+    report_percentage(@vu['arr']['rrej'], %w(dgm dgf dpd dpr), @va['duu'])
+    report_percentage(@vu['aru']['rrej'], %w(dgm dgf dpd dpr), @va['duu'])
+    report_percentage(@vu['aas']['rrej'], %w(dgm dgf dpd dpr), @va['duu'])
+    report_percentage(@vu['aab']['rrej'], %w(dgm dgf dpd dpr), @va['duu'])
+
+    report_percentage(@vu['arr']['drej'], %w(dgm dgf dpd dpr), @va['ddo'])
+    report_percentage(@vu['aru']['drej'], %w(dgm dgf dpd dpr), @va['ddo'])
+    report_percentage(@vu['aas']['drej'], %w(dgm dgf dpd dpr), @va['ddo'])
+    report_percentage(@vu['aab']['drej'], %w(dgm dgf dpd dpr), @va['ddo'])
 
     @vu['aur']['rgen']['tot'] = @vu['arr']['rgen']['tot']+@vu['aru']['rgen']['tot']+@vu['aas']['rgen']['tot']+@vu['aab']['rgen']['tot']
     @vu['aur']['rlos']['tot'] = [@vu['aur']['rgen']['tot']-@vu['aur']['rrec']['tot'],0].max
@@ -505,11 +459,6 @@ class AnalyticReportsController < ApplicationController
     @vu['arr']['rrec']['duo_p'] = percent(@vu['arr']['rrec']['duo'],@vu['arr']['rrec']['tot'])
     @vu['arr']['rapp']['duo_p'] = percent(@vu['arr']['rapp']['duo'],@vu['arr']['rapp']['tot'])
     @vu['arr']['rapp']['dum_p'] = percent(@vu['arr']['rapp']['dum'],@vu['arr']['rapp']['tot'])
-    @vu['arr']['rrej']['dgm_p'] = percent(@vu['arr']['rrej']['dgm'],@vu['arr']['rrej']['tot'])
-    @vu['arr']['rrej']['dgf_p'] = percent(@vu['arr']['rrej']['dgf'],@vu['arr']['rrej']['tot'])
-    @vu['arr']['rrej']['dpd_p'] = percent(@vu['arr']['rrej']['dpd'],@vu['arr']['rrej']['tot'])
-    @vu['arr']['rrej']['dpr_p'] = percent(@vu['arr']['rrej']['dpr'],@vu['arr']['rrej']['tot'])
-    @vu['arr']['rrej']['dpo_p'] = percent(@vu['arr']['rrej']['dpo'],@vu['arr']['rrej']['tot'])
     @vu['arr']['rrej']['duo_p'] = percent(@vu['arr']['rrej']['duo'],@vu['arr']['rrej']['tot'])
     @vu['arr']['rrej']['dum_p'] = percent(@vu['arr']['rrej']['dum'],@vu['arr']['rrej']['tot'])
     @vu['arr']['rapp']['tot_p'] = percent_parens(@vu['arr']['rapp']['tot'],@vu['arr']['rrec']['tot'])
@@ -522,11 +471,6 @@ class AnalyticReportsController < ApplicationController
     @vu['aru']['rrec']['duo_p'] = percent(@vu['aru']['rrec']['duo'],@vu['aru']['rrec']['tot'])
     @vu['aru']['rapp']['duo_p'] = percent(@vu['aru']['rapp']['duo'],@vu['aru']['rapp']['tot'])
     @vu['aru']['rapp']['dum_p'] = percent(@vu['aru']['rapp']['dum'],@vu['aru']['rapp']['tot'])
-    @vu['aru']['rrej']['dgm_p'] = percent(@vu['aru']['rrej']['dgm'],@vu['aru']['rrej']['tot'])
-    @vu['aru']['rrej']['dgf_p'] = percent(@vu['aru']['rrej']['dgf'],@vu['aru']['rrej']['tot'])
-    @vu['aru']['rrej']['dpd_p'] = percent(@vu['aru']['rrej']['dpd'],@vu['aru']['rrej']['tot'])
-    @vu['aru']['rrej']['dpr_p'] = percent(@vu['aru']['rrej']['dpr'],@vu['aru']['rrej']['tot'])
-    @vu['aru']['rrej']['dpo_p'] = percent(@vu['aru']['rrej']['dpo'],@vu['aru']['rrej']['tot'])
     @vu['aru']['rrej']['duo_p'] = percent(@vu['aru']['rrej']['duo'],@vu['aru']['rrej']['tot'])
     @vu['aru']['rrej']['dum_p'] = percent(@vu['aru']['rrej']['dum'],@vu['aru']['rrej']['tot'])
     @vu['aru']['rapp']['tot_p'] = percent_parens(@vu['aru']['rapp']['tot'],@vu['aru']['rrec']['tot'])
@@ -538,11 +482,6 @@ class AnalyticReportsController < ApplicationController
     @vu['aas']['rrec']['duo_p'] = percent(@vu['aas']['rrec']['duo'],@vu['aas']['rrec']['tot'])
     @vu['aas']['rapp']['duo_p'] = percent(@vu['aas']['rapp']['duo'],@vu['aas']['rapp']['tot'])
     @vu['aas']['rapp']['dum_p'] = percent(@vu['aas']['rapp']['dum'],@vu['aas']['rapp']['tot'])
-    @vu['aas']['rrej']['dgm_p'] = percent(@vu['aas']['rrej']['dgm'],@vu['aas']['rrej']['tot'])
-    @vu['aas']['rrej']['dgf_p'] = percent(@vu['aas']['rrej']['dgf'],@vu['aas']['rrej']['tot'])
-    @vu['aas']['rrej']['dpd_p'] = percent(@vu['aas']['rrej']['dpd'],@vu['aas']['rrej']['tot'])
-    @vu['aas']['rrej']['dpr_p'] = percent(@vu['aas']['rrej']['dpr'],@vu['aas']['rrej']['tot'])
-    @vu['aas']['rrej']['dpo_p'] = percent(@vu['aas']['rrej']['dpo'],@vu['aas']['rrej']['tot'])
     @vu['aas']['rrej']['duo_p'] = percent(@vu['aas']['rrej']['duo'],@vu['aas']['rrej']['tot'])
     @vu['aas']['rrej']['dum_p'] = percent(@vu['aas']['rrej']['dum'],@vu['aas']['rrej']['tot'])
     @vu['aas']['rapp']['tot_p'] = percent_parens(@vu['aas']['rapp']['tot'],@vu['aas']['rrec']['tot'])
@@ -554,11 +493,6 @@ class AnalyticReportsController < ApplicationController
     @vu['aab']['rrec']['duo_p'] = percent(@vu['aab']['rrec']['duo'],@vu['aab']['rrec']['tot'])
     @vu['aab']['rapp']['duo_p'] = percent(@vu['aab']['rapp']['duo'],@vu['aab']['rapp']['tot'])
     @vu['aab']['rapp']['dum_p'] = percent(@vu['aab']['rapp']['dum'],@vu['aab']['rapp']['tot'])
-    @vu['aab']['rrej']['dgm_p'] = percent(@vu['aab']['rrej']['dgm'],@vu['aab']['rrej']['tot'])
-    @vu['aab']['rrej']['dgf_p'] = percent(@vu['aab']['rrej']['dgf'],@vu['aab']['rrej']['tot'])
-    @vu['aab']['rrej']['dpd_p'] = percent(@vu['aab']['rrej']['dpd'],@vu['aab']['rrej']['tot'])
-    @vu['aab']['rrej']['dpr_p'] = percent(@vu['aab']['rrej']['dpr'],@vu['aab']['rrej']['tot'])
-    @vu['aab']['rrej']['dpo_p'] = percent(@vu['aab']['rrej']['dpo'],@vu['aab']['rrej']['tot'])
     @vu['aab']['rrej']['duo_p'] = percent(@vu['aab']['rrej']['duo'],@vu['aab']['rrej']['tot'])
     @vu['aab']['rrej']['dum_p'] = percent(@vu['aab']['rrej']['dum'],@vu['aab']['rrej']['tot'])
     @vu['aab']['rapp']['tot_p'] = percent_parens(@vu['aab']['rapp']['tot'],@vu['aab']['rrec']['tot'])

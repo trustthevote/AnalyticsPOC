@@ -15,16 +15,14 @@
         %tr
           %th{:width=>"5%"} Num
           %th{:width=>"10%"} Election
-          %th{:width=>"75%"} Data
+          %th{:width=>"80%"} Data
           %th{:width=>"5%"}
-          %th{:width=>"5%"}
-        - AnalyticReport.all.each do |ar|
+        - AnalyticReport.order("num ASC").each do |ar|
           %tr
             %td= ar.num
             %td= (Election.all.find{|e|e.id==ar.election_id}).name
             %td{:style=>"text-align:left;"}= ar.linebreak(75)
             %td= link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
-            %td= link_to 'Delete', ar, :confirm=>'Are you sure?', :method=>:delete
           %tr
             %td &nbsp;
 -else
