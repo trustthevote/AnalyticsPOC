@@ -1,7 +1,7 @@
 %p#notice= notice
 
-.row
-  -if (@voter_transaction_logs.length > 0)
+-if (@voter_transaction_logs.length > 0)
+  .row
     .span6
       %h2= "All Voter Transaction Logs ("+@voter_transaction_logs.length.to_s+")  "
     .span3
@@ -10,11 +10,9 @@
       = link_to 'Show XML', :show_xml => true
     .span2
       %b= link_to "Download XML", format: 'xml', class: 'btn'
-  -else
-    .span6
-      %h2= "No Voter Transaction Logs"
-%br
--if (@voter_transaction_logs.length > 0)
+    .span1#statebacknext
+      = link_to 'Back', :back
+  %br
   -if @showxml
     %table
       %pre= render partial: 'vtls', formats: [ :xml ]
@@ -48,6 +46,8 @@
             %td= link_to 'Show', vtl
             %td
             %td= link_to 'Destroy', vtl, :confirm => 'Are you sure?', :method => :delete
-%br
-.span1#statebacklegacy
-  = link_to 'Back', :back
+-else
+  .span11
+    %h2= "No Voter Transaction Logs"
+  .span1#statebacknext
+    = link_to 'Back', :back

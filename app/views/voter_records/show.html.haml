@@ -1,7 +1,11 @@
 %p#notice= notice
 
 -if VoterRecord.count>0
-  %h2= "All Voter Records ("+VoterRecord.count.to_s+")"
+  .row
+    .span11
+      %h2= "All Voter Records ("+VoterRecord.count.to_s+")"
+    .span1#statebacknext
+      = link_to 'Back', :back  
   %br
   %table{:style=>"text-align:center"}
     %tr
@@ -34,7 +38,8 @@
         %td
         %td= vr.status
 -else
-  %h2= "No Voter Records"
-%br  
-.span1#statebacklegacy
-  = link_to 'Back', :back
+  .row
+    .span11
+      %h2= "No Voter Records"
+    .span1#statebacknext
+      = link_to 'Back', :back

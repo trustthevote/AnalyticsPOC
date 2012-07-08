@@ -1,7 +1,11 @@
 %p#notice= notice
 
 -if @voters.length > 0
-  %h2= "All Voters ("+@voters.length.to_s+")"
+  .row
+    .span11
+      %h2= "All Voters ("+@voters.length.to_s+")"
+    .span1#statebacknext
+      = link_to 'Back', :back  
   %br
   %table{:style=>"text-align:center"}
     %tr
@@ -78,8 +82,9 @@
           %td= Election.find(v.election_id).name
           %td
           %td= link_to 'Show', v
--else 
-  %h2= "No Voters"
-%br
-.span1#statebacklegacy
-  = link_to 'Back', :back
+-else
+  .row
+    .span11
+      %h2= "No Voters"
+    .span1#statebacknext
+      = link_to 'Back', :back

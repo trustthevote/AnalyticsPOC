@@ -1,8 +1,11 @@
 #frontal
 -if (AnalyticReport.all.length > 0)
   .row
-    .span6
+    .span11
       %h2= "All Analytic Report Data ("+AnalyticReport.all.length.to_s+")"
+    .span1#statebacknext
+      = link_to 'Back', :back
+  %br
   .row
     .span12
       %table{:width=>"100%",:style=>"text-align:center;"}
@@ -30,8 +33,7 @@
               %td &nbsp;
 -else
   .row
-    .span6
+    .span11
       %h2= "No Analytic Reports"
-%br
-.span1#statebacklegacy
-  = link_to 'Back', :back
+    .span1#statebacknext
+      = link_to 'Back', :back

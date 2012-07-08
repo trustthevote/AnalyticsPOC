@@ -1,7 +1,7 @@
 %p#notice= notice
 
-.row
-  -if (@nvtrs > 0)
+-if (@nvtrs > 0)
+  .row
     .span6
       %h2= "Voter Transaction Records ("+number_with_delimiter(@nvtrs)+")"
     .span3
@@ -10,10 +10,15 @@
       = link_to 'Show XML', :show_xml => true
     .span2
       %b= link_to "Download XML", format: 'xml'
-  -else
-    .span6
+    .span1#statebacknext
+      = link_to 'Back', :back  
+  %br
+-else
+  .row
+    .span11
       %h2= "No Voter Transaction Records"
-%br
+    .span1#statebacknext
+      = link_to 'Back', :back  
 -if (@nvtrs > 0)
   -if @showxml
     %table
@@ -57,6 +62,3 @@
             %td= Election.find(VoterTransactionLog.find(vtr.voter_transaction_log_id).election_id).name
             %td
             %td= link_to 'Show', vtr
-%br
-.span1#statebacklegacy
-  = link_to 'Back', :back
