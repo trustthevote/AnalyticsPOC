@@ -7,22 +7,27 @@
     .span12
       %table{:width=>"100%",:style=>"text-align:center;"}
         %tr
-          %th{:width=>"10%"} Election+
+          %th{:width=>"10%"} Election +
           %th{:width=>"85%"} Data
         %tr
           %td &nbsp;
         - AnalyticReport.order("num ASC").each do |ar|
-          %tr
-            %td
-              = (Election.all.find{|e|e.id==ar.election_id}).name
-              %br
-              = '#'+ar.num.to_s
-              %br
-              = link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
-            %td{:style=>"text-align:left;"}= ar.linebreak(20)
-            %td
-          %tr
-            %td &nbsp;
+          -if ar.num<3 || ar.data!=""
+            %tr
+              %td
+                = (Election.all.find{|e|e.id==ar.election_id}).name
+                %br
+                = '#'+ar.num.to_s
+                %br
+                = link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
+              -if ar.data.length>0
+                %td{:style=>"text-align:left;"}= ar.linebreak(20)
+              -else
+                %td
+                  %i No Data
+              %td
+            %tr
+              %td &nbsp;
 -else
   .row
     .span6
