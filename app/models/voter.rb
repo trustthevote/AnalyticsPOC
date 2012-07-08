@@ -105,7 +105,7 @@ class Voter < ActiveRecord::Base
 
   def vtr_state_current
     [self.vonline, self.vregister, self.vupdate, self.vabsreq,
-     self.voted, self.vote_reject, self.vote_note, self.vote_form]
+     self.votes, self.vote_reject, self.vote_note, self.vote_form]
   end
 
   def vtr_state_encode(values)
@@ -131,7 +131,7 @@ class Voter < ActiveRecord::Base
     self.vtr_state = states
     state, states = self.vtr_state.split("\+",2)
     self.vonline, self.vregister, self.vupdate, self.vabsreq,
-      self.voted, self.vote_reject, self.vote_note,
+      self.votes, self.vote_reject, self.vote_note,
       self.vote_form = self.vtr_state_decode(state)
   end
     

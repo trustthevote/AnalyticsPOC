@@ -110,7 +110,8 @@ class UpliftsController < ApplicationController
       if v.vname.blank?
         v.vname = vname
         v.vtype = vtype
-        v.voted, v.vote_reject, v.vonline = false, false, false
+        v.vote_reject, v.vonline = false, false
+        v.votes = 0
         v.vote_form = ""
         v.vote_note = ""
         v.vregister = ""
@@ -155,30 +156,28 @@ class UpliftsController < ApplicationController
   end
 
   def syncVoter(voter, vtr)
-    if voter.voted #JVC
-      return
-    elsif (vtr.form =~ /Poll Book/)
-      voter.voted = true
+    if (vtr.form =~ /Poll Book/)
+      voter.votes += 1
       voter.vote_reject = false
       voter.vote_form = "Regular"
     elsif (vtr.form =~ /Absentee Ballot/)
       if (vtr.action == 'approve')
-        voter.voted = true
+        voter.votes += 1
         voter.vote_reject = false
         voter.vote_form = "Absentee"
       elsif (vtr.action == 'reject')
-        voter.voted = true
+        voter.votes += 1
         voter.vote_reject = true
         voter.vote_note = vtr.note
         voter.vote_form = "Absentee"
       end
     elsif (vtr.form =~ /Provisional Ballot/)
       if (vtr.action == 'approve')
-        voter.voted = true
+        voter.votes += 1
         voter.vote_reject = false
         voter.vote_form = "Provisional"
       elsif (vtr.action == 'reject')
-        voter.voted = true
+        voter.votes += 1
         voter.vote_reject = true
         voter.vote_note = vtr.note
         voter.vote_form = "Provisional"

@@ -2,27 +2,25 @@
 -if (AnalyticReport.all.length > 0)
   .row
     .span6
-      %h2= "All Analytic Reports ("+AnalyticReport.all.length.to_s+")"
-    .span3
-      = link_to 'Show Table', :show_xml => nil
-      \|
-      = link_to 'Show XML', :show_xml => true
-    .span2
-      %b= link_to "Download XML", format: 'xml', class: 'btn'
+      %h2= "All Analytic Report Data ("+AnalyticReport.all.length.to_s+")"
   .row
     .span12
       %table{:width=>"100%",:style=>"text-align:center;"}
         %tr
-          %th{:width=>"5%"} Num
-          %th{:width=>"10%"} Election
-          %th{:width=>"80%"} Data
-          %th{:width=>"5%"}
+          %th{:width=>"10%"} Election+
+          %th{:width=>"85%"} Data
+        %tr
+          %td &nbsp;
         - AnalyticReport.order("num ASC").each do |ar|
           %tr
-            %td= ar.num
-            %td= (Election.all.find{|e|e.id==ar.election_id}).name
-            %td{:style=>"text-align:left;"}= ar.linebreak(75)
-            %td= link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
+            %td
+              = (Election.all.find{|e|e.id==ar.election_id}).name
+              %br
+              = '#'+ar.num.to_s
+              %br
+              = link_to 'Reset', '/analytic_reports/reset?id='+ar.id.to_s
+            %td{:style=>"text-align:left;"}= ar.linebreak(20)
+            %td
           %tr
             %td &nbsp;
 -else
@@ -30,4 +28,5 @@
     .span6
       %h2= "No Analytic Reports"
 %br
-= link_to 'Back', :back
+.span1#statebacklegacy
+  = link_to 'Back', :back

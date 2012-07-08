@@ -2,26 +2,36 @@
 
 %h2 Voter
 %br
-%p
-  %b Voter ID:
-  = @voter.vname+(@voter.vtype.length > 0 ? ' / '+@voter.vtype : '')
-%p
-  %b Voted:
-  = (@voter.voted ? (@voter.vote_reject ? "Yes / Rejected" : "Yes" ) : "No")
-- if ! @voter.vote_form.blank?
-  %p
-    %b Form:
-    = @voter.vote_form
-- if ! @voter.vuniq.blank?
-  %p
-    %b Uniq:
-    = @voter.vuniq
-%p
-  %b Election:
-  = Election.find(@voter.election_id).namedate
-%p
-  %b State:
-  = @voter.vtr_state
+-label="State:"
+%table{:style=>"padding:5px;margin:0px;"}
+  %tr
+    %td
+      %b Voter ID:
+    %td= @voter.vname+(@voter.vtype.length > 0 ? ' / '+@voter.vtype : '')
+  %tr
+    %td
+      %b Voted:
+    %td= (@voter.votes==0 ? 'No' : (@voter.votes>1 ? @voter.votes.to_s+' times' : (@voter.vote_reject ? "Yes / Rejected" : "Yes" )))
+  - if ! @voter.vote_form.blank?
+    %tr
+      %td
+        %b Form:
+      %td= @voter.vote_form
+  - if ! @voter.vuniq.blank?
+    %tr
+      %td
+        %b Uniq:
+      %td= @voter.vuniq
+  %tr 
+    %td
+      %b Election:
+    %td= Election.find(@voter.election_id).namedate
+  - label='State:'
+  - @voter.vtr_state.split("+").each do |s|
+    %tr
+      %td{:style=>"font-weight:bold;text-align:left;"}= label
+      %td= s
+    - label="&nbsp;".html_safe
 %br
 - if true
   %h3

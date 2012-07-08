@@ -1,45 +1,40 @@
 %p#notice= notice
 
-.row
-  .span6
-    -if VoterRecord.count>0
-      %h2= "All Voter Records ("+VoterRecord.count.to_s+")"
-    -else
-      %h2= "No Voter Records"
-  .span3
-    &nbsp;
-  .span2
-    &nbsp;
-%br
-%table{:style=>"text-align:center"}
-  %tr
-    %th Voter ID
-    %th &nbsp;
-    %th Type
-    %th &nbsp;
-    %th Gender
-    %th &nbsp;
-    %th Party
-    %th &nbsp;
-    %th New
-    %th &nbsp;
-    %th Other
-    %th &nbsp;
-    %th Status
-  - VoterRecord.all.each do |vr|
+-if VoterRecord.count>0
+  %h2= "All Voter Records ("+VoterRecord.count.to_s+")"
+  %br
+  %table{:style=>"text-align:center"}
     %tr
-      %td= vr.vname
-      %td
-      %td= (vr.vtype == '' ? 'domestic' : vr.vtype)
-      %td
-      %td= vr.gender
-      %td
-      %td= vr.party
-      %td
-      %td= (vr.new ? "Yes" : "")
-      %td
-      %td= vr.other
-      %td
-      %td= vr.status
-%br
-= link_to 'Back', :back
+      %th Voter ID
+      %th &nbsp;
+      %th Type
+      %th &nbsp;
+      %th Gender
+      %th &nbsp;
+      %th Party
+      %th &nbsp;
+      %th New
+      %th &nbsp;
+      %th Other
+      %th &nbsp;
+      %th Status
+    - VoterRecord.all.each do |vr|
+      %tr
+        %td= vr.vname
+        %td
+        %td= (vr.vtype == '' ? 'domestic' : vr.vtype)
+        %td
+        %td= vr.gender
+        %td
+        %td= vr.party
+        %td
+        %td= (vr.new ? "Yes" : "")
+        %td
+        %td= vr.other
+        %td
+        %td= vr.status
+-else
+  %h2= "No Voter Records"
+%br  
+.span1#statebacklegacy
+  = link_to 'Back', :back

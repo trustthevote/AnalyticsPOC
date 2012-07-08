@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120707042854) do
+ActiveRecord::Schema.define(:version => 20120708023547) do
 
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20120707042854) do
     t.boolean  "vnew"
     t.string   "vregister"
     t.text     "vtr_state"
+    t.integer  "votes"
   end
 
   add_index "voters", ["election_id"], :name => "index_voters_on_election_id"

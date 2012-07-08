@@ -155,7 +155,7 @@ class AnalyticReportsController < ApplicationController
           self.report2_data(v,@vp['asr'])
         end
       end
-      if (v.voted)
+      if (v.votes>0)
         report_demographic(v, @vp['vot'])
         report_demographic(v, @vp['new']) if v.new
         @vp['new']['vtot'] += 1 if v.new
@@ -173,7 +173,7 @@ class AnalyticReportsController < ApplicationController
         @vp['dun']['tot'] += 1 if v.new
         @vp['duu']['vm']  += 1 if v.military
         @vp['dun']['vm']  += 1 if v.military && v.new
-        if v.voted
+        if v.votes>0
           @vp['duu']['vtot'] += 1
           report_abs_balloting(v, @vp['duu'])
           @vp['duu']['vla'] += 1 if v.absentee_ulapsed
@@ -185,10 +185,10 @@ class AnalyticReportsController < ApplicationController
         end            
       else
         @vp['ddo']['tot'] += 1
-        @vp['ddo']['vtot'] += 1 if v.voted
+        @vp['ddo']['vtot'] += 1 if v.votes>0
         if v.new
           @vp['ddn']['tot'] += 1
-          @vp['ddn']['vtot'] += 1 if v.voted
+          @vp['ddn']['vtot'] += 1 if v.votes>0
         end
         if v.voted_absentee
           report_abs_balloting(v, @vp['ddo'], true)
@@ -249,7 +249,7 @@ class AnalyticReportsController < ApplicationController
   def report2_data(v,vhash)
     vhash['don'] += 1 if v.vonline
     self.report_demographic(v, vhash)
-    if (!v.voted)
+    if (v.votes==0)
       vhash['vno'] += 1
     elsif (!v.vote_reject)
       vhash['vra'] += 1 if (v.vote_form=~/Regular/)

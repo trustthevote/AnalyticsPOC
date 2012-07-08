@@ -36,16 +36,18 @@ class AnalyticReport < ActiveRecord::Base
   def linebreak(n)
     len = self.data.length
     return self.data if len <= n
-    return self.lbreak(self.data,len,n)
+    return self.lbreak(self.data,n)
   end
 
-  def lbreak(str,len,n)
+  def lbreak(str,n)
+    len = str.length
     return str if len <= n
+    lbchar = " "
     while (n < len)
       if str[n] =~ /[:,}]/
-        return str[0..n]+" "+lbreak(str[n+1..-1],1+len-n,n)
+        return str[0..n]+lbchar+lbreak(str[n+1..-1],n)
       elsif str[n] =~ /{/
-        return str[0..n-1]+" "+lbreak(str[n..-1],len-n,n)
+        return str[0..n-1]+lbchar+lbreak(str[n..-1],n)
       else
         n += 1
       end

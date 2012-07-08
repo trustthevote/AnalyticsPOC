@@ -13,25 +13,27 @@
       %th &nbsp;
       %th Party
       %th &nbsp;
-      %th Oth
-      %th &nbsp;
-      %th ONL
-      %th &nbsp;
-      %th VRU
-      %th &nbsp;
-      %th ASR
+      %th Mil
       %th &nbsp;
       %th Stat
       %th &nbsp;
       %th New
       %th &nbsp;
-      %th Voted
+      %th ONL
       %th &nbsp;
-      %th Reject
+      %th RR
+      %th &nbsp;
+      %th RU
+      %th &nbsp;
+      %th AS
+      %th &nbsp;
+      %th Voted
       %th &nbsp;
       %th Ballot
       %th &nbsp;
-      %th Recs
+      %th Rjct
+      %th &nbsp;
+      %th VTRs
       %th &nbsp;
       %th Election
       %th &nbsp;
@@ -47,23 +49,29 @@
           %td
           %td= v.vparty
           %td
-          %td= (v.vother=~/military/i ? 'Mil' : '')
+          %td= (v.vother=~/military/i ? 'Yes' : '')
           %td
-          %td= (v.vonline ? '' : 'No')
-          %td
-          %td= (v.vupdate=~/approve/?'Yes':v.vupdate)
-          %td
-          %td= (v.vabsreq=~/approve/?'Yes':v.vabsreq)
-          %td
-          %td= (v.vstatus=~/abs/i?'Abs':'')
+          %td= (v.vstatus=~/abs/i ? 'Abs' : '')
           %td
           %td= (v.vnew ? 'Yes' : '')
           %td
-          %td= (v.voted ? 'Yes' : 'No')
+          %td= (v.vonline ? 'Yes' : '')
           %td
-          %td= (v.voted && v.vote_reject ? (v.vote_note=~/late/i ? 'Late' : 'Yes') : '')
+          %td= (v.vregister=~/approve/?'Yes':v.vregister.capitalize)
+          %td
+          %td= (v.vupdate=~/approve/?'Yes':v.vupdate.capitalize)
+          %td
+          %td= (v.vabsreq=~/approve/?'Yes':v.vabsreq.capitalize)
+          %td
+          -if v.votes>1
+            %td
+              %b= v.votes.to_s+" X"
+          -else
+            %td= (v.votes>0 ? 'Yes' : '')
           %td
           %td= v.vote_form
+          %td
+          %td= (v.vote_reject ? (v.vote_note=~/late/i ? 'Late' : 'Yes') : '')
           %td
           %td= v.voter_transaction_records.length
           %td
@@ -73,4 +81,5 @@
 -else 
   %h2= "No Voters"
 %br
-= link_to 'Back', :back
+.span1#statebacklegacy
+  = link_to 'Back', :back
