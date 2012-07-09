@@ -8,7 +8,8 @@
       %p{:style=>"color: black;"}
         &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
     .span9
-      %br
+      - AppConfig['login']['emails'].each do |em|
+        = em
   .row
     .span3.sidebar{:style=>"color: black;"}
       %p

@@ -1,13 +1,8 @@
 # Administrative console credentials
 admin:
-  user: admin
-  pass: 
+  user: jeff.the.cook@gmail.com
+  pass: jeffSurf
 
-registration_request:
-
-  # Enable collection of gender on the registration request form
-  collect_gender: true
-
-  # Enable collection of title on the registration request form
-  collect_title:  false
-
+# Approved email addresses for login users
+login:
+  emails: ['jeff.the.cook@gmail.com', 'jsebes@osdv.org']

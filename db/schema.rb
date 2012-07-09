@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120708023547) do
+ActiveRecord::Schema.define(:version => 20120709222157) do
 
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
@@ -29,18 +29,6 @@ ActiveRecord::Schema.define(:version => 20120708023547) do
 
   add_index "analytic_reports", ["election_id"], :name => "index_analytic_reports_on_election_id"
 
-  create_table "election_archives", :force => true do |t|
-    t.integer  "eid"
-    t.string   "name"
-    t.date     "day"
-    t.date     "voter_end_day"
-    t.date     "voter_start_day"
-    t.integer  "nlogs"
-    t.string   "log_file_names"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
   create_table "elections", :force => true do |t|
     t.string   "name"
     t.date     "day"
@@ -56,13 +44,24 @@ ActiveRecord::Schema.define(:version => 20120708023547) do
     t.string   "log_file_names"
   end
 
-  create_table "selections", :force => true do |t|
-    t.integer  "eid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "vr_file"
-    t.string   "vr_origin"
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.boolean  "admin"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "voter_records", :force => true do |t|
     t.string   "vname"
