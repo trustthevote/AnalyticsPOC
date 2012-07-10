@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_admin_user!
+  #before_filter :authenticate_admin_user!
 
   def show
     @users = User.order("email ASC")
