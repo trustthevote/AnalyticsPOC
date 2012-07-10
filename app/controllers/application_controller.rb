@@ -11,6 +11,13 @@ class ApplicationController < ActionController::Base
       disposition:  'attachment;'
   end
 
+  def current_user!
+    unless user_signed_in?
+      authenticate_user!
+    end
+    current_user
+  end
+
   def authenticate_admin_user!
     authenticate_user!
     unless current_user.admin?

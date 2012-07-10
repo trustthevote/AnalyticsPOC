@@ -1,5 +1,5 @@
 class VoterRecordsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :current_user!
 
   # GET /voter_records
   def index
