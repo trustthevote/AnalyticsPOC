@@ -4,6 +4,9 @@
 
   devise_for :users
   resource :user
+  resource :user do
+    match "/:id(.:format)" => 'user#destroy'
+  end
 
   root :to => "pages#home"
 
