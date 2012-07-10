@@ -1,6 +1,6 @@
 #front{:style => "height:462px;"}
   .row
-    .span4
+    .span3
       &nbsp;
     .span5
       %h2 Virginia Voter Log Analytics
@@ -8,30 +8,31 @@
         %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
       -else
         %h3= "Election: "+(Election.all.find{|e|e.selected}).name+" "+(Election.all.find{|e|e.selected}).day.to_s
-    .span3
-      %table{:style=>"width:100%;text-align:left;"}
+    .span4
+      %table{:style=>"width:100%;margin:0;padding:0;text-align:left;"}
         %tr
           %td
             = link_to "Elections",'elections#index', class: 'primary btn'
-            = "&nbsp;".html_safe
-            = link_to "Logs",'voter_transaction_logs#index', class: 'primary btn'
+          %td
+            = link_to "Voter Records",'/voter_records/show', class: 'primary btn'
         %tr
           %td
-            = link_to "Records",'voter_transaction_records#index', class: 'primary btn'
-            = "&nbsp;".html_safe
+            = link_to "VTLs (Logs)",'voter_transaction_logs#index', class: 'primary btn'
+          %td
             = link_to "Voters",'voters#index', class: 'primary btn'
         %tr
           %td
-            = link_to "Voter Records",'/voter_records/show', class: 'primary btn'
+            = link_to "VTRs (Records)",'voter_transaction_records#index', class: 'primary btn'
+          %td
             = "&nbsp;".html_safe
         %tr
           %td
-            = link_to "Reports",'/analytic_reports/index', class: 'primary btn'
-            = "&nbsp;".html_safe
+            = link_to "Analytic Reports",'/analytic_reports/index', class: 'primary btn'
+          %td
             = link_to "Users", 'user#show', class: 'primary btn'
 
   .row.main
-    .span4.sidebar
+    .span3.sidebar
       %p
         %em Welcome to Virginia Voter Log Analytics
 

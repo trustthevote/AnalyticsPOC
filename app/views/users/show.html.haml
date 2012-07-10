@@ -22,7 +22,8 @@
         %td
         %td= (u.admin ? "Yes" : "")
         %td
-        %td= link_to 'Destroy', '/user/'+u.id.to_s, :confirm => 'Are you sure you want to destroy this account?', :method => :delete
+        -if !u.admin
+          %td= link_to 'Destroy', '/user/'+u.id.to_s, :confirm => 'Are you sure you want to destroy this account?', :method => :delete
 -else
   .span11
     %h2= "No Users (Impossible If You Are Here!)"
