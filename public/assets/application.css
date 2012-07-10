@@ -5348,29 +5348,40 @@ footer hr {
   color: #FFF;
   text-align: center;
   font-size: 36px;
+  position: relative;
+  top: -16px;
 }
-/* line 20, ../../../app/assets/stylesheets/public/header.css.scss */
+/* line 21, ../../../app/assets/stylesheets/public/header.css.scss */
 #header .subtitle {
   margin-left: 200px;
 }
+/* line 25, ../../../app/assets/stylesheets/public/header.css.scss */
+#header b {
+  color: #B0B0B0;
+  text-align: right;
+  font-size: 16px;
+  position: relative;
+  left: 20px;
+}
 
-/* line 26, ../../../app/assets/stylesheets/public/header.css.scss */
+/* line 36, ../../../app/assets/stylesheets/public/header.css.scss */
 #menu {
   text-align: right;
-  margin: 20px 20px 0 0;
+  position: relative;
+  top: -16px;
 }
-/* line 30, ../../../app/assets/stylesheets/public/header.css.scss */
+/* line 41, ../../../app/assets/stylesheets/public/header.css.scss */
 #menu li {
   display: inline-block;
   padding-left: 7px;
   padding-right: 0px;
   margin: 0;
 }
-/* line 37, ../../../app/assets/stylesheets/public/header.css.scss */
+/* line 48, ../../../app/assets/stylesheets/public/header.css.scss */
 #menu li:before {
   content: '';
 }
-/* line 41, ../../../app/assets/stylesheets/public/header.css.scss */
+/* line 52, ../../../app/assets/stylesheets/public/header.css.scss */
 #menu a {
   color: white;
 }
