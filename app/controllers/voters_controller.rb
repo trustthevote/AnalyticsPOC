@@ -1,4 +1,5 @@
 class VotersController < ApplicationController
+  before_filter :authenticate_user!
 
   def voter
     if params[:id] 

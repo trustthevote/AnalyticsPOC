@@ -5,4 +5,8 @@ admin:
 
 # Approved email addresses for login users
 login:
-  emails: ['jeff.the.cook@gmail.com', 'jsebes@osdv.org']
+  emails: ['jeff.the.cook@gmail.com',
+           'jsebes@osdv.org',
+	   'spyromus@noizeramp.com',
+	   'annewoflaherty@gmail.com'
+	   ]

@@ -67,7 +67,10 @@
           %td
           %td= (v.vabsreq=~/approve/?'Yes':v.vabsreq.capitalize)
           %td
-          -if v.votes>1
+          -if v.votes.blank?
+            %td
+              %b= v.voted.to_s
+          -elsif v.votes>1
             %td
               %b= v.votes.to_s+" X"
           -else

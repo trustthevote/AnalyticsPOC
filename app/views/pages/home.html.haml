@@ -7,9 +7,20 @@
         %b Welcome to the Virginia Voter Activity Analytics
       %p{:style=>"color: black;"}
         &nbsp;&nbsp;&#8230; a new service for Virginia election officials.
-    .span9
-      - AppConfig['login']['emails'].each do |em|
-        = em
+    - if user_signed_in?
+      .span1#stateget
+        = link_to('Logout', destroy_user_session_path, :method=>'delete')
+      .span3
+        = "&nbsp;".html_safe
+      .span2#stateget
+        = link_to('Edit Account', edit_user_registration_path)
+    - else
+      .span1#stateget
+        = link_to('Login', new_user_session_path)
+      .span3
+        = "&nbsp;".html_safe
+      .span2#stateget
+        = link_to('Sign Up', new_user_registration_path)
   .row
     .span3.sidebar{:style=>"color: black;"}
       %p

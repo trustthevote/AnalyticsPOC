@@ -3,6 +3,7 @@
   ActiveAdmin.routes(self)
 
   devise_for :users
+  resource :user
 
   root :to => "pages#home"
 

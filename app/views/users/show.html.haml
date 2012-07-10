@@ -1,0 +1,30 @@
+%p#notice= notice
+
+-if (@users.length > 0)
+  .row
+    .span6
+      %h2= "All Users ("+@users.length.to_s+")  "
+    .span5
+      = "&nbsp;".html_safe
+    .span1#statebacknext
+      = link_to 'Back', :back
+  %br
+  %table{:style=>"text-align:center"}
+    %tr
+      %th Email
+      %th &nbsp;
+      %th Admin
+      %th &nbsp;
+      %th &nbsp;
+    - @users.each do |u|
+      %tr
+        %td= u.email
+        %td
+        %td= (u.admin ? "Yes" : "")
+        %td
+        %td= link_to 'Destroy', u, :confirm => 'Are you sure?', :method => :delete
+-else
+  .span11
+    %h2= "No Users (Impossible!)"
+  .span1#statebacknext
+    = link_to 'Back', :back

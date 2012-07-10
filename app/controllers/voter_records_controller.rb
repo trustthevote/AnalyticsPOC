@@ -1,4 +1,6 @@
 class VoterRecordsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /voter_records
   def index
     @voter_records = VoterRecord.all

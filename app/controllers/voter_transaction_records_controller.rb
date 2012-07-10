@@ -1,4 +1,5 @@
 class VoterTransactionRecordsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /voter_transaction_records
   def index
     if eid = params[:id]

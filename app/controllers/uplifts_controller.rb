@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'csv'
 
 class UpliftsController < ApplicationController
+  before_filter :authenticate_user!
 
   attr_accessor :uplift_file
 

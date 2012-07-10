@@ -1,4 +1,5 @@
 class AnalyticReportsController < ApplicationController
+  before_filter :authenticate_user!
 
   def analytic
     if params[:id] 

@@ -2,29 +2,33 @@
   .row
     .span4
       &nbsp;
-
-    .span8
-      %table{:style=>"width:100%;"}
+    .span5
+      %h2 Virginia Voter Log Analytics
+      -if !(Election.all.any?{|e|e.selected})
+        %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
+      -else
+        %h3= "Election: "+(Election.all.find{|e|e.selected}).name+" "+(Election.all.find{|e|e.selected}).day.to_s
+    .span3
+      %table{:style=>"width:100%;text-align:left;"}
         %tr
           %td
-            %h2 Virginia Voter Log Analytics
-          %td{:style=>"text-align:left;"}
             = link_to "Elections",'elections#index', class: 'primary btn'
+            = "&nbsp;".html_safe
             = link_to "Logs",'voter_transaction_logs#index', class: 'primary btn'
         %tr
           %td
-            -if !(Election.all.any?{|e|e.selected})
-              %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
-            -else
-              %h3= "Election: "+(Election.all.find{|e|e.selected}).name+" "+(Election.all.find{|e|e.selected}).day.to_s
-          %td{:style=>"text-align:left;padding-bottom:6px;"}
             = link_to "Records",'voter_transaction_records#index', class: 'primary btn'
+            = "&nbsp;".html_safe
             = link_to "Voters",'voters#index', class: 'primary btn'
         %tr
           %td
-          %td{:style=>"text-align:left;"}
-            = link_to "VRecords",'/voter_records/show', class: 'primary btn'
+            = link_to "Voter Records",'/voter_records/show', class: 'primary btn'
+            = "&nbsp;".html_safe
+        %tr
+          %td
             = link_to "Reports",'/analytic_reports/index', class: 'primary btn'
+            = "&nbsp;".html_safe
+            = link_to "Users", 'user#show', class: 'primary btn'
 
   .row.main
     .span4.sidebar

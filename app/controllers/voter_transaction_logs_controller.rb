@@ -1,4 +1,5 @@
 class VoterTransactionLogsController < ApplicationController
+  before_filter :authenticate_user!
 
   # GET /voter_transaction_logs
   def index

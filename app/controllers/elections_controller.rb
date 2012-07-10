@@ -1,6 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class ElectionsController < ApplicationController
+  before_filter :authenticate_user!
 
   # GET /elections
   def index
