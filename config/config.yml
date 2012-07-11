@@ -1,12 +1,12 @@
 # Administrative console credentials
 admin:
-  user: jeff.the.cook@gmail.com
-  pass: jeffSurf
+  user: jeff
+  pass: 
 
 # Approved email addresses for login users
 login:
   emails: ['jeff.the.cook@gmail.com',
-           'jsebes@osdv.orgs',
+           'jsebes@osdv.org',
 	   'spyromus@noizeramp.com',
 	   'annewoflaherty@gmail.com'
 	   ]
