@@ -15,7 +15,7 @@
         %tr
           %td &nbsp;
         - AnalyticReport.order("num ASC").each do |ar|
-          -if ar.num<3 || ar.data!=""
+          -if ar.num<4 || ar.data!=""
             %tr
               %td
                 = (Election.all.find{|e|e.id==ar.election_id}).name

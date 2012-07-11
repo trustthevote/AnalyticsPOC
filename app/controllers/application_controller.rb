@@ -13,7 +13,16 @@ class ApplicationController < ActionController::Base
 
   def current_user!
     unless user_signed_in?
+      flash[:alert] = "This area is restricted to logged-in users only."
       authenticate_user!
+    end
+    current_user
+  end
+
+  def admin_user!
+    unless user_signed_in? && current_user.is_admin
+      flash[:alert] = "This area is restricted to logged-in administrators only."
+      authenticate_admin_user!
     end
     current_user
   end

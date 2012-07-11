@@ -11,21 +11,22 @@
   %br
   %table{:style=>"text-align:center"}
     %tr
-      %th Email
+      %th User Email
       %th &nbsp;
-      %th Admin
+      %th Type
       %th &nbsp;
       %th &nbsp;
     - @users.each do |u|
       %tr
         %td= u.email
         %td
-        %td= (u.admin ? "Yes" : "")
+        %td= (u.is_admin ? "Admin" : "")
         %td
-        -if current_user.admin && !u.admin
+        -if current_user.is_admin
           %td= link_to 'Destroy', '/user/'+u.id.to_s, :confirm => 'Are you sure you want to destroy this account?', :method => :delete
 -else
-  .span11
-    %h2= "No Users (Impossible If You Are Here!)"
-  .span1#statebacknext
-    = link_to 'Back', :back
+  .row
+    .span11
+      %h2= "No Users"
+    .span1#statebacknext
+      = link_to 'Back', :back

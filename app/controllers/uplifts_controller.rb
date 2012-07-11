@@ -3,6 +3,7 @@ require 'csv'
 
 class UpliftsController < ApplicationController
   skip_before_filter  :verify_authenticity_token
+  before_filter :current_user!
 
   attr_accessor :uplift_file
 

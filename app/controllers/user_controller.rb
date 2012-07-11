@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  #before_filter :authenticate_admin_user!
+  before_filter :current_user!
 
   def destroy
     @user = User.find(params[:id])

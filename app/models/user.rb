@@ -10,4 +10,11 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true,
             :inclusion => { :in => AppConfig['login']['emails'] }
 
+  def is_admin
+    if AppConfig['login']['emails'].length > 0
+      return self.email == AppConfig['login']['emails'][0]
+    end
+    return false
+  end
+
 end
