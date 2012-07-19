@@ -17,26 +17,30 @@
       %th &nbsp;
       %th Party
       %th &nbsp;
-      %th New
+      %th Military
       %th &nbsp;
-      %th Other
+      %th Overseas
       %th &nbsp;
-      %th Status
+      %th Absentee
+      %th &nbsp;
+      %th Reg Date
     - VoterRecord.all.each do |vr|
       %tr
         %td= vr.vname
         %td
-        %td= (vr.vtype == '' ? 'domestic' : vr.vtype)
+        %td= vr.vtype
         %td
         %td= vr.gender
         %td
         %td= vr.party
         %td
-        %td= (vr.new ? "Yes" : "")
+        %td= vr.military
         %td
-        %td= vr.other
+        %td= vr.overseas
         %td
-        %td= vr.status
+        %td= vr.absentee
+        %td
+        %td= vr.regidate.to_s
 -else
   .row
     .span11

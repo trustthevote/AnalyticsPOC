@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709222157) do
+ActiveRecord::Schema.define(:version => 20120719061233) do
+
+  create_table "active_admin_comments", :force => true do |t|
+    t.string   "resource_id",   :null => false
+    t.string   "resource_type", :null => false
+    t.integer  "author_id"
+    t.string   "author_type"
+    t.text     "body"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "namespace"
+  end
+
+  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
+  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
+  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "analytic_reports", :force => true do |t|
     t.integer  "num"
@@ -72,6 +87,10 @@ ActiveRecord::Schema.define(:version => 20120709222157) do
     t.datetime "updated_at", :null => false
     t.string   "other"
     t.string   "status"
+    t.string   "military"
+    t.string   "overseas"
+    t.string   "absentee"
+    t.date     "regidate"
   end
 
   create_table "voter_transaction_logs", :force => true do |t|

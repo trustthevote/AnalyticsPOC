@@ -63,10 +63,6 @@ class Voter < ActiveRecord::Base
     self.vregister=~/approve/i
   end
 
-  def military
-    self.vother=~/military/i
-  end
-  
   def absentee_status
     self.vstatus=~/abs/i || self.vtype=~/uoc/i
   end

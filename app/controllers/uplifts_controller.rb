@@ -312,7 +312,7 @@ XSL
       render :uplift
       return false
     end
-    unless csv[0] =~ /^Voter,Type,Gender,Party/
+    unless true or csv[0] =~ /^Voter,Type,Gender,Party/ #JVC
       @uplift_err = "Invalid header line of CSV file: "+csv[0]
       render :uplift
       return false
@@ -321,21 +321,12 @@ XSL
     vrhash = Hash.new {}
     csv.shift
     csv.each do |row|
-      if row =~ /^(\w+),(\w+),(\w+),(\w+),(\w*),(\w*)/
-        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
-                           :other=>$5, :status=>$6)
-      elsif row =~ /^(\w+),(\w+),(\w+),(\w+),(\w*)/
-        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
-                           :other=>$5, :status=>"")
-      elsif row =~ /^(\w+),(\w+),(\w+),(\w+)/
-        vr=VoterRecord.new(:vname=>$1, :vtype=>$2, :gender=>$3, :party=>$4,
-                           :other=>"", :status=>"")
-      else
-        @uplift_err = "Invalid row in CSV file: "+row
-        render :uplift
-        return false
-      end
-      vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status]
+      (vname, gender, party, military, overseas, abs, rdate) = row.split(',')
+      vtype = ((military =~ /Y/i or overseas =~ /Y/i) ? 'UOCAVA' : 'domestic')
+      vr=VoterRecord.new(:vname=>vname, :vtype=>vtype, :gender=>gender,
+                         :party=>party, :military=>military,
+                         :overseas=>overseas, :absentee=>abs, :regidate=>rdate)
+      vrhash[vr.vname] = [vr.gender, vr.party, vr.military, vr.absentee]
       vr.save
       voter_record_report_update(avhash, vr)
     end

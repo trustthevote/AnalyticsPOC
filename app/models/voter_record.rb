@@ -4,10 +4,6 @@ class VoterRecord < ActiveRecord::Base
     self.vtype=~/uoc/i
   end
   
-  def military
-    self.other=~/military/i
-  end
-  
   def absentee_status
     self.status=~/abs/i || self.vtype=~/uoc/i
   end
