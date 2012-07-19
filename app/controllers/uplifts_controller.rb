@@ -107,11 +107,10 @@ class UpliftsController < ApplicationController
     end
   end
 
-  def upliftVoter(vname, vtype, eid)
+  def upliftVoter(vname, eid)
     voter = Voter.find_or_create_by_vuniq(vname+"_"+eid.to_s) do |v|
       if v.vname.blank?
         v.vname = vname
-        v.vtype = vtype
         v.vote_reject, v.vonline = false, false
         v.votes = 0
         v.vote_form = ""
@@ -139,19 +138,17 @@ class UpliftsController < ApplicationController
       v.vparty = vr.party
       v.vother = vr.other
       v.vstatus = vr.status
-      v.vnew = vr.new
     end
   end
 
   def updateVoterFieldsFromRecord(vr)
     if v = Voter.where(:vname=>vr.vname).first
       unless (v.vgender==vr.gender && v.vparty==vr.party &&
-              v.vother==vr.other && v.vstatus==vr.status && v.vnew==vr.new)
+              v.vother==vr.other && v.vstatus==vr.status)
         v.vgender = vr.gender
         v.vparty = vr.party
         v.vother = vr.other
         v.vstatus = vr.status
-        v.vnew = vr.new
         v.save
       end
     end
@@ -219,7 +216,7 @@ class UpliftsController < ApplicationController
   def upliftFinalizeLog(xml, eid)
     origin = self.upliftExtractContent(xml % 'header/origin')
     ouniq = self.upliftExtractContent(xml % 'header/originUniq')
-    logdate = self.upliftExtractContent(xml % 'header/date')
+    logdate = self.upliftExtractContent(xml % 'header/createDate')
     vtl = VoterTransactionLog.new(:origin => origin,
                                   :origin_uniq => ouniq,
                                   :datime => logdate,
@@ -232,22 +229,15 @@ class UpliftsController < ApplicationController
       return false
     end
     (xml / 'voterTransactionRecord').each do |vtr|
-      vname = self.upliftExtractContent(vtr % 'voter')
-      vtype = self.upliftExtractContent(vtr % 'vtype')
+      vname = self.upliftExtractContent(vtr % 'voterid')
       datime = self.upliftExtractContent(vtr % 'date')
       action = self.upliftExtractContent(vtr % 'action')
+      form = self.upliftExtractContent(vtr % 'form')+" "+
+        self.upliftExtractContent(vtr % 'formNote')
       leo = self.upliftExtractContent(vtr % 'leo')
-      note = self.upliftExtractContent(vtr % 'note')
-      type1, type2, name, number = "", "", "", ""
-      if (node = vtr % 'form')
-        (node / 'type').each do |type|
-          ((type1 == "") ? type1 = type.content : type2 = type.content )
-        end
-        name = self.upliftExtractContent(node % 'name')
-        number = self.upliftExtractContent(node % 'number')
-        form = upliftMungeForm(type1, type2, name, number)
-      end
-      voter = self.upliftVoter(vname, vtype, eid)
+      note = self.upliftExtractContent(vtr % 'notes')
+      comment = self.upliftExtractContent(vtr % 'comment')
+      voter = self.upliftVoter(vname, eid)
       unless (voter.save)
         voter.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
@@ -255,11 +245,11 @@ class UpliftsController < ApplicationController
       vid = voter.id
       vtr = VoterTransactionRecord.new(:datime => datime,
                                        :vname => vname,
-                                       :vtype => vtype,
                                        :action => action,
                                        :form => form,
                                        :leo => leo,
                                        :note => note,
+                                       :comment => comment,
                                        :voter_transaction_log_id => vtl.id,
                                        :voter_id => vid)
       unless (vtr.save)
@@ -322,11 +312,12 @@ XSL
     csv.shift
     csv.each do |row|
       (vname, gender, party, military, overseas, abs, rdate) = row.split(',')
-      vtype = ((military =~ /Y/i or overseas =~ /Y/i) ? 'UOCAVA' : 'domestic')
-      vr=VoterRecord.new(:vname=>vname, :vtype=>vtype, :gender=>gender,
-                         :party=>party, :military=>military,
+      vr=VoterRecord.new(:vname=>vname, :gender=>gender,
+                         :party=>party, :military=>military, :other=>'',
                          :overseas=>overseas, :absentee=>abs, :regidate=>rdate)
-      vrhash[vr.vname] = [vr.gender, vr.party, vr.military, vr.absentee]
+      vr.other += 'M' if military=~/Y/
+      vr.other += 'O' if overseas=~/Y/
+      vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.absentee]
       vr.save
       voter_record_report_update(avhash, vr)
     end
@@ -336,9 +327,12 @@ XSL
       gender, party, other, status = "", "", "", ""
       if vrhash.keys.include?(v.vname)
         gender, party, other, status = vrhash[v.vname]
+        new = ((vr.regidate >= @election.voter_start_day) and
+               (vr.regidate <= @election.voter_end_day))
         if (v.vgender != gender || v.vparty != party ||
-            v.vother != other || v.vstatus != status)
-          v.vgender, v.vparty, v.vother, v.vstatus = gender,party,other,status
+            v.vother != other || v.vstatus != status ||
+            v.vnew != new)
+          v.vgender, v.vparty, v.vother, v.vstatus, v.vnew = gender,party,other,status,new
           v.save
         end
       end

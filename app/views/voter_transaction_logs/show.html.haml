@@ -33,8 +33,6 @@
     %tr
       %th Voter
       %th &nbsp;
-      %th VType
-      %th &nbsp;
       %th Date
       %th &nbsp;
       %th Action
@@ -44,13 +42,14 @@
       %th LEO
       %th &nbsp;
       %th Note
+      %th &nbsp;
+      %th Comment
+      %th &nbsp;
       %th
 
     - @voter_transaction_log.voter_transaction_records.each do |vtr|
       %tr
         %td= vtr.vname
-        %td
-        %td= vtr.vtype
         %td
         %td= vtr.datime.strftime("%B %-d, %Y")
         %td
@@ -61,6 +60,9 @@
         %td= vtr.leo
         %td
         %td= vtr.note
+        %td
+        %td= vtr.comment
+        %td
         %td= link_to 'Show', vtr
 
 %br

@@ -169,7 +169,7 @@ class AnalyticReportsController < ApplicationController
         @vp['vno']['asa'] += 1 if v.asr_approved
         @vp['vno']['asr'] += 1 if v.asr_rejected
       end
-      if (v.vtype=="UOCAVA")
+      if (v.uocava)
         @vp['duu']['tot'] += 1
         @vp['dun']['tot'] += 1 if v.new
         @vp['duu']['vm']  += 1 if v.military

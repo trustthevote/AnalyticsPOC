@@ -7,7 +7,7 @@
   %tr
     %td
       %b Voter ID:
-    %td= @voter.vname+(@voter.vtype.length > 0 ? ' / '+@voter.vtype : '')
+    %td= @voter.vname
   %tr
     %td
       %b Voted:
@@ -34,15 +34,12 @@
     - label="&nbsp;".html_safe
 %br
 - if true
-  %h3
-    Voter Transaction Records
+  %h3= 'Voter Transaction Records ('+@voter.vtrs.count.to_s+')'
   %br
 
   %table{:style=>"text-align:center"}
     %tr
       %th Voter
-      %th &nbsp;
-      %th VType
       %th &nbsp;
       %th Date
       %th &nbsp;
@@ -53,13 +50,14 @@
       %th LEO
       %th &nbsp;
       %th Note
+      %th &nbsp;
+      %th Comment
+      %th &nbsp;
       %th
 
     - @voter.voter_transaction_records.each do |vtr|
       %tr
         %td= vtr.vname
-        %td
-        %td= vtr.vtype
         %td
         %td= vtr.datime
         %td
@@ -70,6 +68,9 @@
         %td= vtr.leo
         %td
         %td= vtr.note
+        %td
+        %td= vtr.comment
+        %td
         %td= link_to 'Show', vtr
 
 %br

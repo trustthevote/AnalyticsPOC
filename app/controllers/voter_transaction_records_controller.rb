@@ -11,9 +11,9 @@ class VoterTransactionRecordsController < ApplicationController
         elsif eid == vtl.election_id
           vtl.voter_transaction_records.each do |vtr|
             if filter =~ /uoc/
-              @voter_transaction_records.push(vtr) if vtr.vtype=~/UOCAVA/
+              @voter_transaction_records.push(vtr) if vtr.uocava
             elsif filter =~ /abs/
-              @voter_transaction_records.push(vtr) if vtr.form=~/Absentee\sBallot/
+              @voter_transaction_records.push(vtr) if vtr.form=~/AbsenteeBallot/
             else
               @voter_transaction_records.push(vtr)
             end

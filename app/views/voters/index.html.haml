@@ -11,13 +11,13 @@
     %tr
       %th VID
       %th &nbsp;
-      %th Type
-      %th &nbsp;
       %th M/F
       %th &nbsp;
       %th Party
       %th &nbsp;
       %th Mil
+      %th &nbsp;
+      %th Oseas
       %th &nbsp;
       %th Stat
       %th &nbsp;
@@ -47,13 +47,13 @@
         %tr
           %td= v.vname
           %td
-          %td= (v.vtype=~/UOC/ ? 'UOC' : '')
-          %td
           %td= v.vgender
           %td
           %td= v.vparty
           %td
-          %td= (v.vother=~/military/i ? 'Yes' : '')
+          %td= (v.vother=~/M/ ? 'Yes' : '')
+          %td
+          %td= (v.vother=~/O/ ? 'Yes' : '')
           %td
           %td= (v.vstatus=~/abs/i ? 'Abs' : '')
           %td

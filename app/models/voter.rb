@@ -15,8 +15,12 @@ class Voter < ActiveRecord::Base
     self.voter_transaction_records
   end
 
+  def military
+    self.vother =~ /M/
+  end
+  
   def uocava
-    self.vtype=~/uoc/i
+    self.vother =~ /[MO]/
   end
   
   def new
@@ -64,11 +68,11 @@ class Voter < ActiveRecord::Base
   end
 
   def absentee_status
-    self.vstatus=~/abs/i || self.vtype=~/uoc/i
+    self.vstatus=~/abs/i || self.uocava
   end
   
   def absentee_ulapsed
-    self.vtype=~/uoc/i && !(self.vstatus=~/abs/i)
+    self.uocava && !(self.vstatus=~/abs/i)
   end
   
   def voted_provisional

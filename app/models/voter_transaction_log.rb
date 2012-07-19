@@ -6,14 +6,6 @@ class VoterTransactionLog < ActiveRecord::Base
   belongs_to :election
   has_many :voter_transaction_records, :dependent => :destroy
 
-  def arecords()
-    return self.voter_transaction_records.inject(0){|m,vtr|m+(vtr.form=~/Absentee\sBallot/?1:0)}
-  end
-
-  def urecords()
-    return self.voter_transaction_records.inject(0){|m,vtr|m+(vtr.vtype=~/UOCAVA/?1:0)}
-  end
-
   def archived
     if e = Election.find(self.election_id)
       return e.archived

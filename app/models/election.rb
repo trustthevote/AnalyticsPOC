@@ -50,14 +50,6 @@ class Election < ActiveRecord::Base
     return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.voter_transaction_records.length}
   end
 
-  def arecords()
-    return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.arecords}
-  end
-
-  def urecords()
-    return self.voter_transaction_logs.inject(0){|n,vtl|n+vtl.urecords}
-  end
-
   def uvoters() # number of unique voters
     uvs = []
     self.voter_transaction_logs.each do |vtl|

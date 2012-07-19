@@ -28,8 +28,6 @@
       %tr
         %th Voter
         %th &nbsp;
-        %th VType
-        %th &nbsp;
         %th Date
         %th &nbsp;
         %th Action
@@ -40,14 +38,14 @@
         %th &nbsp;
         %th Note
         %th &nbsp;
+        %th Comment
+        %th &nbsp;
         %th Election
         %th
       - @voter_transaction_records.each do |vtr|
         -if ! vtr.archived
           %tr
             %td= vtr.vname
-            %td
-            %td= vtr.vtype
             %td
             %td= vtr.date
             %td
@@ -56,6 +54,8 @@
             %td= vtr.form
             %td
             %td= vtr.leo
+            %td
+            %td= vtr.note
             %td
             %td= vtr.note
             %td

@@ -1,15 +1,15 @@
 class VoterRecord < ActiveRecord::Base
 
   def uocava
-    self.vtype=~/uoc/i
+    self.other =~ /[MO]/
   end
   
   def absentee_status
-    self.status=~/abs/i || self.vtype=~/uoc/i
+    self.status=~/abs/i || self.uocava
   end
   
   def absentee_ulapsed
-    self.vtype=~/uoc/i && !(self.status=~/abs/i)
+    self.uocava && !(self.status=~/abs/i)
   end
   
   def new
