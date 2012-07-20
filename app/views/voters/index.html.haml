@@ -15,9 +15,7 @@
       %th &nbsp;
       %th Party
       %th &nbsp;
-      %th Mil
-      %th &nbsp;
-      %th Oseas
+      %th UOC
       %th &nbsp;
       %th Stat
       %th &nbsp;
@@ -49,13 +47,11 @@
           %td
           %td= v.vgender
           %td
-          %td= v.vparty
+          %td= (v.vparty=~/Dem/ ? 'Dem' : (v.vparty=~/Rep/ ? 'Rep' : v.vparty))
           %td
-          %td= (v.vother=~/M/ ? 'Yes' : '')
+          %td= v.vother
           %td
-          %td= (v.vother=~/O/ ? 'Yes' : '')
-          %td
-          %td= (v.vstatus=~/abs/i ? 'Abs' : '')
+          %td= (v.vstatus=~/abs/ ? 'Abs' : '')
           %td
           %td= (v.vnew ? 'Yes' : '')
           %td

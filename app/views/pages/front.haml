@@ -2,34 +2,56 @@
   .row
     .span3
       &nbsp;
-    .span5
+    .span4
       %h2 Virginia Voter Log Analytics
       -if !(Election.all.any?{|e|e.selected})
         %h3= "Election: "+(((Election.all.length == 0) && "None Specified") || "None Selected")
       -else
         %h3= "Election: "+(Election.all.find{|e|e.selected}).name+" "+(Election.all.find{|e|e.selected}).day.to_s
-    .span4
+    .span5
       %table{:style=>"width:100%;margin:0;padding:0;text-align:left;"}
         %tr
           %td
-            = link_to "Elections",'elections#index', class: 'primary btn'
+            -if ((xn=Election.all.length) == 0)
+              = link_to "No Elections",'elections#index', class: 'primary btn'
+            -else
+              = link_to "Elections ("+xn.to_s+")",'elections#index', class: 'primary btn'
           %td
-            = link_to "Voter Records",'/voter_records/show', class: 'primary btn'
+            -if ((xn=VoterRecord.all.length) == 0)
+              = link_to "No Voter Records",'/voter_records/show', class: 'primary btn'
+            -else
+              = link_to "Voter Records ("+xn.to_s+")",'/voter_records/show', class: 'primary btn'
         %tr
           %td
-            = link_to "VTLs (Logs)",'voter_transaction_logs#index', class: 'primary btn'
+            -if ((xn=VoterTransactionLog.all.length) == 0)
+              = link_to "No VTLs",'voter_transaction_logs#index', class: 'primary btn'
+            -else
+              = link_to "VTLs ("+xn.to_s+")",'voter_transaction_logs#index', class: 'primary btn'
           %td
-            = link_to "Voters",'voters#index', class: 'primary btn'
+            -if ((xn=Voter.all.length) == 0)
+              = link_to "No Voters",'voters#index', class: 'primary btn'
+            -else
+              = link_to "Voters ("+xn.to_s+")",'voters#index', class: 'primary btn'
         %tr
           %td
-            = link_to "VTRs (Records)",'voter_transaction_records#index', class: 'primary btn'
+            -if ((xn=VoterTransactionRecord.all.length) == 0)
+              = link_to "No VTRs",'voter_transaction_records#index', class: 'primary btn'
+            -else
+              = link_to "VTRs ("+xn.to_s+")",'voter_transaction_records#index', class: 'primary btn'
+
           %td
             = "&nbsp;".html_safe
         %tr
           %td
-            = link_to "Analytic Reports",'/analytic_reports/index', class: 'primary btn'
+            -if ((xn=AnalyticReport.all.length) == 0)
+              = link_to "No Analytic Reports",'/analytic_reports/index', class: 'primary btn'
+            -else
+              = link_to "Analytic Reports ("+xn.to_s+")",'/analytic_reports/index', class: 'primary btn'
           %td
-            = link_to "Users", 'user#show', class: 'primary btn'
+            -if ((xn=User.all.length) == 0)
+              = link_to "No Users", 'user#show', class: 'primary btn'
+            -else
+              = link_to "Users ("+xn.to_s+")", 'user#show', class: 'primary btn'
 
   .row.main
     .span3.sidebar

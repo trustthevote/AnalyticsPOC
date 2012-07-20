@@ -137,7 +137,10 @@ class UpliftsController < ApplicationController
       v.vgender = vr.gender
       v.vparty = vr.party
       v.vother = vr.other
-      v.vstatus = vr.status
+      v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
+      e = Election.find(v.election_id)
+      v.vnew = ((vr.regidate >= e.voter_start_day) and
+                (vr.regidate <= e.voter_end_day))
     end
   end
 
@@ -148,18 +151,21 @@ class UpliftsController < ApplicationController
         v.vgender = vr.gender
         v.vparty = vr.party
         v.vother = vr.other
-        v.vstatus = vr.status
+        v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
+        e = Election.find(v.election_id)
+        v.vnew = ((vr.regidate >= e.voter_start_day) and
+                  (vr.regidate <= e.voter_end_day))
         v.save
       end
     end
   end
 
   def syncVoter(voter, vtr)
-    if (vtr.form =~ /Poll Book/)
+    if (vtr.form =~ /PollBook/)
       voter.votes += 1
       voter.vote_reject = false
       voter.vote_form = "Regular"
-    elsif (vtr.form =~ /Absentee Ballot/)
+    elsif (vtr.form =~ /AbsenteeBallot/)
       if (vtr.action == 'approve')
         voter.votes += 1
         voter.vote_reject = false
@@ -170,7 +176,7 @@ class UpliftsController < ApplicationController
         voter.vote_note = vtr.note
         voter.vote_form = "Absentee"
       end
-    elsif (vtr.form =~ /Provisional Ballot/)
+    elsif (vtr.form =~ /ProvisionalBallot/)
       if (vtr.action == 'approve')
         voter.votes += 1
         voter.vote_reject = false
@@ -181,7 +187,7 @@ class UpliftsController < ApplicationController
         voter.vote_note = vtr.note
         voter.vote_form = "Provisional"
       end
-    elsif (vtr.form =~ /Voter Registration/)
+    elsif (vtr.form =~ /VoterRegistration/)
       if (vtr.action == 'approve')
         voter.vregister = 'approve'
       elsif (vtr.action == 'reject')
@@ -189,7 +195,7 @@ class UpliftsController < ApplicationController
       else
         voter.vregister = 'try' unless voter.vregister == 'approve'
       end
-    elsif (vtr.form =~ /Record Update/)
+    elsif (vtr.form =~ /RecordUpdate/)
       if (vtr.action == 'approve')
         voter.vupdate = 'approve'
       elsif (vtr.action == 'reject')
@@ -197,7 +203,7 @@ class UpliftsController < ApplicationController
       else
         voter.vupdate = 'try' unless voter.vupdate == 'approve'
       end
-    elsif (vtr.form =~ /Absentee Request/)
+    elsif (vtr.form =~ /AbsenteeRequest/)
       if (vtr.action == 'approve')
         voter.vabsreq = 'approve'
       elsif (vtr.action == 'reject')
@@ -310,29 +316,30 @@ XSL
     avhash = voter_record_report_init()
     vrhash = Hash.new {}
     csv.shift
-    csv.each do |row|
+    csv.each do |row| # JVC row.split needs to check the data
       (vname, gender, party, military, overseas, abs, rdate) = row.split(',')
       vr=VoterRecord.new(:vname=>vname, :gender=>gender,
                          :party=>party, :military=>military, :other=>'',
                          :overseas=>overseas, :absentee=>abs, :regidate=>rdate)
       vr.other += 'M' if military=~/Y/
       vr.other += 'O' if overseas=~/Y/
-      vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.absentee]
+      vr.status = (abs=~/Y/ ? 'absentee' : '')
+      new = ((vr.regidate >= @election.voter_start_day) and
+             (vr.regidate <= @election.voter_end_day))
+      vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status, new]
       vr.save
       voter_record_report_update(avhash, vr)
     end
     voter_record_report_finalize(avhash)
     voter_record_report_save(avhash, @election)
     Voter.all.each do |v|
-      gender, party, other, status = "", "", "", ""
       if vrhash.keys.include?(v.vname)
-        gender, party, other, status = vrhash[v.vname]
-        new = ((vr.regidate >= @election.voter_start_day) and
-               (vr.regidate <= @election.voter_end_day))
+        gender, party, other, status, new = vrhash[v.vname]
         if (v.vgender != gender || v.vparty != party ||
             v.vother != other || v.vstatus != status ||
             v.vnew != new)
-          v.vgender, v.vparty, v.vother, v.vstatus, v.vnew = gender,party,other,status,new
+          v.vgender, v.vparty, v.vother, v.vstatus = gender, party, other, status
+          v.vnew = new
           v.save
         end
       end

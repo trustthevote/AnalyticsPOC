@@ -94,6 +94,13 @@ class AnalyticReportsController < ApplicationController
       voter_uocava_report_compute(nova)
       voter_record_reporx_save(@va, @election) if nova
       voter_uocava_report_save(@vu, @election)
+    when 5
+      @vu = voter_uocava_report_fetch(@election)
+      return if @vu && !nova
+      @vu = voter_uocava_report_init()
+      voter_uocava_report_compute(nova)
+      voter_record_reporx_save(@va, @election) if nova
+      voter_uocava_report_save(@vu, @election)
     else
       raise Exception, "Unknown report number: "+@rn
     end
@@ -360,14 +367,14 @@ class AnalyticReportsController < ApplicationController
             @vu['aur']['rrec']['tot'] += 1 if vtr.action=~/match/ || vtr.action=~/transcribe/
             @vu['aur']['rapp']['tot'] += 1 if vtr.action=~/approve/
             @vu['aur']['rrej']['tot'] += 1 if vtr.action=~/reject/
-            if (vtr.form =~ /Voter Registration/)
+            if (vtr.form =~ /VoterRegistration/)
               voter_uocava_report_form(vtr, v, 'arr')
-            elsif (vtr.form =~ /Voter Record Update/)
+            elsif (vtr.form =~ /VoterRecordUpdate/)
               voter_uocava_report_form(vtr, v, 'aru')
-            elsif (vtr.form =~ /Absentee Request/)
+            elsif (vtr.form =~ /AbsenteeRequest/)
               voter_uocava_report_form(vtr, v, 'aas')
             end
-          elsif (vtr.form =~ /Absentee Ballot/)
+          elsif (vtr.form =~ /AbsenteeBallot/)
             foundam += 1
             foundac += 1 if vtr.action=~/complete/
             voter_uocava_report_form(vtr, v, 'aab')
@@ -383,13 +390,13 @@ class AnalyticReportsController < ApplicationController
         @vu['aua']['rcom']['tot'] += 1 if foundac > 0
       else
         v.vtrs.each do |vtr|
-          if (vtr.form =~ /Voter Registration/)
+          if (vtr.form =~ /VoterRegistration/)
             voter_uocava_domestic_form(vtr, v, 'arr')
-          elsif (vtr.form =~ /Voter Record Update/)
+          elsif (vtr.form =~ /VoterRecordUpdate/)
             voter_uocava_domestic_form(vtr, v, 'aru')
-          elsif (vtr.form =~ /Absentee Request/)
+          elsif (vtr.form =~ /AbsenteeRequest/)
             voter_uocava_domestic_form(vtr, v, 'aas')
-          elsif (vtr.form =~ /Absentee Ballot/)
+          elsif (vtr.form =~ /AbsenteeBallot/)
             voter_uocava_domestic_form(vtr, v, 'aab')
           end
         end

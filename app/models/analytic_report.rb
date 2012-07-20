@@ -14,6 +14,8 @@ class AnalyticReport < ActiveRecord::Base
       self.name="UOCAVA Voter Online Usage Report"
     when 4
       self.name="UOCAVA Voter Activity Report"
+    when 5
+      self.name="FVAP Report"
     else
       raise Exception, "Unknown Report Number: "+self.num.to_s
     end
