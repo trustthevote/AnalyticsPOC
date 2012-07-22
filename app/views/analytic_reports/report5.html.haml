@@ -1,0 +1,63 @@
+#frontal
+  .row
+    -if defined?(@election) && @election.id.to_s == params[:id]
+      .span2#redelecname
+        = @election.name
+        %br
+        = @election.date
+    -else
+      .span2#redelecname
+        No election event selected.
+    .span10
+      %table{:style=>"width:100%;"}
+        %tr#statebar
+          %td{:style=>"width:25%;"}
+            Select
+          %td{:style=>"width:25%;"}
+            Add Logs
+          %td{:style=>"width:25%;"}
+            Add Voters
+          %td#doing{:style=>"width:25%;"}
+            Analyze
+      %hr
+  .row
+    .span2.sidebar
+      Textual description of report here.
+    .span10
+      .row
+        .span7
+          #likeh2blue FVAP Report
+        -if defined?(@election) && @election.id.to_s == params[:id]
+          .span2#likeh4
+            = link_to "Save as PDF", '/analytic_report.pdf?rn=4;id='+params[:id]
+        .span1#statebacknext
+          = link_to 'Back', :back
+      .row
+        .span10
+          -if defined?(@election) && @election.id.to_s == params[:id]
+            %span
+              #likeh4b Scope
+              %table
+                %tr
+                  %td= 'Election:'
+                  %td= @election.name
+                %tr
+                  %td= 'Election Date:'
+                  %td= @election.date
+                %tr
+                  %td= 'Reporting Period:'
+                  %td
+                    = @election.voter_start_day.strftime("%B %-d, %Y")
+                    = "&ndash;".html_safe
+                    = @election.voter_end_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= 'Voter Population:'
+                  %td= number_with_delimiter(@va['tot'])+" Voters"
+              #likeh4b Summary
+              = @vf.to_s
+              %hr
+              = @vfdates
+          -else
+            %p#redelecname
+              %br
+              ERROR: No Election Selected

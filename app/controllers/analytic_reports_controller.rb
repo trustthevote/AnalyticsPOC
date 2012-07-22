@@ -95,12 +95,12 @@ class AnalyticReportsController < ApplicationController
       voter_record_reporx_save(@va, @election) if nova
       voter_uocava_report_save(@vu, @election)
     when 5
-      @vu = voter_uocava_report_fetch(@election)
-      return if @vu && !nova
-      @vu = voter_uocava_report_init()
-      voter_uocava_report_compute(nova)
-      voter_record_reporx_save(@va, @election) if nova
-      voter_uocava_report_save(@vu, @election)
+      # @vf = voter_report_fetch(5, @election)
+      # return if @vf && !nova
+      @vf = voter_fvap_report_init(@election)
+      voter_fvap_report_compute(nova)
+      # voter_record_reporx_save(@va, @election) if nova
+      voter_report_save(@vf, 5, @election.id)
     else
       raise Exception, "Unknown report number: "+@rn
     end
@@ -268,6 +268,98 @@ class AnalyticReportsController < ApplicationController
       vhash['varl'] += 1 if (v.vote_form=~/Absentee/ && v.ballot_rejected_late)
       vhash['varo'] += 1 if (v.vote_form=~/Absentee/ && v.ballot_rejected_notlate)
     end
+  end
+
+#    vf[count]
+# 19     [registered] {form=VR,action=approve,date<preVR} (UON)
+# 25     [online] (UON) ?? 19 ??
+# 27     [multipleABdownload] (UON)
+#      [complete]
+# 26     [formAB] (UON)
+# 20     [formVR] {date>election_start_day} (UON)
+#      [receive]
+# 04     [formVRpre45] {formNote!=FPCA} (PFEO)
+# 05     [formVRpost45] {formNote!=FPCA} (PFEO)
+# 22     [formAR] (UON)
+# 06     [formARpre45] {formNote!=FPCA} (PFEO)
+# 07     [formARpost45] {formNote!=FPCA} (PFEO)
+# 13     [formAB] (PFE)
+# 15     [formABpreBR] (TOT)
+# 16     [formABformNoteFWAB] (TOT)
+# 18     [formABformNoteFWABpreBR] (TOT)
+# 09     [formNoteFPCApostVRAR] (TOT)
+# 02     [formNoteFPCApre45] (PFEO)
+# 03     [formNoteFPCApost45] (PFEO)
+# 10     [formNoteNotFPCApostVRAR) (TOT)
+#      [reject]
+# 21     [formVR] (UON)
+# 17     [formAB] {formNote==FWAB} (TOT)
+# 08     [formNoteFPCA] {notes==rejectIncomplete} (TOT)
+# 11     [formNoteNotFPCA] {notes==rejectIncomplete} (TOT)
+#      [returnedUndelivered]
+# 14     [formAB] (TOT)
+#      [sentToVoter]
+# 12     [formAB] (PFE)
+#   
+#    UON: [total] [military] [overseas] [domestic]
+#    PFEO: [total] [postal] [fax] [email] [online]
+#    TOT: [total]
+
+  def voter_fvap_report_init(election)
+    @vf = Hash.new {}
+    @vf['dates'] = Hash.new {}
+    @vf['dates']['end'] = election.voter_end_day.to_s
+    @vf['dates']['pre45'] = (election.voter_end_day-45).to_s
+    @vf['dates']['preVR'] = (election.voter_end_day-46).to_s
+    @vf['dates']['preBR'] = (election.voter_end_day-43).to_s
+    @vf['dates']['start'] = election.voter_start_day.to_s
+    k1s = %w(count complete receive reject returnedUndelivered sentToVoter)
+    k1s.each do |k1|
+      @vf[k1] = Hash.new {}
+    end
+    voter_fvap_oun_init(@vf,'count',%w(registered online multipleABdownload))
+    voter_fvap_oun_init(@vf,'complete',%w(formAB formVR))
+    voter_fvap_oun_init(@vf,'receive',%w(formAR))
+    voter_fvap_oun_init(@vf,'reject',%w(formVR))
+    voter_fvap_pfeo_init(@vf,'receive',%w(formVRpre45 formVRpost45 formARpre45 formARpost45 formAB formNoteFPCApre45 formNoteFPCApost45))
+    voter_fvap_pfeo_init(@vf,'sentToVoter',%w(formAB))
+    voter_fvap_tot_init(@vf,'receive',%w(formABpreBR formABformNoteFWAB formABformNoteFWABpreBR formNoteFPCApostVR formNoteNotFPCApostVR))
+    voter_fvap_tot_init(@vf,'reject',%w(formAB formNoteFPCA formNoteNotFPCA))
+    voter_fvap_tot_init(@vf,'returnedUndelivered',%w(formAB))
+    return @vf
+  end
+
+  def voter_fvap_oun_init (hash, k1, k2s)
+    k2s.each do |k2|
+      @vf[k1][k2] = Hash.new {}
+      %w(total military overseas domestic).each do |k3|
+        @vf[k1][k2][k3] = 0
+      end
+    end
+  end
+  
+  def voter_fvap_pfeo_init (hash, k1, k2s)
+    k2s.each do |k2|
+      @vf[k1][k2] = Hash.new {}
+      %w(total postal fax email online).each do |k3|
+        @vf[k1][k2][k3] = 0
+      end
+    end
+  end
+  
+  def voter_fvap_tot_init (hash, k1, k2s)
+    k2s.each do |k2|
+      @vf[k1][k2] = Hash.new {}
+      @vf[k1][k2]['total'] = 0
+    end
+  end
+  
+  def voter_fvap_report_compute(nova)
+    fdates = @vf['dates']
+    pre45date = fdates['pre45'].to_date
+    preVRdate = fdates['preVR'].to_date
+    preBRdate = fdates['preBR'].to_date
+    @vfdates = pre45date.to_s + " " + preVRdate.to_s + " " + preBRdate.to_s
   end
 
   def voter_uocava_report_init()

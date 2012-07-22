@@ -1,6 +1,6 @@
-Voter,Type,Gender,Party
-v1,domestic,F,Green
-v2,domestic,F,Republican
-v3,domestic,F,Democratic
-v4,domestic,F,Democratic
-v5,UOCAVA,F,Republican
+Voter,Gender,Party,Military,Overseas,Absentee,RegDate
+v1,F,Green,N,N,Y,2012/7/4
+v2,F,Republican,N,N,N,2010/1/1
+v3,F,Green,N,N,Y,2010/1/1
+v4,F,Republican,N,N,Y,2012/7/4
+v5,M,Democratic,Y,N,Y,2010/1/1

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voterTransactionLog>
+  <header>
+    <origin>Virginia</origin>
+    <originUniq>1</originUniq>
+    <createDate>2012-05-03T10:10:01Z</createDate>
+  </header>
+  <voterTransactionRecord>
+    <date>2012-05-01T10:10:00Z</date>
+    <voterid>v1</voterid>
+    <action>receive</action>
+    <form>VoterRegistration</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-02T10:10:00Z</date>
+    <voterid>v1</voterid>
+    <action>approve</action>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-03T10:10:00Z</date>
+    <voterid>v1</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>

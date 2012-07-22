@@ -3,1313 +3,1197 @@
   <header>
     <origin>Virginia</origin>
     <originUniq>200</originUniq>
-    <date>2012-05-23T10:10:00Z</date>
+    <createDate>2012-05-28T10:10:00Z</createDate>
   </header>
   <voterTransactionRecord>
-    <date>2012-05-09T10:10:00Z</date>
-    <voter>v3</voter>
-    <action>approve</action>
-    <form><type>Voter Registration</type></form>
-    <leo>Leonidas VR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:01Z</date>
-    <voter>v9</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:02Z</date>
-    <voter>v16</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:03Z</date>
-    <voter>v17</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:04Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:05Z</date>
-    <voter>v35</voter>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:06Z</date>
-    <voter>v44</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:07Z</date>
-    <voter>v46</voter>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:08Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:09Z</date>
-    <voter>v51</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:10Z</date>
-    <voter>v53</voter>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:11Z</date>
-    <voter>v56</voter>
-    <action>match</action>
-    <form><type>Provisional Ballot</type></form>
-    <leo>Leonidas PB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:12Z</date>
-    <voter>v60</voter>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:13Z</date>
-    <voter>v61</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:14Z</date>
-    <voter>v69</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:15Z</date>
-    <voter>v75</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:16Z</date>
-    <voter>v76</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:17Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:18Z</date>
-    <voter>v82</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:19Z</date>
-    <voter>v84</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:20Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:21Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:22Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:23Z</date>
-    <voter>v102</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:24Z</date>
-    <voter>v105</voter>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:25Z</date>
-    <voter>v106</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:26Z</date>
-    <voter>v107</voter>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:27Z</date>
-    <voter>v117</voter>
-    <action>approve</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:28Z</date>
-    <voter>v128</voter>
-    <action>reject</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
-    <note>invalid address VRU</note>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:29Z</date>
-    <voter>v134</voter>
-    <action>complete</action>
-    <form><type>Voter Record Update</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:30Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:31Z</date>
-    <voter>v138</voter>
-    <action>approve</action>
-    <form><type>Provisional Ballot</type></form>
-    <leo>Leonidas PB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:32Z</date>
-    <voter>v143</voter>
-    <action>approve</action>
-    <form><type>Voter Registration</type></form>
-    <leo>Leonidas VR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:33Z</date>
-    <voter>v151</voter>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:34Z</date>
-    <voter>v162</voter>
-    <action>approve</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:35Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:36Z</date>
-    <voter>v165</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:37Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:38Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-09T10:10:39Z</date>
-    <voter>v185</voter>
-    <action>approve</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:00Z</date>
-    <voter>v3</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:01Z</date>
-    <voter>v9</voter>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:02Z</date>
-    <voter>v16</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:03Z</date>
-    <voter>v17</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:04Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:05Z</date>
-    <voter>v35</voter>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:06Z</date>
-    <voter>v44</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:07Z</date>
-    <voter>v46</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:08Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:09Z</date>
-    <voter>v53</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:10Z</date>
-    <voter>v56</voter>
-    <action>approve</action>
-    <form><type>Provisional Ballot</type></form>
-    <leo>Leonidas PB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:11Z</date>
-    <voter>v60</voter>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:12Z</date>
-    <voter>v61</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:13Z</date>
-    <voter>v69</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:14Z</date>
-    <voter>v75</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:15Z</date>
-    <voter>v76</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:16Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:17Z</date>
-    <voter>v82</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:18Z</date>
-    <voter>v84</voter>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>invalid sig AB</note>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:19Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:20Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:21Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:22Z</date>
-    <voter>v102</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:23Z</date>
-    <voter>v105</voter>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:24Z</date>
-    <voter>v106</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:25Z</date>
-    <voter>v107</voter>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:26Z</date>
-    <voter>v117</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:27Z</date>
-    <voter>v128</voter>
-    <action>complete</action>
-    <form><type>Voter Record Update</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:28Z</date>
-    <voter>v134</voter>
-    <action>match</action>
-    <form><type>Voter Record Update</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:29Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:30Z</date>
-    <voter>v143</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:31Z</date>
-    <voter>v151</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:32Z</date>
-    <voter>v162</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:33Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:34Z</date>
-    <voter>v165</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:35Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:36Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-10T10:10:37Z</date>
-    <voter>v185</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
     <date>2012-05-11T10:10:00Z</date>
-    <voter>v16</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v5</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:01Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
+    <voterid>v6</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:02Z</date>
-    <voter>v35</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v9</voterid>
+    <action>reject</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+    <notes>rejectUnsigned</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:03Z</date>
-    <voter>v46</voter>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v12</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:04Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <voterid>v18</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:05Z</date>
-    <voter>v53</voter>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v28</voterid>
+    <action>discard</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:06Z</date>
-    <voter>v60</voter>
+    <voterid>v38</voterid>
     <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:07Z</date>
-    <voter>v61</voter>
-    <vtype>UOCAVA</vtype>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>illegible AB</note>
+    <voterid>v48</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:08Z</date>
-    <voter>v69</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v62</voterid>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:09Z</date>
-    <voter>v75</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v63</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:10Z</date>
-    <voter>v76</voter>
+    <voterid>v74</voterid>
     <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:11Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <voterid>v75</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:12Z</date>
-    <voter>v82</voter>
-    <vtype>UOCAVA</vtype>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>illegible AB</note>
+    <voterid>v81</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:13Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v91</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:14Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
+    <voterid>v95</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:15Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v101</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:16Z</date>
-    <voter>v105</voter>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <voterid>v108</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:17Z</date>
-    <voter>v107</voter>
+    <voterid>v112</voterid>
     <action>approve</action>
-    <form><type>Absentee Request</type></form>
+    <form>AbsenteeRequest</form>
     <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:18Z</date>
-    <voter>v128</voter>
-    <action>match</action>
-    <form><type>Voter Record Update</type></form>
+    <voterid>v113</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:19Z</date>
-    <voter>v134</voter>
-    <action>approve</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
+    <voterid>v121</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:20Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v133</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:21Z</date>
-    <voter>v151</voter>
+    <voterid>v135</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:22Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v138</voterid>
     <action>approve</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:23Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>reject</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
-    <note>unsigned AR</note>
+    <voterid>v145</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-11T10:10:24Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v146</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:25Z</date>
+    <voterid>v152</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:26Z</date>
+    <voterid>v155</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:27Z</date>
+    <voterid>v158</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:28Z</date>
+    <voterid>v159</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:29Z</date>
+    <voterid>v160</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:30Z</date>
+    <voterid>v168</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:31Z</date>
+    <voterid>v171</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:32Z</date>
+    <voterid>v177</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:33Z</date>
+    <voterid>v181</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:34Z</date>
+    <voterid>v190</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-11T10:10:35Z</date>
+    <voterid>v194</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:00Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v5</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:01Z</date>
-    <voter>v35</voter>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v6</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:02Z</date>
-    <voter>v46</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v9</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:03Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v12</voterid>
     <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:04Z</date>
-    <voter>v53</voter>
+    <voterid>v18</voterid>
     <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:05Z</date>
-    <voter>v60</voter>
+    <voterid>v28</voterid>
     <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:06Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
+    <voterid>v48</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:07Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v62</voterid>
+    <action>approve</action>
+    <form>VoterRecordUpdate</form>
+    <leo>Leonidas VRU</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:08Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v74</voterid>
     <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:09Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v75</voterid>
     <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:10Z</date>
-    <voter>v105</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v81</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:11Z</date>
-    <voter>v107</voter>
-    <action>identify</action>
+    <voterid>v108</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-12T10:10:12Z</date>
-    <voter>v128</voter>
-    <action>reject</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
-    <note>invalid address VRU</note>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:13Z</date>
-    <voter>v134</voter>
-    <action>identify</action>
-    <form><type>Poll Book Entry</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:14Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:15Z</date>
-    <voter>v151</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:16Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:17Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-12T10:10:18Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-13T10:10:00Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-13T10:10:01Z</date>
-    <voter>v35</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-13T10:10:02Z</date>
-    <voter>v46</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v112</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-05-13T10:10:03Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
+    <date>2012-05-12T10:10:13Z</date>
+    <voterid>v113</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:14Z</date>
+    <voterid>v121</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:15Z</date>
+    <voterid>v133</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:16Z</date>
+    <voterid>v135</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:17Z</date>
+    <voterid>v145</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:18Z</date>
+    <voterid>v146</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:19Z</date>
+    <voterid>v152</voterid>
     <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:20Z</date>
+    <voterid>v155</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:21Z</date>
+    <voterid>v158</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:22Z</date>
+    <voterid>v160</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:23Z</date>
+    <voterid>v168</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:24Z</date>
+    <voterid>v171</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:25Z</date>
+    <voterid>v177</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:26Z</date>
+    <voterid>v181</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-12T10:10:27Z</date>
+    <voterid>v190</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:01Z</date>
+    <voterid>v6</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:02Z</date>
+    <voterid>v9</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:03Z</date>
+    <voterid>v12</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:04Z</date>
-    <voter>v53</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v18</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:05Z</date>
-    <voter>v60</voter>
+    <voterid>v28</voterid>
     <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:06Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v48</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:07Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v62</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:08Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v74</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:09Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v75</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:10Z</date>
-    <voter>v105</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v81</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:11Z</date>
-    <voter>v107</voter>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v108</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:12Z</date>
-    <voter>v128</voter>
-    <action>complete</action>
-    <form><type>Voter Record Update</type></form>
+    <voterid>v112</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:13Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v113</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:14Z</date>
-    <voter>v151</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v121</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:15Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v133</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:16Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Request</type></form>
+    <voterid>v135</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-13T10:10:17Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v145</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:18Z</date>
+    <voterid>v146</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:19Z</date>
+    <voterid>v152</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:20Z</date>
+    <voterid>v155</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:21Z</date>
+    <voterid>v158</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:22Z</date>
+    <voterid>v160</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:23Z</date>
+    <voterid>v168</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:24Z</date>
+    <voterid>v171</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:25Z</date>
+    <voterid>v177</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:26Z</date>
+    <voterid>v181</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-13T10:10:27Z</date>
+    <voterid>v190</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:00Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v5</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:01Z</date>
-    <voter>v35</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v6</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+    <notes>rejectLate</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:02Z</date>
-    <voter>v46</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v9</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:03Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v12</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:04Z</date>
-    <voter>v53</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v18</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+    <notes>rejectLate</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:05Z</date>
-    <voter>v60</voter>
+    <voterid>v28</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:06Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v48</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:07Z</date>
-    <voter>v96</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v62</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:08Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v74</voterid>
     <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:09Z</date>
-    <voter>v101</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v75</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+    <notes>rejectIncomplete</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:10Z</date>
-    <voter>v107</voter>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v81</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:11Z</date>
-    <voter>v128</voter>
-    <action>match</action>
-    <form><type>Voter Record Update</type></form>
+    <voterid>v108</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:12Z</date>
-    <voter>v135</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v113</voterid>
     <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:13Z</date>
-    <voter>v151</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v121</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:14Z</date>
-    <voter>v164</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v133</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:15Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Request</type></form>
+    <voterid>v135</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-14T10:10:16Z</date>
-    <voter>v180</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v145</voterid>
     <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:17Z</date>
+    <voterid>v146</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:18Z</date>
+    <voterid>v152</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:19Z</date>
+    <voterid>v155</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:20Z</date>
+    <voterid>v158</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:21Z</date>
+    <voterid>v168</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:22Z</date>
+    <voterid>v171</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectIncomplete</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:23Z</date>
+    <voterid>v177</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:24Z</date>
+    <voterid>v181</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-14T10:10:25Z</date>
+    <voterid>v190</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:00Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v9</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:01Z</date>
-    <voter>v35</voter>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>illegible AB</note>
+    <voterid>v12</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:02Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v28</voterid>
     <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:03Z</date>
-    <voter>v60</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v48</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectUnsigned</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:04Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v62</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:05Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v74</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:06Z</date>
-    <voter>v107</voter>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v81</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:07Z</date>
-    <voter>v128</voter>
-    <action>approve</action>
-    <form><type>Voter Record Update</type></form>
-    <leo>Leonidas VRU</leo>
+    <voterid>v108</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-15T10:10:08Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Request</type></form>
-    <leo>Leonidas AR</leo>
+    <voterid>v121</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-15T10:10:09Z</date>
+    <voterid>v152</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-15T10:10:10Z</date>
+    <voterid>v155</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-15T10:10:11Z</date>
+    <voterid>v177</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-15T10:10:12Z</date>
+    <voterid>v190</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-16T10:10:00Z</date>
-    <voter>v22</voter>
-    <vtype>UOCAVA</vtype>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>late arrival AB</note>
+    <voterid>v9</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-16T10:10:01Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v12</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-16T10:10:02Z</date>
-    <voter>v60</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v28</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-16T10:10:03Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-16T10:10:04Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-16T10:10:05Z</date>
-    <voter>v107</voter>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-05-16T10:10:06Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Request</type></form>
+    <voterid>v62</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
     <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-05-17T10:10:00Z</date>
-    <voter>v47</voter>
-    <vtype>UOCAVA</vtype>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <date>2012-05-16T10:10:04Z</date>
+    <voterid>v74</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+    <notes>rejectLate</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:05Z</date>
+    <voterid>v81</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:06Z</date>
+    <voterid>v108</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:07Z</date>
+    <voterid>v121</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:08Z</date>
+    <voterid>v152</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectLate</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:09Z</date>
+    <voterid>v155</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:10Z</date>
+    <voterid>v177</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-16T10:10:11Z</date>
+    <voterid>v190</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-17T10:10:00Z</date>
+    <voterid>v9</voterid>
+    <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-17T10:10:01Z</date>
-    <voter>v60</voter>
-    <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v12</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
+    <notes>rejectIncomplete</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-17T10:10:02Z</date>
-    <voter>v77</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v28</voterid>
     <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-17T10:10:03Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v62</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <leo>Leonidas AR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-17T10:10:04Z</date>
-    <voter>v107</voter>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
-    <note>illegible AB</note>
+    <voterid>v81</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-17T10:10:05Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>identify</action>
+    <voterid>v108</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-17T10:10:06Z</date>
+    <voterid>v121</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-17T10:10:07Z</date>
+    <voterid>v155</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-17T10:10:08Z</date>
+    <voterid>v177</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-17T10:10:09Z</date>
+    <voterid>v190</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-18T10:10:00Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v9</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-18T10:10:01Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v12</voterid>
     <action>start</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-18T10:10:02Z</date>
+    <voterid>v62</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-18T10:10:03Z</date>
+    <voterid>v81</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-18T10:10:04Z</date>
+    <voterid>v108</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-18T10:10:05Z</date>
+    <voterid>v121</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-18T10:10:06Z</date>
+    <voterid>v155</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-19T10:10:00Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v9</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-19T10:10:01Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v12</voterid>
     <action>complete</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-19T10:10:02Z</date>
+    <voterid>v62</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-19T10:10:03Z</date>
+    <voterid>v81</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-19T10:10:04Z</date>
+    <voterid>v108</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-19T10:10:05Z</date>
+    <voterid>v121</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectLate</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-19T10:10:06Z</date>
+    <voterid>v155</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-20T10:10:00Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
-    <leo>Leonidas AB</leo>
+    <voterid>v9</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-20T10:10:01Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v12</voterid>
     <action>submit</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-20T10:10:02Z</date>
+    <voterid>v62</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-20T10:10:03Z</date>
+    <voterid>v81</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectIncomplete</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-20T10:10:04Z</date>
+    <voterid>v155</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-21T10:10:00Z</date>
-    <voter>v99</voter>
-    <vtype>UOCAVA</vtype>
-    <action>reject</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v9</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
-    <note>illegible AB</note>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-05-21T10:10:01Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
-    <action>match</action>
-    <form><type>Absentee Ballot</type></form>
+    <voterid>v12</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
+    <date>2012-05-21T10:10:02Z</date>
+    <voterid>v62</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
     <date>2012-05-22T10:10:00Z</date>
-    <voter>v169</voter>
-    <vtype>UOCAVA</vtype>
+    <voterid>v9</voterid>
     <action>approve</action>
-    <form><type>Absentee Ballot</type></form>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-22T10:10:01Z</date>
+    <voterid>v12</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-22T10:10:02Z</date>
+    <voterid>v62</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-23T10:10:00Z</date>
+    <voterid>v12</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-23T10:10:01Z</date>
+    <voterid>v62</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-24T10:10:00Z</date>
+    <voterid>v12</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v12</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v12</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v12</voterid>
+    <action>approve</action>
+    <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
   </voterTransactionRecord>
 </voterTransactionLog>

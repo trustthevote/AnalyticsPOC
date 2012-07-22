@@ -138,8 +138,7 @@ class ApplicationController < ActionController::Base
   end
 
   def voter_participating_report_save(vhash, e)
-    eid = e.id
-    return voter_report_save(vhash, 2, eid)
+    return voter_report_save(vhash, 2, e.id)
   end
 
   def voter_participating_report_fetch(e)
@@ -147,8 +146,7 @@ class ApplicationController < ActionController::Base
   end
 
   def voter_uocava_report_save(vhash, e)
-    eid = e.id
-    return voter_report_save(vhash, 3, eid)
+    return voter_report_save(vhash, 3, e.id)
   end
 
   def voter_uocava_report_fetch(e)
