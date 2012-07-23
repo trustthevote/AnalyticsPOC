@@ -95,30 +95,30 @@ class ApplicationController < ActionController::Base
     return vhash
   end
 
-  def voter_record_report_update(vhash, v)
-    report_demographic(v, vhash)
-    vhash['das'] += 1 if v.absentee_status
-    if v.new
+  def voter_record_report_update(vhash, vr, e)
+    report_demographic(vr, vhash)
+    vhash['das'] += 1 if vr.absentee_status?
+    if vr.new?(e)
       vhash['dnw'] += 1
-      vhash['ngm'] += 1 if v.male
-      vhash['ngf'] += 1 if v.female
-      vhash['npd'] += 1 if v.party_democratic
-      vhash['npr'] += 1 if v.party_republican
-      vhash['npo'] += 1 if v.party_other
+      vhash['ngm'] += 1 if vr.male?
+      vhash['ngf'] += 1 if vr.female?
+      vhash['npd'] += 1 if vr.party_democratic?
+      vhash['npr'] += 1 if vr.party_republican?
+      vhash['npo'] += 1 if vr.party_other?
     end
-    if v.uocava
+    if vr.uocava?
       vhash['duu'] += 1
-      vhash['dum'] += 1 if v.military
-      vhash['dul'] += 1 if v.absentee_ulapsed
-      vhash['dua'] += 1 unless v.absentee_ulapsed
+      vhash['dum'] += 1 if vr.military?
+      vhash['duo'] += 1 if vr.overseas?
+      vhash['dul'] += 1 if vr.absentee_ulapsed?
+      vhash['dua'] += 1 unless vr.absentee_ulapsed?
     else
       vhash['ddo'] += 1
-      vhash['dda'] += 1 if v.absentee_status
+      vhash['dda'] += 1 if vr.absentee_status?
     end
   end
 
   def voter_record_report_finalize(vhash)
-    vhash['duo'] = vhash['duu']-vhash['dum']
     report_percentage(vhash, %w(dum duo), vhash['duu'])
     report_percentage(vhash, %w(dgm dgf dpd dpr dpo), vhash['tot'])
     report_percentage(vhash, %w(ngf ngm npd npo npr), vhash['dnw'])
@@ -128,13 +128,13 @@ class ApplicationController < ActionController::Base
     keys.each{|k| vhash[k+'_p'] = percent(vhash[k],total) }
   end
       
-  def report_demographic(v, vhash)
+  def report_demographic(vr, vhash)
     vhash['tot'] += 1
-    vhash['dgm'] += 1 if v.male
-    vhash['dgf'] += 1 if v.female
-    vhash['dpd'] += 1 if v.party_democratic
-    vhash['dpr'] += 1 if v.party_republican
-    vhash['dpo'] += 1 if v.party_other
+    vhash['dgm'] += 1 if vr.male?
+    vhash['dgf'] += 1 if vr.female?
+    vhash['dpd'] += 1 if vr.party_democratic?
+    vhash['dpr'] += 1 if vr.party_republican?
+    vhash['dpo'] += 1 if vr.party_other?
   end
 
   def voter_participating_report_save(vhash, e)

@@ -15,36 +15,36 @@ class Voter < ActiveRecord::Base
     self.voter_transaction_records
   end
 
-  def military
+  def uocava?
+    self.military? or self.overseas?
+  end
+  
+  def military?
     self.vother =~ /M/
   end
   
-  def uocava
-    self.vother =~ /[MO]/
+  def overseas?
+    self.vother =~ /O/
   end
   
-  def new
-    (self.vname[1..-1].to_i)%5==0
+  def male?
+    self.vgender =~ /m/i
   end
 
-  def male
-    self.vgender=~/m/i
+  def female?
+    self.vgender =~ /f/i
   end
 
-  def female
-    self.vgender=~/f/i
-  end
-
-  def party_democratic
+  def party_democratic?
     self.vparty=~/democratic/i
   end
 
-  def party_republican
+  def party_republican?
     self.vparty=~/republican/i
   end
 
-  def party_other
-    self.vparty != "" && !self.party_democratic && !self.party_republican
+  def party_other?
+    self.vparty != "" && !self.party_democratic? && !self.party_republican?
   end
 
   def asr_approved
@@ -59,6 +59,10 @@ class Voter < ActiveRecord::Base
     self.vupdate=~/approve/i
   end
 
+  def new?(e = nil)
+    self.vnew
+  end
+
   def vru_rejected
     self.vupdate=~/reject/i
   end
@@ -67,12 +71,12 @@ class Voter < ActiveRecord::Base
     self.vregister=~/approve/i
   end
 
-  def absentee_status
-    self.vstatus=~/abs/i || self.uocava
+  def absentee_status?
+    self.vstatus=~/abs/i || self.uocava?
   end
   
-  def absentee_ulapsed
-    self.uocava && !(self.vstatus=~/abs/i)
+  def absentee_ulapsed?
+    self.uocava? && !(self.vstatus=~/abs/i)
   end
   
   def voted_provisional

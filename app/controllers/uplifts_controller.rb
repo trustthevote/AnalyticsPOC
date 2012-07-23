@@ -139,8 +139,7 @@ class UpliftsController < ApplicationController
       v.vother = vr.other
       v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
       e = Election.find(v.election_id)
-      v.vnew = ((vr.regidate >= e.voter_start_day) and
-                (vr.regidate <= e.voter_end_day))
+      v.vnew = vr.new?(e)
     end
   end
 
@@ -153,8 +152,7 @@ class UpliftsController < ApplicationController
         v.vother = vr.other
         v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
         e = Election.find(v.election_id)
-        v.vnew = ((vr.regidate >= e.voter_start_day) and
-                  (vr.regidate <= e.voter_end_day))
+        v.vnew = vr.new?(e)
         v.save
       end
     end
@@ -324,11 +322,10 @@ XSL
       vr.other += 'M' if military=~/Y/
       vr.other += 'O' if overseas=~/Y/
       vr.status = (abs=~/Y/ ? 'absentee' : '')
-      new = ((vr.regidate >= @election.voter_start_day) and
-             (vr.regidate <= @election.voter_end_day))
+      new = vr.new?(@election)
       vrhash[vr.vname] = [vr.gender, vr.party, vr.other, vr.status, new]
       vr.save
-      voter_record_report_update(avhash, vr)
+      voter_record_report_update(avhash, vr, @election)
     end
     voter_record_report_finalize(avhash)
     voter_record_report_save(avhash, @election)

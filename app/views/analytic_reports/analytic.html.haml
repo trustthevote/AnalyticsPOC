@@ -48,7 +48,10 @@
                     %td{:style=>"width:14%;text-align:left"}
                       = link_to 'View Report', '/analytic_report?rn='+ar.num.to_s+';id='+e.id.to_s
                     %td{:style=>"width:14%;text-align:left"}
-                      = link_to 'Save as PDF', '/analytic_report.pdf?rn='+ar.num.to_s+';id='+e.id.to_s
+                      -if ar.num==5
+                        = link_to 'Save as CSV', '/analytic_report.csv?rn='+ar.num.to_s+';id='+e.id.to_s
+                      -else
+                        = link_to 'Save as PDF', '/analytic_report.pdf?rn='+ar.num.to_s+';id='+e.id.to_s
                     %td{:style=>"width:12%;text-align:left"}
                       = link_to 'View Data', '/voter_transaction_records?id='+e.id.to_s
                     %td{:style=>"width:14%;text-align:left"}

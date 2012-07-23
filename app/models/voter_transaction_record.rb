@@ -16,4 +16,28 @@ class VoterTransactionRecord < ActiveRecord::Base
     return self.datime.strftime("%B %-d, %Y")
   end
 
+  def absentee_ballot_form?
+    self.form =~ /AbsenteeBallot/
+  end
+
+  def absentee_request_form?
+    self.form =~ /AbsenteeRequest/
+  end
+
+  def voter_registration_form?
+    self.form =~ /VoterRegistration/
+  end
+
+  def fwab_form_note?
+    self.form =~ /FWAB/
+  end
+
+  def fpca_form_note?
+    self.form =~ /FPCA/
+  end
+
+  def reject_incomplete_notes?
+    self.note =~ /rejectIncomplete/
+  end
+
 end
