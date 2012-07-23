@@ -387,9 +387,12 @@ class AnalyticReportsController < ApplicationController
     when 'postalReceived'
     then
       return 'postal'
-    when 'personalReceived'
+    when 'faxReceived'
     then
       return 'fax'
+    when 'personalReceived'
+    then
+      return false
     else
       return false
     end
