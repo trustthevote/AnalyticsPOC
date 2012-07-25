@@ -3,409 +3,586 @@
   <header>
     <origin>Virginia</origin>
     <originUniq>10</originUniq>
-    <createDate>2012-06-27T10:10:00Z</createDate>
+    <createDate>2012-06-16T10:10:00Z</createDate>
   </header>
   <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
+    <date>2012-05-25T10:10:00Z</date>
     <voterid>v1</voterid>
-    <action>sentToVoter</action>
-    <form>VoterRecordUpdate</form>
-    <notes>emailSent</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v3</voterid>
-    <action>sentToVoter</action>
-    <form>VoterRegistration</form>
-    <notes>emailSent</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v4</voterid>
-    <action>identify</action>
-    <form>PollBookEntry</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>identify</action>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v7</voterid>
-    <action>identify</action>
-    <form>PollBookEntry</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
-    <voterid>v8</voterid>
     <action>sentToVoter</action>
     <form>VoterRegistration</form>
     <notes>postalSent</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v2</voterid>
+    <action>identify</action>
+    <form>PollBookEntry</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRegistration</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRegistration</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRegistration</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-25T10:10:00Z</date>
     <voterid>v9</voterid>
     <action>identify</action>
     <form>PollBookEntry</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-05T10:10:00Z</date>
+    <date>2012-05-25T10:10:00Z</date>
     <voterid>v10</voterid>
     <action>sentToVoter</action>
     <form>VoterRegistration</form>
     <notes>postalSent</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
-    <voterid>v1</voterid>
-    <action>complete</action>
-    <form>VoterRecordUpdate</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>start</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
+    <date>2012-05-26T10:10:00Z</date>
     <voterid>v3</voterid>
     <action>receive</action>
     <form>VoterRegistration</form>
     <notes>personalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>start</action>
-    <form>AbsenteeRequest</form>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>receive</action>
-    <form>VoterRegistration</form>
-    <notes>faxReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-06T10:10:00Z</date>
-    <voterid>v10</voterid>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v5</voterid>
     <action>receive</action>
     <form>VoterRegistration</form>
     <notes>postalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
-    <voterid>v1</voterid>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>complete</action>
+    <form>VoterRegistration</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-26T10:10:00Z</date>
+    <voterid>v10</voterid>
+    <action>receive</action>
+    <form>VoterRegistration</form>
+    <notes>personalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>reject</action>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
+    <notes>rejectIncomplete</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v4</voterid>
     <action>receive</action>
     <form>VoterRecordUpdate</form>
     <formNote>FPCA</formNote>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>approve</action>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>receive</action>
+    <form>VoterRegistration</form>
+    <notes>personalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-27T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
     <notes>faxReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>complete</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
-    <voterid>v3</voterid>
-    <action>approve</action>
-    <form>VoterRegistration</form>
-    <leo>Leonidas VR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>complete</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
+    <date>2012-05-27T10:10:00Z</date>
     <voterid>v8</voterid>
-    <action>approve</action>
-    <form>VoterRegistration</form>
-    <leo>Leonidas VR</leo>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
+    <notes>personalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-07T10:10:00Z</date>
+    <date>2012-05-27T10:10:00Z</date>
     <voterid>v10</voterid>
-    <action>approve</action>
+    <action>reject</action>
     <form>VoterRegistration</form>
     <leo>Leonidas VR</leo>
+    <notes>rejectLate</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v1</voterid>
-    <action>approve</action>
+    <date>2012-05-28T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>complete</action>
+    <form>VoterRegistration</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-28T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>reject</action>
     <form>VoterRecordUpdate</form>
     <formNote>FPCA</formNote>
     <leo>Leonidas VRU</leo>
+    <notes>rejectIncomplete</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>receive</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
-    <notes>postalReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v3</voterid>
-    <action>identify</action>
-    <form>PollBookEntry</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>receive</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
-    <notes>faxReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v8</voterid>
+    <date>2012-05-28T10:10:00Z</date>
+    <voterid>v5</voterid>
     <action>sentToVoter</action>
     <form>VoterRecordUpdate</form>
-    <notes>emailSent</notes>
+    <notes>postalSent</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-08T10:10:00Z</date>
-    <voterid>v10</voterid>
-    <action>identify</action>
-    <form>PollBookEntry</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-09T10:10:00Z</date>
-    <voterid>v1</voterid>
-    <action>identify</action>
-    <form>PollBookEntry</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-09T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>approve</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-09T10:10:00Z</date>
+    <date>2012-05-28T10:10:00Z</date>
     <voterid>v6</voterid>
     <action>approve</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-09T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>complete</action>
+    <date>2012-05-28T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>sentToVoter</action>
     <form>VoterRecordUpdate</form>
+    <notes>postalSent</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-10T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>start</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-10T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>start</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-10T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>receive</action>
-    <form>VoterRecordUpdate</form>
-    <notes>postalReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-11T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>complete</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-11T10:10:00Z</date>
-    <voterid>v6</voterid>
-    <action>complete</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-11T10:10:00Z</date>
+    <date>2012-05-28T10:10:00Z</date>
     <voterid>v8</voterid>
     <action>approve</action>
     <form>VoterRecordUpdate</form>
     <leo>Leonidas VRU</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-12T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>submit</action>
-    <form>AbsenteeBallot</form>
+    <date>2012-05-28T10:10:00Z</date>
+    <voterid>v10</voterid>
+    <action>complete</action>
+    <form>VoterRegistration</form>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-12T10:10:00Z</date>
+    <date>2012-05-29T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>receive</action>
+    <form>VoterRegistration</form>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-29T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-29T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-29T10:10:00Z</date>
     <voterid>v6</voterid>
-    <action>submit</action>
-    <form>AbsenteeBallot</form>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <notes>postalSent</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-12T10:10:00Z</date>
+    <date>2012-05-29T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-29T10:10:00Z</date>
     <voterid>v8</voterid>
     <action>identify</action>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-13T10:10:00Z</date>
-    <voterid>v2</voterid>
+    <date>2012-05-29T10:10:00Z</date>
+    <voterid>v10</voterid>
     <action>receive</action>
-    <form>AbsenteeBallot</form>
-    <leo>Leonidas AB</leo>
-    <notes>faxReceived</notes>
+    <form>VoterRegistration</form>
+    <notes>postalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-13T10:10:00Z</date>
-    <voterid>v6</voterid>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>approve</action>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v5</voterid>
     <action>receive</action>
-    <form>AbsenteeBallot</form>
-    <leo>Leonidas AB</leo>
+    <form>VoterRecordUpdate</form>
     <notes>personalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-13T10:10:00Z</date>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-05-30T10:10:00Z</date>
     <voterid>v8</voterid>
     <action>start</action>
     <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-14T10:10:00Z</date>
-    <voterid>v2</voterid>
-    <action>reject</action>
-    <form>AbsenteeBallot</form>
-    <leo>Leonidas AB</leo>
-    <notes>rejectIncomplete</notes>
+    <date>2012-05-30T10:10:00Z</date>
+    <voterid>v10</voterid>
+    <action>approve</action>
+    <form>VoterRegistration</form>
+    <leo>Leonidas VR</leo>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-14T10:10:00Z</date>
+    <date>2012-06-01T10:10:00Z</date>
+    <voterid>v3</voterid>
+    <action>identify</action>
+    <form>PollBookEntry</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-01T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-01T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>approve</action>
+    <form>VoterRecordUpdate</form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-01T10:10:00Z</date>
     <voterid>v6</voterid>
-    <action>reject</action>
-    <form>AbsenteeBallot</form>
-    <leo>Leonidas AB</leo>
-    <notes>rejectIncomplete</notes>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
+    <notes>personalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
-    <date>2012-06-14T10:10:00Z</date>
+    <date>2012-06-01T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>reject</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas VRU</leo>
+    <notes>rejectLate</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-01T10:10:00Z</date>
     <voterid>v8</voterid>
     <action>complete</action>
     <form>AbsenteeRequest</form>
     <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-02T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>approve</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-02T10:10:00Z</date>
+    <voterid>v5</voterid>
+    <action>identify</action>
+    <form>PollBookEntry</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-02T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>approve</action>
+    <form>VoterRecordUpdate</form>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-02T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>sentToVoter</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <notes>postalSent</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-02T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+    <notes>faxReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-03T10:10:00Z</date>
+    <voterid>v4</voterid>
+    <action>identify</action>
+    <form>PollBookEntry</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-03T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-03T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>complete</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-03T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-04T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-04T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>receive</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-04T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-05T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-05T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>approve</action>
+    <form>VoterRecordUpdate</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas VRU</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-05T10:10:00Z</date>
+    <voterid>v8</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-06T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+    <notes>personalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-06T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>identify</action>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-07T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-07T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-08T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-08T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>complete</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-09T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-09T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>receive</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+    <notes>personalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-10T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-10T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>approve</action>
+    <form>AbsenteeRequest</form>
+    <formNote>FPCA</formNote>
+    <leo>Leonidas AR</leo>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-11T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>postalReceived</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-11T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>start</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-12T10:10:00Z</date>
+    <voterid>v6</voterid>
+    <action>reject</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>rejectUnsigned</notes>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-12T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>complete</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-13T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>submit</action>
+    <form>AbsenteeBallot</form>
+  </voterTransactionRecord>
+  <voterTransactionRecord>
+    <date>2012-06-14T10:10:00Z</date>
+    <voterid>v7</voterid>
+    <action>receive</action>
+    <form>AbsenteeBallot</form>
+    <leo>Leonidas AB</leo>
+    <notes>postalReceived</notes>
   </voterTransactionRecord>
   <voterTransactionRecord>
     <date>2012-06-15T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>receive</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
-    <notes>postalReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-16T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>approve</action>
-    <form>AbsenteeRequest</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AR</leo>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-17T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>start</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-18T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>complete</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-19T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>submit</action>
-    <form>AbsenteeBallot</form>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-20T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>receive</action>
-    <form>AbsenteeBallot</form>
-    <leo>Leonidas AB</leo>
-    <notes>faxReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-21T10:10:00Z</date>
-    <voterid>v8</voterid>
+    <voterid>v7</voterid>
     <action>reject</action>
     <form>AbsenteeBallot</form>
     <leo>Leonidas AB</leo>
-    <notes>rejectLate</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-22T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>start</action>
-    <form>AbsenteeBallot</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-23T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>complete</action>
-    <form>AbsenteeBallot</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-24T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>submit</action>
-    <form>AbsenteeBallot</form>
-    <formNote>FPCA</formNote>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-25T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>receive</action>
-    <form>AbsenteeBallot</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AB</leo>
-    <notes>personalReceived</notes>
-  </voterTransactionRecord>
-  <voterTransactionRecord>
-    <date>2012-06-26T10:10:00Z</date>
-    <voterid>v8</voterid>
-    <action>reject</action>
-    <form>AbsenteeBallot</form>
-    <formNote>FPCA</formNote>
-    <leo>Leonidas AB</leo>
-    <notes>rejectLate</notes>
+    <notes>rejectUnsigned</notes>
   </voterTransactionRecord>
 </voterTransactionLog>

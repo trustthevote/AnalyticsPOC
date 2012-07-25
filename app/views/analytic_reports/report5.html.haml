@@ -101,16 +101,16 @@
 
               %p Registered voters as of the voter-registration deadline.
 
-              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+              %table{:width=>"98%",:style=>"margin:0;text-align:center;"}
                 %tr
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:30%;"}
+                  %th{:style=>"width:17%;"}
                     %em Uniformed Services
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Overseas Civilians
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Non-UOCAVA
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Total
                 %tr
                   %td= '&nbsp;'.html_safe
@@ -140,16 +140,16 @@
                 Virginia does not support the receipt of documents via email
                 or other online means.
 
-              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+              %table{:width=>"98%",:style=>"margin:0;text-align:center;"}
                 %tr
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:30%;"}
+                  %th{:style=>"width:17%;"}
                     %em Uniformed Services
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Overseas Civilians
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Non-UOCAVA
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Total
                 %tr
                   %td= '&nbsp;'.html_safe
@@ -158,7 +158,7 @@
                 - hash=@vf['receive']['formNoteFPCApre45']
                 %tr
                   %td
-                    %b FPCA before 45-day
+                    %b FPCA before 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -176,7 +176,7 @@
                 - hash=@vf['receive']['formNoteFPCApost45']
                 %tr
                   %td
-                    %b FPCA after 45-day
+                    %b FPCA after 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -194,7 +194,7 @@
                 - hash=@vf['receive']['formVRpre45']
                 %tr
                   %td
-                    %b DRR before 45-day
+                    %b DRR before 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -212,7 +212,7 @@
                 - hash=@vf['receive']['formVRpost45']
                 %tr
                   %td
-                    %b DRR after 45-day
+                    %b DRR after 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -230,7 +230,7 @@
                 - hash=@vf['receive']['formARpre45']
                 %tr
                   %td
-                    %b DAR before 45-day
+                    %b DAR before 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -248,7 +248,7 @@
                 - hash=@vf['receive']['formVRpost45']
                 %tr
                   %td
-                    %b DRR after 45-day
+                    %b DRR after 45-day deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -265,7 +265,7 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b FPCA after Registration Deadline
+                    %b FPCA after registration deadline
                   - hash=@vf['receive']['formNoteFPCApostVR']
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
@@ -274,7 +274,7 @@
                 - hash=@vf['receive']['formNoteNotFPCApostVR']
                 %tr
                   %td
-                    %b non-FPCA after Registration Deadline
+                    %b non-FPCA after registration deadline
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
                 %tr
@@ -316,16 +316,16 @@
                 Virginia does not support the receipt of ballots via email or
                 other online means.
 
-              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+              %table{:width=>"98%",:style=>"margin:0;text-align:center;"}
                 %tr
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:30%;"}
+                  %th{:style=>"width:17%;"}
                     %em Uniformed Services
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Overseas Civilians
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Non-UOCAVA
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Total
                 %tr
                   %td= '&nbsp;'.html_safe
@@ -334,7 +334,7 @@
                 - hash=@vf['sentToVoter']['formAB']
                 %tr
                   %td
-                    %b Absentee xmitted
+                    %b Absentee transmitted
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['total'][k]
                 %tr
@@ -352,14 +352,14 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b Absentee dnld'd
+                    %b Absentee delivered
                   - %w(military overseas domestic total).each do |k|
-                    %td= hash[k]
+                    %td= "&nbsp;".html_safe
                 %tr
                   %td
                     %em via Web service
                   - %w(military overseas domestic total).each do |k|
-                    %td= "&nbsp;".html_safe
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
                 - hash=@vf['receive']['formAB']
@@ -383,20 +383,20 @@
                 - hash=@vf['returnedUndelivered']['formAB']
                 %tr
                   %td
-                    %b Absentee
-                  - %w(military overseas domestic total).each do |k|
-                    %td= hash[k]
-                %tr
-                  %td
-                    %em ret. Undelivered
+                    %b Absentee returned
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %em undelivered
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
                 - hash=@vf['receive']['formABpreBR']
                 %tr
                   %td
-                    %b Absentee Late
+                    %b Absentee late
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
                 %tr
@@ -420,7 +420,7 @@
                 - hash=@vf['reject']['formAB']
                 %tr
                   %td
-                    %b Absentee Rejected
+                    %b Absentee rejected
                   - %w(military overseas domestic total).each do |k|
                     %td= 'N/C'
                 %tr
@@ -443,7 +443,7 @@
                 - hash=@vf['receive']['formABformNoteFWAB']
                 %tr
                   %td
-                    %b Absentee Counted
+                    %b Absentee counted
                   - %w(military overseas domestic total).each do |k|
                     %td= 'N/C'
                 %tr
@@ -480,16 +480,16 @@
                 %em Not Available:
                 IP address statistics.
 
-              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+              %table{:width=>"98%",:style=>"margin:0;text-align:center;"}
                 %tr
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:30%;"}
+                  %th{:style=>"width:17%;"}
                     %em Uniformed Services
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Overseas Civilians
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Non-UOCAVA
-                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:17%;"}
                     %em Total
                 %tr
                   %td= '&nbsp;'.html_safe
@@ -516,7 +516,7 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b Online reg. requests
+                    %b Online registration requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
                 %tr
@@ -538,7 +538,7 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b Online abs. requests
+                    %b Online absentee requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
                 %tr
@@ -566,7 +566,7 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b Online upd. requests
+                    %b Online update requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
                 %tr
@@ -593,7 +593,7 @@
                   %td= "&nbsp;".html_safe
                 %tr
                   %td
-                    %b Online abs. ballots
+                    %b Online absentee ballots
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
                 %tr
@@ -647,7 +647,7 @@
                 %tr
                   %td= "&nbsp;".html_safe
 
-              #likeh4b Legacy
+              #likeh4b Legacy CSV-like Report
 
               %table{:style=>"margin: 0 0 0 0;text-align:center;"}
                 %tr
@@ -694,16 +694,22 @@
                     %tr
                       %td{:colspan=>6,:style=>"text-align:left;"}= q[3]+" "+q[4]
                     - %w(A.\ postal B.\ fax C.\ email D.\ online).each do |mode|
-                      -if mode!="D\. online" or q[0]=="PFEO"
+                      -if mode!="D\. online" or q[0]=~/PFEO/
                         %tr
                           %td= "&nbsp;".html_safe
                           %td{:style=>"text-align:left;"}= mode[0..2]+mode[3..-1].capitalize
                           - mode=mode[3..-1]
                           -if hash=@vf[q[1]][q[2]][mode]
-                            %td= hash['military'].to_s
-                            %td= hash['overseas'].to_s
-                            %td= hash['domestic'].to_s
-                            %td= hash['total'].to_s
+                            -if q[0]=~/PFEON/
+                              %td= 'N/A'
+                              %td= 'N/A'
+                              %td= 'N/A'
+                              %td= 'N/A'
+                            -else
+                              %td= hash['military'].to_s
+                              %td= hash['overseas'].to_s
+                              %td= hash['domestic'].to_s
+                              %td= hash['total'].to_s
           -else
             %p#redelecname
               %br

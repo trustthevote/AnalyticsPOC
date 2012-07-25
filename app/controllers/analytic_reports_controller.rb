@@ -313,14 +313,14 @@ class AnalyticReportsController < ApplicationController
     @r5qs = [["Header","Normal","Virginia,Uniformed Service,Overseas Civilians,Non UOCAVA,Total"],
              ["UOD","count","jurisdiction","1.","How many registered voters in your jurisdiction as of the voter registration deadline for this election?"],
              ["PFEO","receive","formNoteFPCApre45","2.","How many FPCAs did you receive before the 45 day deadline by the following modes of submission?"],
-             ["PFEO","receive","formNoteFPCApost45","3.","How many FPCAs did you receive after the 45 day deadline by the following modes of submission?"],
+             ["PFEON","receive","formNoteFPCApost45","3.","How many FPCAs did you receive after the 45 day deadline by the following modes of submission?"],
              ["PFEO","receive","formVRpre45","4.","How many non-FPCA registrations did you receive before the 45 day deadline by the following modes of submission?"],
-             ["PFEO","receive","formVRpost45","5.","How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?"],
+             ["PFEON","receive","formVRpost45","5.","How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?"],
              ["PFEO","receive","formARpre45","6.","How many  non-FPCA ballot requests did you receive before the 45 day deadline by the following modes of submission?"],
-             ["PFEO","receive","formARpost45","7.","How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?"],
+             ["PFEON","receive","formARpost45","7.","How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?"],
              ["UOD","reject","formNoteFPCA","8.","How many FPCAs were were submitted as incomplete?"],
-             ["UOD","receive","formNoteFPCApostVR","9.","How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
-             ["UOD","receive","formNoteNotFPCApostVR","10.","How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
+             ["N/A","9.","How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
+             ["N/A","10.","How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
              ["UOD","reject","formNoteNotFPCA","11.","How many non FPCAs were submitted as incomplete?"],
              ["PFEO","sentToVoter","formAB","12.","How many  absentee ballots were transmitted using the following modes of transmission:"],
              ["PFE","receive","formAB","13.","How many absentee  ballots were returned and by what means of transmission ?"],
@@ -619,7 +619,7 @@ class AnalyticReportsController < ApplicationController
   def voter_uocava_report_form(vtr, v, k1)
     if (vtr.action=~/complete/)
       @vu[k1]['rgen']['tot'] +=  1
-    elsif (vtr.action=~/match/ || vtr.action=~/transcribe/)
+    elsif (vtr.action=~/receive/)
       @vu[k1]['rrec']['tot'] += 1
       @vu[k1]['rrec']['dum'] += 1 if v.military?
     elsif (vtr.action=~/approve/)
@@ -652,7 +652,7 @@ class AnalyticReportsController < ApplicationController
           if (vtr.form =~ /Voter/ || vtr.form =~ /Request/)
             foundrm += 1
             foundrc += 1 if vtr.action=~/complete/
-            @vu['aur']['rrec']['tot'] += 1 if vtr.action=~/match/ || vtr.action=~/transcribe/
+            @vu['aur']['rrec']['tot'] += 1 if vtr.action=~/receive/
             @vu['aur']['rapp']['tot'] += 1 if vtr.action=~/approve/
             @vu['aur']['rrej']['tot'] += 1 if vtr.action=~/reject/
             if (vtr.form =~ /VoterRegistration/)
