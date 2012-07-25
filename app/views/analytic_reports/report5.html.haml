@@ -26,12 +26,15 @@
     .span10
       .row
         .span7
-          #likeh2blue FVAP Report
+          #likeh2blue Virginia Voter Services
         -if defined?(@election) && @election.id.to_s == params[:id]
           .span2#likeh4
             = link_to "Save as CSV", '/analytic_report.csv?rn=5;id='+params[:id]
         .span1#statebacknext
           = link_to 'Back', :back
+      .row
+        .span7
+          #likeh2blue UOCAVA Voter Services Usage Report
       .row
         .span10
           -if defined?(@election) && @election.id.to_s == params[:id]
@@ -51,22 +54,614 @@
                     = "&ndash;".html_safe
                     = @election.voter_end_day.strftime("%B %-d, %Y")
                 %tr
+                  %td= 'Registration Deadline:'
+                  %td= @election.deadline_vr_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= 'Ballot Request Deadline:'
+                  %td= @election.deadline_ar_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= '45-Day Deadline:'
+                  %td= @election.deadline_45_day.strftime("%B %-d, %Y")
+                %tr
+                  %td= 'Ballot Receipt Deadline:'
+                  %td= @election.deadline_br_day.strftime("%B %-d, %Y")
+                %tr
                   %td= 'Voter Population:'
-                  %td= number_with_delimiter(@va['tot'])+" Voters"
+                  %td= number_with_delimiter(@va['duu'])+" Overseas/Uniformed Voters"
+                %tr
+                  %td= 'Jurisdiction:'
+                  %td= 'Virginia'
               #likeh4b Summary
+              %p{:style=>"margin-right:10px;"}
+                This report provides statistics of UOCAVA voters’ usage of
+                UOCAVA voter services, during the reporting period for the
+                = @election.name
+                = (@election.name =~ /election/i ? "" : ' Election')
+                held on 
+                = @election.date+","
+                including statistics on the following voter activities:
+                %ul
+                  %li
+                    requests for
+                    %b registration management
+                    = "&ndash;".html_safe
+                    voter registration, voter registration update, absentee
+                    ballot request, FPCA;
+                  %li
+                    submissions of
+                    %b absentee ballots
+                    = "&ndash;".html_safe
+                    mailed-out regular ballots, online-generated ballots, and
+                    FWABs.
+                military voters contrasted with non-military UOCAVA voters,
+                and contrasts between outcomes of state forms and ballots
+                vs. Federal forms and ballots. 
+
+              #likeh4b Registered Voters
+
+              %p Registered voters as of the voter-registration deadline.
+
+              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+                %tr
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                    %em Uniformed Services
+                  %th{:style=>"width:20%;"}
+                    %em Overseas Civilians
+                  %th{:style=>"width:20%;"}
+                    %em Non-UOCAVA
+                  %th{:style=>"width:20%;"}
+                    %em Total
+                %tr
+                  %td= '&nbsp;'.html_safe
+                  %td{:colspan=>4}
+                    %hr{:style=>"margin-top:0;margin-bottom:10px;border:1;"}
+                %tr
+                  %td
+                    %b Registered Voters
+                  %td= @va['dum']
+                  %td= @va['duo']
+                  %td= @va['ddo']
+                  %td= @va['tot']
+
+              %br
+              #likeh4b Registration Requests and Absentee Ballot Requests
+              %p
+                Compares Federal Postcard Applications (FPCAs), nonJFPCA
+                registration requests (DRRs), and nonJFPCA absentee ballot
+                requests (DARs), in terms of: received before or after the
+                45-day deadline, incomplete, after registration deadline. 
+              %p
+                %em Not Available: 
+                numbers of requests received after a deadline; these are saved
+                for subsequent processing after the election cycle
+              %p
+                %em Not Applicable: 
+                Virginia does not support the receipt of documents via email
+                or other online means.
+
+              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+                %tr
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                    %em Uniformed Services
+                  %th{:style=>"width:20%;"}
+                    %em Overseas Civilians
+                  %th{:style=>"width:20%;"}
+                    %em Non-UOCAVA
+                  %th{:style=>"width:20%;"}
+                    %em Total
+                %tr
+                  %td= '&nbsp;'.html_safe
+                  %td{:colspan=>4}
+                    %hr{:style=>"margin-top:0;margin-bottom:10px;border:1;"}
+                - hash=@vf['receive']['formNoteFPCApre45']
+                %tr
+                  %td
+                    %b FPCA before 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formNoteFPCApost45']
+                %tr
+                  %td
+                    %b FPCA after 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formVRpre45']
+                %tr
+                  %td
+                    %b DRR before 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formVRpost45']
+                %tr
+                  %td
+                    %b DRR after 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formARpre45']
+                %tr
+                  %td
+                    %b DAR before 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formVRpost45']
+                %tr
+                  %td
+                    %b DRR after 45-day
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b FPCA after Registration Deadline
+                  - hash=@vf['receive']['formNoteFPCApostVR']
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formNoteNotFPCApostVR']
+                %tr
+                  %td
+                    %b non-FPCA after Registration Deadline
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b FPCA incomplete
+                  - hash=@vf['reject']['formNoteFPCA']
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b non-FPCA incomplete
+                  - hash=@vf['reject']['formNoteNotFPCA']
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+
+              #likeh4b Absentee Ballots
+
+              %p 
+                Compares absentee ballots (created or downloaded online
+                vs. prepared offline) and Federal WriteJIn Absentee Ballots
+                (FWABs) in terms of: transmission to voters, Web download by
+                voters, method of return, and outcome for returned ballots:
+                accepted (cast, counted), rejected due to arriving after
+                deadline (late), rejected for any reason (including late).
+              %p 
+                %em Not Available:
+                FWABs replaced by State ballot. 
+              %p 
+                %em Not Applicable:
+                Virginia does not support the transmission of ballots via fax.
+              %p 
+                %em Not Applicable: 
+                Virginia does not support the receipt of ballots via email or
+                other online means.
+
+              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+                %tr
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                    %em Uniformed Services
+                  %th{:style=>"width:20%;"}
+                    %em Overseas Civilians
+                  %th{:style=>"width:20%;"}
+                    %em Non-UOCAVA
+                  %th{:style=>"width:20%;"}
+                    %em Total
+                %tr
+                  %td= '&nbsp;'.html_safe
+                  %td{:colspan=>4}
+                    %hr{:style=>"margin-top:0;margin-bottom:10px;border:1;"}
+                - hash=@vf['sentToVoter']['formAB']
+                %tr
+                  %td
+                    %b Absentee xmitted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via email
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['email'][k]
+                - hash=@vf['complete']['formAB']
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b Absentee dnld'd
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td
+                    %em via Web service
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formAB']
+                %tr
+                  %td
+                    %b Absentee received
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['total'][k]
+                %tr
+                  %td
+                    %em via post
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['returnedUndelivered']['formAB']
+                %tr
+                  %td
+                    %b Absentee
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td
+                    %em ret. Undelivered
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formABpreBR']
+                %tr
+                  %td
+                    %b Absentee Late
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td
+                    %em Non-FWAB online
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Non-FWAB offline
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                - hash=@vf['receive']['formABformNoteFWABpreBR']
+                %tr
+                  %td
+                    %em FWAB
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['reject']['formAB']
+                %tr
+                  %td
+                    %b Absentee Rejected
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Non-FWAB online
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Non-FWAB offline
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em FWAB
+                  - %w(military overseas domestic total).each do |k| 
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                - hash=@vf['receive']['formABformNoteFWAB']
+                %tr
+                  %td
+                    %b Absentee Counted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Non-FWAB online
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Non-FWAB offline
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em FWAB
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+
+              #likeh4b Online Voter Services Usage
+
+              %p 
+                Describes the usage of online voter services for registration
+                requests, absentee ballot requests (with or without other
+                updates), update of existing voter record (without absentee
+                request), and download of ballots (either blank or pre-filled
+                online). 
+              %p 
+                %em Note:
+                Requests that arrive after the deadline are deferred for
+                subsequent processing, and may not be counted as “received”.
+              %p 
+                %em Not Available:
+                IP address statistics.
+
+              %table{:width=>"100%",:style=>"margin:0;text-align:center;"}
+                %tr
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                    %em Uniformed Services
+                  %th{:style=>"width:20%;"}
+                    %em Overseas Civilians
+                  %th{:style=>"width:20%;"}
+                    %em Non-UOCAVA
+                  %th{:style=>"width:20%;"}
+                    %em Total
+                %tr
+                  %td= '&nbsp;'.html_safe
+                  %td{:colspan=>4}
+                    %hr{:style=>"margin-top:0;margin-bottom:10px;border:1;"}
+                %tr
+                  %td
+                    %b Registered voters
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                - hash=@vf['count']['prereg']
+                %tr
+                  %td
+                    %em start of period
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['count']['jurisdiction']
+                %tr
+                  %td
+                    %em end of period
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b Online reg. requests
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %em Downloaded
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Arrived
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Accepted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b Online abs. requests
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %em Downloaded
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                - hash=@vf['receive']['formAR']
+                %tr
+                  %td
+                    %em Arrived
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                %tr
+                  %td
+                    %em Accepted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Rejected
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b Online upd. requests
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %em Downloaded
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Arrived
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Accepted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Rejected
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %b Online abs. ballots
+                  - %w(military overseas domestic total).each do |k|
+                    %td= "&nbsp;".html_safe
+                %tr
+                  %td
+                    %em User sessions
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Unique users
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Unique users complete
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                - hash=@vf['complete']['formAB']
+                %tr
+                  %td
+                    %em Dndld'd ballots
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['count']['multipleABdownloadU']
+                %tr
+                  %td
+                    %em Users dnld > 1
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['count']['multipleABdownloadN']
+                %tr
+                  %td
+                    %em Ballots of >1 users
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Arrived
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Accepted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td
+                    %em Rejected
+                  - %w(military overseas domestic total).each do |k|
+                    %td= 'N/C'
+                %tr
+                  %td= "&nbsp;".html_safe
+
+              #likeh4b Legacy
+
               %table{:style=>"margin: 0 0 0 0;text-align:center;"}
                 %tr
                   %th{:style=>"width:5%;"}
-                  %th{:style=>"width:10%;"}
-                  %th{:style=>"width:20%;text-align:right;"}
-                  %th{:style=>"width:20%;text-align:center;"}
-                  %th{:style=>"width:20%;text-align:center;"}
-                  %th{:style=>"width:20%;text-align:center;"}
+                  %th{:style=>"width:15%;"}
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
+                  %th{:style=>"width:20%;"}
                 - @r5qs.each do |q|
                   -if q[0]=="Header"
                     %tr
                       %td{:colspan=>6}= "&nbsp;".html_safe
-                    %tr{:style=>"font-weight:bold;font-size:20px;"}
+                    %tr{:style=>"font-weight:bold;font-size:16px;"}
                       %td{:colspan=>6,:style=>"text-align:left;"}= q[1]
                     %tr
                       %td{:colspan=>6,:style=>"text-align:left;"}= "&nbsp;".html_safe
@@ -109,7 +704,6 @@
                             %td= hash['overseas'].to_s
                             %td= hash['domestic'].to_s
                             %td= hash['total'].to_s
-
           -else
             %p#redelecname
               %br

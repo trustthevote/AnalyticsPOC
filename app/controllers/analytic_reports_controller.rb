@@ -95,11 +95,12 @@ class AnalyticReportsController < ApplicationController
       voter_record_reporx_save(@va, @election) if nova
       voter_uocava_report_save(@vu, @election)
     when 5
-      # @vf = voter_report_fetch(5, @election)            
-      # return if @vf && !nova
+      @vf = voter_report_fetch(5, @election)     
+      voter_fvap_qs(@election)       
+      return if @vf && !nova
       @vf = voter_fvap_report_init(@election)
       voter_fvap_report_compute(nova)
-      # voter_record_reporx_save(@va, @election) if nova
+      voter_record_reporx_save(@va, @election) if nova
       voter_report_save(@vf, 5, @election.id)
     else
       raise Exception, "Unknown report number: "+@rn
@@ -272,9 +273,11 @@ class AnalyticReportsController < ApplicationController
 
 #    vf[count]
 # 01     [jurisdiction] {derived from VA} (UOD)
+# 01     [prereg] {derived from VA} (UOD)
 # 19     [registered] {form=VR,action=approve} (UOD)
 # 25     [online] (UOD) ?? 19 ??
-# 27     [multipleABdownload] (UOD)
+# 27     [multipleABdownloadN] (UOD)
+#        [multipleABdownloadU] (UOD)
 #      [complete]
 # 26     [formAB] (UOD)
 # 20     [formVR] {date>election_start_day} (UOD)
@@ -306,19 +309,52 @@ class AnalyticReportsController < ApplicationController
 #    PFEO: [total] [postal] [fax] [email] [online]
 #    TOT: [total]
 
+  def voter_fvap_qs(election)
+    @r5qs = [["Header","Normal","Virginia,Uniformed Service,Overseas Civilians,Non UOCAVA,Total"],
+             ["UOD","count","jurisdiction","1.","How many registered voters in your jurisdiction as of the voter registration deadline for this election?"],
+             ["PFEO","receive","formNoteFPCApre45","2.","How many FPCAs did you receive before the 45 day deadline by the following modes of submission?"],
+             ["PFEO","receive","formNoteFPCApost45","3.","How many FPCAs did you receive after the 45 day deadline by the following modes of submission?"],
+             ["PFEO","receive","formVRpre45","4.","How many non-FPCA registrations did you receive before the 45 day deadline by the following modes of submission?"],
+             ["PFEO","receive","formVRpost45","5.","How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?"],
+             ["PFEO","receive","formARpre45","6.","How many  non-FPCA ballot requests did you receive before the 45 day deadline by the following modes of submission?"],
+             ["PFEO","receive","formARpost45","7.","How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?"],
+             ["UOD","reject","formNoteFPCA","8.","How many FPCAs were were submitted as incomplete?"],
+             ["UOD","receive","formNoteFPCApostVR","9.","How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
+             ["UOD","receive","formNoteNotFPCApostVR","10.","How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
+             ["UOD","reject","formNoteNotFPCA","11.","How many non FPCAs were submitted as incomplete?"],
+             ["PFEO","sentToVoter","formAB","12.","How many  absentee ballots were transmitted using the following modes of transmission:"],
+             ["PFE","receive","formAB","13.","How many absentee  ballots were returned and by what means of transmission ?"],
+             ["UOD","returnedUndelivered","formAB","14.","How many absentee ballots were returned as undeliverable?"],
+             ["UOD","receive","formABpreBR","15.","How many absentee ballots were received after the ballot receipt deadline?"],
+             ["UOD","receive","formABformNoteFWAB","16.","How many FWABs were cast?"],
+             ["UOD","reject","formAB","17.","How many FWABs were rejected?"],
+             ["N/A","17A.","How many FWABs were replaced by a State ballot?"],
+             ["UOD","receive","formABformNoteFWABpreBR","18.","How many FWABs were received after the ballot receipt deadline?"],
+             
+             ["Header","Online Voter Registration","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
+             ["UOD","count","prereg","1.","Number of voters registered before "+election.voter_start_day.strftime("%B %-d, %Y")+"."],
+             ["UOD","complete","formVR","2.","Number of new registration requests since "+election.voter_start_day.strftime("%B %-d, %Y")+"."],
+             ["UOD","reject","formVR","3.","Number of registration requests rejected."],
+          
+             ["Header","Online Absentee Ballot Application","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
+             ["UOD","receive","formAR","1.","Number of ballot applications received."],
+             ["N/A","2.","Number of application from domestic IP addresses"],
+             ["N/A","3.","Number of application from foreign IP addresses"],
+             
+             ["Header","Online Absentee Ballot Delivery","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
+             ["UOD","count","online","1.","Number of people that accessed the system."],
+             ["UOD","complete","formAB","2.","Number of ballots downloaded."],
+             ["UOD","count","multipleABdownloadN","3.","Number of ballots downloaded multiple times from the same user."],
+             ["N/A","4.","Number of ballots downloaded from domestic IP addresses."],
+             ["N/A","5.","Number of ballots downloaded from foreign IP addresses."]]
+  end
   def voter_fvap_report_init(election)
     @vf = Hash.new {}
-    @vf['dates'] = Hash.new {}
-    @vf['dates']['end'] = election.voter_end_day.to_s
-    @vf['dates']['pre45'] = (election.voter_end_day-45).to_s
-    @vf['dates']['preVR'] = (election.voter_end_day-46).to_s
-    @vf['dates']['preBR'] = (election.voter_end_day-43).to_s
-    @vf['dates']['start'] = election.voter_start_day.to_s
     k1s = %w(count complete receive reject returnedUndelivered sentToVoter)
     k1s.each do |k1|
       @vf[k1] = Hash.new {}
     end
-    voter_fvap_uod_init(@vf,'count',%w(jurisdiction registered online multipleABdownload))
+    voter_fvap_uod_init(@vf,'count',%w(jurisdiction prereg registered online multipleABdownloadN multipleABdownloadU))
     voter_fvap_uod_init(@vf,'complete',%w(formAB formVR))
     voter_fvap_uod_init(@vf,'receive',%w(formAR formABpreBR formABformNoteFWAB formABformNoteFWABpreBR formNoteFPCApostVR formNoteNotFPCApostVR))
     voter_fvap_uod_init(@vf,'reject',%w(formVR formAB formNoteFPCA formNoteNotFPCA))
@@ -359,11 +395,16 @@ class AnalyticReportsController < ApplicationController
     end
   end
 
-  def fvap_update_uod(hash,u,o,d,t)
-    hash['military'] += u
-    hash['overseas'] += o
-    hash['domestic'] += d
-    hash['total'] += t
+  def fvap_update_uod_pfeo(hash,k,u,o,d,t)
+    fvap_update_uod(hash[k],u,o,d,t)
+    fvap_update_uod(hash['total'],u,o,d,t)
+  end
+
+  def fvap_update_uod(hash,u,o,d,t,n=1)
+    hash['military'] += u*n
+    hash['overseas'] += o*n
+    hash['domestic'] += d*n
+    hash['total'] += t*n
   end
 
   def fvap_valid_pfeo_sent?(notes)
@@ -422,42 +463,42 @@ class AnalyticReportsController < ApplicationController
         then
           if pfeo = fvap_valid_pfeo_received?(vtr.note)
             if vtr.fpca_form_note?
-              if vtr.datime <= @vf['dates']['pre45']
-                fvap_update_uod(@vf['receive']['formNoteFPCApre45'][pfeo],u,o,d,t)
+              if vtr.datime < @election.deadline_45_day
+                fvap_update_uod_pfeo(@vf['receive']['formNoteFPCApre45'],pfeo,u,o,d,t)
               else
-                fvap_update_uod(@vf['receive']['formNoteFPCApost45'][pfeo],u,o,d,t)
+                fvap_update_uod_pfeo(@vf['receive']['formNoteFPCApost45'],pfeo,u,o,d,t)
               end
             else
               if vtr.voter_registration_form?
-                if vtr.datime <= @vf['dates']['pre45']
-                  fvap_update_uod(@vf['receive']['formVRpre45'][pfeo],u,o,d,t)
+                if vtr.datime < @election.deadline_45_day
+                  fvap_update_uod_pfeo(@vf['receive']['formVRpre45'],pfeo,u,o,d,t)
                 else
-                  fvap_update_uod(@vf['receive']['formVRpost45'][pfeo],u,o,d,t)
+                  fvap_update_uod_pfeo(@vf['receive']['formVRpost45'],pfeo,u,o,d,t)
                 end
               elsif vtr.absentee_request_form?
-                if vtr.datime <= @vf['dates']['pre45']
-                  fvap_update_uod(@vf['receive']['formARpre45'][pfeo],u,o,d,t)
+                if vtr.datime < @election.deadline_45_day
+                  fvap_update_uod_pfeo(@vf['receive']['formARpre45'],pfeo,u,o,d,t)
                 else
-                  fvap_update_uod(@vf['receive']['formARpost45'][pfeo],u,o,d,t)
+                  fvap_update_uod_pfeo(@vf['receive']['formARpost45'],pfeo,u,o,d,t)
                 end
               elsif vtr.absentee_ballot_form?
-                fvap_update_uod(@vf['receive']['formAB'][pfeo],u,o,d,t)                       end
+                fvap_update_uod_pfeo(@vf['receive']['formAB'],pfeo,u,o,d,t)                       end
             end
           end
           if vtr.absentee_request_form?
             fvap_update_uod(@vf['receive']['formAR'],u,o,d,t)
           elsif vtr.absentee_ballot_form?
-            if vtr.datime <= @vf['dates']['preBR']
+            if vtr.datime < @election.deadline_br_day
               fvap_update_uod(@vf['receive']['formABpreBR'],u,o,d,t)
             end
             if vtr.fwab_form_note?
               fvap_update_uod(@vf['receive']['formABformNoteFWAB'],u,o,d,t)
-              if vtr.datime <= @vf['dates']['preBR'] 
+              if vtr.datime < @election.deadline_br_day
                 fvap_update_uod(@vf['receive']['formABformNoteFWABpreBR'],u,o,d,t)
               end
             end
           end
-          if vtr.datime > @vf['dates']['preVR']
+          if vtr.datime >= @election.deadline_vr_day
             if vtr.fpca_form_note?
               fvap_update_uod(@vf['receive']['formNoteFPCApostVR'],u,o,d,t)
             else
@@ -467,7 +508,7 @@ class AnalyticReportsController < ApplicationController
         when 'approve'
         then
           if vtr.voter_registration_form?
-            if vtr.datime <= @vf['dates']['preVR']
+            if vtr.datime < @election.deadline_vr_day
               fvap_update_uod(@vf['count']['registered'],u,o,d,t)
             end
           end
@@ -494,63 +535,26 @@ class AnalyticReportsController < ApplicationController
         then
           if vtr.absentee_ballot_form?
             if pfeo = fvap_valid_pfeo_sent?(vtr.note)
-              fvap_update_uod(@vf['sentToVoter']['formAB'][pfeo],u,o,d,t)
+              fvap_update_uod_pfeo(@vf['sentToVoter']['formAB'],pfeo,u,o,d,t)
             end
           end
         end
       end
       if ab_downloads > 1
-        fvap_update_uod(@vf['count']['multipleABdownload'],u,o,d,t)
+        fvap_update_uod(@vf['count']['multipleABdownloadU'],u,o,d,t)
+        fvap_update_uod(@vf['count']['multipleABdownloadN'],u,o,d,t,ab_downloads)
       end
       voter_record_report_update(@va, v, @election) if nova
     end
     voter_record_report_finalize(@va) if nova
-    fdates = @vf['dates']
-    pre45date = fdates['pre45'].to_date
-    preVRdate = fdates['preVR'].to_date
-    preBRdate = fdates['preBR'].to_date
-    @vfdates = pre45date.to_s + " " + preVRdate.to_s + " " + preBRdate.to_s
     @vf['count']['jurisdiction']['total'] =    @va['tot']
     @vf['count']['jurisdiction']['military'] = @va['dum']
     @vf['count']['jurisdiction']['overseas'] = @va['duo']
     @vf['count']['jurisdiction']['domestic'] = @va['ddo']
-    @r5qs = [["Header","Normal","Virginia,Uniformed Service,Overseas Civilians,Non UOCAVA,Total"],
-             ["UOD","count","jurisdiction","1.","How many registered voters in your jurisdiction as of the voter registration deadline for this election?"],
-          ["PFEO","receive","formNoteFPCApre45","2.","How many FPCAs did you receive before the 45 day deadline by the following modes of submission?"],
-          ["PFEO","receive","formNoteFPCApost45","3.","How many FPCAs did you receive after the 45 day deadline by the following modes of submission?"],
-          ["PFEO","receive","formVRpre45","4.","How many non-FPCA registrations did you receive before the 45 day deadline by the following modes of submission?"],
-          ["PFEO","receive","formVRpost45","5.","How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?"],
-          ["PFEO","receive","formARpre45","6.","How many  non-FPCA ballot requests did you receive before the 45 day deadline by the following modes of submission?"],
-          ["PFEO","receive","formARpost45","7.","How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?"],
-          ["UOD","reject","formNoteFPCA","8.","How many FPCAs were were submitted as incomplete?"],
-          ["UOD","receive","formNoteFPCApostVR","9.","How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
-          ["UOD","receive","formNoteNotFPCApostVR","10.","How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?"],
-          ["UOD","reject","formNoteNotFPCA","11.","How many non FPCAs were submitted as incomplete?"],
-          ["PFEO","sentToVoter","formAB","12.","How many  absentee ballots were transmitted using the following modes of transmission:"],
-          ["PFE","receive","formAB","13.","How many absentee  ballots were returned and by what means of transmission ?"],
-          ["UOD","returnedUndelivered","formAB","14.","How many absentee ballots were returned as undeliverable?"],
-          ["UOD","receive","formABpreBR","15.","How many absentee ballots they were received after the ballot receipt deadline?"],
-          ["UOD","receive","formABformNoteFWAB","16.","How many FWABs were cast?"],
-          ["UOD","reject","formAB","17.","How many FWABSs were rejected?"],
-          ["N/A","17A.","How many FWABs were replaced by a State ballot?"],
-          ["UOD","receive","formABformNoteFWABpreBR","18.","How many FWABs were received after the ballot receipt deadline?"],
-
-          ["Header","Online Voter Registration","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
-          ["UOD","count","registered","1.","Number of voters registered before."],
-          ["UOD","complete","formVR","2.","Number of new registration requests since."],
-          ["UOD","reject","formVR","3.","Number of registration requests rejected."],
-          
-          ["Header","Online Absentee Ballot Application","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
-          ["UOD","receive","formAR","1.","Number of ballot applications received."],
-          ["N/A","2.","Number of application from domestic IP addresses"],
-          ["N/A","3.","Number of application from foreign IP addresses"],
-
-          ["Header","Online Absentee Ballot Delivery","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
-          ["UOD","count","online","1.","Number of people that accessed the system."],
-          ["UOD","complete","formAB","2.","Number of ballots downloaded."],
-          ["UOD","count","multipleABdownload","3.","Number of ballots downloaded multiple times from the same user."],
-          ["N/A","4.","Number of ballots downloaded from domestic IP addresses."],
-          ["N/A","5.","Number of ballots downloaded from foreign IP addresses."]]
+    @vf['count']['prereg']['total'] =    @va['totp']
+    @vf['count']['prereg']['military'] = @va['dump']
+    @vf['count']['prereg']['overseas'] = @va['duop']
+    @vf['count']['prereg']['domestic'] = @va['ddop']
   end
 
   def voter_uocava_report_init()

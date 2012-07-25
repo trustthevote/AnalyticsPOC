@@ -92,6 +92,9 @@ class ApplicationController < ActionController::Base
     %w(dnw ngf ngm npd npo npr).each do |k|
       vhash[k] = 0
     end
+    %w(totp ddop dump duop).each do |k|
+      vhash[k] = 0
+    end
     return vhash
   end
 
@@ -105,6 +108,11 @@ class ApplicationController < ActionController::Base
       vhash['npd'] += 1 if vr.party_democratic?
       vhash['npr'] += 1 if vr.party_republican?
       vhash['npo'] += 1 if vr.party_other?
+    else
+      vhash['totp'] += 1
+      vhash['ddop'] += 1 unless vr.military? or vr.overseas?
+      vhash['dump'] += 1 if vr.military?
+      vhash['duop'] += 1 if vr.overseas?
     end
     if vr.uocava?
       vhash['duu'] += 1

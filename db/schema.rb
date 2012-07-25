@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719222755) do
+ActiveRecord::Schema.define(:version => 20120724183841) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -57,6 +57,10 @@ ActiveRecord::Schema.define(:version => 20120719222755) do
     t.string   "evoters"
     t.boolean  "selected"
     t.string   "log_file_names"
+    t.date     "deadline_vr_day"
+    t.date     "deadline_ar_day"
+    t.date     "deadline_45_day"
+    t.date     "deadline_br_day"
   end
 
   create_table "users", :force => true do |t|

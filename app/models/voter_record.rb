@@ -41,8 +41,7 @@ class VoterRecord < ActiveRecord::Base
   end
 
   def new?(e)
-    (self.regidate >= e.voter_start_day and
-     self.regidate <= e.voter_end_day)
+    self.regidate >= e.voter_start_day
   end
   
 end
