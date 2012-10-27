@@ -127,8 +127,8 @@
               %br
               #likeh4b Registration Requests and Absentee Ballot Requests
               %p
-                Compares Federal Postcard Applications (FPCAs), nonJFPCA
-                registration requests (DRRs), and nonJFPCA absentee ballot
+                Compares Federal Postcard Applications (FPCAs), non-FPCA
+                registration requests (DRRs), and non-FPCA absentee ballot
                 requests (DARs), in terms of: received before or after the
                 45-day deadline, incomplete, after registration deadline. 
               %p
@@ -300,7 +300,7 @@
 
               %p 
                 Compares absentee ballots (created or downloaded online
-                vs. prepared offline) and Federal WriteJIn Absentee Ballots
+                vs. prepared offline) and Federal Write-In Absentee Ballots
                 (FWABs) in terms of: transmission to voters, Web download by
                 voters, method of return, and outcome for returned ballots:
                 accepted (cast, counted), rejected due to arriving after
@@ -646,84 +646,6 @@
                     %td= 'N/C'
                 %tr
                   %td= "&nbsp;".html_safe
-
-              #likeh4b Legacy CSV-like Report
-
-              %table{:style=>"margin: 0 0 0 0;text-align:center;"}
-                %tr
-                  %th{:style=>"width:5%;"}
-                  %th{:style=>"width:15%;"}
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
-                  %th{:style=>"width:20%;"}
-                - @r5qs.each do |q|
-                  -if q[0]=="Header"
-                    %tr
-                      %td{:colspan=>6}= "&nbsp;".html_safe
-                    %tr{:style=>"font-weight:bold;font-size:16px;"}
-                      %td{:colspan=>6,:style=>"text-align:left;"}= q[1]
-                    %tr
-                      %td{:colspan=>6,:style=>"text-align:left;"}= "&nbsp;".html_safe
-                    %tr{:style=>"font-weight:bold;"}
-                      %td{:colspan=>2}= 'Virginia'
-                      %td= 'Uniformed Service Member'
-                      %td= 'Overseas Civilians'
-                      %td= 'Non UOCAVA'
-                      %td= 'Total'
-                  -elsif q[0]=~/N\/A/
-                    %tr
-                      %td{:colspan=>6,:style=>"text-align:left;"}=q[1]+" "+q[2]
-                    %tr
-                      %td{:colspan=>2}= "&nbsp;".html_safe
-                      %td= 'N/A'
-                      %td= 'N/A'
-                      %td= 'N/A'
-                      %td= 'N/A'
-                  -elsif q[0]=~/UOD/
-                    %tr
-                      %td{:colspan=>6,:style=>"text-align:left;"}= q[3]+" "+q[4]
-                    %tr
-                      %td{:colspan=>2}= "&nbsp;".html_safe
-                      -if hash=@vf[q[1]][q[2]]
-                        %td= hash['military'].to_s
-                        %td= hash['overseas'].to_s
-                        %td= hash['domestic'].to_s
-                        %td= hash['total'].to_s
-                  -else
-                    %tr
-                      %td{:colspan=>6,:style=>"text-align:left;"}= q[3]+" "+q[4]
-                    %tr
-                      %td= "&nbsp;".html_safe
-                      %td{:style=>"text-align:left;"}= 'Totals'
-                      -hash=@vf[q[1]][q[2]]
-                      -if q[0]=~/PFEON/
-                        %td= 'N/A'
-                        %td= 'N/A'
-                        %td= 'N/A'
-                        %td= 'N/A'
-                      -else
-                        %td= hash['total']['military'].to_s
-                        %td= hash['total']['overseas'].to_s
-                        %td= hash['total']['domestic'].to_s
-                        %td= hash['total']['total'].to_s
-                    - %w(A.\ postal B.\ fax C.\ email D.\ online).each do |mode|
-                      -if mode!="D\. online" or q[0]=~/PFEO/
-                        %tr
-                          %td= "&nbsp;".html_safe
-                          %td{:style=>"text-align:left;"}= mode[0..2]+mode[3..-1].capitalize
-                          - mode=mode[3..-1]
-                          -if hash=@vf[q[1]][q[2]][mode]
-                            -if q[0]=~/PFEON/
-                              %td= 'N/A'
-                              %td= 'N/A'
-                              %td= 'N/A'
-                              %td= 'N/A'
-                            -else
-                              %td= hash['military'].to_s
-                              %td= hash['overseas'].to_s
-                              %td= hash['domestic'].to_s
-                              %td= hash['total'].to_s
           -else
             %p#redelecname
               %br

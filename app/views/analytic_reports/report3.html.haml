@@ -25,11 +25,8 @@
       Textual description of report here.
     .span10
       .row
-        .span7
+        .span9
           #likeh2blue UOCAVA Voter Online Usage Report
-        -if defined?(@election) && @election.id.to_s == params[:id]
-          .span2#likeh4
-            = link_to "Save as PDF", '/analytic_report.pdf?rn=3;id='+params[:id]
         .span1#statebacknext
           = link_to 'Back', :back
       .row

@@ -2,7 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.0'
 
+#group :development, :test do
+#  gem 'sqlite3'
+#end
+
 gem 'mysql2'
+
+# PostgreSQL DB required for Heroku deployment 
 gem 'pg'
 
 # Gems used only for assets and not required
@@ -16,43 +22,16 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'nokogiri'
-# gem 'rdiscount'
-# gem 'whenever', :require => false
-# gem 'inherited_resources'
-# gem 'kaminari'
-# gem 'country_select'
-# gem 'state_select'
-
 gem 'compass_twitter_bootstrap'
 gem 'compass-rails'
-
 gem 'simple_form'
-
 gem 'prawn_rails'
-
-#group :development do
-  gem 'capistrano'
-  gem 'thin'
-#end
-
-group :test do
-# gem 'rspec'
-# gem 'rspec-rails'
-# gem 'turnip'
-# gem 'faker'
-# gem 'timecop'
-# gem 'factory_girl_rails'
-# gem 'shoulda'
-# gem 'guard'
-# gem 'guard-rspec'
-# gem 'launchy'
-# gem 'capybara'
-end
-
-#group :development, :test do
-#  gem 'sqlite3'
-#end
+gem 'capistrano'
+gem 'thin'
 gem 'carrierwave'
 gem 'devise'
 gem 'activeadmin'
 gem 'meta_search',    '>= 1.1.0.pre'
+
+group :test do
+end
