@@ -1,3 +1,4 @@
+config/deploy.rb
 /tmp
 /log/*.log
 /public/xml/*.xml

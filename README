@@ -29,42 +29,49 @@ Deployment prerequisites
 * Ruby 1.9.3-p0 (see Installing Ruby section)
 * Apache 2 with Passenger 3.0.11 (see Installing Passenger section)
 
+
 Deployment
 ----------
 
-* Copy `config/deploy.rb.sample` to `config/deploy.rb`
+* (locally) Copy config/deploy.rb.sample to config/deploy.rb
+  * Change "domain" to either IP or domain address of the target system
+  * Change user / runner to the name of the Unix user you will be SSH'ing into the "domain" as
 
-* Update 'Location configuration' section with:
-  * _domain_ -- the domain name or IP address of the server to deploy
-    the app to.
-  * _user_ -- Unix user owning the deployment (usually 'deploy')
-  * _runner_ -- Unix user to run deployment commands on the remote
-    server through SSH (usually the same as _user_)
-  * _deploy_to_ -- path to the deployment directory
+* (locally) Setup the remote location:
 
-* If it's the first deployment:
-  * Check that everything is configured correctly with `cap
-    deploy:check` from the root of the project.
-  * Setup the deployment location with `cap deploy:setup`
-  * Log into the remote system and go to `/<deploy_to>/shared` and
-    create `config` directory with two files:
-    * _database.yml_ (see sample in `config/database.yml.sample`) with
-      database configuration.
-    * _config.yml_ (see sample in `config/config.yml.sample`) with
-      application configuration.
-  * Make the initial deployment with `cap deploy:cold`.
-  * Configure Apache virtual host. Here's the sample configuration
-    ('server.com' is your server name, 'DocumentRoot' points to the
-    `:deploy_to/current/public` where `:deploy_to` is from capistrano
-    script above):
+    $ cap deploy:setup
 
-            <VirtualHost *:8888>
-              ServerName    server.com
-              DocumentRoot  /home/deploy/server.com/current/public
-            </VirtualHost>
+* (locally) Verify the setup:
 
-* If it's not the first deployment, make it with `cap
-  deploy:migrations`.
+    $ cap deploy:check
+
+* (remotely) Create configuration files:
+  * create database for the application (i.e. va_analytics)
+  * create <deploy_to>/shared/config/config.yml (see sample in config/config.yml.sample)
+  * create <deploy_to>/shared/config/database.yml (see sample in config/database.yml.sample) with only the "production" environment, like this:
+
+      production:
+        adapter: mysql2
+        database: va_analytics
+        host: localhost
+        username: <db_user>
+        password: <db_password>
+        socket: <path_to>/mysql.sock
+
+* (locally) Make initial one-time deployment:
+
+    $ cap deploy:cold
+
+* (locally) Seed the database from db/seed.rb
+
+    $ cap db:seed
+
+* (remotely) Configure Apache virtual host with:
+
+    <VirtualHost *:8888>
+      ServerName    server.com
+      DocumentRoot  <deploy_to>/current/public
+    </VirtualHost>
 
 
 Installing Ruby
