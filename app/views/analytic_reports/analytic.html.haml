@@ -43,18 +43,18 @@
                   %tr
                     %td{:style=>"width:37%;"}
                       = number_with_delimiter([e.voters.count,VoterRecord.count].max)+" Records"
-                    %td{:style=>"width:9%;text-align:left"}
+                    %td{:style=>"width:8%;text-align:left"}
                       = link_to 'About'
                     %td{:style=>"width:14%;text-align:left"}
                       = link_to 'View Report', '/analytic_report?rn='+ar.num.to_s+';id='+e.id.to_s
-                    %td{:style=>"width:14%;text-align:left"}
+                    %td{:style=>"width:16%;text-align:left"}
                       -if ar.num==5
                         = link_to 'Download CSV', '/analytic_report.csv?rn='+ar.num.to_s+';id='+e.id.to_s
                       -else
                         = link_to 'Download PDF', '/analytic_report.pdf?rn='+ar.num.to_s+';id='+e.id.to_s
                     %td{:style=>"width:12%;text-align:left"}
                       = link_to 'View Data', '/voter_transaction_records?id='+e.id.to_s
-                    %td{:style=>"width:14%;text-align:left"}
+                    %td{:style=>"width:13%;text-align:left"}
                       = link_to 'Export XML', '/voter_transaction_records.xml?id='+e.id.to_s
     -else
       .span2.sidebar

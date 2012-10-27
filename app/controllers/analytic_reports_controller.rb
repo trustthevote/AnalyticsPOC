@@ -590,6 +590,9 @@ class AnalyticReportsController < ApplicationController
     when 'emailSent'
     then
       return 'email'
+    when 'onlineBalloting'
+    then
+      return 'online'
     else
       return false
     end
