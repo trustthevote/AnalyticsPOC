@@ -29,7 +29,7 @@
           #likeh2blue Virginia Voter Services
         -if defined?(@election) && @election.id.to_s == params[:id]
           .span2#likeh4
-            = link_to "Save as CSV", '/analytic_report.csv?rn=5;id='+params[:id]
+            = link_to "Download CSV", '/analytic_report.csv?rn=5;id='+params[:id]
         .span1#statebacknext
           = link_to 'Back', :back
       .row
@@ -673,7 +673,7 @@
                       %td= 'Total'
                   -elsif q[0]=~/N\/A/
                     %tr
-                      %td{:colspan=>4,:style=>"text-align:left;"}=q[1]+" "+q[2]
+                      %td{:colspan=>6,:style=>"text-align:left;"}=q[1]+" "+q[2]
                     %tr
                       %td{:colspan=>2}= "&nbsp;".html_safe
                       %td= 'N/A'
@@ -693,6 +693,20 @@
                   -else
                     %tr
                       %td{:colspan=>6,:style=>"text-align:left;"}= q[3]+" "+q[4]
+                    %tr
+                      %td= "&nbsp;".html_safe
+                      %td{:style=>"text-align:left;"}= 'Totals'
+                      -hash=@vf[q[1]][q[2]]
+                      -if q[0]=~/PFEON/
+                        %td= 'N/A'
+                        %td= 'N/A'
+                        %td= 'N/A'
+                        %td= 'N/A'
+                      -else
+                        %td= hash['total']['military'].to_s
+                        %td= hash['total']['overseas'].to_s
+                        %td= hash['total']['domestic'].to_s
+                        %td= hash['total']['total'].to_s
                     - %w(A.\ postal B.\ fax C.\ email D.\ online).each do |mode|
                       -if mode!="D\. online" or q[0]=~/PFEO/
                         %tr

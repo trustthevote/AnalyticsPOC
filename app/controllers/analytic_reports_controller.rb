@@ -1,3 +1,5 @@
+require 'csv'
+
 class AnalyticReportsController < ApplicationController
   before_filter :current_user!
 
@@ -37,6 +39,11 @@ class AnalyticReportsController < ApplicationController
     respond_to do |f|
       f.html { render '/analytic_reports/report'+@rn.to_s }
       f.pdf  { render layout: false }
+      f.csv  {
+        send_data CSV.generate { |csv| @rcsv.each { |row| csv << row } },
+                  :type => 'text/csv; charset=iso-8859-1; header=present', 
+                  :disposition => "attachment; filename=fvap_osdv_virginia.csv"
+      }
     end
   end
 
@@ -63,6 +70,7 @@ class AnalyticReportsController < ApplicationController
 # npr New Party Republican
 
   def report()
+    @rcsv = []
     nova = false
     unless @va = voter_record_report_fetch(@election)
       if VoterRecord.count > 0 #JVC try to find existing saved report
@@ -97,14 +105,178 @@ class AnalyticReportsController < ApplicationController
     when 5
       @vf = voter_report_fetch(5, @election)     
       voter_fvap_qs(@election)       
-      return if @vf && !nova
+      return fvap_csv(@election) if @vf && !nova
       @vf = voter_fvap_report_init(@election)
       voter_fvap_report_compute(nova)
       voter_record_reporx_save(@va, @election) if nova
       voter_report_save(@vf, 5, @election.id)
+      fvap_csv(@election)
     else
       raise Exception, "Unknown report number: "+@rn
     end
+  end
+
+  def fvap_csv(election)
+    hash2 = @vf['receive']['formNoteFPCApre45']
+    hash3 = @vf['receive']['formNoteFPCApost45']
+    hash4 = @vf['receive']['formVRpre45']
+    hash5 = @vf['receive']['formVRpost45']
+    hash6 = @vf['receive']['formARpre45']
+    hash7 = @vf['receive']['formVRpost45']
+    hash8 = @vf['reject']['formNoteFPCA']
+    hash9 = @vf['receive']['formNoteFPCApostVR']
+    hash10 = @vf['receive']['formNoteNotFPCApostVR']
+    hash11 = @vf['reject']['formNoteNotFPCA']
+    hash12 = @vf['sentToVoter']['formAB']
+    hash13 = @vf['receive']['formAB']
+    hash14 = @vf['returnedUndelivered']['formAB']
+    hash15 = @vf['receive']['formABpreBR']
+    hash16 = @vf['receive']['formABformNoteFWAB']
+    hash17 = @vf['reject']['formAB']
+    hash18 = @vf['receive']['formABformNoteFWABpreBR']
+    hash19a = @vf['count']['prereg']
+    hash19b = @vf['complete']['formVR']
+    hash19c = @vf['reject']['formVR']
+    hash20a = @vf['receive']['formAR']
+    hash21a = @vf['count']['online']
+    hash21b = @vf['complete']['formAB']
+    hash21c = @vf['count']['multipleABdownloadN']
+    @rcsv = 
+      [ [ "Normal" , '' , '' , '' , '' ],
+        [ "Virginia" , "Uniformed Service Member" , "Overseas Civilians" , "Non UOCAVA" , "Total" ],
+        [ "1. How many registered voters in your jurisdiction as of the voter registration deadline for this election?" ,
+          @va['dum'] , @va['duo'] , @va['ddo'] , @va['tot'] ],
+        [ "2. How many FPCAs did you receive before the 45 day deadline by the following modes of submission?" ,
+          hash2['total']['military'] , hash2['total']['overseas'] , hash2['total']['domestic'] , hash2['total']['total'] ],
+        [ "    A. Postal Mail" ,
+          hash2['postal']['military'] , hash2['postal']['overseas'] , hash2['postal']['domestic'] , hash2['postal']['total'] ],
+        [ "    B. Fax" ,
+          hash2['fax']['military'] , hash2['fax']['overseas'] , hash2['fax']['domestic'] , hash2['fax']['total'] ],
+        [ "    C. E-mail" ,
+          hash2['email']['military'] , hash2['email']['overseas'] , hash2['email']['domestic'] , hash2['email']['total'] ],
+        [ "    D. Online Submission" , 
+          hash2['online']['military'] , hash2['online']['overseas'] , hash2['online']['domestic'] , hash2['online']['total'] ],
+        # [ "3. How many FPCAs did you receive after the 45 day deadline by the following modes of submission?" ,
+        #   hash3['total']['military'] , hash3['total']['overseas'] , hash3['total']['domestic'] , hash3['total']['total'] ],
+        # [ "    A. Postal Mail" ,
+        #   hash3['postal']['military'] , hash3['postal']['overseas'] , hash3['postal']['domestic'] , hash3['postal']['total'] ],
+        # [ "    B. Fax" ,
+        #   hash3['fax']['military'] , hash3['fax']['overseas'] , hash3['fax']['domestic'] , hash3['fax']['total'] ],
+        [ "3. How many FPCAs did you receive after the 45 day deadline by the following modes of submission?" ,
+          'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    A. Postal Mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    B. Fax" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    C. E-mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    D. Online Submission" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "4. How many non-FPCA registrations did you receive before the 45 day deadline by the following modes of submission?" ,
+          hash4['total']['military'] , hash4['total']['overseas'] , hash4['total']['domestic'] , hash4['total']['total'] ],
+        [ "    A. Postal Mail" ,
+          hash4['postal']['military'] , hash4['postal']['overseas'] , hash4['postal']['domestic'] , hash4['postal']['total'] ],
+        [ "    B. Fax" ,
+          hash4['fax']['military'] , hash4['fax']['overseas'] , hash4['fax']['domestic'] , hash4['fax']['total'] ],
+        [ "    C. E-mail" ,
+          hash4['email']['military'] , hash4['email']['overseas'] , hash4['email']['domestic'] , hash4['email']['total'] ],
+        [ "    D. Online Submission" , 
+          hash4['online']['military'] , hash4['online']['overseas'] , hash4['online']['domestic'] , hash4['online']['total'] ],
+        # [ "5. How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?" ,
+        #   hash5['total']['military'] , hash5['total']['overseas'] , hash5['total']['domestic'] , hash5['total']['total'] ],
+        # [ "    A. Postal Mail" ,
+        #   hash5['postal']['military'] , hash5['postal']['overseas'] , hash5['postal']['domestic'] , hash5['postal']['total'] ],
+        # [ "    B. Fax" ,
+        #   hash5['fax']['military'] , hash5['fax']['overseas'] , hash5['fax']['domestic'] , hash5['fax']['total'] ],
+        [ "5. How many  non-FPCA registrations did you receive after the 45 day deadline by the following modes of submission?" ,
+          'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    A. Postal Mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    B. Fax" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    C. E-mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    D. Online Submission" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "6. How many  non-FPCA ballot requests did you receive before the 45 day deadline by the following modes of submission?" ,
+          hash6['total']['military'] , hash6['total']['overseas'] , hash6['total']['domestic'] , hash6['total']['total'] ],
+        [ "    A. Postal Mail" ,
+          hash6['postal']['military'] , hash6['postal']['overseas'] , hash6['postal']['domestic'] , hash6['postal']['total'] ],
+        [ "    B. Fax" ,
+          hash6['fax']['military'] , hash6['fax']['overseas'] , hash6['fax']['domestic'] , hash6['fax']['total'] ],
+        [ "    C. E-mail" ,
+          hash6['email']['military'] , hash6['email']['overseas'] , hash6['email']['domestic'] , hash6['email']['total'] ],
+        [ "    D. Online Submission" , 
+          hash6['online']['military'] , hash6['online']['overseas'] , hash6['online']['domestic'] , hash6['online']['total'] ],
+        # [ "7. How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?" ,
+        #   hash7['total']['military'] , hash7['total']['overseas'] , hash7['total']['domestic'] , hash7['total']['total'] ],
+        # [ "    A. Postal Mail" ,
+        #   hash7['postal']['military'] , hash7['postal']['overseas'] , hash7['postal']['domestic'] , hash7['postal']['total'] ],
+        # [ "    B. Fax" ,
+        #   hash7['fax']['military'] , hash7['fax']['overseas'] , hash7['fax']['domestic'] , hash7['fax']['total'] ],
+        [ "7. How many  non-FPCA ballot requests did you receive after the 45 day deadline by the following modes of submission?" ,
+          'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    A. Postal Mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    B. Fax" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    C. E-mail" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    D. Online Submission" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "8. How many FPCAs were were submitted as incomplete?" ,
+          hash8['military'] , hash8['overseas'] , hash8['domestic'] , hash8['total'] ],
+        # [ "9. How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?" ,
+        #   hash9['military'] , hash9['overseas'] , hash9['domestic'] , hash9['total'] ],
+        # [ "10. How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?" ,
+        #   hash10['military'] , hash10['overseas'] , hash10['domestic'] , hash10['total'] ],
+        [ "9. How many FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?" ,
+          'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "10. How many non FPCAs were received after your jurisdiction\'s voter registration or absentee ballot request deadline?" ,
+          'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "11. How many non FPCAs were submitted as incomplete?" ,
+          hash11['military'] , hash11['overseas'] , hash11['domestic'] , hash11['total'] ],
+        [ "12. How many  absentee ballots were transmitted using the following modes of transmission:" ,
+          hash12['total']['military'] , hash12['total']['overseas'] , hash12['total']['domestic'] , hash12['total']['total'] ],
+        [ "    A. Postal Mail" ,
+          hash12['postal']['military'] , hash12['postal']['overseas'] , hash12['postal']['domestic'] , hash12['postal']['total'] ],
+        [ "    B. Fax" ,
+          hash12['fax']['military'] , hash12['fax']['overseas'] , hash12['fax']['domestic'] , hash12['fax']['total'] ],
+        [ "    C. E-mail" , 
+          hash12['email']['military'] , hash12['email']['overseas'] , hash12['email']['domestic'] , hash12['email']['total'] ],
+        [ "    D. Online" ,
+          hash12['online']['military'] , hash12['online']['overseas'] , hash12['online']['domestic'] , hash12['online']['total'] ],
+        [ "13. How many absentee  ballots were returned and by what means of transmission ?" ,
+          hash13['total']['military'] , hash13['total']['overseas'] , hash13['total']['domestic'] , hash13['total']['total'] ],
+        [ "    A. Postal Mail" ,
+          hash13['postal']['military'] , hash13['postal']['overseas'] , hash13['postal']['domestic'] , hash13['postal']['total'] ],
+        [ "    B. Fax" ,
+          hash13['fax']['military'] , hash13['fax']['overseas'] , hash13['fax']['domestic'] , hash13['fax']['total'] ],
+        [ "    C. E-mail" ,
+          hash13['email']['military'] , hash13['email']['overseas'] , hash13['email']['domestic'] , hash13['email']['total'] ],
+        [ "14. How many absentee ballots were returned as undeliverable?" ,
+          hash14['military'] , hash14['overseas'] , hash14['domestic'] , hash14['total'] ],
+        [ "15. How many absentee ballots they were received after the ballot receipt deadline?" ,
+          hash15['military'] , hash15['overseas'] , hash15['domestic'] , hash15['total'] ],
+        [ "16. How many FWABs were cast?" ,
+          hash16['military'] , hash16['overseas'] , hash16['domestic'] , hash16['total'] ],
+        [ "17. How many FWABs were rejected?" ,
+          hash17['military'] , hash17['overseas'] , hash17['domestic'] , hash17['total'] ],
+        [ "    A. How many FWABs were replaced by a State ballot? " , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "18. How many FWABs were received after the ballot receipt deadline?" ,
+          hash18['military'] , hash18['overseas'] , hash18['domestic'] , hash18['total'] ],
+        [ "Online Voter Registration" , '' , '' , '' ,  '' ],
+        [ "Virginia" , "Uniformed Service Member" , "Overseas Civilians" , "Non UOCAVA" , "Total" ],
+        [ "    1. Number of voters registered before "+election.voter_start_day.strftime("%B %-d, %Y")+"." ,
+          hash19a['military'] , hash19a['overseas'] , hash19a['domestic'] , hash19a['total'] ],
+        [ "    2. Number of new registration requests since "+election.voter_start_day.strftime("%B %-d, %Y")+"." ,
+          hash19b['military'] , hash19b['overseas'] , hash19b['domestic'] , hash19b['total'] ],
+        [ "    3. Number of registration requests rejected" ,
+          hash19c['military'] , hash19c['overseas'] , hash19c['domestic'] , hash19c['total'] ],
+        [ "Online Absentee Ballot Application", '' , '' , '' ,  '' , '' ],
+        [ "Virginia" , "Uniformed Service Member" , "Overseas Civilians" , "Non UOCAVA" , "Total" ],
+        [ "    1. Number of ballot applications received." ,
+          hash20a['military'] , hash20a['overseas'] , hash20a['domestic'] , hash20a['total'] ],
+        [ "    2. Number of application from domestic IP addresses" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    3. Number of application from foreign IP addresses" , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "Online Absentee Ballot Delivery", '' , '' , '' ,  '' , '' ],
+        [ "Virginia" , "Uniformed Service Member" , "Overseas Civilians" , "Non UOCAVA" , "Total" ],
+        [ "    1. Number of people that accessed the system." ,
+          hash21a['military'] , hash21a['overseas'] , hash21a['domestic'] , hash21a['total'] ],
+        [ "    2. Number of ballots downloaded." ,
+          hash21b['military'] , hash21b['overseas'] , hash21b['domestic'] , hash21b['total'] ],
+        [ "    3. Number of ballots downloaded multiple times from the same user." ,
+          hash21c['military'] , hash21c['overseas'] , hash21c['domestic'] , hash21c['total'] ],
+        [ "    4. Number of ballots downloaded from domestic IP addresses." , 'N/A' , 'N/A' , 'N/A' , 'N/A' ],
+        [ "    5. Number of ballots downloaded from foreign IP addresses." , 'N/A' , 'N/A' , 'N/A' , 'N/A' ]]
   end
 
   def voter_participating_report_init()
@@ -303,7 +475,7 @@ class AnalyticReportsController < ApplicationController
 #      [returnedUndelivered]
 # 14     [formAB] (TOT)
 #      [sentToVoter]
-# 12     [formAB] (PFE)
+# 12     [formAB] (PFEO)
 #   
 #    UOD: [total] [military] [overseas] [domestic]
 #    PFEO: [total] [postal] [fax] [email] [online]
@@ -332,7 +504,7 @@ class AnalyticReportsController < ApplicationController
              ["UOD","receive","formABformNoteFWABpreBR","18.","How many FWABs were received after the ballot receipt deadline?"],
              
              ["Header","Online Voter Registration","Virginia,Uniformed Service Member,Overseas Civilians,Non UOCAVA,Total"],
-             ["UOD","count","prereg","1.","Number of voters registered before "+election.voter_start_day.strftime("%B %-d, %Y")+"."],
+             ["UOD","count","prereg","1.","Number of voters registered before "+election.voter_start_day.strftime("%B %-d, %Y")+"." ],
              ["UOD","complete","formVR","2.","Number of new registration requests since "+election.voter_start_day.strftime("%B %-d, %Y")+"."],
              ["UOD","reject","formVR","3.","Number of registration requests rejected."],
           
@@ -453,7 +625,6 @@ class AnalyticReportsController < ApplicationController
           if vtr.absentee_ballot_form?
             ab_downloads += 1
             fvap_update_uod(@vf['complete']['formAB'],u,o,d,t)              
-            fvap_update_uod(@vf['sentToVoter']['formAB']['online'],u,o,d,t)
           elsif vtr.voter_registration_form?
             if vtr.datime >= @election.voter_start_day
               fvap_update_uod(@vf['complete']['formVR'],u,o,d,t)              
