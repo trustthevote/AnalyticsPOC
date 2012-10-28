@@ -105,7 +105,7 @@ class AnalyticReportsController < ApplicationController
     when 5
       @vf = voter_report_fetch(5, @election)
       voter_fvap_qs(@election)
-      # JVC return fvap_csv(@election) if @vf && !nova
+      return fvap_csv(@election) if @vf && !nova
       @vf = voter_fvap_report_init(@election)
       voter_fvap_report_compute(nova)
       voter_record_reporx_save(@va, @election) if nova
