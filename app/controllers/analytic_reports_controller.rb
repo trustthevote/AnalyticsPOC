@@ -103,9 +103,9 @@ class AnalyticReportsController < ApplicationController
       voter_record_reporx_save(@va, @election) if nova
       voter_uocava_report_save(@vu, @election)
     when 5
-      @vf = voter_report_fetch(5, @election)     
-      voter_fvap_qs(@election)       
-      return fvap_csv(@election) if @vf && !nova
+      @vf = voter_report_fetch(5, @election)
+      voter_fvap_qs(@election)
+      # JVC return fvap_csv(@election) if @vf && !nova
       @vf = voter_fvap_report_init(@election)
       voter_fvap_report_compute(nova)
       voter_record_reporx_save(@va, @election) if nova
@@ -520,22 +520,30 @@ class AnalyticReportsController < ApplicationController
              ["N/A","4.","Number of ballots downloaded from domestic IP addresses."],
              ["N/A","5.","Number of ballots downloaded from foreign IP addresses."]]
   end
+
   def voter_fvap_report_init(election)
     @vf = Hash.new {}
-    k1s = %w(count complete receive reject returnedUndelivered sentToVoter)
+    k1s = %w(count complete receive reject returnedUndelivered sentToVoter downloaded arrived accepted counted rejected late users)
     k1s.each do |k1|
       @vf[k1] = Hash.new {}
     end
     voter_fvap_uod_init(@vf,'count',%w(jurisdiction prereg registered online multipleABdownloadN multipleABdownloadU))
-    voter_fvap_uod_init(@vf,'complete',%w(formAB formVR))
+    voter_fvap_uod_init(@vf,'complete',%w(formVR formRU formAR formAB))
     voter_fvap_uod_init(@vf,'receive',%w(formAR formABpreBR formABformNoteFWAB formABformNoteFWABpreBR formNoteFPCApostVR formNoteNotFPCApostVR))
     voter_fvap_uod_init(@vf,'reject',%w(formVR formAB formNoteFPCA formNoteNotFPCA))
     voter_fvap_uod_init(@vf,'returnedUndelivered',%w(formAB))
     voter_fvap_pfeo_init(@vf,'receive',%w(formVRpre45 formVRpost45 formARpre45 formARpost45 formAB formNoteFPCApre45 formNoteFPCApost45))
     voter_fvap_pfeo_init(@vf,'sentToVoter',%w(formAB))
+    voter_fvap_uod_init(@vf,'downloaded',%w(oformVR oformRU oformAR oformAB))
+    voter_fvap_uod_init(@vf,'arrived',%w(oformVR oformRU oformAR oformAB))
+    voter_fvap_uod_init(@vf,'accepted',%w(oformVR oformRU oformAR oformAB))
+    voter_fvap_uod_init(@vf,'counted',%w(formABFWAB formABnonFWAB formABnooFWAB))
+    voter_fvap_uod_init(@vf,'rejected',%w(oformVR oformRU oformAR oformAB formABFWAB formABnonFWAB formABnooFWAB))
+    voter_fvap_uod_init(@vf,'late',%w(formAB formABFWAB formABnonFWAB formABnooFWAB))
+    voter_fvap_uod_init(@vf,'users',%w(sessions unique ucomplete extraAB))
     return @vf
   end
-
+  
   def voter_fvap_uod_init (hash, k1, k2s)
     k2s.each do |k2|
       @vf[k1][k2] = Hash.new {}
@@ -579,64 +587,66 @@ class AnalyticReportsController < ApplicationController
     hash['total'] += t*n
   end
 
-  def fvap_valid_pfeo_sent?(notes)
-    case notes
-    when 'postalSent'
-    then
-      return 'postal'
-    when 'faxSent'
-    then
-      return 'fax'
-    when 'emailSent'
-    then
-      return 'email'
-    when 'onlineBalloting'
-    then
-      return 'online'
-    else
-      return false
-    end
-  end
-  
-  def fvap_valid_pfeo_received?(notes)
-    case notes
-    when 'postalReceived'
-    then
-      return 'postal'
-    when 'faxReceived'
-    then
-      return 'fax'
-    when 'personalReceived'
-    then
-      return false
-    else
-      return false
-    end
-  end
-  
   def voter_fvap_report_compute(nova)
     @election.voters.each do |v|
       (u,o,d,t) = fvap_uod(v)
       if v.vonline
         fvap_update_uod(@vf['count']['online'],u,o,d,t)
       end
+      ab_delivered = ''
       ab_downloads = 0
+      id_onlineAB = 0
+      user_sessions = 0
       v.vtrs.each do |vtr|
         case vtr.action
+        when 'identify'
+        then
+          if vtr.online_balloting?
+            id_onlineAB = 1
+            uniq_user = 1
+            user_sessions += 1
+          end
         when 'complete'
         then
-          if vtr.absentee_ballot_form?
-            ab_downloads += 1
-            fvap_update_uod(@vf['complete']['formAB'],u,o,d,t)              
-          elsif vtr.voter_registration_form?
+          if true || vtr.online_generated?
+            if vtr.voter_registration_form?
+              fvap_update_uod(@vf['downloaded']['oformVR'],u,o,d,t)              
+            elsif vtr.record_update_form?
+              fvap_update_uod(@vf['downloaded']['oformRU'],u,o,d,t)
+            elsif vtr.absentee_request_form?
+              fvap_update_uod(@vf['downloaded']['oformAR'],u,o,d,t)
+            elsif vtr.absentee_ballot_form?
+              fvap_update_uod(@vf['downloaded']['oformAB'],u,o,d,t)
+            end
+          end
+          if vtr.voter_registration_form?
             if vtr.datime >= @election.voter_start_day
               fvap_update_uod(@vf['complete']['formVR'],u,o,d,t)              
             end
+          elsif vtr.record_update_form?
+            fvap_update_uod(@vf['complete']['formRU'],u,o,d,t)
+          elsif vtr.absentee_request_form?
+            fvap_update_uod(@vf['complete']['formAR'],u,o,d,t)
+          elsif vtr.absentee_ballot_form?
+            ab_downloads += 1
+            ab_delivered = 'online'
+            fvap_update_uod(@vf['complete']['formAB'],u,o,d,t)              
           end
         when 'receive'
         then
-          if pfeo = fvap_valid_pfeo_received?(vtr.note)
-            if vtr.fpca_form_note?
+          if vtr.online_generated?
+            if vtr.voter_registration_form?
+              fvap_update_uod(@vf['arrived']['oformVR'],u,o,d,t)              
+            elsif vtr.record_update_form?
+              fvap_update_uod(@vf['arrived']['oformRU'],u,o,d,t)
+            elsif vtr.absentee_request_form?
+              fvap_update_uod(@vf['arrived']['oformAR'],u,o,d,t)
+            elsif vtr.absentee_ballot_form?
+              fvap_update_uod(@vf['arrived']['oformAB'],u,o,d,t)
+            end
+          end
+          if pfeo = vtr.pfeo?
+            if vtr.fpca_form?
               if vtr.datime < @election.deadline_45_day
                 fvap_update_uod_pfeo(@vf['receive']['formNoteFPCApre45'],pfeo,u,o,d,t)
               else
@@ -656,7 +666,8 @@ class AnalyticReportsController < ApplicationController
                   fvap_update_uod_pfeo(@vf['receive']['formARpost45'],pfeo,u,o,d,t)
                 end
               elsif vtr.absentee_ballot_form?
-                fvap_update_uod_pfeo(@vf['receive']['formAB'],pfeo,u,o,d,t)                       end
+                fvap_update_uod_pfeo(@vf['receive']['formAB'],pfeo,u,o,d,t)
+              end
             end
           end
           if vtr.absentee_request_form?
@@ -665,7 +676,7 @@ class AnalyticReportsController < ApplicationController
             if vtr.datime < @election.deadline_br_day
               fvap_update_uod(@vf['receive']['formABpreBR'],u,o,d,t)
             end
-            if vtr.fwab_form_note?
+            if vtr.fwab_form?
               fvap_update_uod(@vf['receive']['formABformNoteFWAB'],u,o,d,t)
               if vtr.datime < @election.deadline_br_day
                 fvap_update_uod(@vf['receive']['formABformNoteFWABpreBR'],u,o,d,t)
@@ -673,7 +684,7 @@ class AnalyticReportsController < ApplicationController
             end
           end
           if vtr.datime >= @election.deadline_vr_day
-            if vtr.fpca_form_note?
+            if vtr.fpca_form?
               fvap_update_uod(@vf['receive']['formNoteFPCApostVR'],u,o,d,t)
             else
               fvap_update_uod(@vf['receive']['formNoteNotFPCApostVR'],u,o,d,t)
@@ -681,20 +692,71 @@ class AnalyticReportsController < ApplicationController
           end
         when 'approve'
         then
+          if vtr.online_generated?
+            if vtr.voter_registration_form?
+              fvap_update_uod(@vf['accepted']['oformVR'],u,o,d,t)              
+            elsif vtr.record_update_form?
+              fvap_update_uod(@vf['accepted']['oformRU'],u,o,d,t)
+            elsif vtr.absentee_request_form?
+              fvap_update_uod(@vf['accepted']['oformAR'],u,o,d,t)
+            elsif vtr.absentee_ballot_form?
+              fvap_update_uod(@vf['accepted']['oformAB'],u,o,d,t)
+              unless vtr.fwab_form?
+                fvap_update_uod(@vf['counted']['formABnooFWAB'],u,o,d,t)
+              end
+            end
+          end
           if vtr.voter_registration_form?
             if vtr.datime < @election.deadline_vr_day
               fvap_update_uod(@vf['count']['registered'],u,o,d,t)
             end
+          elsif vtr.absentee_ballot_form?
+            if vtr.fwab_form?
+              fvap_update_uod(@vf['counted']['formABFWAB'],u,o,d,t)
+            else
+              fvap_update_uod(@vf['counted']['formABnonFWAB'],u,o,d,t)
+            end
           end
         when 'reject'
         then
+          if vtr.online_generated?
+            if vtr.voter_registration_form?
+              fvap_update_uod(@vf['rejected']['oformVR'],u,o,d,t)              
+            elsif vtr.record_update_form?
+              fvap_update_uod(@vf['rejected']['oformRU'],u,o,d,t)
+            elsif vtr.absentee_request_form?
+              fvap_update_uod(@vf['rejected']['oformAR'],u,o,d,t)
+            elsif vtr.absentee_ballot_form?
+              fvap_update_uod(@vf['rejected']['oformAB'],u,o,d,t)
+              unless vtr.fwab_form?
+                fvap_update_uod(@vf['rejected']['formABnooFWAB'],u,o,d,t)
+                if vtr.reject_late?
+                  fvap_update_uod(@vf['late']['formABnooFWAB'],u,o,d,t)
+                end
+              end
+            end
+          end
           if vtr.voter_registration_form?
             fvap_update_uod(@vf['reject']['formVR'],u,o,d,t)
-          elsif vtr.absentee_ballot_form? and vtr.fwab_form_note?
+          elsif vtr.absentee_ballot_form? and vtr.fwab_form?
             fvap_update_uod(@vf['reject']['formAB'],u,o,d,t)
+            if vtr.fwab_form?
+              fvap_update_uod(@vf['rejected']['formABFWAB'],u,o,d,t)
+              if vtr.reject_late?
+                fvap_update_uod(@vf['late']['formABFWAB'],u,o,d,t)
+              end
+            else
+              fvap_update_uod(@vf['rejected']['formABnonFWAB'],u,o,d,t)
+              if vtr.reject_late?
+                fvap_update_uod(@vf['late']['formABnonFWAB'],u,o,d,t)
+              end
+            end
+            if vtr.reject_late?
+              fvap_update_uod(@vf['late']['formAB'],u,o,d,t)
+            end
           end
-          if vtr.reject_incomplete_notes?
-            if vtr.fpca_form_note?
+          if vtr.reject_incomplete?
+            if vtr.fpca_form?
               fvap_update_uod(@vf['reject']['formNoteFPCA'],u,o,d,t)
             else
               fvap_update_uod(@vf['reject']['formNoteNotFPCA'],u,o,d,t)
@@ -708,17 +770,29 @@ class AnalyticReportsController < ApplicationController
         when 'sentToVoter'
         then
           if vtr.absentee_ballot_form?
-            if pfeo = fvap_valid_pfeo_sent?(vtr.note)
-              fvap_update_uod_pfeo(@vf['sentToVoter']['formAB'],pfeo,u,o,d,t)
+            pfeo = vtr.pfeo?
+            if pfeo
+              ab_delivered = pfeo unless ab_delivered=='online'
             end
           end
         end
+      end
+      unless (ab_delivered=='') 
+        fvap_update_uod_pfeo(@vf['sentToVoter']['formAB'],ab_delivered,u,o,d,t)
       end
       if ab_downloads > 1
         fvap_update_uod(@vf['count']['multipleABdownloadU'],u,o,d,t)
         fvap_update_uod(@vf['count']['multipleABdownloadN'],u,o,d,t,ab_downloads)
       end
       voter_record_report_update(@va, v, @election) if nova
+      fvap_update_uod(@vf['users']['sessions'],u,o,d,t,user_sessions) if user_sessions > 0
+      fvap_update_uod(@vf['users']['unique'],u,o,d,t) if id_onlineAB > 0
+      fvap_update_uod(@vf['users']['ucomplete'],u,o,d,t) if ab_downloads > 0
+      fvap_update_uod(@vf['users']['extraAB'],u,o,d,t,ab_downloads-1) if ab_downloads > 1
+      ab_downloads = 0
+      ab_delivered = ''
+      id_onlineAB = 0
+      user_sessions = 0
     end
     voter_record_report_finalize(@va) if nova
     @vf['count']['jurisdiction']['total'] =    @va['tot']

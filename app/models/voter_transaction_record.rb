@@ -28,16 +28,41 @@ class VoterTransactionRecord < ActiveRecord::Base
     self.form =~ /VoterRegistration/
   end
 
-  def fwab_form_note?
+  def record_update_form?
+    self.form =~ /RecordUpdate/
+  end
+
+  def fwab_form?
     self.form =~ /FWAB/
   end
 
-  def fpca_form_note?
+  def fpca_form?
     self.form =~ /FPCA/
   end
 
-  def reject_incomplete_notes?
+  def online_generated?
+    self.form =~ /onlineGenerated/
+  end
+
+  def online_balloting?
+    self.note =~ /onlineBalloting/
+  end
+
+  def reject_incomplete?
     self.note =~ /rejectIncomplete/
+  end
+
+  def reject_late?
+    self.note =~ /rejectLate/
+  end
+
+  def pfeo?
+    return 'online' if self.online_generated?
+    return 'postal' if self.note=~/postal/
+    return 'fax'    if self.note=~/fax/
+    return 'email'  if self.note=~/email/
+    return false    if self.note=~/personal/
+    return 'postal'
   end
 
 end

@@ -336,18 +336,17 @@
                   %td
                     %b Absentee transmitted
                   - %w(military overseas domestic total).each do |k|
-                    %td= hash['total'][k]
+                    %td= hash['fax'][k]+hash['postal'][k]
+                %tr
+                  %td
+                    %em via fax
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash['fax'][k]
                 %tr
                   %td
                     %em via post
                   - %w(military overseas domestic total).each do |k|
                     %td= hash['postal'][k]
-                %tr
-                  %td
-                    %em via email
-                  - %w(military overseas domestic total).each do |k|
-                    %td= hash['email'][k]
-                - hash=@vf['complete']['formAB']
                 %tr
                   %td= "&nbsp;".html_safe
                 %tr
@@ -355,6 +354,7 @@
                     %b Absentee delivered
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                - hash=@vf['complete']['formAB']
                 %tr
                   %td
                     %em via Web service
@@ -393,23 +393,25 @@
                     %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
-                - hash=@vf['receive']['formABpreBR']
+                - hash=@vf['late']['formAB']
                 %tr
                   %td
                     %b Absentee late
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
+                - hash=@vf['late']['formABnooFWAB']
                 %tr
                   %td
                     %em Non-FWAB online
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['late']['formABnonFWAB']
                 %tr
                   %td
                     %em Non-FWAB offline
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                - hash=@vf['receive']['formABformNoteFWABpreBR']
+                    %td= hash[k]
+                - hash=@vf['late']['formABFWAB']
                 %tr
                   %td
                     %em FWAB
@@ -422,40 +424,46 @@
                   %td
                     %b Absentee rejected
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['rejected']['formABnooFWAB']
                 %tr
                   %td
                     %em Non-FWAB online
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['rejected']['formABnonFWAB']
                 %tr
                   %td
                     %em Non-FWAB offline
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['rejected']['formABFWAB']
                 %tr
                   %td
                     %em FWAB
-                  - %w(military overseas domestic total).each do |k| 
+                  - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
-                - hash=@vf['receive']['formABformNoteFWAB']
+                - hash=@vf['complete']['formAB']
                 %tr
                   %td
                     %b Absentee counted
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['counted']['formABnooFWAB']
                 %tr
                   %td
                     %em Non-FWAB online
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['counted']['formABnonFWAB']
                 %tr
                   %td
                     %em Non-FWAB offline
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['counted']['formABFWAB']
                 %tr
                   %td
                     %em FWAB
@@ -519,21 +527,24 @@
                     %b Online registration requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                - hash=@vf['downloaded']['oformVR']
                 %tr
                   %td
                     %em Downloaded
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['arrived']['oformVR']
                 %tr
                   %td
                     %em Arrived
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['accepted']['oformVR']
                 %tr
                   %td
                     %em Accepted
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
                 %tr
@@ -541,27 +552,30 @@
                     %b Online absentee requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                - hash=@vf['downloaded']['oformAR']
                 %tr
                   %td
                     %em Downloaded
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                - hash=@vf['receive']['formAR']
+                    %td= hash[k]
+                - hash=@vf['arrived']['oformAR']
                 %tr
                   %td
                     %em Arrived
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
+                - hash=@vf['accepted']['oformAR']
                 %tr
                   %td
                     %em Accepted
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['rejected']['oformAR']
                 %tr
                   %td
                     %em Rejected
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
                 %tr
@@ -569,26 +583,30 @@
                     %b Online update requests
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                - hash=@vf['downloaded']['oformRU']
                 %tr
                   %td
                     %em Downloaded
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['arrived']['oformRU']
                 %tr
                   %td
                     %em Arrived
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['accepted']['oformRU']
                 %tr
                   %td
                     %em Accepted
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['rejected']['oformRU']
                 %tr
                   %td
                     %em Rejected
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
                 %tr
@@ -596,54 +614,60 @@
                     %b Online absentee ballots
                   - %w(military overseas domestic total).each do |k|
                     %td= "&nbsp;".html_safe
+                - hash=@vf['downloaded']['oformAB']
+                %tr
+                  %td
+                    %em Downloaded
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['arrived']['oformAB']
+                %tr
+                  %td
+                    %em Arrived
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['accepted']['oformAB']
+                %tr
+                  %td
+                    %em Accepted
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['rejected']['oformAB']
+                %tr
+                  %td
+                    %em Rejected
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['users']['sessions']
                 %tr
                   %td
                     %em User sessions
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['users']['unique']
                 %tr
                   %td
                     %em Unique users
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
+                - hash=@vf['users']['ucomplete']
                 %tr
                   %td
                     %em Unique users complete
-                  - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                - hash=@vf['complete']['formAB']
-                %tr
-                  %td
-                    %em Dndld'd ballots
-                  - %w(military overseas domestic total).each do |k|
-                    %td= hash[k]
-                - hash=@vf['count']['multipleABdownloadU']
-                %tr
-                  %td
-                    %em Users dnld > 1
                   - %w(military overseas domestic total).each do |k|
                     %td= hash[k]
                 - hash=@vf['count']['multipleABdownloadN']
                 %tr
                   %td
+                    %em Users download > 1
+                  - %w(military overseas domestic total).each do |k|
+                    %td= hash[k]
+                - hash=@vf['users']['extraAB']
+                %tr
+                  %td
                     %em Ballots of >1 users
                   - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                %tr
-                  %td
-                    %em Arrived
-                  - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                %tr
-                  %td
-                    %em Accepted
-                  - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
-                %tr
-                  %td
-                    %em Rejected
-                  - %w(military overseas domestic total).each do |k|
-                    %td= 'N/C'
+                    %td= hash[k]
                 %tr
                   %td= "&nbsp;".html_safe
           -else
