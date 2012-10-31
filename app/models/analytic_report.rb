@@ -31,6 +31,11 @@ class AnalyticReport < ActiveRecord::Base
     self.save
   end
 
+  def reset_data()
+    self.data = ''
+    self.save
+  end
+
   def stale_data(update=false)
     return (self.data == "" || (update && update > self.updated_at))
   end

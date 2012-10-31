@@ -1,0 +1,16 @@
+Voter,Gender,Party,Military,Overseas,Absentee,RegDate,ABpref
+v1,F,Republican,N,N,N,2010/1/1,
+v2,F,Green,Y,N,Y,2010/1/1,postal
+v3,F,Republican,N,N,N,2012/10/10,
+v4,F,Democratic,N,N,N,2010/1/1,
+v5,F,Republican,N,N,N,2012/10/10,
+v6,M,Republican,Y,N,Y,2012/10/10,email
+v7,F,Democratic,N,N,N,2010/1/1,
+v8,M,Democratic,N,N,N,2010/1/1,
+v9,F,Republican,N,Y,Y,2012/10/10,email
+v10,F,Republican,N,N,N,2012/10/10,
+v11,M,Republican,Y,N,Y,2012/10/10,postal
+v12,F,Republican,N,N,N,2012/10/10,
+v13,M,Democratic,N,Y,Y,2012/10/10,postal
+v14,M,Republican,Y,N,Y,2010/1/1,email
+v15,F,Republican,Y,N,Y,2012/10/10,email

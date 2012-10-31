@@ -58,7 +58,7 @@ class UpliftsController < ApplicationController
   end
 
   def upliftValidate(document_path, eid)
-    return unless (schema = self.upliftReadXMLSchema("public/xml/VTL.xsd"))
+    return unless (schema = self.upliftReadXMLSchema("public/schemas/VTL.xsd"))
     return unless (document = self.upliftReadXMLDocument(document_path))
     errors = schema.validate(document)
     if (errors.length > 0)
@@ -107,115 +107,79 @@ class UpliftsController < ApplicationController
     end
   end
 
-  def upliftVoter(vname, eid)
-    voter = Voter.find_or_create_by_vuniq(vname+"_"+eid.to_s) do |v|
-      if v.vname.blank?
-        v.vname = vname
-        v.vote_reject, v.vonline = false, false
-        v.votes = 0
-        v.vote_form = ""
-        v.vote_note = ""
-        v.vregister = ""
-        v.vupdate = ""
-        v.vabsreq = ""
-        v.vnew = false
-        v.vgender = ""
-        v.vparty = ""
-        v.vother = ""
-        v.vstatus = ""
-        v.vtr_state = ""
-        v.vtr_state_push() # JVC Voter State
-        v.election_id = eid
-        fetchVoterFieldsFromRecord(v)
-      end
-    end
-    return voter
-  end
+  # def updateVoterFieldsFromRecord(vr)
+  #   if v = Voter.where(:vname=>vr.vname).first
+  #     unless (v.vgender==vr.gender && v.vparty==vr.party &&
+  #             v.vother==vr.other && v.vstatus==vr.status)
+  #       v.vgender = vr.gender
+  #       v.vparty = vr.party
+  #       v.vother = vr.other
+  #       v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
+  #       e = Election.find(v.election_id)
+  #       v.vnew = vr.new?(e)
+  #       v.save
+  #     end
+  #   end
+  # end
 
-  def fetchVoterFieldsFromRecord(v)
-    if vr = VoterRecord.where(:vname=>v.vname).first
-      v.vgender = vr.gender
-      v.vparty = vr.party
-      v.vother = vr.other
-      v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
-      e = Election.find(v.election_id)
-      v.vnew = vr.new?(e)
-    end
-  end
-
-  def updateVoterFieldsFromRecord(vr)
-    if v = Voter.where(:vname=>vr.vname).first
-      unless (v.vgender==vr.gender && v.vparty==vr.party &&
-              v.vother==vr.other && v.vstatus==vr.status)
-        v.vgender = vr.gender
-        v.vparty = vr.party
-        v.vother = vr.other
-        v.vstatus = (vr.absentee=~/Y/ ? 'absentee' : '')
-        e = Election.find(v.election_id)
-        v.vnew = vr.new?(e)
-        v.save
-      end
-    end
-  end
-
-  def syncVoter(voter, vtr)
-    if (vtr.form =~ /PollBook/)
-      voter.votes += 1
-      voter.vote_reject = false
-      voter.vote_form = "Regular"
-    elsif (vtr.form =~ /AbsenteeBallot/)
-      if (vtr.action == 'approve')
-        voter.votes += 1
-        voter.vote_reject = false
-        voter.vote_form = "Absentee"
-      elsif (vtr.action == 'reject')
-        voter.votes += 1
-        voter.vote_reject = true
-        voter.vote_note = vtr.note
-        voter.vote_form = "Absentee"
-      end
-    elsif (vtr.form =~ /ProvisionalBallot/)
-      if (vtr.action == 'approve')
-        voter.votes += 1
-        voter.vote_reject = false
-        voter.vote_form = "Provisional"
-      elsif (vtr.action == 'reject')
-        voter.votes += 1
-        voter.vote_reject = true
-        voter.vote_note = vtr.note
-        voter.vote_form = "Provisional"
-      end
-    elsif (vtr.form =~ /VoterRegistration/)
-      if (vtr.action == 'approve')
-        voter.vregister = 'approve'
-      elsif (vtr.action == 'reject')
-        voter.vregister = 'reject'
-      else
-        voter.vregister = 'try' unless voter.vregister == 'approve'
-      end
-    elsif (vtr.form =~ /RecordUpdate/)
-      if (vtr.action == 'approve')
-        voter.vupdate = 'approve'
-      elsif (vtr.action == 'reject')
-        voter.vupdate = 'reject'
-      else
-        voter.vupdate = 'try' unless voter.vupdate == 'approve'
-      end
-    elsif (vtr.form =~ /AbsenteeRequest/)
-      if (vtr.action == 'approve')
-        voter.vabsreq = 'approve'
-      elsif (vtr.action == 'reject')
-        voter.vabsreq = 'reject'
-      else
-        voter.vabsreq = 'try' unless voter.vabsreq == 'approve'
-      end
-    end
-    if ["identify","start","discard","complete","submit"].include?(vtr.action)
-      voter.vonline = true
-    end
-    voter.vtr_state_push()
-    voter.save
-  end
+  # def syncVoter(voter, vtr)
+  #   if (vtr.form =~ /PollBook/)
+  #     voter.votes += 1
+  #     voter.vote_reject = false
+  #     voter.vote_form = "Regular"
+  #   elsif (vtr.form =~ /AbsenteeBallot/)
+  #     if (vtr.action == 'approve')
+  #       voter.votes += 1
+  #       voter.vote_reject = false
+  #       voter.vote_form = "Absentee"
+  #     elsif (vtr.action == 'reject')
+  #       voter.votes += 1
+  #       voter.vote_reject = true
+  #       voter.vote_note = vtr.note
+  #       voter.vote_form = "Absentee"
+  #     end
+  #   elsif (vtr.form =~ /ProvisionalBallot/)
+  #     if (vtr.action == 'approve')
+  #       voter.votes += 1
+  #       voter.vote_reject = false
+  #       voter.vote_form = "Provisional"
+  #     elsif (vtr.action == 'reject')
+  #       voter.votes += 1
+  #       voter.vote_reject = true
+  #       voter.vote_note = vtr.note
+  #       voter.vote_form = "Provisional"
+  #     end
+  #   elsif (vtr.form =~ /VoterRegistration/)
+  #     if (vtr.action == 'approve')
+  #       voter.vregister = 'approve'
+  #     elsif (vtr.action == 'reject')
+  #       voter.vregister = 'reject'
+  #     else
+  #       voter.vregister = 'try' unless voter.vregister == 'approve'
+  #     end
+  #   elsif (vtr.form =~ /RecordUpdate/)
+  #     if (vtr.action == 'approve')
+  #       voter.vupdate = 'approve'
+  #     elsif (vtr.action == 'reject')
+  #       voter.vupdate = 'reject'
+  #     else
+  #       voter.vupdate = 'try' unless voter.vupdate == 'approve'
+  #     end
+  #   elsif (vtr.form =~ /AbsenteeRequest/)
+  #     if (vtr.action == 'approve')
+  #       voter.vabsreq = 'approve'
+  #     elsif (vtr.action == 'reject')
+  #       voter.vabsreq = 'reject'
+  #     else
+  #       voter.vabsreq = 'try' unless voter.vabsreq == 'approve'
+  #     end
+  #   end
+  #   if ["identify","start","discard","complete","submit"].include?(vtr.action)
+  #     voter.vonline = true
+  #   end
+  #   voter.vtr_state_push()
+  #   voter.save
+  # end
 
   def upliftFinalizeLog(xml, eid)
     origin = self.upliftExtractContent(xml % 'header/origin')
@@ -241,12 +205,12 @@ class UpliftsController < ApplicationController
       leo = self.upliftExtractContent(vtr % 'leo')
       note = self.upliftExtractContent(vtr % 'notes')
       comment = self.upliftExtractContent(vtr % 'comment')
-      voter = self.upliftVoter(vname, eid)
-      unless (voter.save)
-        voter.errors.full_messages.each { |e| @uplift_err += " "+e }
-        return false
-      end
-      vid = voter.id
+      # voter = self.upliftVoter(vname, eid)
+      # unless (voter.save)
+      #   voter.errors.full_messages.each { |e| @uplift_err += " "+e }
+      #   return false
+      # end
+      # vid = voter.id
       vtr = VoterTransactionRecord.new(:datime => datime,
                                        :vname => vname,
                                        :action => action,
@@ -254,13 +218,13 @@ class UpliftsController < ApplicationController
                                        :leo => leo,
                                        :note => note,
                                        :comment => comment,
-                                       :voter_transaction_log_id => vtl.id,
-                                       :voter_id => vid)
+                                       :voter_transaction_log_id => vtl.id)
+                                       #:voter_id => vid)
       unless (vtr.save)
         vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
         return false
       end
-      self.syncVoter(voter, vtr)
+      #JVC too early self.syncVoter(voter, vtr)
     end
     vtl.create_archive_file
     vtl.save
@@ -329,18 +293,18 @@ XSL
     end
     voter_record_report_finalize(avhash)
     voter_record_report_save(avhash, @election)
-    Voter.all.each do |v|
-      if vrhash.keys.include?(v.vname)
-        gender, party, other, status, new = vrhash[v.vname]
-        if (v.vgender != gender || v.vparty != party ||
-            v.vother != other || v.vstatus != status ||
-            v.vnew != new)
-          v.vgender, v.vparty, v.vother, v.vstatus = gender, party, other, status
-          v.vnew = new
-          v.save
-        end
-      end
-    end
+    # Voter.all.each do |v|
+    #   if vrhash.keys.include?(v.vname)
+    #     gender, party, other, status, new = vrhash[v.vname]
+    #     if (v.vgender != gender || v.vparty != party ||
+    #         v.vother != other || v.vstatus != status ||
+    #         v.vnew != new)
+    #       v.vgender, v.vparty, v.vother, v.vstatus = gender, party, other, status
+    #       v.vnew = new
+    #       v.save
+    #     end
+    #   end
+    # end
     return true
   end
 

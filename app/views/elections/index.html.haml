@@ -90,7 +90,7 @@
                 %tr
                   %td= 'Created: '+e.created_at.strftime("%Y-%m-%d")
                   %td= number_with_delimiter(e.records_num)+" Records"
-                  %td= number_with_delimiter(e.voters_num)+" Voters"
+                  %td= number_with_delimiter(e.voters_num)+" Voters "+e.voters.all.length.to_s
                   -if e.archived
                     %td= link_to 'Archived', e, :confirm => 'Are you sure?', :method => :post
                   -else

@@ -61,9 +61,7 @@ class VoterRecordsController < ApplicationController
 
   # DELETE /voter_records/1
   def destroy
-    VoterRecord.all.each do |vr|
-      vr.destroy
-    end
+    VoterRecord.all.each { |vr| vr.destroy }
     
     respond_to do |format|
       format.html { redirect_to voter_records_url }

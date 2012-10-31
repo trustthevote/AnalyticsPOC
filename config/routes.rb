@@ -26,12 +26,13 @@
   match "/analytic_reports/reset" => 'analytic_reports#reset'
   match "/analytic_reports/analytic" => 'analytic_reports#analytic'
 
-  resource :voter, only: [], path: '' do
+  resource :voters, only: [], path: '' do
     member do
       post :voter
       get :voter
     end
   end
+  match "/voters/reset" => 'voters#reset'
 
   resource :uplift, only: [], path: '' do
     member do

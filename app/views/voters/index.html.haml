@@ -9,6 +9,8 @@
   %br
   %table{:style=>"text-align:center"}
     %tr
+      %th VU
+      %th &nbsp;
       %th VID
       %th &nbsp;
       %th M/F
@@ -43,6 +45,8 @@
     - @voters.each do |v|
       -if ! v.archived
         %tr
+          %td= v.vuniq
+          %td
           %td= v.vname
           %td
           %td= v.vgender
@@ -53,34 +57,36 @@
           %td
           %td= (v.vstatus=~/abs/ ? 'Abs' : '')
           %td
-          %td= (v.vnew ? 'Yes' : '')
+          %td= (true ? '' : (v.vnew ? 'Yes' : ''))
           %td
-          %td= (v.vonline ? 'Yes' : '')
+          %td= (true ? '' : (v.vonline ? 'Yes' : ''))
           %td
-          %td= (v.vregister=~/approve/?'Yes':v.vregister.capitalize)
+          %td= (true ? '' : (v.vregister=~/approve/?'Yes':v.vregister.capitalize))
           %td
-          %td= (v.vupdate=~/approve/?'Yes':v.vupdate.capitalize)
+          %td= (true ? '' : (v.vupdate=~/approve/?'Yes':v.vupdate.capitalize))
           %td
-          %td= (v.vabsreq=~/approve/?'Yes':v.vabsreq.capitalize)
+          %td= (true ? '' : (v.vabsreq=~/approve/?'Yes':v.vabsreq.capitalize))
           %td
-          -if v.votes.blank?
+          -if 0 && v.votes.blank?
             %td
               %b= v.voted.to_s
-          -elsif v.votes>1
+          -elsif 0 && v.votes>1
             %td
               %b= v.votes.to_s+" X"
           -else
-            %td= (v.votes>0 ? 'Yes' : '')
+            %td= (true ? '' : (v.votes>0 ? 'Yes' : ''))
           %td
-          %td= v.vote_form
+          %td= (true ? '' : v.vote_form)
           %td
-          %td= (v.vote_reject ? (v.vote_note=~/late/i ? 'Late' : 'Yes') : '')
+          %td= (true ? '' : (v.vote_reject ? (v.vote_note=~/late/i ? 'Late' : 'Yes') : ''))
           %td
           %td= v.voter_transaction_records.length
           %td
           %td= Election.find(v.election_id).name
           %td
           %td= link_to 'Show', v
+          %td
+          %td= link_to 'Destroy', v, :confirm => 'Are you sure?', :method => :delete
 -else
   .row
     .span11

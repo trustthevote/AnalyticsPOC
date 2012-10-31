@@ -42,7 +42,7 @@
                     %td= ar.name
                   %tr
                     %td{:style=>"width:37%;"}
-                      = number_with_delimiter([e.voters.count,VoterRecord.count].max)+" Records"
+                      = number_with_delimiter(e.erecords)+" Records"+", "+e.voters.count.to_s+" Voters Analyzed"
                     %td{:style=>"width:8%;text-align:left"}
                       = link_to 'About'
                     %td{:style=>"width:14%;text-align:left"}

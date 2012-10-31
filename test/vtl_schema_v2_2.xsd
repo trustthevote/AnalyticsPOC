@@ -67,6 +67,7 @@
       <xs:enumeration value="ProvisionalBallot" />
       <xs:enumeration value="PollBookEntry" />
       <xs:enumeration value="VoterCard" />
+      <xs:enumeration value="none" />
     </xs:restriction>
   </xs:simpleType>
 

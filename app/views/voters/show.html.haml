@@ -6,32 +6,12 @@
 %table{:style=>"padding:5px;margin:0px;"}
   %tr
     %td
-      %b Voter ID:
-    %td= @voter.vname
-  %tr
-    %td
-      %b Voted:
-    %td= (@voter.votes==0 ? 'No' : (@voter.votes>1 ? @voter.votes.to_s+' times' : (@voter.vote_reject ? "Yes / Rejected" : "Yes" )))
-  - if ! @voter.vote_form.blank?
-    %tr
-      %td
-        %b Form:
-      %td= @voter.vote_form
-  - if ! @voter.vuniq.blank?
-    %tr
-      %td
-        %b Uniq:
-      %td= @voter.vuniq
+      %b VID:
+    %td= @voter.vuniq
   %tr 
     %td
       %b Election:
     %td= Election.find(@voter.election_id).namedate
-  - label='State:'
-  - @voter.vtr_state.split("+").each do |s|
-    %tr
-      %td{:style=>"font-weight:bold;text-align:left;"}= label
-      %td= s
-    - label="&nbsp;".html_safe
 %br
 - if true
   %h3= 'Voter Transaction Records ('+@voter.vtrs.count.to_s+')'
@@ -39,7 +19,7 @@
 
   %table{:style=>"text-align:center"}
     %tr
-      %th Voter
+      %th VID
       %th &nbsp;
       %th Date
       %th &nbsp;

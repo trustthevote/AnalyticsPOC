@@ -1,6 +1,7 @@
 config/deploy.rb
 /tmp
 /log/*.log
-/public/xml/*.xml
+/public/xml/*
 /public/uploads/*
+/public/records/*
 /public/archives/*

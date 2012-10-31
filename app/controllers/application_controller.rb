@@ -56,7 +56,10 @@ class ApplicationController < ActionController::Base
     eid = e.id
     ar = voter_report_find(n, eid)
     return false if ar.data == ""
-    return false if ar.updated_at < e.updated_at
+    if ar.updated_at < e.updated_at
+      ar.set_data("")
+      return false
+    end
     return ar.get_data
   end
 

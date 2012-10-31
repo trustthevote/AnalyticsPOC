@@ -43,6 +43,8 @@
       %th &nbsp;
       %th Note
       %th &nbsp;
+      %th Uniq
+      %th &nbsp;
       %th Comment
       %th &nbsp;
       %th
@@ -60,6 +62,8 @@
         %td= vtr.leo
         %td
         %td= vtr.note
+        %td
+        %td= (vtr.voter_id.blank? ? '' : vtr.voter_id.to_s)
         %td
         %td= vtr.comment
         %td

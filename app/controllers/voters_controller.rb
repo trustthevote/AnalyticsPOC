@@ -88,8 +88,21 @@ class VotersController < ApplicationController
     @voter.destroy
 
     respond_to do |format|
-      format.html { redirect_to voters_url }
+      format.html { redirect_to 'pages/front' }
       format.json { head :no_content }
     end
   end
+
+  # RESET /voters/
+  def reset
+    Voter.all.each do |v|
+      v.destroy
+    end
+
+    respond_to do |format|
+      format.html { redirect_to 'pages/front' }
+      format.json { head :no_content }
+    end
+  end
+
 end

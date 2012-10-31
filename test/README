@@ -1,0 +1,27 @@
+Virginia Voter Log Analytics
+============================
+
+Test Generation for Voter Transaction Logs and Voter Records
+
+<<Executables>>
+
+genVTlogs.rb : generates voter records and voter transaction logs (VTLs), for
+               N=10 voters by default.  Writes files to the VTlogs/ directory.
+               If one argument is provided, it is used for N. If an additional
+               argument is provided, it is used as the voter registration
+               deadline. 
+
+vtl_xml_validate.rb : takes one or two arguments, a VTL file name and an
+                      optional VTL schema file name, and validates the file
+                      against the schema.  The file ../public/schemas/VTL.xsd
+                      holds the official VTL schema, which is used when the
+                      2nd argument isnot provided.
+
+<<Directories>>
+
+VTlogs/
+
+<<Files>>
+
+vtl_schema_v2_2.xsd : latest VTL schema
+

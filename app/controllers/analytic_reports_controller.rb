@@ -35,7 +35,7 @@ class AnalyticReportsController < ApplicationController
     @election = Election.find(eid)
     @description = []
     @rn = (params[:rn] ? params[:rn].to_i : 1)
-    self.report()
+    self.report(@election,eid)
     respond_to do |f|
       f.html { render '/analytic_reports/report'+@rn.to_s }
       f.pdf  { render layout: false }
@@ -69,7 +69,57 @@ class AnalyticReportsController < ApplicationController
 # npo New Party 3rd
 # npr New Party Republican
 
-  def report()
+  def outdated_voters(e)
+    return false if e.voters.length == 0
+    voter_created_at = e.voters[0].created_at
+    e.voter_transaction_logs.each do |vtl|
+      if vtl.created_at > voter_created_at
+        return true
+      end
+    end
+    return false
+  end
+
+  def populate_voters(e, eid)
+    return if e.erecords == 0
+    if e.voters.length == 0
+      recompute_voters(e, eid)
+    elsif outdated_voters(e) #JVC can be faster by keeping the voters
+      e.voters.each { |v| v.destroy } 
+      recompute_voters(e, eid)
+    end
+  end
+
+  def recompute_voters(e, eid)
+    VoterRecord.all.each do |vr|
+      vuniq = vr.vname+"_"+eid.to_s
+      if v = Voter.find_or_create_by_vuniq(vuniq)
+        v.vname = vr.vname
+        v.vgender = vr.gender
+        v.vparty = vr.party
+        v.vother = (vr.military =~ /Y/ ? 'M' : (vr.overseas =~ /Y/ ? 'O' : ''))
+        v.vstatus = (vr.absentee =~ /Y/ ? 'absentee' : '')
+        v.election_id = eid
+        v.save
+      else
+        raise Exception, "Cannot find_or_create_by_vuniq voter"
+      end
+    end
+    e.voter_transaction_logs.each do |vtl|
+      vtl.voter_transaction_records.each do |vtr|
+        vuniq = vtr.vname+"_"+eid.to_s
+        if voter = Voter.find_by_vuniq(vuniq)
+          if vtr.voter_id.blank?
+            vtr.voter_id = voter.id
+            vtr.save
+          end
+        end
+      end
+    end
+  end
+
+  def report(e, eid)
+    populate_voters(e, eid)
     @rcsv = []
     nova = false
     unless @va = voter_record_report_fetch(@election)
