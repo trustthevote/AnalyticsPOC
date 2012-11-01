@@ -35,7 +35,9 @@ Deployment
 
 * (locally) Copy config/deploy.rb.sample to config/deploy.rb
   * Change "domain" to either IP or domain address of the target system
-  * Change user / runner to the name of the Unix user you will be SSH'ing into the "domain" as
+  * Change "user" / "runner" to the name of the Unix user you will be SSH'ing into the "domain" as
+  * Change "branch" to the branch name (i.e. "master", "release" etc)
+    or to the release tag (i.e. "1.1", see below "Release tagging" section)
 
 * (locally) Setup the remote location:
 
@@ -72,6 +74,20 @@ Deployment
       ServerName    server.com
       DocumentRoot  <deploy_to>/current/public
     </VirtualHost>
+
+
+Release tagging
+---------------
+
+To tag a release you:
+
+* (locally) Mark a certain commit on "master" branch:
+
+    $ git tag 1.1
+
+* (locally) Push tags to remote repository:
+
+    $ git push --tags
 
 
 Installing Ruby
