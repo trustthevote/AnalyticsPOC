@@ -1,5 +1,5 @@
 # Location configuration
-set :domain,      "54.225.232.167"
+set :domain,      "ip address of server"
 set :user,        "deploy"
 set :runner,      "deploy"
 set :deploy_to,   "/home/deploy/va-analytics"
@@ -18,8 +18,6 @@ set :use_sudo,              false
 set :scm,                   :git
 set :deploy_via,            :export
 set :rake,                  "bundle exec rake"
-set :whenever_command,      "bundle exec whenever"
-set :whenever_environment,  "production"
 
 set :default_shell, "/bin/bash"
 ssh_options[:user] = "deploy"
@@ -56,5 +54,3 @@ after  "deploy:finalize_update", "deploy_shared"
 after  "deploy:restart", "deploy:cleanup"
 
 require 'bundler/capistrano'
-# require 'sidekiq/capistrano'
-require 'whenever/capistrano'
