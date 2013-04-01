@@ -1,8 +1,9 @@
 config/deploy.rb
 config/database.yml
-/tmp
-/log/*.log
-/public/xml/*
-/public/uploads/*
-/public/records/*
-/public/archives/*
+db/*.sqlite3
+tmp
+log/*.log
+public/xml/*
+public/uploads/*
+public/records/*
+public/archives/*
