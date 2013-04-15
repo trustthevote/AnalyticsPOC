@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="voterTransactionLog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="header">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="origin"     type="xs:string" />
+              <xs:element name="originUniq" type="xs:string" minOccurs="0" />
+              <xs:element name="hashAlg"    type="hashAlgType" />
+              <xs:element name="createDate" type="xs:dateTime" />
+              <xs:element name="election"   type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="voterTransactionRecord" minOccurs="0"
+                    maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="voterid"      type="xs:string" />
+              <xs:element name="date"         type="xs:dateTime" />
+              <xs:element name="action"       type="actionType" />
+              <xs:element name="form"         type="formType"  />
+              <xs:element name="formNote"     type="formNoteType" minOccurs="0" />
+              <xs:element name="jurisdiction" type="xs:string" />
+              <xs:element name="leo"          type="xs:string" minOccurs="0" />
+              <xs:element name="notes"        type="noteType"  minOccurs="0" />
+              <xs:element name="comment"      type="xs:string" minOccurs="0" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="hashAlgType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SHA1" />
+      <xs:enumeration value="none" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="actionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="identify" />
+      <xs:enumeration value="start" />
+      <xs:enumeration value="discard" />
+      <xs:enumeration value="complete" />
+      <xs:enumeration value="submit" />
+      <xs:enumeration value="receive" />
+      <xs:enumeration value="approve" />
+      <xs:enumeration value="reject" />
+      <xs:enumeration value="sentToVoter" />
+      <xs:enumeration value="returnedUndelivered" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="formType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VoterRegistration" />
+      <xs:enumeration value="VoterRegistrationAbsenteeRequest" />
+      <xs:enumeration value="VoterRecordUpdate" />
+      <xs:enumeration value="VoterRecordUpdateAbsenteeRequest" />
+      <xs:enumeration value="AbsenteeRequest" />
+      <xs:enumeration value="AbsenteeBallot" />
+      <xs:enumeration value="ProvisionalBallot" />
+      <xs:enumeration value="PollBookEntry" />
+      <xs:enumeration value="VoterCard" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="formNoteType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="handMarked" />
+      <xs:enumeration value="onlineGenerated" />
+      <xs:enumeration value="FPCA" />
+      <xs:enumeration value="FWAB" />
+      <xs:enumeration value="trackingCodeNone" />
+      <xs:enumeration value="trackingCodeMatch" />
+      <xs:enumeration value="trackingCodeNoMatch" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="noteType">
+    <xs:restriction base="xs:string">
+    
+      <! Trackable sub cases for accepting a VR or AB requests>
+      <xs:enumeration value="acceptReactivate" />
+      <xs:enumeration value="acceptDuplicate" />
+      <xs:enumeration value="acceptTransferIn" />
+      
+      <! Reasons for rejecting a VR or AB requests, and absentee or provisional ballots>
+      <xs:enumeration value="rejectLate" />
+      <xs:enumeration value="rejectUnsigned" />
+      <xs:enumeration value="rejectIncomplete" />
+      <xs:enumeration value="rejectFelonyConviction" />
+      
+      <! Reasons for rejecting Absentee or provisional ballots>
+      <xs:enumeration value="rejectPreviousVoteAbsentee" />
+      <xs:enumeration value="rejectPreviousVote" />
+
+      <! Notes for how a form or ballot was received >
+      <xs:enumeration value="postalReceived" />
+      <xs:enumeration value="personalReceived" />
+      <xs:enumeration value="faxReceived" />
+      
+      <! Notes for how a blank ballot was sent to voter >
+      <xs:enumeration value="postalSent" />
+      <xs:enumeration value="emailSent" />
+      <xs:enumeration value="faxSent" />
+      
+      <! Notes for types of non-documents (online systems, not forms) that a voter can identify to >
+      <xs:enumeration value="onlineVoterReg" />
+      <xs:enumeration value="onlineBalloting" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

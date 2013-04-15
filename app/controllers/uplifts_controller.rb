@@ -40,7 +40,7 @@ class UpliftsController < ApplicationController
     return " ("+t1.to_s+" | "+t2.to_s+")"
     return distance_of_time_in_words(t1, to_time=t2, include_seconds=true)
   end
-  
+
   def upliftReadXMLSchema(file)
     return Nokogiri::XML::Schema(File.read(file))
   rescue => e
@@ -48,7 +48,7 @@ class UpliftsController < ApplicationController
     render :uplift
     return false
   end
-  
+
   def upliftReadXMLDocument(file)
     return Nokogiri::XML(File.open(file))
   rescue => e
@@ -62,7 +62,7 @@ class UpliftsController < ApplicationController
     return unless (document = self.upliftReadXMLDocument(document_path))
     errors = schema.validate(document)
     if (errors.length > 0)
-      @uplift_err += "Validation Errors: "      
+      @uplift_err += "Validation Errors: "
       errors.each { |e| @uplift_err += e.message }
       if @uplift_err =~ / root\.$/
         errs = @uplift_err.split(' ')
@@ -182,46 +182,46 @@ class UpliftsController < ApplicationController
   # end
 
   def upliftFinalizeLog(xml, eid)
-    origin = self.upliftExtractContent(xml % 'header/origin')
-    ouniq = self.upliftExtractContent(xml % 'header/originUniq')
+    origin  = self.upliftExtractContent(xml % 'header/origin')
+    ouniq   = self.upliftExtractContent(xml % 'header/originUniq')
     logdate = self.upliftExtractContent(xml % 'header/createDate')
-    vtl = VoterTransactionLog.new(:origin => origin,
-                                  :origin_uniq => ouniq,
-                                  :datime => logdate,
-                                  :file_name => self.uplift_file,
-                                  :archive_name => '',
-                                  :election_id => eid)
-    unless (vtl.save)
+
+    vtl = VoterTransactionLog.new({
+      :origin       => origin,
+      :origin_uniq  => ouniq,
+      :datime       => logdate,
+      :file_name    => self.uplift_file,
+      :archive_name => '',
+      :election_id  => eid })
+
+    unless vtl.save
       @uplift_err = "Error: "
-      vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
+      vtl.errors.full_messages.each { |e| @uplift_err += " " + e }
       return false
     end
+
     (xml / 'voterTransactionRecord').each do |vtr|
-      vname = self.upliftExtractContent(vtr % 'voterid')
-      datime = self.upliftExtractContent(vtr % 'date')
-      action = self.upliftExtractContent(vtr % 'action')
-      form = self.upliftExtractContent(vtr % 'form')+" "+
-        self.upliftExtractContent(vtr % 'formNote')
-      leo = self.upliftExtractContent(vtr % 'leo')
-      note = self.upliftExtractContent(vtr % 'notes')
+      vname   = self.upliftExtractContent(vtr % 'voterid')
+      datime  = self.upliftExtractContent(vtr % 'date')
+      action  = self.upliftExtractContent(vtr % 'action')
+      form    = self.upliftExtractContent(vtr % 'form') + " " + self.upliftExtractContent(vtr % 'formNote')
+      leo     = self.upliftExtractContent(vtr % 'leo')
+      note    = self.upliftExtractContent(vtr % 'notes')
       comment = self.upliftExtractContent(vtr % 'comment')
-      # voter = self.upliftVoter(vname, eid)
-      # unless (voter.save)
-      #   voter.errors.full_messages.each { |e| @uplift_err += " "+e }
-      #   return false
-      # end
-      # vid = voter.id
-      vtr = VoterTransactionRecord.new(:datime => datime,
-                                       :vname => vname,
-                                       :action => action,
-                                       :form => form,
-                                       :leo => leo,
-                                       :note => note,
-                                       :comment => comment,
-                                       :voter_transaction_log_id => vtl.id)
-                                       #:voter_id => vid)
-      unless (vtr.save)
-        vtl.errors.full_messages.each { |e| @uplift_err += " "+e }
+
+      vtr = VoterTransactionRecord.new({
+        :datime  => datime,
+        :vname   => vname,
+        :action  => action,
+        :form    => form,
+        :leo     => leo,
+        :note    => note,
+        :comment => comment,
+        :voter_transaction_log_id => vtl.id })
+
+      unless vtr.save
+        @uplift_err = "Error: "
+        vtr.errors.full_messages.each { |e| @uplift_err += " " + e }
         return false
       end
       #JVC too early self.syncVoter(voter, vtr)

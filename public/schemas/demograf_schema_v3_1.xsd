@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="voterDemographicExtract">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="header">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="origin"         type="xs:string" />
+              <xs:element name="originUniq"     type="xs:string" minOccurs="0" />
+              <xs:element name="hashAlg"        type="hashAlgType" />
+              <xs:element name="createDate"     type="xs:dateTime" />
+              <xs:element name="election"       type="xs:string" />
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+    
+        <xs:element name="voterDemographicRecord" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="voterid"                 type="xs:string"     />
+              <xs:element name="regDate"                 type="xs:dateTime"   />  
+              <xs:element name="regStatus"               type="regStatusType" /> <!-- v2 -->
+              <xs:element name="gender"                  type="genderType"    />
+              <xs:element name="agegroup"                type="ageGroupType"  />
+              <xs:element name="zip"                     type="xs:string"     />
+              <xs:element name="overseas"                type="xs:boolean"    />
+              <xs:element name="military"                type="xs:boolean"    />
+              <xs:element name="absenteeInThisElection"  type="xs:boolean"    />
+              <xs:element name="politicalPartyName"      type="xs:string" minOccurs="0" /> <!-- not used in VA -->
+              <xs:element name="precinctSplitID"         type="xs:string"     /> <!-- v2 -->
+              <xs:element name="jurisdiction"            type="xs:string"     /> <!-- v2 -->
+              <xs:element name="locality"                type="xs:string"     /> <!-- v2 --> 
+              <xs:element name="congressionalDistrict"   type="xs:string"     /> <!-- v2 -->
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='hashAlgType'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value='SHA1' />
+      <xs:enumeration value='none' />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="regStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Active" />
+      <xs:enumeration value="Inactive" />
+      <xs:enumeration value="Cancelled" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="genderType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Male" />
+      <xs:enumeration value="Female" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ageGroupType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="u18"   />
+      <xs:enumeration value="18t25" />
+      <xs:enumeration value="26t40" />
+      <xs:enumeration value="41t60" />
+      <xs:enumeration value="60t69" />
+      <xs:enumeration value="o70"   />
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>
